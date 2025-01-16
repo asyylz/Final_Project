@@ -1,9 +1,17 @@
 .wsg__questions-container {
     -fx-border-color: red;
     -fx-padding: 1em;
+
+}
+.wsg__questions-wrapper {
+    -fx-padding: 1em;
 }
 
 .wsg__questions-box{
     -fx-spacing: 7;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: TOP_LEFT;
+}
+
+.wsg__questions-textarea {
+
 }

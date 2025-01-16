@@ -10,11 +10,11 @@
     <top>
         <VBox fx:id="topContainer">
             <fx:include source="SubjectSelectionSection.fxml"/>
-            <fx:include source="QuestionTypes.fxml"/>
+
         </VBox>
     </top>
     <center>
-        <fx:include source="QuestionTypes.fxml"/>
+        <fx:include fx:id="questionTypesInclude" source="QuestionTypes.fxml"/>
     </center>
 
 
