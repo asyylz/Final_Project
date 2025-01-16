@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="160.0" prefWidth="814.0" styleClass="selection__wrapper" stylesheets="@../Styles/SubjectSelectionSection.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.SubjectSelectionSectionController">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="selection__mainTitle" text="Welcome Worksheet Generator Application" textAlignment="CENTER" translateY="20.0" wrappingWidth="813.312744140625" y="20.0" />
+    <HBox prefHeight="80.0" prefWidth="805.0" spacing="10.0" styleClass="selection__container" translateY="30.0">
+        <VBox prefHeight="208.0" prefWidth="200.0" styleClass="selection__container-box">
+            <Label styleClass="selection__container-lbl" text="Main Subject" />
+            <ChoiceBox fx:id="mainSubject" prefWidth="150.0" styleClass="selection__container-choiceBox" />
+        </VBox>
+        <VBox prefHeight="208.0" prefWidth="200.0" styleClass="selection__container-box">
+            <Label styleClass="selection__container-lbl" text="Sub Subject" />
+            <ChoiceBox fx:id="subSubject" prefWidth="150.0" styleClass="selection__container-choiceBox" />
+        </VBox>
+        <VBox layoutX="11.0" layoutY="11.0" prefHeight="208.0" prefWidth="200.0" styleClass="selection__container-box">
+            <Label styleClass="selection__container-lbl" text="School year:" />
+            <ChoiceBox fx:id="schoolYear" prefWidth="150.0" styleClass="selection__container-choiceBox" />
+        </VBox>
+        <VBox layoutX="221.0" layoutY="11.0" prefHeight="75.0" prefWidth="175.0" styleClass="selection__container-box">
+            <Label styleClass="selection__container-lbl" text="Difficulty level:" />
+            <ChoiceBox fx:id="difficultyLevel" prefWidth="150.0" styleClass="selection__container-choiceBox" />
+        </VBox>
+    </HBox>
+</VBox>

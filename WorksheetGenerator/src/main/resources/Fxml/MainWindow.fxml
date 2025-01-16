@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:id="mainWindow" prefHeight="400.0" prefWidth="600.0" styleClass="mainbody__container"
+            stylesheets="@../Styles/MainWindow.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+>
+    <top>
+        <VBox fx:id="topContainer">
+            <fx:include source="SubjectSelectionSection.fxml"/>
+            <fx:include source="QuestionTypes.fxml"/>
+        </VBox>
+    </top>
+    <center>
+        <fx:include source="QuestionTypes.fxml"/>
+    </center>
+
+
+</BorderPane>

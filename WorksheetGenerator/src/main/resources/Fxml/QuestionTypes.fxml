@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="questionTypes" prefHeight="102.0" prefWidth="730.0" styleClass="wsg__questions-container" stylesheets="@../Styles/QuestionTypes.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.QuestionTypesController">
+    <VBox prefHeight="147.0" prefWidth="132.0" styleClass="wsg__questions-box">
+        <CheckBox mnemonicParsing="false" text="Inferential" />
+        <CheckBox mnemonicParsing="false" text="Literal" />
+        <CheckBox mnemonicParsing="false" text="Summarizing" />
+    </VBox>
+    <VBox prefHeight="74.0" prefWidth="160.0" styleClass="wsg__questions-box">
+        <CheckBox mnemonicParsing="false" text="Vocabulary" />
+        <CheckBox mnemonicParsing="false" text="Tone and Mood" />
+        <CheckBox mnemonicParsing="false" text="Character Analysis" />
+    </VBox>
+    <VBox prefHeight="74.0" prefWidth="250.0" styleClass="wsg__questions-box">
+        <CheckBox mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
+        <CheckBox mnemonicParsing="false" text="Author’s Purpose/Intention" />
+        <CheckBox mnemonicParsing="false" text="Structure and Organization" />
+    </VBox>
+    <VBox prefHeight="102.0" prefWidth="157.0" styleClass="wsg__questions-box">
+        <CheckBox mnemonicParsing="false" text="Summarizing" />
+        <CheckBox mnemonicParsing="false" text="Tone and Mood" />
+    </VBox>
+</HBox>

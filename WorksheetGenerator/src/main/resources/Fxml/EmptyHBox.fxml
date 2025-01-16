@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<HBox fx:id="emptyBox" prefHeight="169.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Asiye" />
+</HBox>

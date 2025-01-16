@@ -1,0 +1,31 @@
+/*Top Section*/
+.selection__wrapper {
+    -fx-font-family: Chalkboard;
+    -fx-spacing: 15;
+    -fx-fill: #595959;
+}
+
+.selection__mainTitle {
+    -fx-font-size: 2em;
+    -fx-fill: #595959;
+
+}
+
+.selection__container {
+    -fx-border-color: blue;
+}
+
+.selection__container-lbl {
+    -fx-text-fill: #595959;
+}
+
+.selection__container-box {
+    -fx-spacing: 7;
+    -fx-padding: 1em;
+
+}
+
+.selection__container-choiceBox {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0.5, 10, 10);
+
+}
