@@ -2,12 +2,8 @@ package com.wgapp.worksheetgenerator.Models;
 
 
 import com.wgapp.worksheetgenerator.Views.*;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 public class Model {
@@ -17,11 +13,11 @@ public class Model {
     private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>(MainSubjectOptions.ENGLISH); // Default subject
     private SchoolYearOptions schoolYear = SchoolYearOptions.YEAR1; // Default school year
     private DifficultyLevelOptions difficultyLevel = DifficultyLevelOptions.Grade1; // Default difficulty level
-   // private ObjectProperty<ISubSubjectOptions> subSubject;
+    // private ObjectProperty<ISubSubjectOptions> subSubject;
     // Observable list to hold multiple selected question types
     private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>(SubSubjectOptionsEnglish.COMPREHENSION); // Default sub-subject
     private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
-
+    private StringProperty passageContent= new SimpleStringProperty();
     //private final ViewFactory viewFactory;
 
 
@@ -50,6 +46,18 @@ public class Model {
 //    public ViewFactory getViewFactory() {
 //        return viewFactory;
 //    }
+
+    @Override
+    public String toString() {
+        return "Model{" +
+                "mainSubject=" + mainSubject.get() +
+                ", schoolYear=" + schoolYear +
+                ", difficultyLevel=" + difficultyLevel +
+                ", subSubject=" + subSubject.get() +
+                ", questionTypeList=" + questionTypeList.get() +
+                ", passageContent=" + passageContent +
+                '}';
+    }
 
     /*================================= GETTERS AND SETTER ===================================== */
     public ObjectProperty<MainSubjectOptions> getMainSubject() {
@@ -91,6 +99,18 @@ public class Model {
 
     public ListProperty<ComprehensionQuestionTypes> questionTypeListProperty() {
         return questionTypeList;
+    }
+
+    public StringProperty passageContentProperty() {
+        return passageContent;
+    }
+
+    public void setPassageContent(String text) {
+        this.passageContent.set(text);
+    }
+
+    public String getPassageContent() {
+        return passageContent.get();
     }
 }
 

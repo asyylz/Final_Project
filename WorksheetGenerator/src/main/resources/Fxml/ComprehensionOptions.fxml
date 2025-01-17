@@ -20,21 +20,22 @@
             <CheckBox fx:id="vocabulary" mnemonicParsing="false" text="Vocabulary" />
         </VBox>
         <VBox prefHeight="76.0" prefWidth="147.0" styleClass="wsg__questions-box">
-            <CheckBox fx:id="chracterAnalysis" mnemonicParsing="false" text="Character Analysis" />
+            <CheckBox fx:id="characterAnalysis" mnemonicParsing="false" text="Character Analysis" />
             <CheckBox fx:id="toneAndMood" mnemonicParsing="false" text="Tone and Mood" />
         </VBox>
-        <VBox prefHeight="45.0" prefWidth="215.0" styleClass="wsg__questions-box">
-            <CheckBox fx:id="structure" mnemonicParsing="false" prefHeight="18.0" prefWidth="212.0" text="Structure" />
+        <VBox prefHeight="45.0" prefWidth="244.0" styleClass="wsg__questions-box">
             <CheckBox fx:id="authorPurpose" mnemonicParsing="false" prefHeight="18.0" prefWidth="213.0" text="Author’s Purpose/Intention" />
+            <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
         </VBox>
         <VBox layoutX="565.0" layoutY="23.0" prefHeight="45.0" prefWidth="291.0" styleClass="wsg__questions-box">
-            <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
+            <CheckBox fx:id="structure" mnemonicParsing="false" prefHeight="18.0" prefWidth="212.0" text="Structure" />
         </VBox>
     </HBox>
     <Label prefHeight="17.0" prefWidth="247.0" text="Please paste the reading passage here:" />
     <AnchorPane prefHeight="425.0" prefWidth="751.0">
-        <TextArea fx:id="passageTextarea" layoutY="2.0" prefHeight="531.0" prefWidth="829.0" />
+        <TextArea fx:id="textAreaForPassage" layoutY="2.0" prefHeight="531.0" prefWidth="829.0" />
         <Button fx:id="beautifyBtn" layoutX="865.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="143.0" text="Beautify Text" />
-        <Button fx:id="generateBtn" layoutX="865.0" layoutY="50.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="143.0" text="Generate" />
+        <Button fx:id="generateBtn" layoutX="865.0" layoutY="102.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="143.0" text="Generate" />
+      <Button fx:id="clearTextBtn" layoutX="863.0" layoutY="58.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Clear Text" />
     </AnchorPane>
 </VBox>
