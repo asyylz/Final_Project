@@ -15,25 +15,34 @@ public class SubjectSelectionSectionController implements Initializable {
     public ChoiceBox<DifficultyLevelOptions> difficultyLevel;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Populating mainSubject ChoiceBox
         mainSubject.setItems(FXCollections.observableArrayList(MainSubjectOptions.values()));
         // Setting English mainSubject by default
-        mainSubject.setValue(Model.getInstance().getViewFactory().getMainSubject());
+       // mainSubject.setValue(Model.getInstance().getViewFactory().getMainSubject());
+        //new
+        mainSubject.setValue(Model.getInstance().getMainSubject().getValue());
 
         // Populating subSubject ChoiceBox
         subSubject.setItems(FXCollections.observableArrayList(SubSubjectOptionsEnglish.values()));
         // Setting Comprehension initial SubSubject (default to English)
-        subSubject.setValue(Model.getInstance().getViewFactory().getSubSubject().getValue());
+        //subSubject.setValue(Model.getInstance().getViewFactory().getSubSubject().getValue());
+        //new
+        subSubject.setValue(Model.getInstance().getSubSubject().getValue());
 
         // Populating schoolYear ChoiceBox
         schoolYear.setItems(FXCollections.observableArrayList(SchoolYearOptions.values()));
-        schoolYear.setValue(Model.getInstance().getViewFactory().getSchoolYear());
+        //schoolYear.setValue(Model.getInstance().getViewFactory().getSchoolYear());
+        //new
+        schoolYear.setValue(Model.getInstance().getSchoolYear());
 
         // Populating difficultyLevel ChoiceBox
         difficultyLevel.setItems(FXCollections.observableArrayList(DifficultyLevelOptions.values()));
-        difficultyLevel.setValue(Model.getInstance().getViewFactory().getDifficultyLevel());
+        //difficultyLevel.setValue(Model.getInstance().getViewFactory().getDifficultyLevel());
+        //new
+        difficultyLevel.setValue(Model.getInstance().getDifficultyLevel());
 
         onMainSubjectSelectionListener();
         onSubSubjectSelectionListener();
@@ -52,13 +61,17 @@ public class SubjectSelectionSectionController implements Initializable {
                 subSubject.setItems(FXCollections.observableArrayList(SubSubjectOptionsEnglish.values()));
                 subSubject.setValue(SubSubjectOptionsEnglish.COMPREHENSION);
                 //Update mainSubject in ViewFactory
-                Model.getInstance().getViewFactory().setMainSubject(MainSubjectOptions.ENGLISH);
+                //Model.getInstance().getViewFactory().setMainSubject(MainSubjectOptions.ENGLISH);
+                //new
+                Model.getInstance().setMainSubject(MainSubjectOptions.ENGLISH);
             } else if (newValue == MainSubjectOptions.MATHS) {
                 // Populate subSubject with Math-specific options
                 subSubject.setItems(FXCollections.observableArrayList(SubSubjectOptionsMaths.values()));
                 subSubject.setValue(SubSubjectOptionsMaths.FRACTIONS);
                 //Update mainSubject in ViewFactory
-                Model.getInstance().getViewFactory().setMainSubject(MainSubjectOptions.MATHS);
+                //Model.getInstance().getViewFactory().setMainSubject(MainSubjectOptions.MATHS);
+                //new
+                Model.getInstance().setMainSubject(MainSubjectOptions.MATHS);
             } else {
                 // Clear subSubject options for other selections
                 subSubject.setItems(FXCollections.observableArrayList());
@@ -71,8 +84,10 @@ public class SubjectSelectionSectionController implements Initializable {
             subSubject.setValue(newValue);
             // Update subSubject in ViewFactory
             // Calling .set(newValue) directly updates the value and automatically notifies any listeners that are observing this property.
-            Model.getInstance().getViewFactory().getSubSubject().set(newValue);
-            System.out.println("Sub-Subject: " + Model.getInstance().getViewFactory().getSubSubject());
+           // Model.getInstance().getViewFactory().getSubSubject().set(newValue);
+            //new
+            Model.getInstance().getSubSubject().set(newValue);
+            System.out.println("Sub-Subject: line 89 " + Model.getInstance().getSubSubject());
         });
     }
 
@@ -80,8 +95,10 @@ public class SubjectSelectionSectionController implements Initializable {
         schoolYear.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             schoolYear.setValue(newValue);
             // Update subSubject in ViewFactory
-            Model.getInstance().getViewFactory().setSchoolYear(schoolYear.getValue());
-            System.out.println("School Year: " + Model.getInstance().getViewFactory().getSchoolYear());
+          //  Model.getInstance().getViewFactory().setSchoolYear(schoolYear.getValue());
+            //new
+            Model.getInstance().setSchoolYear(schoolYear.getValue());
+            System.out.println("School Year: " + Model.getInstance().getSchoolYear());
         });
     }
 
@@ -89,10 +106,15 @@ public class SubjectSelectionSectionController implements Initializable {
         difficultyLevel.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             difficultyLevel.setValue(newValue);
             // Update subSubject in ViewFactory
-            Model.getInstance().getViewFactory().setDifficultyLevel(difficultyLevel.getValue());
-            System.out.println("Difficulty Level: " + Model.getInstance().getViewFactory().getDifficultyLevel());
+           // Model.getInstance().getViewFactory().setDifficultyLevel(difficultyLevel.getValue());
+            //new
+            Model.getInstance().setDifficultyLevel(difficultyLevel.getValue());
+           // System.out.println("Difficulty Level: " + Model.getInstance().getDifficultyLevel());
         });
     }
+
+
+
 
 
     // Later I will use this for onMainSubjectSelectionListener

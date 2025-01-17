@@ -14,7 +14,7 @@
         </VBox>
     </top>
     <center>
-        <fx:include fx:id="questionTypesInclude" source="QuestionTypes.fxml"/>
+        <fx:include fx:id="questionTypesInclude" source="ComprehensionOptions.fxml"/>
     </center>
 
 
