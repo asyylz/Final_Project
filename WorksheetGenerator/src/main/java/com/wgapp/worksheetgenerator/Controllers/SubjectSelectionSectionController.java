@@ -1,5 +1,5 @@
 package com.wgapp.worksheetgenerator.Controllers;
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Views.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;

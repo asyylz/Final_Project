@@ -1,9 +1,10 @@
 package com.wgapp.worksheetgenerator;
 
-import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Views.ViewFactory;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 
 
 public class App extends Application {

@@ -6,6 +6,8 @@ module com.wgapp.worksheetgenerator {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
+    requires org.json;
+    requires java.dotenv;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
     exports com.wgapp.worksheetgenerator;

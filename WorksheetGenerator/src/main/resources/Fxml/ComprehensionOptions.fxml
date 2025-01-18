@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="700.0" prefWidth="1050.0" styleClass="wsg__questions-container" stylesheets="@../Styles/QuestionTypes.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.ComprehensionOptionsController">
+<VBox fx:id="comprehensionOptions" prefHeight="700.0" prefWidth="1050.0" styleClass="wsg__questions-container" stylesheets="@../Styles/QuestionTypes.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.ComprehensionOptionsController">
     <Label text="Please choose below type of question you would like to include:" />
     <HBox fx:id="questionTypes" prefHeight="71.0" prefWidth="1022.0" styleClass="wsg__questions-wrapper">
         <VBox prefHeight="45.0" prefWidth="108.0" styleClass="wsg__questions-box">

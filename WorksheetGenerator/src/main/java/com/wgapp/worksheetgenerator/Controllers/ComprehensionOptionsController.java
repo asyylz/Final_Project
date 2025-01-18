@@ -1,7 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers;
 
 import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Views.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.Services.OpenAIService;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -28,6 +29,7 @@ public class ComprehensionOptionsController implements Initializable {
     public CheckBox authorPurpose;
     public CheckBox criticalThinking;
     public Button clearTextBtn;
+    public VBox comprehensionOptions;
 
 
     @Override
@@ -43,6 +45,7 @@ public class ComprehensionOptionsController implements Initializable {
         textAreaForPassage.textProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setPassageContent(textAreaForPassage.getText());
         });
+        generateBtn.setOnAction(e -> onWorksheetGenerateButtonClicked());
     }
 
 
@@ -58,10 +61,9 @@ public class ComprehensionOptionsController implements Initializable {
         authorPurpose.setUserData(ComprehensionQuestionTypes.AUTHORS_PURPOSE);
         criticalThinking.setUserData(ComprehensionQuestionTypes.CRITICAL_THINKING);
     }
+
     /*================================= LISTENERS ===================================== */
-
     private void onComprehensionQuestionTypesListener() {
-
         for (int i = 0; i < questionTypes.getChildren().size(); i++) {
             VBox vBox = (VBox) questionTypes.getChildren().get(i);
 
@@ -103,6 +105,16 @@ public class ComprehensionOptionsController implements Initializable {
         textAreaForPassage.clear();
     }
 
+    private void onWorksheetGenerateButtonClicked() {
+        OpenAIService openAIService = new OpenAIService();
+        String prompt = "Create a worksheet has 5 questions for English comprehension with the following topics: inferential questions and vocabulary.";
+        try {
+            String response = openAIService.generateWorksheet(prompt);
+            System.out.println("OpenAI Response: " + response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /*================================= BEAUTIFY METHODS ===================================== */
     private void onBeautifyButtonClicked() {

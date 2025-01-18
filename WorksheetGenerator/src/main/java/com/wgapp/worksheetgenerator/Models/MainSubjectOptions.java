@@ -1,4 +1,4 @@
-package com.wgapp.worksheetgenerator.Views;
+package com.wgapp.worksheetgenerator.Models;
 
 public enum MainSubjectOptions {
     ENGLISH,

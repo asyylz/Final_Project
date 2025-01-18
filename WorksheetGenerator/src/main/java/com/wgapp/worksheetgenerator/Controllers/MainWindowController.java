@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers;
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
-import com.wgapp.worksheetgenerator.Views.MainSubjectOptions;
-import com.wgapp.worksheetgenerator.Views.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.Models.MainSubjectOptions;
+import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     public BorderPane mainWindow;
-    public VBox questionTypesInclude; // Reference to ComprehensionOptions.fxml
+    public VBox comprehensionOptionsInclude; // Reference to ComprehensionOptions.fxml
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Listen for changes in the sub-subject
@@ -26,7 +26,7 @@ public class MainWindowController implements Initializable {
         });
     }
 
-    // Update the visibility of the question types based on both the main subject and sub-subject
+    // Update the visibility of the comprehension options based on both the main subject and sub-subject
     private void updateComprehensionOptionsVisibility() {
         // Check the main subject and sub-subject to update visibility
         MainSubjectOptions mainSubject = Model.getInstance().getMainSubject().get();
@@ -38,19 +38,23 @@ public class MainWindowController implements Initializable {
             // Check the selected sub-subject and show/hide question types accordingly
             switch (subSubjectEnglish) {
                 case COMPREHENSION:
-                    questionTypesInclude.setVisible(true);
+                    comprehensionOptionsInclude.setVisible(true);
                     break;
 
                 // Add cases for other English sub-subjects
                 default:
-                    questionTypesInclude.setVisible(false);
+                    comprehensionOptionsInclude.setVisible(false);
                     break;
             }
         } else {
             // Hide the question types for non-English main subjects or invalid sub-subjects
-            questionTypesInclude.setVisible(false);
+            comprehensionOptionsInclude.setVisible(false);
         }
     }
+
+
+
+
 
 
 //    @Override
