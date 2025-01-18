@@ -1,9 +1,7 @@
 package com.wgapp.worksheetgenerator.Views;
 
-import com.wgapp.worksheetgenerator.Controllers.MainWindowController;
+import com.wgapp.worksheetgenerator.Controllers.UI.MainWindowController;
 import com.wgapp.worksheetgenerator.Models.Model;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;

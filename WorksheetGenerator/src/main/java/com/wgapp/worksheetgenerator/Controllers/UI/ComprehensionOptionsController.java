@@ -1,8 +1,7 @@
-package com.wgapp.worksheetgenerator.Controllers;
+package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.Services.OpenAIService;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,7 +16,6 @@ import java.util.ResourceBundle;
 public class ComprehensionOptionsController implements Initializable {
     public HBox questionTypes;
     public TextArea textAreaForPassage;
-    public Button generateBtn;
     public Button beautifyBtn;
     public CheckBox inferential;
     public CheckBox literal;
@@ -45,7 +43,6 @@ public class ComprehensionOptionsController implements Initializable {
         textAreaForPassage.textProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setPassageContent(textAreaForPassage.getText());
         });
-        generateBtn.setOnAction(e -> onWorksheetGenerateButtonClicked());
     }
 
 
@@ -103,17 +100,6 @@ public class ComprehensionOptionsController implements Initializable {
 
     private void onClearButtonClicked() {
         textAreaForPassage.clear();
-    }
-
-    private void onWorksheetGenerateButtonClicked() {
-        OpenAIService openAIService = new OpenAIService();
-        String prompt = "Create a worksheet has 5 questions for English comprehension with the following topics: inferential questions and vocabulary.";
-        try {
-            String response = openAIService.generateWorksheet(prompt);
-            System.out.println("OpenAI Response: " + response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /*================================= BEAUTIFY METHODS ===================================== */

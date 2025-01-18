@@ -21,7 +21,7 @@ public class OpenAIService {
         // Load environment variables from .env file
         Dotenv dotenv = Dotenv.load();
         API_KEY = dotenv.get("API_KEY");  // Retrieve the API_KEY from .env file
-        API_URL = dotenv.get("API_URL");
+        API_URL = dotenv.get("API_URL"); // Retrieve the API_URL from .env file
     }
 
     public String generateWorksheet(String prompt) throws Exception {
@@ -44,9 +44,12 @@ public class OpenAIService {
         messages.put(userMessage);
 
         payload.put("messages", messages);
+        System.out.println(messages.toString());
+
 
         // Send the request
         try (OutputStream os = connection.getOutputStream()) {
+            // getBytes("utf-8") converts the JSON string (payload.toString()) into a byte array using the UTF-8 encoding.
             os.write(payload.toString().getBytes("utf-8"));
         }
 
