@@ -24,7 +24,7 @@ public class OpenAIService {
         API_URL = dotenv.get("API_URL"); // Retrieve the API_URL from .env file
     }
 
-    public String generateWorksheet(String prompt) throws Exception {
+    public String generateWorksheetHTTPRequest(String prompt) throws Exception {
         URL url = new URL(API_URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");

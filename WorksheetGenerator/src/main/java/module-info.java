@@ -8,6 +8,7 @@ module com.wgapp.worksheetgenerator {
     requires java.desktop;
     requires org.json;
     requires java.dotenv;
+    requires com.google.gson;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
     exports com.wgapp.worksheetgenerator;

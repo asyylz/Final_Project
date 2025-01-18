@@ -1,11 +1,13 @@
 package com.wgapp.worksheetgenerator.Controllers;
-
-import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Services.OpenAIService;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WorksheetController {
@@ -17,7 +19,7 @@ public class WorksheetController {
         PROMPT_BEGINNING = dotenv.get("PROMPT_BEGINNING");
     }
 
-    public static void generateWorksheet() {
+    public static Worksheet generateWorksheet() {
         OpenAIService openAIService = new OpenAIService();
         // Get values from the model
         Model model = Model.getInstance();
@@ -40,15 +42,64 @@ public class WorksheetController {
 
         // Create the full prompt to be sent to OpenAI
         String fullPrompt = promptBuilder.toString();
-        //System.out.println(fullPrompt);
+
 
         try {
-            String response = openAIService.generateWorksheet(fullPrompt);
+            String response = openAIService.generateWorksheetHTTPRequest(fullPrompt);
             System.out.println("OpenAI Response: " + response);
+
+            // Process the response into a Worksheet object (parse it)
+            Worksheet worksheet = parseOpenAIResponse(response);
+
+            return worksheet;  // Return the generated worksheet
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
+    }
+
+    private static Worksheet parseOpenAIResponse(String response) {
+
+        JSONObject jsonResponse = new JSONObject(response);
+        JSONArray choices = jsonResponse.getJSONArray("choices");
+
+        // Get first choice (most common case)
+        JSONObject firstChoice = choices.getJSONObject(0); // Message located inside choices, this choices specific to openai response not business logic
+        JSONObject message = firstChoice.getJSONObject("message");
+
+        // Extract the content
+        String content = message.getString("content"); // Content located inside messages
+
+        // Process the content to create a Worksheet
+        Worksheet worksheet = new Worksheet();
+        worksheet.setQuestionList(parseQuestionsFromContent(content));
+
+        return worksheet;
+    }
+
+    private static List<Question> parseQuestionsFromContent(String content) {
+        List<Question> questions = new ArrayList<>();
+        String[] lines = content.split("\n");
+
+        // Process each question from the response
+        for (String line : lines) {
+            if (line.matches("^\\d+\\. .*")) { // Matches lines starting with "1.", "2.", etc.
+                String[] parts = line.split("\n");
+                String questionText = parts[0].trim();
+
+                // Convert the remaining parts to a list of Option objects
+                List<Choice> options = Arrays.stream(parts)
+                        .skip(1) // Skip the question text (first part)
+                        .map(Choice::new) // Map each string to an Option object
+                        .toList();
+
+                Question question = new Question(questionText, options);
+
+                questions.add(question);
+            }
+        }
+        return questions;
     }
 }
