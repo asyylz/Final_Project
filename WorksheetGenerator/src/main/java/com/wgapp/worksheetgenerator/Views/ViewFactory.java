@@ -1,32 +1,34 @@
 package com.wgapp.worksheetgenerator.Views;
 
 import com.wgapp.worksheetgenerator.Controllers.UI.MainWindowController;
+import com.wgapp.worksheetgenerator.Controllers.UI.ModalWindowController;
 import com.wgapp.worksheetgenerator.Models.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class ViewFactory {
-   // private MainSubjectOptions mainSubject;
+    // private MainSubjectOptions mainSubject;
     // private Object subSubject; // Used Object to allow dynamic types (can hold any enum type)
-  //  private SchoolYearOptions schoolYear;
-   // private DifficultyLevelOptions difficultyLevel;
+    //  private SchoolYearOptions schoolYear;
+    // private DifficultyLevelOptions difficultyLevel;
 
     // Observable subSubject property
-  //  private ObjectProperty<ISubSubjectOptions> subSubject;
+    //  private ObjectProperty<ISubSubjectOptions> subSubject;
 
-    private Model model; // ViewFactory gets the data from Model
-
-    public ViewFactory() {
-        model = Model.getInstance(); // Get instance of the Model
-    }
+//    private Model model; // ViewFactory gets the data from Model
+//
+//    public ViewFactory() {
+//        model = Model.getInstance(); // Get instance of the Model
+//    }
 
     // Partial views
     private HBox questionTypesView;
-    private HBox emptyView;
+    private VBox modalWindowView;
 
 
 //    public ViewFactory() {
@@ -38,38 +40,38 @@ public class ViewFactory {
 
 
     /*================================= VIEW METHODS ===================================== */
-
-    public HBox getQuestionTypesView() {
-        if (questionTypesView == null) {
+    public VBox getModalWindowView() {
+        if (modalWindowView == null) {
             try {
-                questionTypesView = new FXMLLoader(getClass().getResource("/Fxml/ComprehensionOptions.fxml")).load();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ModalWindow.fxml"));
+                modalWindowView = loader.load();
+
+                // Store the controller as a property of the VBox
+                ModalWindowController controller = loader.getController();
+                modalWindowView.getProperties().put("controller", controller);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return questionTypesView;
-    }
-
-    public HBox getEmptyView() {
-        if (emptyView == null) {
-            try {
-                emptyView = new FXMLLoader(getClass().getResource("/Fxml/EmptyHBox.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return emptyView;
+        return modalWindowView;
     }
 
     public void showMainWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainWindow.fxml"));
         MainWindowController mainWindowController = new MainWindowController();
         loader.setController(mainWindowController);
-        createStage(loader);
+        createStage(loader, 1100, 1100);
+    }
+
+    public void showLandingWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/LandingWindow.fxml"));
+        createStage(loader, 600, 1000);
+
     }
 
     /*================================= STAGE METHODS ===================================== */
-    private void createStage(FXMLLoader loader) {
+    private void createStage(FXMLLoader loader, int width, int height) {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -80,8 +82,9 @@ public class ViewFactory {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Worksheet Generator");
-        stage.setMinWidth(1100);
-        stage.setMinHeight(1000);
+        stage.setMinWidth(width);
+        stage.setMinHeight(height);
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -8,7 +8,9 @@ module com.wgapp.worksheetgenerator {
     requires java.desktop;
     requires org.json;
     requires java.dotenv;
-    requires com.google.gson;
+    requires java.sql;
+    requires jdk.security.jgss;
+    //  requires com.microsoft.sqlserver.jdbc;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
     exports com.wgapp.worksheetgenerator;

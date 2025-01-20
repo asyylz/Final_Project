@@ -17,14 +17,14 @@ public class Model {
     // Observable list to hold multiple selected question types
     private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>(SubSubjectOptionsEnglish.COMPREHENSION); // Default sub-subject
     private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
-    private StringProperty passageContent= new SimpleStringProperty();
-    //private final ViewFactory viewFactory;
+    private StringProperty passageContent = new SimpleStringProperty();
+    private final ViewFactory viewFactory;
 
 
-    //    private Model() {
-//        this.viewFactory = new ViewFactory();
-//
-//    }
+    private Model() {
+        this.viewFactory = new ViewFactory();
+
+    }
 
     // Singleton pattern to ensure only one instance of Model
 //    private Model() {
@@ -43,9 +43,9 @@ public class Model {
         return model;
     }
 
-//    public ViewFactory getViewFactory() {
-//        return viewFactory;
-//    }
+    public ViewFactory getViewFactory() {
+        return viewFactory;
+    }
 
     @Override
     public String toString() {

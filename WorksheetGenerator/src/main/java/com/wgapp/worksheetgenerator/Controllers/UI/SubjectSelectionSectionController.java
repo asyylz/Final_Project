@@ -11,7 +11,6 @@ public class SubjectSelectionSectionController implements Initializable {
 
     public ChoiceBox<MainSubjectOptions> mainSubject;
     public ChoiceBox<ISubSubjectOptions> subSubject;
-    public ChoiceBox<SchoolYearOptions> schoolYear;
     public ChoiceBox<DifficultyLevelOptions> difficultyLevel;
 
 
@@ -33,10 +32,10 @@ public class SubjectSelectionSectionController implements Initializable {
         subSubject.setValue(Model.getInstance().getSubSubject().getValue());
 
         // Populating schoolYear ChoiceBox
-        schoolYear.setItems(FXCollections.observableArrayList(SchoolYearOptions.values()));
+       // schoolYear.setItems(FXCollections.observableArrayList(SchoolYearOptions.values()));
         //schoolYear.setValue(Model.getInstance().getViewFactory().getSchoolYear());
         //new
-        schoolYear.setValue(Model.getInstance().getSchoolYear());
+      //  schoolYear.setValue(Model.getInstance().getSchoolYear());
 
         // Populating difficultyLevel ChoiceBox
         difficultyLevel.setItems(FXCollections.observableArrayList(DifficultyLevelOptions.values()));
@@ -46,7 +45,7 @@ public class SubjectSelectionSectionController implements Initializable {
 
         onMainSubjectSelectionListener();
         onSubSubjectSelectionListener();
-        onSchoolYearSelectionListener();
+       // onSchoolYearSelectionListener();
         onDifficultyLevelSelectionListener();
 
 
@@ -90,17 +89,17 @@ public class SubjectSelectionSectionController implements Initializable {
             System.out.println("Sub-Subject: line 89 " + Model.getInstance().getSubSubject());
         });
     }
-
-    private void onSchoolYearSelectionListener() {
-        schoolYear.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            schoolYear.setValue(newValue);
-            // Update subSubject in ViewFactory
-          //  Model.getInstance().getViewFactory().setSchoolYear(schoolYear.getValue());
-            //new
-            Model.getInstance().setSchoolYear(schoolYear.getValue());
-            System.out.println("School Year: " + Model.getInstance().getSchoolYear());
-        });
-    }
+//
+//    private void onSchoolYearSelectionListener() {
+//        schoolYear.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            schoolYear.setValue(newValue);
+//            // Update subSubject in ViewFactory
+//          //  Model.getInstance().getViewFactory().setSchoolYear(schoolYear.getValue());
+//            //new
+//            Model.getInstance().setSchoolYear(schoolYear.getValue());
+//            System.out.println("School Year: " + Model.getInstance().getSchoolYear());
+//        });
+//    }
 
     private void onDifficultyLevelSelectionListener() {
         difficultyLevel.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

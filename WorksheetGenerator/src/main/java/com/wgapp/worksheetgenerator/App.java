@@ -1,5 +1,6 @@
 package com.wgapp.worksheetgenerator;
 
+import com.wgapp.worksheetgenerator.Database.DatabaseConnection;
 import com.wgapp.worksheetgenerator.Views.ViewFactory;
 
 import javafx.application.Application;
@@ -23,7 +24,11 @@ public class App extends Application {
         ViewFactory viewFactory = new ViewFactory();
 
         // Show the main window using the ViewFactory
-        viewFactory.showMainWindow();
+        //viewFactory.showMainWindow();
+        viewFactory.showLandingWindow();
+
+
+        DatabaseConnection.getConnection();
 
     }
 }

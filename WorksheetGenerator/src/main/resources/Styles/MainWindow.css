@@ -1,7 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap');
+
+/* Unique class name to apply the font */
+.oswald-heading {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700; /* Bold weight */
+    font-style: normal;
+}
+
+.oswald-subheading {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400; /* Normal weight */
+    font-style: normal;
+}
+
+.oswald-body {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200; /* Light weight */
+    font-style: normal;
+}
+
+
 .mainbody__container {
     -fx-font-family: Chalkboard;
-    -fx-background-color: #F2F2F2;
+    -fx-background-color: white;
     -fx-pref-width: 800;
     -fx-pref-height: 800;
+    -fx-font-family: 'Oswald';
 
 }

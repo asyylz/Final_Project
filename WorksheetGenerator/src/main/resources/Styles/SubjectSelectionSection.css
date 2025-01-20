@@ -1,13 +1,16 @@
 /*Top Section*/
 .selection__wrapper {
-    -fx-font-family: Chalkboard;
+    -fx-font-family: Oswald;
     -fx-spacing: 15;
     -fx-fill: #595959;
 }
 
 .selection__mainTitle {
-    -fx-font-size: 2em;
+    -fx-font-size: 3em;
     -fx-fill: #595959;
+    -fx-font-family: Oswald;
+    font-weight: 700; /* Bold weight */
+    font-style: normal;
 
 }
 
@@ -17,6 +20,8 @@
 
 .selection__container-lbl {
     -fx-text-fill: #595959;
+    font-weight: 200; /* Light weight */
+    font-style: normal;
 }
 
 .selection__container-box {

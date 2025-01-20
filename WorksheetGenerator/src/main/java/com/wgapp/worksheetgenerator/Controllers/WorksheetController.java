@@ -1,4 +1,5 @@
 package com.wgapp.worksheetgenerator.Controllers;
+
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Services.OpenAIService;
 
@@ -23,8 +24,8 @@ public class WorksheetController {
         OpenAIService openAIService = new OpenAIService();
         // Get values from the model
         Model model = Model.getInstance();
-        String mainSubject = model.getMainSubject().get().toString();  // Assuming this is an Enum
-        String subSubject = model.getSubSubject().get().toString();    // Assuming this is an Enum
+        String mainSubject = model.getMainSubject().get().toString();  // Enum
+        String subSubject = model.getSubSubject().get().toString();    // Enum
         String difficultyLevel = model.getDifficultyLevel().toString();  // Enum
         String passageText = model.getPassageContent();  // String (long text)
         //  int numberOfQuestions = model.getNumberOfQuestions();  // Integer
@@ -33,10 +34,7 @@ public class WorksheetController {
         // Build the prompt dynamically
         StringBuilder promptBuilder = new StringBuilder(PROMPT_BEGINNING);
 
-        promptBuilder.append("\nMain Subject: ").append(mainSubject)
-                .append("\nSub Subject: ").append(subSubject)
-                .append("\nDifficulty Level: ").append(difficultyLevel)
-                .append("\nPassage Text: ").append(passageText)
+        promptBuilder.append("\nMain Subject: ").append(mainSubject).append("\nSub Subject: ").append(subSubject).append("\nDifficulty Level: ").append(difficultyLevel).append("\nPassage Text: ").append(passageText)
                 //.append("\nNumber of Questions: ").append(numberOfQuestions)
                 .append("\nQuestion Types: ").append(questionTypes);
 
@@ -49,7 +47,14 @@ public class WorksheetController {
             System.out.println("OpenAI Response: " + response);
 
             // Process the response into a Worksheet object (parse it)
-            Worksheet worksheet = parseOpenAIResponse(response);
+            Worksheet worksheet = parseOpenAIResponseAndCreateWorksheet(response);
+
+          //  System.out.println(worksheet.getQuestionList());
+
+            // Loop over the questions in the worksheet
+            for (Question question : worksheet.getQuestionList()) {
+                System.out.println(question);  // This will call question.toString()
+            }
 
             return worksheet;  // Return the generated worksheet
 
@@ -60,7 +65,7 @@ public class WorksheetController {
 
     }
 
-    private static Worksheet parseOpenAIResponse(String response) {
+    private static Worksheet parseOpenAIResponseAndCreateWorksheet(String response) {
 
         JSONObject jsonResponse = new JSONObject(response);
         JSONArray choices = jsonResponse.getJSONArray("choices");
@@ -90,12 +95,11 @@ public class WorksheetController {
                 String questionText = parts[0].trim();
 
                 // Convert the remaining parts to a list of Option objects
-                List<Choice> options = Arrays.stream(parts)
-                        .skip(1) // Skip the question text (first part)
+                List<Choice> choices = Arrays.stream(parts).skip(1) // Skip the question text (first part)
                         .map(Choice::new) // Map each string to an Option object
                         .toList();
 
-                Question question = new Question(questionText, options);
+                Question question = new Question(questionText, choices);
 
                 questions.add(question);
             }
