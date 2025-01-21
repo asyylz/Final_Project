@@ -1,42 +1,7 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700&display=swap');*/
-/*!* Import the font from Google Fonts *!*/
-/*@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');*/
-
-.landingwindow__container {
-    -fx-background-color: #0B1D26;
-    -fx-transition: all 1000ms;
-
-}
-
-.landingwindow__gradientPane {
-    -fx-background-color: linear-gradient(rgba(11, 29, 38, 1) 0%, rgba(11, 29, 38, 0) 72%);
-
-}
-
-.landingwindow__wrapper {
-    -fx-padding: 10;
-}
-
-.accentText {
-    -fx-fill: #fbd784;
-    -fx-font-family: "Oswald";
-}
-
-.titleText {
-    -fx-fill: #D5D5D6;
-    -fx-font-family: "Libre Baskerville";
-    -fx-font-size: 1.7em;
-}
-
-.subText {
-    -fx-fill: #D5D5D6;;
-    -fx-font-family: "Oswald";
-    -fx-font-size: 1em;
-}
-
 .startBtn {
     -fx-alignment: center;
-    -fx-background-color: linear-gradient(rgba(251, 215, 132, 1) 30%, rgba(0, 0, 0, 0.7651654411764706) 100%);
+    -fx-background-color: linear-gradient(#D2D2D2 20%, rgba(0, 0, 0, 0.7651654411764706) 100%);
+
     -fx-background-insets: 0, 1;
     -fx-background-radius: 0.5em; /* Border radius */
     -fx-border-color: transparent;
@@ -53,10 +18,11 @@
     -fx-min-height: 2.5em;
     -fx-transition: all 250ms;
     -fx-user-select: none;
+
 }
 
 .startBtn:hover {
-    -fx-background-color: #fbd784;
+    -fx-background-color: #AAAAAA;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
 }
 
@@ -68,6 +34,3 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.06), 4, 0, 0, 2);
     -fx-translate-y: 0; /* Reset translation */
 }
-
-
-

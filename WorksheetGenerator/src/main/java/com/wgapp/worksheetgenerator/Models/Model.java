@@ -9,13 +9,12 @@ import javafx.collections.ObservableList;
 public class Model {
     private static Model model;
     // Fields to store the data for subject, sub-subject, and other settings
-// Initialize directly in the field declaration
-    private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>(MainSubjectOptions.ENGLISH); // Default subject
-    private SchoolYearOptions schoolYear = SchoolYearOptions.YEAR1; // Default school year
-    private DifficultyLevelOptions difficultyLevel = DifficultyLevelOptions.Grade1; // Default difficulty level
+    // Initialize directly in the field declaration
+    private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>(); // Default subject
+    private DifficultyLevelOptions difficultyLevel ; // Default difficulty level
     // private ObjectProperty<ISubSubjectOptions> subSubject;
     // Observable list to hold multiple selected question types
-    private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>(SubSubjectOptionsEnglish.COMPREHENSION); // Default sub-subject
+    private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>(); // Default sub-subject
     private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
     private StringProperty passageContent = new SimpleStringProperty();
     private final ViewFactory viewFactory;
@@ -23,7 +22,6 @@ public class Model {
 
     private Model() {
         this.viewFactory = new ViewFactory();
-
     }
 
     // Singleton pattern to ensure only one instance of Model
@@ -51,7 +49,6 @@ public class Model {
     public String toString() {
         return "Model{" +
                 "mainSubject=" + mainSubject.get() +
-                ", schoolYear=" + schoolYear +
                 ", difficultyLevel=" + difficultyLevel +
                 ", subSubject=" + subSubject.get() +
                 ", questionTypeList=" + questionTypeList.get() +
@@ -66,14 +63,6 @@ public class Model {
 
     public void setMainSubject(MainSubjectOptions mainSubject) {
         this.mainSubject.set(mainSubject);
-    }
-
-    public SchoolYearOptions getSchoolYear() {
-        return schoolYear;
-    }
-
-    public void setSchoolYear(SchoolYearOptions schoolYear) {
-        this.schoolYear = schoolYear;
     }
 
     public DifficultyLevelOptions getDifficultyLevel() {

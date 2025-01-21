@@ -14,9 +14,11 @@ module com.wgapp.worksheetgenerator {
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
     exports com.wgapp.worksheetgenerator;
+    exports com.wgapp.worksheetgenerator.Components;
     exports com.wgapp.worksheetgenerator.Views;
     exports com.wgapp.worksheetgenerator.Controllers;
     exports com.wgapp.worksheetgenerator.Models;
     exports com.wgapp.worksheetgenerator.Controllers.UI;
+
 
 }

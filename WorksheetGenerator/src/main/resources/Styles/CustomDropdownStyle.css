@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700&display=swap');
+/* Import the font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+/* styles.css */
+.dropdown-container {
+    -fx-spacing: 5;
+    -fx-padding: 5;
+}
+
+.dropdown-button {
+    -fx-background-color: #fbd784;
+    -fx-text-fill: #102770;
+    -fx-font-family: "Oswald";
+    -fx-font-size: 15px;
+    -fx-min-width: 200px;
+    -fx-min-height: 40px;
+    -fx-cursor: hand;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 235, 167, 0.15), 12, 0, 0, 35);
+}
+
+.dropdown-content {
+    -fx-background-color: #111111;
+    -fx-padding: 5;
+    -fx-spacing: 2;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(9, 9, 12, 0.4), 14, 0, 0, 35);
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Oswald";
+    -fx-font-size: 15px;
+    -fx-min-width: 210px;
+    -fx-alignment: center-left;
+    -fx-padding: 5 15 5 20;
+    -fx-cursor: hand;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #fbd784;
+    -fx-text-fill: #102770;
+}

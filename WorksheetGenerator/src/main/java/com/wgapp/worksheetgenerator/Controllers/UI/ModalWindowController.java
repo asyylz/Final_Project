@@ -1,6 +1,5 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.sun.security.jgss.GSSUtil;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,12 +28,6 @@ public class ModalWindowController implements Initializable {
             }
         });
     }
-//        okBtn.setOnAction(event -> {
-//            if (stage != null) {
-//                System.out.println("asiye");
-//                stage.close(); // Properly close the modal window
-//            }
-//        });
 
 
     public void setStage(Stage stage) {

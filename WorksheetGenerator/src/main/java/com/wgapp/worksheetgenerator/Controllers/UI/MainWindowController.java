@@ -81,7 +81,7 @@ public class MainWindowController implements Initializable {
             // Get the modal window view as a parent/root from the ViewFactory
             VBox modalWindowParent = Model.getInstance().getViewFactory().getModalWindowView();
 
-            // We are gettin current window x and y coordinates
+            // We are getting current window x and y coordinates
             Stage currentStage = (Stage) mainWindow.getScene().getWindow();
             System.out.println(currentStage.getTitle());
             double x = currentStage.getX();
