@@ -1,0 +1,17 @@
+.passageWindow__wrapper {
+    -fx-background-color: #274873;
+    -fx-font-family: "Oswald";
+    -fx-fill: #fbd784;
+}
+
+.passageWindow__wrapper Text, .passageWindow__wrapper CheckBox {
+    -fx-font-size: 1.1em;
+    -fx-fill: #fbd784;
+    -fx-font-family: "Oswald";
+    -fx-font-weight: 600;
+    -fx-text-fill: #fbd784;
+}
+
+.checkBoxes_wrapper CheckBox{
+
+}

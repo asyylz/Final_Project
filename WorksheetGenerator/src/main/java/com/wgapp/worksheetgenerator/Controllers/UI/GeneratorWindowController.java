@@ -34,6 +34,7 @@ public class GeneratorWindowController implements Initializable {
     public Button generateBtn;
     public HBox passageTextWrapper;
     public Button passageBtn;
+    public Button clearSelectionBtn;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
 
 
@@ -101,6 +102,17 @@ public class GeneratorWindowController implements Initializable {
             if (!difficultyLevel.getBoundsInParent().contains(event.getX(), event.getY())) {
                 difficultyLevel.closeDropdown();
             }
+        });
+
+        clearSelectionBtn.setOnMouseClicked(event -> {
+            dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
+            dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
+            difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
+            allDropdownsSelected.set(false);
+            Model.getInstance().setMainSubject(null);
+            Model.getInstance().setDifficultyLevel(null);
+            Model.getInstance().setSubSubject(null);
+
         });
 
     }
