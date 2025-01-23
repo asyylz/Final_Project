@@ -8,32 +8,29 @@ import javafx.collections.ObservableList;
 
 public class Model {
     private static Model model;
-    // Fields to store the data for subject, sub-subject, and other settings
-    // Initialize directly in the field declaration
-    private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>(); // Default subject
-    private DifficultyLevelOptions difficultyLevel ; // Default difficulty level
-    // private ObjectProperty<ISubSubjectOptions> subSubject;
-    // Observable list to hold multiple selected question types
-    private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>(); // Default sub-subject
-    private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
-    private StringProperty passageContent = new SimpleStringProperty();
     private final ViewFactory viewFactory;
+
+    // Initialize directly in the field declaration
+    private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
+    private DifficultyLevelOptions difficultyLevel ;
+    private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>();
+
+    // Comprehension
+    private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
+
+    // Passage
+    private StringProperty passageContent = new SimpleStringProperty();
+    private StringProperty passageTitle = new SimpleStringProperty();
+
+
 
 
     private Model() {
         this.viewFactory = new ViewFactory();
     }
 
+
     // Singleton pattern to ensure only one instance of Model
-//    private Model() {
-//        this.mainSubject = MainSubjectOptions.ENGLISH; // Default subject
-//        this.subSubject = new SimpleObjectProperty<>(SubSubjectOptionsEnglish.COMPREHENSION); // Default sub-subject
-//        this.schoolYear = SchoolYearOptions.YEAR1; // Default school year
-//        this.difficultyLevel = DifficultyLevelOptions.Grade1; // Default difficulty level
-//        this.questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList());
-//    }
-
-
     public static synchronized Model getInstance() {
         if (model == null) {
             model = new Model();
@@ -100,6 +97,18 @@ public class Model {
 
     public String getPassageContent() {
         return passageContent.get();
+    }
+
+    public String getPassageTitle() {
+        return passageTitle.get();
+    }
+
+    public StringProperty passageTitleProperty() {
+        return passageTitle;
+    }
+
+    public void setPassageTitle(String passageTitle) {
+        this.passageTitle.set(passageTitle);
     }
 }
 

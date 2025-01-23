@@ -29,9 +29,6 @@ public class WorksheetService {
         this.worksheetDAO = worksheetDAO;
     }
 
-//    public WorksheetService(OpenAIService openAIService) {
-//        this.openAIService = openAIService;
-//    }
 
     public Worksheet generateWorksheet() {
         // Fetch values from the model
@@ -40,6 +37,8 @@ public class WorksheetService {
         ISubSubjectOptions subSubject = model.getSubSubject().get();
         DifficultyLevelOptions difficultyLevel = model.getDifficultyLevel();
         String passageText = model.getPassageContent();
+        String passageTitle = model.getPassageTitle();
+
         List<ComprehensionQuestionTypes> questionTypes = model.getQuestionTypeList();
 
         // Build the prompt
@@ -66,8 +65,6 @@ public class WorksheetService {
                         1. Ensure each question is directly related to the passage.
                         2. Maintain a balance between difficulty levels across the questions.
                         3. Format the output as a numbered list.
-                        4. Do not forget to add answer of the question at the end of the quest text.
-                        
                         User Options:
                         """)
                 .append("\nMain Subject: ").append(mainSubject.toString())
@@ -81,7 +78,7 @@ public class WorksheetService {
         try {
             // Call OpenAI and get the response
             String response = openAIService.generateWorksheetHTTPRequest(fullPrompt);
-           System.out.println("Response: " + response);
+            System.out.println("Response: " + response);
 
 
             // Parse the response into a Worksheet object
@@ -92,6 +89,9 @@ public class WorksheetService {
             worksheet.setMainSubject(mainSubject);
             worksheet.setSubSubject(subSubject);
             worksheet.setDifficultyLevel(difficultyLevel);
+
+            // Set Passage in Worksheet object
+            worksheet.setPassage(new Passage( passageTitle, passageText)); // at this point my id is not available since needs to  come from db
 
             // Persist the worksheet using DAO
             Worksheet savedWorksheet = worksheetDAO.createWorksheet(worksheet);
@@ -151,7 +151,7 @@ public class WorksheetService {
 
                 // Extract question text
                 currentQuestionText = line.substring(line.indexOf(".") + 1).trim();
-
+                System.out.println("currentQuestionText: " + currentQuestionText);
                 // Extract correct option if present
                 if (currentQuestionText.contains("(Correct Option:")) {
                     int start = currentQuestionText.indexOf("(Correct Option:") + 17;
@@ -166,6 +166,7 @@ public class WorksheetService {
             else if (line.matches("^[A-D]\\. .*")) {
                 currentChoices.add(new Choice(line));
             }
+
         }
 
         // Add the last question

@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Models;
 
 public class Choice {
+    private int choiceId;
     private String choiceText;
     private boolean isCorrectAnswer;
 
@@ -29,7 +30,16 @@ public class Choice {
     public String toString() {
         return choiceText;
     }
-//    @Override
+
+    public void setChoiceId(int id) {
+        choiceId = id;
+    }
+
+    public int getChoiceId() {
+        return choiceId;
+    }
+
+    //    @Override
 //    public String toString() {
 //        // Return the question text and the options as a formatted string
 //        StringBuilder sb = new StringBuilder();

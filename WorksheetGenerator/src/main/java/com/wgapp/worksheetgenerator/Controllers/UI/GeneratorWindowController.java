@@ -43,10 +43,9 @@ public class GeneratorWindowController implements Initializable {
     private WorksheetController worksheetController;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        WorksheetService worksheetService = new WorksheetService(new OpenAIService(),new WorksheetDAOImpl());
+        WorksheetService worksheetService = new WorksheetService(new OpenAIService(), new WorksheetDAOImpl());
         this.worksheetController = new WorksheetController(worksheetService);
 
         //Set font family Oswald
@@ -89,7 +88,7 @@ public class GeneratorWindowController implements Initializable {
 
         //LISTENER
         // Set up model the connection subSubjectDropdown
-        dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownListener(dropdownSubSubject));
+        dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownHandler(dropdownSubSubject));
 
         //LISTENER
         // Set up model the connection difficultyLevel
@@ -103,7 +102,7 @@ public class GeneratorWindowController implements Initializable {
         //LISTENER
         // generateBtn listens for click event to generate worksheet
         generateBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            onWorksheetGenerateButtonClicked();
+            onWorksheetGenerateButtonClickedHandler();
         });
 
 
@@ -143,10 +142,9 @@ public class GeneratorWindowController implements Initializable {
         }
     }
 
-    /*================================= LISTENERS ===================================== */
-    private void onSubSubjectDropdownListener(CustomDropdownMenu dropdownSubSubject) {
+    /*================================= LISTENERS HANDLERS===================================== */
+    private void onSubSubjectDropdownHandler(CustomDropdownMenu dropdownSubSubject) {
         String selectedSubText = dropdownSubSubject.getSelectedValue();
-        //System.out.println("Sub-Subject Selected: " + selectedSubText);
 
         // If Comprehension is selected , passage window will appear
         if (selectedSubText.contains("COMPREHENSION")) {
@@ -166,7 +164,7 @@ public class GeneratorWindowController implements Initializable {
 
 
     /*================================= LISTENERS METHODS ===================================== */
-    private void onWorksheetGenerateButtonClicked() {
+    private void onWorksheetGenerateButtonClickedHandler() {
         if (Model.getInstance().getQuestionTypeList().isEmpty()) {
             // Get the modal window view as a parent/root from the ViewFactory
             VBox modalWindowParent = Model.getInstance().getViewFactory().getModalWindowView();
@@ -205,7 +203,6 @@ public class GeneratorWindowController implements Initializable {
             modalStage.setScene(modalScene);
 
             // Set the stage in the controller for proper handling
-            // Set the stage in the controller for proper handling
             ModalWindowController controller = (ModalWindowController) modalWindowParent.getProperties().get("controller");
             if (controller != null) {
                 controller.setStage(modalStage);
@@ -222,8 +219,11 @@ public class GeneratorWindowController implements Initializable {
 
         } else {
             try {
-              worksheetController.generateWorksheet(); // Use instance method
+
                 // Handle the generated worksheet here
+                worksheetController.generateWorksheet(); // Use instance method
+
+
             } catch (Exception e) {
                 // Show error to user, perhaps in a dialog
                 e.printStackTrace();

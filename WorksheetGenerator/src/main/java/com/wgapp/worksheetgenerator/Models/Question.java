@@ -8,10 +8,6 @@ public class Question {
     private List<Choice> choices;
     private String answerText;
 
-    public Question(String questionText, List<Choice> choices) {
-        this.questionText = questionText;
-        this.choices = choices;
-    }
 
     public Question(String questionText, List<Choice> choices, String answerText) {
         this.questionText = questionText;
@@ -19,12 +15,6 @@ public class Question {
         this.answerText = answerText;
     }
 
-    public Question(int questionId, String questionText, List<Choice> choices, String answerText) {
-        this.questionId = questionId;
-        this.questionText = questionText;
-        this.choices = choices;
-        this.answerText = answerText;
-    }
 
     // Getters and Setters
     public String getQuestionText() {
@@ -63,7 +53,7 @@ public class Question {
     public String toString() {
         // Return the question text and the options as a formatted string
         StringBuilder sb = new StringBuilder();
-        sb.append("A: ").append(questionText).append("\n");
+        sb.append("Question: ").append(questionText).append("\n");
 
         for (Choice option : choices) {
             sb.append(option).append("\n");  // This will use Option's toString() method

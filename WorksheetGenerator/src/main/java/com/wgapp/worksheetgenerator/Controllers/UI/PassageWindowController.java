@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,7 @@ public class PassageWindowController implements Initializable {
     public CheckBox toneAndMood;
     public TextArea readingPassage;
     public VBox questionTypes;
+    public TextField passageTitle;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,6 +42,7 @@ public class PassageWindowController implements Initializable {
         onComprehensionQuestionTypesListener();
         populateCheckBoxes();
     }
+
     private void addListener() {
         beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
         clearTextBtn.setOnAction(e -> onClearButtonClicked());
@@ -48,10 +51,10 @@ public class PassageWindowController implements Initializable {
         });
 
         //confirmButton listens for click to set passage to Model
-        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->{
-            Model.getInstance().setPassageContent(readingPassage.getText());
-          //  System.out.println(readingPassage.getText());
-         //   System.out.println(Model.getInstance().toString());
+        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Model.getInstance().setPassageContent(readingPassage.getText()); // Passage
+            Model.getInstance().setPassageTitle(passageTitle.getText()); // Title
+
             confirmBtn.setDisable(true);
             readingPassage.setDisable(true);
         });
@@ -61,7 +64,9 @@ public class PassageWindowController implements Initializable {
             Stage currentStage = (Stage) closeBtn.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(currentStage);
         });
+
     }
+
     /*================================= CHECKBOX POPULATION ===================================== */
     private void populateCheckBoxes() {
         inferential.setUserData(ComprehensionQuestionTypes.INFERENTIAL);
@@ -74,6 +79,7 @@ public class PassageWindowController implements Initializable {
         authorPurpose.setUserData(ComprehensionQuestionTypes.AUTHORS_PURPOSE);
         criticalThinking.setUserData(ComprehensionQuestionTypes.CRITICAL_THINKING);
     }
+
     /*================================= LISTENERS ===================================== */
     private void onComprehensionQuestionTypesListener() {
         for (int i = 0; i < questionTypes.getChildren().size(); i++) {
@@ -84,14 +90,13 @@ public class PassageWindowController implements Initializable {
 
                 if (node instanceof CheckBox) {
                     CheckBox checkbox = (CheckBox) node;
-                  //  int finalJ = j;
 
                     // Add a listener to the selected property of the CheckBox
                     checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                         // Ensure the newValue is valid (check if the checkbox is selected)
                         if (newValue != null) {
                             ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
-                           // System.out.println("from CheckBox: " + questionType);
+                            // System.out.println("from CheckBox: " + questionType);
 
                             // Add the selected question type to the list if it’s checked
                             if (newValue) {
@@ -115,7 +120,6 @@ public class PassageWindowController implements Initializable {
     private void onClearButtonClicked() {
         readingPassage.clear();
     }
-
 
     /*================================= BEAUTIFY METHODS ===================================== */
     private void onBeautifyButtonClicked() {
@@ -150,7 +154,6 @@ public class PassageWindowController implements Initializable {
 
         return beautified.toString();
     }
-
 
 
 }

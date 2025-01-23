@@ -1,5 +1,7 @@
 package com.wgapp.worksheetgenerator.Database;
 
+import com.wgapp.worksheetgenerator.Models.Choice;
+import com.wgapp.worksheetgenerator.Models.Passage;
 import com.wgapp.worksheetgenerator.Models.Question;
 import com.wgapp.worksheetgenerator.Models.Worksheet;
 
@@ -13,5 +15,7 @@ public interface IWorksheetDAO {
     public Worksheet updateWorksheet(Worksheet worksheet);
     public void deleteWorksheet(int id);
     public void createQuestion(Question question,int worksheetId);
+    public void createChoices(Choice choice,int questionId);
+    public  void createPassage(Passage passage, int worksheetId);
 
 }

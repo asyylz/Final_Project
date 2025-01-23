@@ -10,6 +10,7 @@ public class Worksheet {
     private ISubSubjectOptions subSubject; // Interface for sub-subject
     private List<Question> questionList;   // List of questions
     private DifficultyLevelOptions difficultyLevel;
+    private Passage passage;
 
     public Worksheet( ) {
 
@@ -69,5 +70,13 @@ public class Worksheet {
 
     public void setWorksheetId(int worksheetId) {
         this.worksheetId = worksheetId;
+    }
+
+    public Passage getPassage() {
+        return passage;
+    }
+
+    public void setPassage(Passage passage) {
+        this.passage = passage;
     }
 }
