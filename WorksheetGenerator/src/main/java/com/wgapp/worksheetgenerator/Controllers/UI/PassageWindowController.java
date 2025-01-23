@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -44,6 +45,15 @@ public class PassageWindowController implements Initializable {
         clearTextBtn.setOnAction(e -> onClearButtonClicked());
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setPassageContent(readingPassage.getText());
+        });
+
+        //confirmButton listens for click to set passage to Model
+        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->{
+            Model.getInstance().setPassageContent(readingPassage.getText());
+          //  System.out.println(readingPassage.getText());
+         //   System.out.println(Model.getInstance().toString());
+            confirmBtn.setDisable(true);
+            readingPassage.setDisable(true);
         });
 
         //Closes passageWindow onClick of closeBtn

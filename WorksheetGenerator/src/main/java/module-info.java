@@ -10,9 +10,11 @@ module com.wgapp.worksheetgenerator {
     requires java.dotenv;
     requires java.sql;
     requires jdk.security.jgss;
+    requires java.xml.crypto;
     //  requires com.microsoft.sqlserver.jdbc;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
+
     exports com.wgapp.worksheetgenerator;
     exports com.wgapp.worksheetgenerator.Components;
     exports com.wgapp.worksheetgenerator.Views;

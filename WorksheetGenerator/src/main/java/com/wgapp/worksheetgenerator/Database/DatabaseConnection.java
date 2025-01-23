@@ -22,13 +22,13 @@ public class DatabaseConnection {
     }
 
     // Method to establish a connection to the database
-    public static void getConnection() {
+// Method to establish a connection to the database
+    public static Connection getConnection() {
         try {
-            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            System.out.println(connection);
-            System.out.println("Connected to the database");
+            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error connecting to the database", e);
         }
     }
 

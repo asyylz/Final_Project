@@ -3,12 +3,27 @@ package com.wgapp.worksheetgenerator.Models;
 import java.util.List;
 
 public class Question {
+    private int questionId;
     private String questionText;
     private List<Choice> choices;
+    private String answerText;
 
     public Question(String questionText, List<Choice> choices) {
         this.questionText = questionText;
         this.choices = choices;
+    }
+
+    public Question(String questionText, List<Choice> choices, String answerText) {
+        this.questionText = questionText;
+        this.choices = choices;
+        this.answerText = answerText;
+    }
+
+    public Question(int questionId, String questionText, List<Choice> choices, String answerText) {
+        this.questionId = questionId;
+        this.questionText = questionText;
+        this.choices = choices;
+        this.answerText = answerText;
     }
 
     // Getters and Setters
@@ -28,11 +43,27 @@ public class Question {
         this.choices = options;
     }
 
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getAnswerText() {
+        return answerText;
+    }
+
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
+    }
+
     @Override
     public String toString() {
         // Return the question text and the options as a formatted string
         StringBuilder sb = new StringBuilder();
-        sb.append("Question: ").append(questionText).append("\n");
+        sb.append("A: ").append(questionText).append("\n");
 
         for (Choice option : choices) {
             sb.append(option).append("\n");  // This will use Option's toString() method

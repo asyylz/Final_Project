@@ -2,7 +2,10 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
+import com.wgapp.worksheetgenerator.Database.WorksheetDAOImpl;
 import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.Services.OpenAIService;
+import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
@@ -37,9 +40,15 @@ public class GeneratorWindowController implements Initializable {
     public Button clearSelectionBtn;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
 
+    private WorksheetController worksheetController;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        WorksheetService worksheetService = new WorksheetService(new OpenAIService(),new WorksheetDAOImpl());
+        this.worksheetController = new WorksheetController(worksheetService);
+
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
         generatorWindowParent.setStyle("-fx-font-family: 'Oswald'; -fx-font-size: 14px;");
@@ -59,6 +68,7 @@ public class GeneratorWindowController implements Initializable {
         passageTextWrapper.setVisible(false);
 
 
+        //LISTENER
         // Set up model the connection mainSubjectDropdown
         dropdownMainSubject.setOnSelectionChanged(event -> {
             String selectedMain = dropdownMainSubject.getSelectedValue();
@@ -76,15 +86,24 @@ public class GeneratorWindowController implements Initializable {
             }
             checkAllDropdownsSelected();
         });
+
+        //LISTENER
         // Set up model the connection subSubjectDropdown
         dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownListener(dropdownSubSubject));
 
+        //LISTENER
         // Set up model the connection difficultyLevel
         difficultyLevel.setOnSelectionChanged(difficultyLevelEvent -> {
             String selectedDifficulty = difficultyLevel.getSelectedValue();
             DifficultyLevelOptions difficultyLevelOptions = DifficultyLevelOptions.valueOf(selectedDifficulty);
             Model.getInstance().setDifficultyLevel(difficultyLevelOptions);
             checkAllDropdownsSelected();
+        });
+
+        //LISTENER
+        // generateBtn listens for click event to generate worksheet
+        generateBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            onWorksheetGenerateButtonClicked();
         });
 
 
@@ -129,6 +148,7 @@ public class GeneratorWindowController implements Initializable {
         String selectedSubText = dropdownSubSubject.getSelectedValue();
         //System.out.println("Sub-Subject Selected: " + selectedSubText);
 
+        // If Comprehension is selected , passage window will appear
         if (selectedSubText.contains("COMPREHENSION")) {
             passageTextWrapper.setVisible(true);
             passageBtn.setOnAction(event -> {
@@ -145,7 +165,7 @@ public class GeneratorWindowController implements Initializable {
     }
 
 
-    /*================================= LISTENERS ===================================== */
+    /*================================= LISTENERS METHODS ===================================== */
     private void onWorksheetGenerateButtonClicked() {
         if (Model.getInstance().getQuestionTypeList().isEmpty()) {
             // Get the modal window view as a parent/root from the ViewFactory
@@ -157,6 +177,7 @@ public class GeneratorWindowController implements Initializable {
             double x = currentStage.getX();
             double y = currentStage.getY();
 
+            // Transition effect for closing
             ScaleTransition st = new ScaleTransition(Duration.millis(500), modalWindowParent);
             st.setInterpolator(Interpolator.EASE_BOTH);
             st.setFromX(0);
@@ -200,7 +221,13 @@ public class GeneratorWindowController implements Initializable {
 
 
         } else {
-            WorksheetController.generateWorksheet();
+            try {
+              worksheetController.generateWorksheet(); // Use instance method
+                // Handle the generated worksheet here
+            } catch (Exception e) {
+                // Show error to user, perhaps in a dialog
+                e.printStackTrace();
+            }
         }
     }
 
