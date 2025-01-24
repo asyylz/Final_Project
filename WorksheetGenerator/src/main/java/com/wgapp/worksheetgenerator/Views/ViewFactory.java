@@ -1,91 +1,59 @@
 package com.wgapp.worksheetgenerator.Views;
 
-import com.wgapp.worksheetgenerator.Controllers.UI.MainWindowController;
 import com.wgapp.worksheetgenerator.Controllers.UI.ModalWindowController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 
 public class ViewFactory {
-    // private MainSubjectOptions mainSubject;
-    // private Object subSubject; // Used Object to allow dynamic types (can hold any enum type)
-    //  private SchoolYearOptions schoolYear;
-    // private DifficultyLevelOptions difficultyLevel;
-
-    // Observable subSubject property
-    //  private ObjectProperty<ISubSubjectOptions> subSubject;
-
-//    private Model model; // ViewFactory gets the data from Model
-//
-//    public ViewFactory() {
-//        model = Model.getInstance(); // Get instance of the Model
-//    }
-
-    // Partial views
-    private HBox questionTypesView;
-    private VBox modalWindowView;
-
-
-//    public ViewFactory() {
-//        this.mainSubject = MainSubjectOptions.ENGLISH; // English is set by default
-//        this.subSubject = new SimpleObjectProperty<>(SubSubjectOptionsEnglish.COMPREHENSION); // Comprehension is set by default
-//        this.schoolYear = SchoolYearOptions.YEAR1; // Year1 is set by default
-//        this.difficultyLevel = DifficultyLevelOptions.Grade1; // Grade1 is set by default
-//    }
 
 
     /*================================= VIEW METHODS ===================================== */
-    public VBox getModalWindowView() {
-        if (modalWindowView == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ModalWindow.fxml"));
-                modalWindowView = loader.load();
+    public void showModalWindow(String warningText) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ModalWindow.fxml"));
 
-                // Store the controller as a property of the VBox
-                ModalWindowController controller = loader.getController();
-                modalWindowView.getProperties().put("controller", controller);
+        try {
+            // Load the FXML and get the controller
+            Scene scene = new Scene(loader.load());
+            ModalWindowController controller = loader.getController();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Pass the warning text to the controller
+            controller.setMessageText(warningText);
+
+            // Create and show the modal window
+            createStageForModalWindow(scene, 400, 200, "Warning");
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return modalWindowView;
     }
 
-    public void showMainWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainWindow.fxml"));
-        MainWindowController mainWindowController = new MainWindowController();
-        loader.setController(mainWindowController);
-        createStage(loader, 1100, 1100);
-    }
 
     public void showLandingWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/LandingWindow.fxml"));
-        createStage(loader, 500, 1010);
+        createStage(loader, 500, 1010, "Welcome Worksheet Generator Application");
 
     }
 
     public void showGeneratorWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/GeneratorWindow.fxml"));
-
         String stylesheetPath = getClass().getResource("/Styles/CustomDropdownStyle.css").toExternalForm();
-        createStage(loader, stylesheetPath, 630, 900);
+        createStage(loader, stylesheetPath, 630, 900, "Worksheet Generator");
     }
 
     public void showPassageWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
-        createStage(loader, stylesheetPath, 900, 700);
+        createStage(loader, stylesheetPath, 900, 700, "Reading Passage");
     }
 
     /*================================= STAGE METHODS ===================================== */
-    private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height) {
+    private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height, String title) {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -95,14 +63,14 @@ public class ViewFactory {
         }
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Worksheet Generator");
+        stage.setTitle(title);
         stage.setMinWidth(width);
         stage.setMinHeight(height);
         stage.setResizable(false);
         stage.show();
     }
 
-    private void createStage(FXMLLoader loader, int width, int height) {
+    private void createStage(FXMLLoader loader, int width, int height, String stageTitle) {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -112,12 +80,26 @@ public class ViewFactory {
         }
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Worksheet Generator");
+        stage.setTitle(stageTitle);
         stage.setMinWidth(width);
         stage.setMinHeight(height);
         stage.setResizable(false);
         stage.show();
     }
+
+    private void createStageForModalWindow(Scene scene, int width, int height, String stageTitle) {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);  // Blocks interaction with other windows
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.setTitle(stageTitle);
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.setResizable(false);
+        stage.showAndWait();
+
+    }
+
 
     public void closeStage(Stage stage) {
         FadeTransition fadeOut = new FadeTransition();
@@ -129,42 +111,7 @@ public class ViewFactory {
         fadeOut.setOnFinished(event -> stage.close());
         // Play the transition
         fadeOut.play();
-
-        //stage.close();
+        stage.close();
     }
 
-    /*================================= GETTERS AND SETTERS ===================================== */
-
-//    public MainSubjectOptions getMainSubject() {
-//        return mainSubject;
-//    }
-//
-//    public void setMainSubject(MainSubjectOptions mainSubject) {
-//        this.mainSubject = mainSubject;
-//    }
-//
-//    // Getter for subSubject (returns the ObjectProperty)
-//    public ObjectProperty<ISubSubjectOptions> getSubSubject() {
-//        return subSubject;
-//    }
-//
-//    public void setSubSubject(ObjectProperty<ISubSubjectOptions> subSubject) {
-//        this.subSubject = subSubject;
-//    }
-//
-//    public SchoolYearOptions getSchoolYear() {
-//        return schoolYear;
-//    }
-//
-//    public void setSchoolYear(SchoolYearOptions schoolYear) {
-//        this.schoolYear = schoolYear;
-//    }
-//
-//    public DifficultyLevelOptions getDifficultyLevel() {
-//        return difficultyLevel;
-//    }
-//
-//    public void setDifficultyLevel(DifficultyLevelOptions difficultyLevel) {
-//        this.difficultyLevel = difficultyLevel;
-//    }
 }

@@ -7,24 +7,16 @@ import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Services.OpenAIService;
 import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -162,74 +154,17 @@ public class GeneratorWindowController implements Initializable {
 
     }
 
-
-    /*================================= LISTENERS METHODS ===================================== */
     private void onWorksheetGenerateButtonClickedHandler() {
-        if (Model.getInstance().getQuestionTypeList().isEmpty()) {
-            // Get the modal window view as a parent/root from the ViewFactory
-            VBox modalWindowParent = Model.getInstance().getViewFactory().getModalWindowView();
+        try {
+            // Handle the generated worksheet here
+            worksheetController.generateWorksheet(); // Use instance method
 
-            // We are gettin current window x and y coordinates
-            Stage currentStage = (Stage) generatorWindowParent.getScene().getWindow();
-            System.out.println(currentStage.getTitle());
-            double x = currentStage.getX();
-            double y = currentStage.getY();
-
-            // Transition effect for closing
-            ScaleTransition st = new ScaleTransition(Duration.millis(500), modalWindowParent);
-            st.setInterpolator(Interpolator.EASE_BOTH);
-            st.setFromX(0);
-            st.setFromY(0);
-            st.setToX(1);
-            st.setToY(1);
-
-            // Detach from any existing parent
-            if (modalWindowParent.getScene() != null) {
-                modalWindowParent.getScene().setRoot(new VBox()); // Replace with an empty placeholder
-            }
-
-            //  Set up the modal window stage
-            Stage modalStage = new Stage();
-            modalStage.setTitle("Warning");
-            modalStage.initStyle(StageStyle.TRANSPARENT);
-
-            Scene modalScene = new Scene(modalWindowParent, 400, 200);
-            modalScene.setFill(Color.TRANSPARENT);
-
-            modalStage.initModality(Modality.APPLICATION_MODAL); // Blocks interaction with other windows
-
-            // Make the modal non-resizable
-            modalStage.setResizable(false);
-            modalStage.setScene(modalScene);
-
-            // Set the stage in the controller for proper handling
-            ModalWindowController controller = (ModalWindowController) modalWindowParent.getProperties().get("controller");
-            if (controller != null) {
-                controller.setStage(modalStage);
-            } else {
-                System.err.println("Controller not found for the modal window!");
-            }
-
-            // Show the modal stage
-            modalStage.showAndWait();
-
-            // Apply the scale transition
-            st.play();
-
-
-        } else {
-            try {
-
-                // Handle the generated worksheet here
-                worksheetController.generateWorksheet(); // Use instance method
-
-
-            } catch (Exception e) {
-                // Show error to user, perhaps in a dialog
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            // Show error to user, perhaps in a dialog
+            e.printStackTrace();
         }
     }
-
-
 }
+
+
+

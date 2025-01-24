@@ -2,24 +2,30 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PassageWindowController implements Initializable {
     public AnchorPane passageWrapper;
     public Button beautifyBtn;
-    public Button confirmBtn;
     public Button clearTextBtn;
     public VBox wrapperBtns;
     public Button closeBtn;
@@ -38,6 +44,11 @@ public class PassageWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set the initial content of the TextArea to the value stored in the model
+        readingPassage.setText(Model.getInstance().getPassageContent());
+
+        // Set the initial title of the passage to the value stored in the model
+        passageTitle.setText(Model.getInstance().getPassageTitle());
         addListener();
         onComprehensionQuestionTypesListener();
         populateCheckBoxes();
@@ -45,24 +56,24 @@ public class PassageWindowController implements Initializable {
 
     private void addListener() {
         beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
-        clearTextBtn.setOnAction(e -> onClearButtonClicked());
+
+        //Clear passage and title for new values
+        clearTextBtn.setOnAction(e -> {
+            readingPassage.clear();
+            passageTitle.clear();
+        });
+
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
             Model.getInstance().setPassageContent(readingPassage.getText());
         });
 
-        //confirmButton listens for click to set passage to Model
-        confirmBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            Model.getInstance().setPassageContent(readingPassage.getText()); // Passage
-            Model.getInstance().setPassageTitle(passageTitle.getText()); // Title
-
-            confirmBtn.setDisable(true);
-            readingPassage.setDisable(true);
+        passageTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            Model.getInstance().setPassageTitle(newValue);
         });
 
-        //Closes passageWindow onClick of closeBtn
+        // Listener for closeBtn
         closeBtn.setOnAction(e -> {
-            Stage currentStage = (Stage) closeBtn.getScene().getWindow();
-            Model.getInstance().getViewFactory().closeStage(currentStage);
+            onCloseBtnClickedHandler();
         });
 
     }
@@ -80,7 +91,21 @@ public class PassageWindowController implements Initializable {
         criticalThinking.setUserData(ComprehensionQuestionTypes.CRITICAL_THINKING);
     }
 
+    /*================================= HANDLERS ===================================== */
+    private void onCloseBtnClickedHandler() {
+        // We are getting current stage
+        Stage currentStage = (Stage) closeBtn.getScene().getWindow();
+        if (Model.getInstance().getQuestionTypeList().isEmpty()) {
+            Model.getInstance().getViewFactory().showModalWindow("You haven’t chosen any question type." +
+                    " All types will be included. Are you OK with this?");
+        } else {
+            Model.getInstance().getViewFactory().closeStage(currentStage);
+        }
+
+    }
+
     /*================================= LISTENERS ===================================== */
+
     private void onComprehensionQuestionTypesListener() {
         for (int i = 0; i < questionTypes.getChildren().size(); i++) {
 
@@ -115,10 +140,6 @@ public class PassageWindowController implements Initializable {
                 }
             }
         }
-    }
-
-    private void onClearButtonClicked() {
-        readingPassage.clear();
     }
 
     /*================================= BEAUTIFY METHODS ===================================== */

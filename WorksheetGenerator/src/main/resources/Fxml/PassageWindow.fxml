@@ -13,7 +13,6 @@
     <VBox fx:id="wrapperBtns" layoutX="646.0" layoutY="407.0" prefHeight="182.0" prefWidth="178.0" spacing="10.0">
         <Button fx:id="beautifyBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Beautify" />
         <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Clear" />
-        <Button fx:id="confirmBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Confirm Passage" />
         <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Close" />
     </VBox>
     <VBox fx:id="questionTypes" layoutX="639.0" layoutY="90.0" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">

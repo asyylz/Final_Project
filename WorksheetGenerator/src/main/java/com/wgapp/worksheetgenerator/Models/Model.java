@@ -12,7 +12,7 @@ public class Model {
 
     // Initialize directly in the field declaration
     private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
-    private DifficultyLevelOptions difficultyLevel ;
+    private DifficultyLevelOptions difficultyLevel;
     private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>();
 
     // Comprehension
@@ -21,8 +21,6 @@ public class Model {
     // Passage
     private StringProperty passageContent = new SimpleStringProperty();
     private StringProperty passageTitle = new SimpleStringProperty();
-
-
 
 
     private Model() {
@@ -86,6 +84,11 @@ public class Model {
     public ListProperty<ComprehensionQuestionTypes> questionTypeListProperty() {
         return questionTypeList;
     }
+
+//    public void setQuestionTypeList(ComprehensionQuestionTypes[] questionTypeList) {
+//        this.questionTypeList.set(questionTypeList);
+//    }
+
 
     public StringProperty passageContentProperty() {
         return passageContent;
