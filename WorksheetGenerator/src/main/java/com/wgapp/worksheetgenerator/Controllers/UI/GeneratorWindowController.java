@@ -9,6 +9,7 @@ import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,8 +18,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+
 
 
 import java.net.URL;
@@ -51,8 +52,6 @@ public class GeneratorWindowController implements Initializable {
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
         generatorWindowParent.setStyle("-fx-font-family: 'Oswald'; -fx-font-size: 14px;");
 
-        // Initially disable the generate button
-        generateBtn.setDisable(true);
 
         // Initialize CustomDropdowns and populating their content
         CustomDropdownMenu dropdownMainSubject = new CustomDropdownMenu("MAIN SUBJECT", MainSubjectOptions.values());
@@ -82,7 +81,7 @@ public class GeneratorWindowController implements Initializable {
                     Model.getInstance().setMainSubject(MainSubjectOptions.MATHS);
                     break;
             }
-            checkAllDropdownsSelected();
+            generateButtonActivationControl();
         });
 
         //LISTENER
@@ -95,7 +94,7 @@ public class GeneratorWindowController implements Initializable {
             String selectedDifficulty = difficultyLevel.getSelectedValue();
             DifficultyLevelOptions difficultyLevelOptions = DifficultyLevelOptions.valueOf(selectedDifficulty);
             Model.getInstance().setDifficultyLevel(difficultyLevelOptions);
-            checkAllDropdownsSelected();
+            generateButtonActivationControl();
         });
 
         //LISTENER
@@ -104,10 +103,7 @@ public class GeneratorWindowController implements Initializable {
             onWorksheetGenerateButtonClickedHandler();
         });
 
-
-        // Bind generate button's disable property to the inverse of allDropdownsSelected
-        generateBtn.disableProperty().bind(allDropdownsSelected.not());
-
+        //LISTENER
         // Handle clicks outside the dropdowns
         generatorWindowParent.setOnMouseClicked(event -> {
             if (!dropdownMainSubject.getBoundsInParent().contains(event.getX(), event.getY())) {
@@ -121,6 +117,7 @@ public class GeneratorWindowController implements Initializable {
             }
         });
 
+        //LISTENER
         clearSelectionBtn.setOnMouseClicked(event -> {
             dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
             dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
@@ -129,17 +126,49 @@ public class GeneratorWindowController implements Initializable {
             Model.getInstance().setMainSubject(null);
             Model.getInstance().setDifficultyLevel(null);
             Model.getInstance().setSubSubject(null);
+            Model.getInstance().setPassageContent(null);
+            Model.getInstance().setPassageTitle(null);
+            Model.getInstance().removeQuestionsFromList();
 
         });
 
-    }
+        // Listener for passage field
+        Model.getInstance().getPassageContentProperty().addListener((observable, oldValue, newValue) -> generateButtonActivationControl());
 
-    private void checkAllDropdownsSelected() {
-        System.out.println(Model.getInstance().toString());
-        if (Model.getInstance().getMainSubject() != null && Model.getInstance().getDifficultyLevel() != null && Model.getInstance().getDifficultyLevel() != null) {
-            allDropdownsSelected.set(true);
+        // Listener for title field
+        Model.getInstance().getPassageTitleProperty().addListener((observable, oldValue, newValue) -> generateButtonActivationControl());
+
+        // Listener for question list
+        Model.getInstance().getQuestionTypeListProperty().addListener((ListChangeListener<String>) change -> generateButtonActivationControl());
+
+        /* Initially disable the generate button,
+        Bind generate button's disable property to the inverse of allDropdownsSelected ,
+        if passage section required accordingly will be active */
+        generateBtn.disableProperty().bind(allDropdownsSelected.not());
+
+    } // End of initialise
+
+    private void generateButtonActivationControl() {
+        boolean areDropdownsSelected = Model.getInstance().getMainSubject() != null
+                && Model.getInstance().getDifficultyLevel() != null
+                && Model.getInstance().getSubSubject() != null;
+
+        boolean isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
+                        && !Model.getInstance().getPassageTitle().isEmpty()
+                        && !Model.getInstance().getQuestionTypeList().isEmpty();
+
+        allDropdownsSelected.set(areDropdownsSelected && (isPassageSectionRequired() && isPassageSectionContentSet));
+    } // End of checkAllDropdownsSelected
+
+    private boolean isPassageSectionRequired() {
+        switch (Model.getInstance().getSubSubject().get()) {
+            case SubSubjectOptionsEnglish.COMPREHENSION, SubSubjectOptionsEnglish.CLOZETEST:
+                return true;
+            default:
+                return false;
         }
-    }
+    } // end of isPassageSectionRequired
+
 
     /*================================= LISTENERS HANDLERS===================================== */
     private void onSubSubjectDropdownHandler(CustomDropdownMenu dropdownSubSubject) {
@@ -157,8 +186,7 @@ public class GeneratorWindowController implements Initializable {
         // Cast the text back to ISubSubjectOptions
         ISubSubjectOptions selectedSub = SubSubjectOptionsEnglish.valueOf(selectedSubText); // Assuming enum values match text
         Model.getInstance().setSubSubject(selectedSub);
-        checkAllDropdownsSelected();
-
+        generateButtonActivationControl();
     }
 
 //    private void onWorksheetGenerateButtonClickedHandler() {

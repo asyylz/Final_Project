@@ -3,6 +3,8 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Utils.UtilForStrings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -34,6 +36,7 @@ public class PassageWindowController implements Initializable {
     public TextArea readingPassage;
     public VBox questionTypes;
     public TextField passageTitle;
+    private BooleanProperty isTrue = new SimpleBooleanProperty(false);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,10 +45,10 @@ public class PassageWindowController implements Initializable {
 
         // Set the initial title of the passage to the value stored in the model
         passageTitle.setText(Model.getInstance().getPassageTitle());
+
         addListener();
-        onComprehensionQuestionTypesListener();
-        populateCheckBoxes();
-    }
+
+    } // End of initialize
 
     private void addListener() {
         beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
@@ -78,6 +81,15 @@ public class PassageWindowController implements Initializable {
             onCloseBtnClickedHandler();
         });
 
+        //Listens questions types list in model to update ui
+        Model.getInstance().getQuestionTypeListProperty().addListener((observable, oldValue, newValue) -> {
+            onComprehensionQuestionTypesListener();
+        });
+
+        onComprehensionQuestionTypesListener();
+
+        populateCheckBoxes();
+
     }
 
     /*================================= CHECKBOX POPULATION ===================================== */
@@ -100,6 +112,11 @@ public class PassageWindowController implements Initializable {
         if (Model.getInstance().getQuestionTypeList().isEmpty()) {
             Model.getInstance().getViewFactory().showModalWindow("You haven’t chosen any question type." +
                     " All types will be included.");
+        } else if (Model.getInstance().getPassageContent().isEmpty()) {
+            Model.getInstance().getViewFactory().showModalWindow("You haven’t set passage, please add a reading passage.");
+
+        } else if (Model.getInstance().getPassageTitle().isEmpty()) {
+            Model.getInstance().getViewFactory().showModalWindow("You haven’t set passage title, please add a reading passage title.");
         } else {
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }
@@ -108,50 +125,92 @@ public class PassageWindowController implements Initializable {
 
     /*================================= LISTENERS ===================================== */
 
+//    public void onComprehensionQuestionTypesListener() {
+//
+//        //  for (int i = 0; i < questionTypes.getChildren().size(); i++) {
+//
+//        // VBox contains CheckBox(es), add listener to them
+//        for (int j = 0; j < questionTypes.getChildren().size(); j++) {
+//            Node node = questionTypes.getChildren().get(j);
+//
+//            if (node instanceof CheckBox) {
+//
+//                CheckBox checkbox = (CheckBox) node;
+//                String title = checkbox.getText();
+//
+//                // First checking which types of questions has been selected previously
+//
+//                isTrue = UtilForStrings.hasQuestionType(title);
+//                System.out.println("istrue" +isTrue);
+//
+////                if (isTrue) {
+////                    checkbox.setSelected(true);
+////                }
+//                checkbox.selectedProperty().bindBidirectional(isTrue);
+//
+//                // Add a listener to the selected property of the CheckBox
+//                checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//                    // Ensure the newValue is valid (check if the checkbox is selected)
+//                    if (newValue != null) {
+//                        ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
+//
+//                        // Add the selected question type to the list if it’s checked
+//                        if (newValue) {
+//                            // Only add if not already in the list
+//                            if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
+//                                Model.getInstance().getQuestionTypeList().add(questionType); // Add to list
+//                                System.out.println("List" + Model.getInstance().getQuestionTypeList());
+//                            }
+//                        } else {
+//                            // Remove the question type from the list if it’s unchecked
+//                            Model.getInstance().getQuestionTypeList().remove(questionType);
+//                            System.out.println("List" + Model.getInstance().getQuestionTypeList());
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//        //}
+//    }
+
     public void onComprehensionQuestionTypesListener() {
-
-        //  for (int i = 0; i < questionTypes.getChildren().size(); i++) {
-
-        // VBox contains CheckBox(es), add listener to them
+        // Iterate through all children in the VBox (questionTypes)
         for (int j = 0; j < questionTypes.getChildren().size(); j++) {
             Node node = questionTypes.getChildren().get(j);
 
             if (node instanceof CheckBox) {
-
                 CheckBox checkbox = (CheckBox) node;
                 String title = checkbox.getText();
 
-                // First checking which types of questions has been selected previously
-                Boolean isTrue = UtilForStrings.hasQuestionType(title);
+                // Create a BooleanProperty for binding
+                BooleanProperty isTrueProperty = UtilForStrings.hasQuestionType(title);
+                //  System.out.println("isTrue: " + isTrueProperty.get());
 
-                if (isTrue) {
-                    checkbox.setSelected(true);
-                }
+                //   System.out.println("before isTure"+Model.getInstance().getQuestionTypeList());
+                // Bind the CheckBox's selectedProperty bidirectionally to the BooleanProperty
+                checkbox.selectedProperty().bindBidirectional(isTrueProperty);
 
-                // Add a listener to the selected property of the CheckBox
+                //  System.out.println("After isTure"+Model.getInstance().getQuestionTypeList());
+
                 checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    // Ensure the newValue is valid (check if the checkbox is selected)
-                    if (newValue != null) {
-                        ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
-
-                        // Add the selected question type to the list if it’s checked
-                        if (newValue) {
-                            // Only add if not already in the list
-                            if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
-                                Model.getInstance().getQuestionTypeList().add(questionType); // Add to list
-                                System.out.println("List" + Model.getInstance().getQuestionTypeList());
-                            }
-                        } else {
-                            // Remove the question type from the list if it’s unchecked
-                            Model.getInstance().getQuestionTypeList().remove(questionType);
-                            System.out.println("List" + Model.getInstance().getQuestionTypeList());
+                    ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
+                    if (newValue) {
+                        // Add to list if not already present
+                        if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
+                            Model.getInstance().getQuestionTypeList().add(questionType);
+                            //System.out.println("Added to List: " + questionType);
                         }
+                    } else {
+                        // Remove from the list if unchecked
+                        Model.getInstance().getQuestionTypeList().remove(questionType);
+                        // System.out.println("Removed from List: " + questionType);
                     }
                 });
+
             }
         }
-        //}
     }
+
 
     /*================================= BEAUTIFY METHODS ===================================== */
     private void onBeautifyButtonClicked() {

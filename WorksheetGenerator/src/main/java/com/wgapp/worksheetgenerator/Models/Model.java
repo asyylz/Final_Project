@@ -19,8 +19,8 @@ public class Model {
     private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
 
     // Passage
-    private StringProperty passageContent = new SimpleStringProperty();
-    private StringProperty passageTitle = new SimpleStringProperty();
+    private StringProperty passageContent = new SimpleStringProperty("");
+    private StringProperty passageTitle = new SimpleStringProperty("");
 
 
     private Model() {
@@ -89,6 +89,10 @@ public class Model {
         this.questionTypeList.add(questionType);
     }
 
+    public void removeQuestionsFromList() {
+        this.questionTypeList.clear();
+    }
+
     public StringProperty passageContentProperty() {
         return passageContent;
     }
@@ -101,12 +105,20 @@ public class Model {
         return passageContent.get();
     }
 
+    public StringProperty getPassageContentProperty() {
+        return passageContent;
+    }
+
     public String getPassageTitle() {
         return passageTitle.get();
     }
 
-    public StringProperty passageTitleProperty() {
+    public StringProperty getPassageTitleProperty() {
         return passageTitle;
+    }
+
+    public ListProperty getQuestionTypeListProperty() {
+        return questionTypeList;
     }
 
     public void setPassageTitle(String passageTitle) {

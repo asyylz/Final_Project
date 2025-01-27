@@ -2,11 +2,13 @@ package com.wgapp.worksheetgenerator.Utils;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.List;
 
 public class UtilForStrings {
-    public static boolean hasQuestionType(String checkBoxTextValue) {
+    public static BooleanProperty hasQuestionType(String checkBoxTextValue) {
 
         List<ComprehensionQuestionTypes> list = Model.getInstance().getQuestionTypeList();
 
@@ -43,12 +45,13 @@ public class UtilForStrings {
 
         for (ComprehensionQuestionTypes comprehensionQuestionType : list) {
             if (comprehensionQuestionType.toString().equals(placeHolderForTextValue)) {
-                System.out.println("fromutil string" + placeHolderForTextValue);
-                return true;
+                //System.out.println("fromutil string" + placeHolderForTextValue);
+
+                return new SimpleBooleanProperty(true);
 
             }
 
         }
-        return false;
+        return new SimpleBooleanProperty(false);
     }
 }

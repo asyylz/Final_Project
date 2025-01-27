@@ -7,12 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
-import java.util.Objects;
+
 
 public class ViewFactory {
-
 
     /*================================= VIEW METHODS ===================================== */
     public void showModalWindow(String warningText) {
@@ -51,13 +49,6 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
         createStage(loader, stylesheetPath, 900, 700, "Reading Passage");
-    }
-
-    public void showLoadingIndicator(Stage currentStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/LoadingIndicator.fxml"));
-        String stylesheetPath = getClass().getResource("/Styles/LoadingIndicator.css").toExternalForm();
-        createScene(loader,stylesheetPath,currentStage);
-
     }
 
     /*================================= STAGE METHODS ===================================== */
@@ -107,12 +98,6 @@ public class ViewFactory {
         stage.showAndWait();
 
     }
-
-    public void createScene(FXMLLoader loader, String stylePath, Stage stage) {
-
-
-    }
-
 
     public void closeStage(Stage stage) {
         FadeTransition fadeOut = new FadeTransition();
