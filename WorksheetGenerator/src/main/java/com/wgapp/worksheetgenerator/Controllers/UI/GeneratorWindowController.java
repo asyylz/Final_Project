@@ -10,7 +10,6 @@ import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
-import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,11 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-
-
-
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class GeneratorWindowController implements Initializable {
     public AnchorPane generatorWindowParent;
@@ -35,6 +32,7 @@ public class GeneratorWindowController implements Initializable {
     public Button passageBtn;
     public Button clearSelectionBtn;
     public StackPane loadingIndicatorComponent;
+    public Button testBtn;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
 
     private WorksheetController worksheetController;
@@ -115,6 +113,10 @@ public class GeneratorWindowController implements Initializable {
             if (!difficultyLevel.getBoundsInParent().contains(event.getX(), event.getY())) {
                 difficultyLevel.closeDropdown();
             }
+
+            testBtn.setOnAction(e->{
+                loadingIndicatorComponent.setVisible(true);
+            });
         });
 
         //LISTENER
@@ -189,55 +191,55 @@ public class GeneratorWindowController implements Initializable {
         generateButtonActivationControl();
     }
 
-//    private void onWorksheetGenerateButtonClickedHandler() {
-//
-//        // Setting loading indicator's visibility to true
-//        loadingIndicatorComponent.setVisible(true);
-//
-//        try {
-//            // Handle the generated worksheet here
-//            worksheetController.generateWorksheet(); // Use instance method
-//
-//        } catch (Exception e) {
-//            // Show error to user, perhaps in a dialog
-//            e.printStackTrace();
-//        } finally {
-//            // Setting loading indicator's visibility to false again
-//            loadingIndicatorComponent.setVisible(false);
-//        }
-//    }
-
     private void onWorksheetGenerateButtonClickedHandler() {
-        // Show the loading indicator
+
+        // Setting loading indicator's visibility to true
         loadingIndicatorComponent.setVisible(true);
 
-        // Create a background task
-        Task<Void> generateWorksheetTask = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                // Simulate worksheet generation (replace with actual logic)
-                worksheetController.generateWorksheet();
-                return null;
-            }
-        };
-
-        // Handle success
-        generateWorksheetTask.setOnSucceeded(event -> {
-            loadingIndicatorComponent.setVisible(false);
-            // Handle successful completion (e.g., show a success message)
-        });
-
-        // Handle failure
-        generateWorksheetTask.setOnFailed(event -> {
-            loadingIndicatorComponent.setVisible(false);
-            Throwable error = generateWorksheetTask.getException();
-            error.printStackTrace();
-            // Show error to user
-        });
-
-        // Run the task in a background thread
-        new Thread(generateWorksheetTask).start();
+        try {
+            // Handle the generated worksheet here
+          //  worksheetController.generateWorksheet(); // Use instance method
+        } catch (Exception e) {
+            // Show error to user, perhaps in a dialog
+            e.printStackTrace();
+        } finally {
+;
+            // Setting loading indicator's visibility to false again
+            //loadingIndicatorComponent.setVisible(false);
+        }
     }
+
+//    private void onWorksheetGenerateButtonClickedHandler() {
+//        // Show the loading indicator
+//        loadingIndicatorComponent.setVisible(true);
+//
+//        // Create a background task
+//        Task<Void> generateWorksheetTask = new Task<>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                // Simulate worksheet generation (replace with actual logic)
+//               // worksheetController.generateWorksheet();
+//                return null;
+//            }
+//        };
+//
+//        // Handle success
+//        generateWorksheetTask.setOnSucceeded(event -> {
+//            loadingIndicatorComponent.setVisible(false);
+//            // Handle successful completion (e.g., show a success message)
+//        });
+//
+//        // Handle failure
+//        generateWorksheetTask.setOnFailed(event -> {
+//            loadingIndicatorComponent.setVisible(false);
+//            Throwable error = generateWorksheetTask.getException();
+//            error.printStackTrace();
+//            // Show error to user
+//        });
+//
+//        // Run the task in a background thread
+//        new Thread(generateWorksheetTask).start();
+//    }
 
 }
 

@@ -63,6 +63,6 @@
             prefWidth="162.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Generate"/>
     <Button fx:id="clearSelectionBtn" layoutX="28.0" layoutY="774.0" mnemonicParsing="false" prefHeight="42.0"
             prefWidth="162.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Clear Selections"/>
-    <fx:include fx:id="loadingIndicatorComponent" source="LoadingIndicator.fxml" AnchorPane.bottomAnchor="0.0"
-                AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="600.0"/>
+    <fx:include fx:id="loadingIndicatorComponent" source="LoadingIndicator.fxml" AnchorPane.bottomAnchor="150.0"
+                AnchorPane.rightAnchor="150.0"/>
 </AnchorPane>

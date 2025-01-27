@@ -124,7 +124,7 @@ public class PassageWindowController implements Initializable {
     }
 
     /*================================= LISTENERS ===================================== */
-
+//
 //    public void onComprehensionQuestionTypesListener() {
 //
 //        //  for (int i = 0; i < questionTypes.getChildren().size(); i++) {

@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoadingIndicatorController implements Initializable {
-   // public StackPane wrapperPaneForLoadingIndicator;
+
     public Circle outerCircle;
     public Circle innerCircle;
     public StackPane wrapperPaneForLoadingIndicator;

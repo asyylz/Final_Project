@@ -37,9 +37,10 @@ public class ModalWindowController implements Initializable {
             //Model.getInstance().setQuestionTypeList(ComprehensionQuestionTypes.values());
             applyScaleTransitionOnHide(stage);
 
-            for (ComprehensionQuestionTypes questionType : ComprehensionQuestionTypes.values()) {
-                Model.getInstance().addQuestionType(questionType);
-            }
+            if (Model.getInstance().getQuestionTypeList().isEmpty())
+                for (ComprehensionQuestionTypes questionType : ComprehensionQuestionTypes.values()) {
+                    Model.getInstance().addQuestionType(questionType);
+                }
 
         });
     }
