@@ -9,12 +9,15 @@ import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 
@@ -30,6 +33,7 @@ public class GeneratorWindowController implements Initializable {
     public HBox passageTextWrapper;
     public Button passageBtn;
     public Button clearSelectionBtn;
+    public StackPane loadingIndicatorComponent;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
 
     private WorksheetController worksheetController;
@@ -39,6 +43,9 @@ public class GeneratorWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         WorksheetService worksheetService = new WorksheetService(new OpenAIService(), new WorksheetDAOImpl());
         this.worksheetController = new WorksheetController(worksheetService);
+
+        // Default we are setting indicator's visibility false
+        loadingIndicatorComponent.setVisible(false);
 
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
@@ -154,16 +161,56 @@ public class GeneratorWindowController implements Initializable {
 
     }
 
-    private void onWorksheetGenerateButtonClickedHandler() {
-        try {
-            // Handle the generated worksheet here
-            worksheetController.generateWorksheet(); // Use instance method
+//    private void onWorksheetGenerateButtonClickedHandler() {
+//
+//        // Setting loading indicator's visibility to true
+//        loadingIndicatorComponent.setVisible(true);
+//
+//        try {
+//            // Handle the generated worksheet here
+//            worksheetController.generateWorksheet(); // Use instance method
+//
+//        } catch (Exception e) {
+//            // Show error to user, perhaps in a dialog
+//            e.printStackTrace();
+//        } finally {
+//            // Setting loading indicator's visibility to false again
+//            loadingIndicatorComponent.setVisible(false);
+//        }
+//    }
 
-        } catch (Exception e) {
-            // Show error to user, perhaps in a dialog
-            e.printStackTrace();
-        }
+    private void onWorksheetGenerateButtonClickedHandler() {
+        // Show the loading indicator
+        loadingIndicatorComponent.setVisible(true);
+
+        // Create a background task
+        Task<Void> generateWorksheetTask = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // Simulate worksheet generation (replace with actual logic)
+                worksheetController.generateWorksheet();
+                return null;
+            }
+        };
+
+        // Handle success
+        generateWorksheetTask.setOnSucceeded(event -> {
+            loadingIndicatorComponent.setVisible(false);
+            // Handle successful completion (e.g., show a success message)
+        });
+
+        // Handle failure
+        generateWorksheetTask.setOnFailed(event -> {
+            loadingIndicatorComponent.setVisible(false);
+            Throwable error = generateWorksheetTask.getException();
+            error.printStackTrace();
+            // Show error to user
+        });
+
+        // Run the task in a background thread
+        new Thread(generateWorksheetTask).start();
     }
+
 }
 
 

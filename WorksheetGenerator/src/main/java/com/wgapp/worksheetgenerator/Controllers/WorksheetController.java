@@ -14,7 +14,7 @@ public class WorksheetController {
 
     public Worksheet generateWorksheet() throws Exception {  // Either specify exact exception or rethrow
         try {
-            return worksheetService.generateWorksheet();
+            return worksheetService.generateWorksheetCallFromController();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;  // Rethrow the exception or handle it appropriately

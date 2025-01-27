@@ -30,7 +30,7 @@ public class WorksheetService {
     }
 
 
-    public Worksheet generateWorksheet() {
+    public Worksheet generateWorksheetCallFromController() {
         // Fetch values from the model
         Model model = Model.getInstance();
         MainSubjectOptions mainSubject = model.getMainSubject().get();

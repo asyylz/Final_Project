@@ -2,24 +2,17 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
+import com.wgapp.worksheetgenerator.Utils.UtilForStrings;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,6 +54,15 @@ public class PassageWindowController implements Initializable {
         clearTextBtn.setOnAction(e -> {
             readingPassage.clear();
             passageTitle.clear();
+            toneAndMood.setSelected(false);
+            structure.setSelected(false);
+            inferential.setSelected(false);
+            literal.setSelected(false);
+            summarizing.setSelected(false);
+            vocabulary.setSelected(false);
+            characterAnalysis.setSelected(false);
+            authorPurpose.setSelected(false);
+            criticalThinking.setSelected(false);
         });
 
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -97,7 +99,7 @@ public class PassageWindowController implements Initializable {
         Stage currentStage = (Stage) closeBtn.getScene().getWindow();
         if (Model.getInstance().getQuestionTypeList().isEmpty()) {
             Model.getInstance().getViewFactory().showModalWindow("You haven’t chosen any question type." +
-                    " All types will be included. Are you OK with this?");
+                    " All types will be included.");
         } else {
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }
@@ -106,40 +108,49 @@ public class PassageWindowController implements Initializable {
 
     /*================================= LISTENERS ===================================== */
 
-    private void onComprehensionQuestionTypesListener() {
-        for (int i = 0; i < questionTypes.getChildren().size(); i++) {
+    public void onComprehensionQuestionTypesListener() {
 
-            // Each VBox contains CheckBox(es), add listener to them
-            for (int j = 0; j < questionTypes.getChildren().size(); j++) {
-                Node node = questionTypes.getChildren().get(j);
+        //  for (int i = 0; i < questionTypes.getChildren().size(); i++) {
 
-                if (node instanceof CheckBox) {
-                    CheckBox checkbox = (CheckBox) node;
+        // VBox contains CheckBox(es), add listener to them
+        for (int j = 0; j < questionTypes.getChildren().size(); j++) {
+            Node node = questionTypes.getChildren().get(j);
 
-                    // Add a listener to the selected property of the CheckBox
-                    checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                        // Ensure the newValue is valid (check if the checkbox is selected)
-                        if (newValue != null) {
-                            ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
-                            // System.out.println("from CheckBox: " + questionType);
+            if (node instanceof CheckBox) {
 
-                            // Add the selected question type to the list if it’s checked
-                            if (newValue) {
-                                // Only add if not already in the list
-                                if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
-                                    Model.getInstance().getQuestionTypeList().add(questionType); // Add to list
-                                    System.out.println("List" + Model.getInstance().getQuestionTypeList());
-                                }
-                            } else {
-                                // Remove the question type from the list if it’s unchecked
-                                Model.getInstance().getQuestionTypeList().remove(questionType);
+                CheckBox checkbox = (CheckBox) node;
+                String title = checkbox.getText();
+
+                // First checking which types of questions has been selected previously
+                Boolean isTrue = UtilForStrings.hasQuestionType(title);
+
+                if (isTrue) {
+                    checkbox.setSelected(true);
+                }
+
+                // Add a listener to the selected property of the CheckBox
+                checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                    // Ensure the newValue is valid (check if the checkbox is selected)
+                    if (newValue != null) {
+                        ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
+
+                        // Add the selected question type to the list if it’s checked
+                        if (newValue) {
+                            // Only add if not already in the list
+                            if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
+                                Model.getInstance().getQuestionTypeList().add(questionType); // Add to list
                                 System.out.println("List" + Model.getInstance().getQuestionTypeList());
                             }
+                        } else {
+                            // Remove the question type from the list if it’s unchecked
+                            Model.getInstance().getQuestionTypeList().remove(questionType);
+                            System.out.println("List" + Model.getInstance().getQuestionTypeList());
                         }
-                    });
-                }
+                    }
+                });
             }
         }
+        //}
     }
 
     /*================================= BEAUTIFY METHODS ===================================== */

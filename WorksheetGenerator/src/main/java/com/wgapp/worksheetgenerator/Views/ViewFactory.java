@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ViewFactory {
 
@@ -50,6 +51,13 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
         createStage(loader, stylesheetPath, 900, 700, "Reading Passage");
+    }
+
+    public void showLoadingIndicator(Stage currentStage) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/LoadingIndicator.fxml"));
+        String stylesheetPath = getClass().getResource("/Styles/LoadingIndicator.css").toExternalForm();
+        createScene(loader,stylesheetPath,currentStage);
+
     }
 
     /*================================= STAGE METHODS ===================================== */
@@ -97,6 +105,11 @@ public class ViewFactory {
         stage.setHeight(height);
         stage.setResizable(false);
         stage.showAndWait();
+
+    }
+
+    public void createScene(FXMLLoader loader, String stylePath, Stage stage) {
+
 
     }
 

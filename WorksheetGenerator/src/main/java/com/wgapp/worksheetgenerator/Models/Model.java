@@ -85,10 +85,9 @@ public class Model {
         return questionTypeList;
     }
 
-//    public void setQuestionTypeList(ComprehensionQuestionTypes[] questionTypeList) {
-//        this.questionTypeList.set(questionTypeList);
-//    }
-
+    public void addQuestionType(ComprehensionQuestionTypes questionType) {
+        this.questionTypeList.add(questionType);
+    }
 
     public StringProperty passageContentProperty() {
         return passageContent;

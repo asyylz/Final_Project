@@ -4,9 +4,6 @@ import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
-import javafx.beans.property.ListProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +14,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ModalWindowController implements Initializable {
@@ -40,6 +36,10 @@ public class ModalWindowController implements Initializable {
             Stage stage = (Stage) modalWindow.getScene().getWindow();
             //Model.getInstance().setQuestionTypeList(ComprehensionQuestionTypes.values());
             applyScaleTransitionOnHide(stage);
+
+            for (ComprehensionQuestionTypes questionType : ComprehensionQuestionTypes.values()) {
+                Model.getInstance().addQuestionType(questionType);
+            }
 
         });
     }
