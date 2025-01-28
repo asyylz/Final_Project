@@ -219,7 +219,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
     @Override
     public void onWorksheetGenerated(Worksheet worksheet) {
-        //System.out.println("from ui" + worksheet.getPassage().getPassageText());
         Model.getInstance().setWorksheet(worksheet);
         Model.getInstance().getViewFactory().showWorksheetWindowWithPassage();
     }

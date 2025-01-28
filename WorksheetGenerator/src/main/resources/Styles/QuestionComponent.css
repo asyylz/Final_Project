@@ -2,7 +2,6 @@
 /* Import the font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
 
 .questionsWrapper {
@@ -23,11 +22,23 @@
 }
 
 .questionsWrapper__choicesBox {
--fx-spacing: 5;
+    -fx-spacing: 5;
 }
 
 .choiceBox__choice {
     -fx-spacing: 10;
     -fx-pref-height: 1.4em;
+}
+
+.correctAnswer {
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
+    -fx-background-color: #5DC5A4;
+    -fx-background-radius: 15;
+}
+
+.incorrectAnswer {
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
+    -fx-background-color: #FF6A53;
+    -fx-background-radius: 15;
 }
 

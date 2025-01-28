@@ -60,7 +60,7 @@ public class WorksheetDAOImpl implements IWorksheetDAO {
 
             pstmt.setInt(1, worksheetId);
             pstmt.setString(2, question.getQuestionText());
-            pstmt.setString(3, question.getAnswerText());
+            pstmt.setString(3, question.getCorrectAnswerText());
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {

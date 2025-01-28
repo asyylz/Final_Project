@@ -6,13 +6,13 @@ public class Question {
     private int questionId;
     private String questionText;
     private List<Choice> choices;
-    private String answerText;
+    private String correctAnswerText;
 
 
-    public Question(String questionText, List<Choice> choices, String answerText) {
+    public Question(String questionText, List<Choice> choices, String correctAnswerText) {
         this.questionText = questionText;
         this.choices = choices;
-        this.answerText = answerText;
+        this.correctAnswerText = correctAnswerText;
     }
 
 
@@ -41,12 +41,12 @@ public class Question {
         this.questionId = questionId;
     }
 
-    public String getAnswerText() {
-        return answerText;
+    public String getCorrectAnswerText() {
+        return correctAnswerText;
     }
 
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
+    public void setCorrectAnswerText(String answerText) {
+        this.correctAnswerText = answerText;
     }
 
     @Override

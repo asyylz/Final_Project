@@ -2,6 +2,8 @@ package com.wgapp.worksheetgenerator.Utils;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.Models.Question;
+import com.wgapp.worksheetgenerator.Models.UserAnswer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -53,5 +55,16 @@ public class UtilForStrings {
 
         }
         return new SimpleBooleanProperty(false);
+    }
+
+    public static Boolean isUserAnswerCorrect(String correctAnswer) {
+
+        for (UserAnswer answer : Model.getInstance().getUserAnswersList()) {
+            if (answer.getAnswer().equals(correctAnswer)) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

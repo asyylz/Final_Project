@@ -4,15 +4,18 @@ import com.wgapp.worksheetgenerator.Models.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.Models.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Models.Question;
+import com.wgapp.worksheetgenerator.Utils.UtilForStrings;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +37,10 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text worksheetIdText;
     public Text passageText;
     public Text passageTitle;
+    public Button showAnswersBtn;
+    public Button closeBtn;
+    public Button clearSelectionBtn;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,19 +61,36 @@ public class WorksheetWindowWithPassageController implements Initializable {
         gradeLevel.setText("Grade Level: " + diffLevel);
         //Setting passage
         passageText.setText(Model.getInstance().getWorksheet().getPassage().getPassageText());
-        //Seeting passage title
+        //Setting passage title
         passageTitle.setText(Model.getInstance().getWorksheet().getPassage().getPassageTitle());
 
         // Dynamically update wrapping width for passageText based on the width of innerLeft
         bottomLeftSection.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue() - 40; // Adjust for padding or margins
-           // System.out.println("Updated Width from innerLeft widthProperty: " + newWidth);
 
+            bottomLeftSection.heightProperty().get();
             // Update the wrapping width of the passageText
             passageText.setWrappingWidth(newWidth);
+            passageTitle.setWrappingWidth(newWidth);
         });
 
+        // Questions being set to Ui
         initializeQuestions();
+        closeBtn.setOnAction(event -> {
+            Stage currentStage = (Stage) closeBtn.getScene().getWindow();
+            currentStage.close();
+        });
+
+        // Clearing all userAnswers
+        clearSelectionBtn.setOnAction(event -> {
+            Model.getInstance().getUserAnswersList().clear();
+            onUserAnswersClearedListener();
+        });
+
+        showAnswersBtn.setOnAction(event -> {
+            onShowAnswerBtnClickedHandler();
+
+        });
 
     }
 
@@ -84,9 +108,13 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
                 // Get the controller and set the question data
                 QuestionComponentController controller = loader.getController();
-                controller.setQuestion(question, bottomRightSection);
+                controller.setQuestion(question, questionList.indexOf(question), bottomRightSection);
 
-                // Store the QuestionComponent in the list
+                // Store the controller in the node's properties
+                questionComponent.getProperties().put("controller", controller);
+                questionComponent.getProperties().put("questionIndex", questionList.indexOf(question));
+
+                //Store the QuestionComponent in the list
                 questionComponents.add(questionComponent);
 
             } catch (IOException e) {
@@ -99,4 +127,87 @@ public class WorksheetWindowWithPassageController implements Initializable {
         innerRight.getChildren().addAll(questionComponents);
 
     }
+
+    public void onUserAnswersClearedListener() {
+        try {
+            // Iterate through all children in the VBox (userAnswers)
+            for (int i = 0; i < innerRight.getChildren().size(); i++) {
+                Node node = innerRight.getChildren().get(i);
+                if (node.getId().equals("questionWrapper")) {
+                    // Get the controller of the current question
+                    QuestionComponentController controller = (QuestionComponentController) node.getProperties().get("controller");
+
+
+                    // If the controller is present, call the clearSelection method
+                    if (controller != null) {
+                        System.out.println("asiye");
+                        controller.clearSelection(); // Clear the selection for the current question
+                    }
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void onShowAnswerBtnClickedHandler() {
+        List<Question> questions = Model.getInstance().getWorksheet().getQuestionList();
+        try {
+            // Iterate through all children in the VBox (userAnswers)
+            for (int i = 0; i < innerRight.getChildren().size(); i++) {
+                Node node = innerRight.getChildren().get(i);
+                if (node.getId().equals("questionWrapper")) {
+                    // Get the controller of the current question
+                    QuestionComponentController controller = (QuestionComponentController) node.getProperties().get("controller");
+                    int nodeIndex = (int) node.getProperties().get("questionIndex");
+
+                    // If the controller is present, call the showAnswers method
+                    if (controller != null) {
+                        for (Question question : questions) {
+                            if (questions.indexOf(question) == nodeIndex) {
+                                controller.showAnswer(question.getCorrectAnswerText(), questions.indexOf(question));
+                            }
+                        }
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

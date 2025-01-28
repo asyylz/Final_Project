@@ -123,7 +123,78 @@ public class PassageWindowController implements Initializable {
 
     }
 
-    /*================================= LISTENERS ===================================== */
+    public void onComprehensionQuestionTypesListener() {
+        // Iterate through all children in the VBox (questionTypes)
+        for (int j = 0; j < questionTypes.getChildren().size(); j++) {
+            Node node = questionTypes.getChildren().get(j);
+
+            if (node instanceof CheckBox) {
+                CheckBox checkbox = (CheckBox) node;
+                String title = checkbox.getText();
+
+                // Create a BooleanProperty for binding
+                BooleanProperty isTrueProperty = UtilForStrings.hasQuestionType(title);
+
+                // Bind the CheckBox's selectedProperty bidirectionally to the BooleanProperty
+                checkbox.selectedProperty().bindBidirectional(isTrueProperty);
+
+                checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                    ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
+                    if (newValue) {
+                        // Add to list if not already present
+                        if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
+                            Model.getInstance().getQuestionTypeList().add(questionType);
+                        }
+                    } else {
+                        // Remove from the list if unchecked
+                        Model.getInstance().getQuestionTypeList().remove(questionType);
+                        // System.out.println("Removed from List: " + questionType);
+                    }
+                });
+
+            }
+        }
+    }
+
+
+    /*================================= BEAUTIFY METHODS ===================================== */
+    private void onBeautifyButtonClicked() {
+        String text = readingPassage.getText();
+
+        // Beautify the text by rearranging and formatting
+        String beautifiedText = beautifyText(text);
+
+        // Set the beautified text back into the TextArea
+        readingPassage.setText(beautifiedText);
+    }
+
+    // Beautify text by wrapping long lines and adding spacing
+    private String beautifyText(String text) {
+        // Example: Trim excess spaces and wrap long lines
+        text = text.trim(); // Trim leading and trailing spaces
+        text = text.replaceAll("\\s+", " "); // Replace multiple spaces with a single space
+        //text = text.replaceAll("(?<=\\w)(?=\\p{Punct})", " "); // Add space before punctuation if needed
+
+        StringBuilder beautified = new StringBuilder();
+        int maxLineLength = 95;
+        int currentLength = 0;
+
+        for (String word : text.split(" ")) {
+            if (currentLength + word.length() > maxLineLength) {
+                beautified.append("\n");  // Add a line break when max length is exceeded
+                currentLength = 0;
+            }
+            beautified.append(word).append(" ");
+            currentLength += word.length() + 1;
+        }
+
+        return beautified.toString();
+    }
+
+}
+
+
+/*================================= LISTENERS ===================================== */
 //
 //    public void onComprehensionQuestionTypesListener() {
 //
@@ -172,79 +243,3 @@ public class PassageWindowController implements Initializable {
 //        }
 //        //}
 //    }
-
-    public void onComprehensionQuestionTypesListener() {
-        // Iterate through all children in the VBox (questionTypes)
-        for (int j = 0; j < questionTypes.getChildren().size(); j++) {
-            Node node = questionTypes.getChildren().get(j);
-
-            if (node instanceof CheckBox) {
-                CheckBox checkbox = (CheckBox) node;
-                String title = checkbox.getText();
-
-                // Create a BooleanProperty for binding
-                BooleanProperty isTrueProperty = UtilForStrings.hasQuestionType(title);
-                //  System.out.println("isTrue: " + isTrueProperty.get());
-
-                //   System.out.println("before isTure"+Model.getInstance().getQuestionTypeList());
-                // Bind the CheckBox's selectedProperty bidirectionally to the BooleanProperty
-                checkbox.selectedProperty().bindBidirectional(isTrueProperty);
-
-                //  System.out.println("After isTure"+Model.getInstance().getQuestionTypeList());
-
-                checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
-                    if (newValue) {
-                        // Add to list if not already present
-                        if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
-                            Model.getInstance().getQuestionTypeList().add(questionType);
-                            //System.out.println("Added to List: " + questionType);
-                        }
-                    } else {
-                        // Remove from the list if unchecked
-                        Model.getInstance().getQuestionTypeList().remove(questionType);
-                        // System.out.println("Removed from List: " + questionType);
-                    }
-                });
-
-            }
-        }
-    }
-
-
-    /*================================= BEAUTIFY METHODS ===================================== */
-    private void onBeautifyButtonClicked() {
-        String text = readingPassage.getText();
-
-        // Beautify the text by rearranging and formatting
-        String beautifiedText = beautifyText(text);
-
-        // Set the beautified text back into the TextArea
-        readingPassage.setText(beautifiedText);
-    }
-
-    // Beautify text by wrapping long lines and adding spacing
-    private String beautifyText(String text) {
-        // Example: Trim excess spaces and wrap long lines
-        text = text.trim(); // Trim leading and trailing spaces
-        text = text.replaceAll("\\s+", " "); // Replace multiple spaces with a single space
-        //text = text.replaceAll("(?<=\\w)(?=\\p{Punct})", " "); // Add space before punctuation if needed
-
-        StringBuilder beautified = new StringBuilder();
-        int maxLineLength = 95;
-        int currentLength = 0;
-
-        for (String word : text.split(" ")) {
-            if (currentLength + word.length() > maxLineLength) {
-                beautified.append("\n");  // Add a line break when max length is exceeded
-                currentLength = 0;
-            }
-            beautified.append(word).append(" ");
-            currentLength += word.length() + 1;
-        }
-
-        return beautified.toString();
-    }
-
-
-}

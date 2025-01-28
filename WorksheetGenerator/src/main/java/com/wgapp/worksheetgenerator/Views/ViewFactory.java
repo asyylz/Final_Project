@@ -61,7 +61,7 @@ public class ViewFactory {
     public void showWorksheetWindowWithPassage() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindowWithPassage.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/WorksheetWindowWithPassage.css").toExternalForm();
-        createStage(loader, stylesheetPath, 1100, 800, "English Worksheet");
+        createStage(loader, stylesheetPath, 1100, 1000, "English Worksheet");
     }
 
     /*================================= STAGE METHODS ===================================== */

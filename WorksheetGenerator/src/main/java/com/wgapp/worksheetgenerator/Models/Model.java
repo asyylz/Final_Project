@@ -6,6 +6,8 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class Model {
     private static Model model;
     private Worksheet worksheet;
@@ -22,6 +24,9 @@ public class Model {
     // Passage
     private StringProperty passageContent = new SimpleStringProperty("");
     private StringProperty passageTitle = new SimpleStringProperty("");
+
+    //User Answer List
+    private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
 
 
     private Model() {
@@ -133,5 +138,18 @@ public class Model {
     public void setWorksheet(Worksheet worksheet) {
         this.worksheet = worksheet;
     }
+
+    public ListProperty<UserAnswer> getUserAnswersListProperty() {
+        return userAnswerList;
+    }
+
+    public List<UserAnswer> getUserAnswersList() {
+        return userAnswerList.get();
+    }
+
+    public void addUserAnswerToUserAnswerList(UserAnswer choice) {
+        userAnswerList.add(choice);
+    }
+
 }
 

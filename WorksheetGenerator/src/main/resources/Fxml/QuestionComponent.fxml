@@ -8,9 +8,10 @@
 
 <VBox fx:id="questionWrapper" fillWidth="false" prefHeight="170.0" prefWidth="350.0" styleClass="questionsWrapper" stylesheets="@../Styles/QuestionComponent.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.QuestionComponentController">
     <Text fx:id="questionText" lineSpacing="5.0" styleClass="questionWrapper_questionText" text="Text" textAlignment="JUSTIFY">
-      <VBox.margin>
-         <Insets bottom="10.0" />
-      </VBox.margin></Text>
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+    </Text>
     <VBox fx:id="choicesWrapper" prefHeight="150.0" prefWidth="364.0" styleClass="questionsWrapper__choicesBox">
         <HBox fx:id="choiceWrapper1" styleClass="choiceBox__choice">
             <RadioButton fx:id="choiceRadioBtn1" mnemonicParsing="false" />
