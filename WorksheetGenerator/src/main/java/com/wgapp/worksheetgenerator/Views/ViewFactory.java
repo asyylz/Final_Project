@@ -58,6 +58,12 @@ public class ViewFactory {
         createStage(loader, stylesheetPath, 800, 1000, "Worksheet");
     }
 
+    public void showWorksheetWindowWithPassage() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindowWithPassage.fxml"));
+        String stylesheetPath = getClass().getResource("/Styles/WorksheetWindowWithPassage.css").toExternalForm();
+        createStage(loader, stylesheetPath, 1100, 800, "English Worksheet");
+    }
+
     /*================================= STAGE METHODS ===================================== */
     private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height, String title) {
         Scene scene = null;
@@ -72,7 +78,7 @@ public class ViewFactory {
         stage.setTitle(title);
         stage.setMinWidth(width);
         stage.setMinHeight(height);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.show();
     }
 

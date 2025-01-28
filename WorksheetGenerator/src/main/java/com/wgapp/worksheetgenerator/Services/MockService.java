@@ -25,9 +25,7 @@ public class MockService implements IService {
         List<Choice> choices = List.of(choice1, choice2, choice3, choice4);
 
         String text = """
-                In the 16th century, an age of great marine and terrestrial exploration, Ferdinand Magellan led the first
-                 expedition to sail around the world. As a young Portuguese noble, he served the king of Portugal, but 
-                 he became involved in the quagmire of political intrigue at court and lost the king’s favor...
+                In the 16th century, an age of great marine and terrestrial exploration, Ferdinand Magellan led the first expedition to sail around the world. As a young Portuguese noble, he served the king of Portugal, but he became involved in the quagmire of political intrigue at court and lost the king’s favor...
                 """;
 
         Passage passage = new Passage("Ferdinand Magellan", text);

@@ -6,15 +6,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
 
 .questionsWrapper {
-    -fx-font-size: 1.4em;
-    -fx-padding: 1em;
-    -fx-spacing: 10;
+    -fx-font-size: 1.2em;
+    -fx-padding: 0.7em;
+    /*-fx-spacing: 10;*/
     -fx-app-background: whitesmoke;
     -fx-background-color: -fx-app-background;
     -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
-    -fx-background-radius: 10;
-    -fx-end-margin: 10;
+    -fx-background-radius: 15;
     -fx-font-family: "Maven Pro";
+    /*-fx-border-color: black;*/
 }
 
 .questionWrapper_questionText {
@@ -23,11 +23,11 @@
 }
 
 .questionsWrapper__choicesBox {
-
+-fx-spacing: 5;
 }
 
 .choiceBox__choice {
     -fx-spacing: 10;
-    -fx-pref-height: 2em;
+    -fx-pref-height: 1.4em;
 }
 

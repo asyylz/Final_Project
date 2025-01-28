@@ -2,21 +2,21 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.Choice;
 import com.wgapp.worksheetgenerator.Models.Question;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class QuestionComponentController implements Initializable {
 
-    public AnchorPane questionWrapperParent;
     public VBox choicesWrapper;
     public VBox questionWrapper;
     public Text questionText;
@@ -37,21 +37,42 @@ public class QuestionComponentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    public void setQuestion(Question question) {
-        // Set the question data to your component's UI elements
+    public void setQuestion(Question question, ScrollPane rigthScrollPane) {
+        // Set the question text
         questionText.setText(question.getQuestionText());
-        questionText.setWrappingWidth(780);
 
+        // Listen to the width of the ScrollPane dynamically
+        rigthScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double newWidth = newValue.doubleValue() - 90; // Adjust for padding or margins
+           // System.out.println("Updated ScrollPane Width: " + newWidth);
+
+            // Update the questionWrapper width and wrapping widths
+            questionWrapper.setPrefWidth(newWidth);
+            questionText.setWrappingWidth(newWidth - 20); // Wrapping width of the question
+            choiceText1.setWrappingWidth(newWidth - 20);  // Adjust wrapping for choices
+            choiceText2.setWrappingWidth(newWidth - 20);
+            choiceText3.setWrappingWidth(newWidth - 20);
+            choiceText4.setWrappingWidth(newWidth - 20);
+        });
+
+        // Set the choice texts
         for (int i = 0; i < choicesWrapper.getChildren().size(); i++) {
             Node node = choicesWrapper.getChildren().get(i);
 
             if (node instanceof HBox) {
                 HBox choiceBoxSingle = (HBox) node;
 
-               Text choiceText =(Text)choiceBoxSingle.getChildren().get(1);
+                // Set the text for each choice in the HBox
+                Text choiceText = (Text) choiceBoxSingle.getChildren().get(1);
                 choiceText.setText(question.getChoices().get(i).getChoiceText());
 
+                // Update wrapping width when ScrollPane resizes
+                rigthScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+                    double newWidth = newValue.doubleValue() - 90; // Adjust for padding or margins
+                    choiceText.setWrappingWidth(newWidth - 20);
+                });
             }
         }
     }
+
 }
