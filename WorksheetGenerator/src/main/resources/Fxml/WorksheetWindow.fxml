@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Fxml.WorksheetWindow"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="worksheetWindowParent" prefHeight="800.0" prefWidth="800.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowController">
+    <HBox layoutX="24.0" layoutY="20.0" prefHeight="48.0" prefWidth="643.0" spacing="70.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0">
+        <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-worksheetIdText" text="Worksheet Id: " />
+        <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-worksheetIdText" text="Main Subject" />
+        <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-worksheetIdText" text="Sub-Subject" />
+        <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-worksheetIdText" text="Grade Level:" />
+    </HBox>
 </AnchorPane>

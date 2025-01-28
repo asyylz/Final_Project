@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700&display=swap');
+/* Import the font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.worksheetWindow__parent{
+    -fx-background-color: #132B40;
+    -fx-font-family: Oswald;
+    -fx-padding: 1em;
+}
+.worksheetWindow__parent-mainTitle {
+    -fx-font-size: 2.5em;
+}
+
+.worksheetWindow__parent-worksheetIdText{
+    -fx-fill: #fbd784;
+    -fx-font-size: 1.3em;
+
+}
+
+.worksheetWindow__questionWrapper {
+    -fx-font-family: Oswald;
+    -fx-app-background: whitesmoke;
+    -fx-background-color: -fx-app-background;
+    -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
+    -fx-background-radius: 10;
+}

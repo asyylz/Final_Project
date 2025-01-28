@@ -32,6 +32,15 @@ public class Worksheet {
         this.difficultyLevel = difficultyLevel;
     }
 
+    public Worksheet(int worksheetId, MainSubjectOptions mainSubject, ISubSubjectOptions subSubject, List<Question> questionList, DifficultyLevelOptions difficultyLevel, Passage passage) {
+        this.worksheetId = worksheetId;
+        this.mainSubject = mainSubject;
+        this.subSubject = subSubject;
+        this.questionList = questionList;
+        this.difficultyLevel = difficultyLevel;
+        this.passage = passage;
+    }
+
     public List<Question> getQuestionList() {
         return questionList;
     }

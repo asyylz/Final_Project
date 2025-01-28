@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="questionWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="780.0" styleClass="questionsWrapper" stylesheets="@../Styles/QuestionComponent.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.QuestionComponentController">
+    <Text fx:id="questionText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+    <VBox fx:id="choicesWrapper" prefHeight="240.0" prefWidth="566.0" styleClass="questionsWrapper__choicesBox">
+        <HBox fx:id="choiceWrapper1" prefHeight="27.0" prefWidth="670.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn1" mnemonicParsing="false" />
+            <Text fx:id="choiceText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        </HBox>
+        <HBox fx:id="choiceWrapper2" layoutX="27.0" layoutY="27.0" prefHeight="38.0" prefWidth="670.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn2" mnemonicParsing="false" />
+            <Text fx:id="choiceText2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        </HBox>
+        <HBox fx:id="choiceWrapper3" layoutX="27.0" layoutY="97.0" prefHeight="28.0" prefWidth="670.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn3" mnemonicParsing="false" />
+            <Text fx:id="choiceText3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        </HBox>
+        <HBox fx:id="choiceWrapper4" layoutX="27.0" layoutY="167.0" prefHeight="30.0" prefWidth="670.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn4" mnemonicParsing="false" />
+            <Text fx:id="choiceText4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        </HBox>
+    </VBox>
+</VBox>

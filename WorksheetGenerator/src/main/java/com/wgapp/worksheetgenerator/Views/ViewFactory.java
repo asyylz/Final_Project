@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 
 
@@ -49,6 +50,12 @@ public class ViewFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
         createStage(loader, stylesheetPath, 900, 700, "Reading Passage");
+    }
+
+    public void showWorksheetWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindow.fxml"));
+        String stylesheetPath = getClass().getResource("/Styles/QuestionComponent.css").toExternalForm();
+        createStage(loader, stylesheetPath, 800, 1000, "Worksheet");
     }
 
     /*================================= STAGE METHODS ===================================== */

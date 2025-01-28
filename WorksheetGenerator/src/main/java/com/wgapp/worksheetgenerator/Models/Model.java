@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 public class Model {
     private static Model model;
+    private Worksheet worksheet;
     private final ViewFactory viewFactory;
 
     // Initialize directly in the field declaration
@@ -123,6 +124,14 @@ public class Model {
 
     public void setPassageTitle(String passageTitle) {
         this.passageTitle.set(passageTitle);
+    }
+
+    public Worksheet getWorksheet() {
+        return worksheet;
+    }
+
+    public void setWorksheet(Worksheet worksheet) {
+        this.worksheet = worksheet;
     }
 }
 

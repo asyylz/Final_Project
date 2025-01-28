@@ -5,15 +5,19 @@ import com.wgapp.worksheetgenerator.Database.WorksheetDAOImpl;
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.concurrent.Task;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
-public class WorksheetService {
+public class WorksheetService implements  IService {
     private static final String PROMPT_BEGINNING_COMPREHENSION;
+    private  static  final OpenAIService openaiService = new OpenAIService();
+    private static final WorksheetDAOImpl worksheetDAO = new WorksheetDAOImpl();
 
     static {
         // Load environment variables from .env file
@@ -21,14 +25,17 @@ public class WorksheetService {
         PROMPT_BEGINNING_COMPREHENSION = dotenv.get("PROMPT_BEGINNING_COMPREHENSION");
     }
 
-    private final OpenAIService openAIService;
-    private final WorksheetDAOImpl worksheetDAO;
+//    private final OpenAIService openAIService;
+//    private final WorksheetDAOImpl worksheetDAO;
+//
+//    public WorksheetService(OpenAIService openAIService, WorksheetDAOImpl worksheetDAO) {
+//        this.openAIService = openAIService;
+//        this.worksheetDAO = worksheetDAO;
+//    }
 
-    public WorksheetService(OpenAIService openAIService, WorksheetDAOImpl worksheetDAO) {
-        this.openAIService = openAIService;
-        this.worksheetDAO = worksheetDAO;
+
+    public WorksheetService() {
     }
-
 
     public Worksheet generateWorksheetCallFromController() {
         // Fetch values from the model
@@ -77,7 +84,7 @@ public class WorksheetService {
 
         try {
             // Call OpenAI and get the response
-            String response = openAIService.generateWorksheetHTTPRequest(fullPrompt);
+            String response = openaiService.generateWorksheetHTTPRequest(fullPrompt);
             System.out.println("Response: " + response);
 
 
@@ -178,5 +185,29 @@ public class WorksheetService {
         return questions;
     }
 
+    @Override
+    public CompletableFuture<Worksheet> generateWorksheetAsync() {
+        CompletableFuture<Worksheet> future = new CompletableFuture<>();
+
+        Task<Worksheet> generateWorksheetTask = new Task<>() {
+            @Override
+            protected Worksheet call() throws Exception {
+                return generateWorksheetCallFromController();
+            }
+        };
+
+        generateWorksheetTask.setOnSucceeded(event -> {
+            Worksheet generatedWorksheet = generateWorksheetTask.getValue();
+            future.complete(generatedWorksheet);
+        });
+
+        generateWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(generateWorksheetTask.getException());
+        });
+
+        new Thread(generateWorksheetTask).start();
+
+        return future;
+    }
 }
 

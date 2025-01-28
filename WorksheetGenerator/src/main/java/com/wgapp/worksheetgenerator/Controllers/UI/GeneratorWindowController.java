@@ -2,10 +2,8 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
-import com.wgapp.worksheetgenerator.Database.WorksheetDAOImpl;
+import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
 import com.wgapp.worksheetgenerator.Models.*;
-import com.wgapp.worksheetgenerator.Services.OpenAIService;
-import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -18,11 +16,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class GeneratorWindowController implements Initializable {
+public class GeneratorWindowController implements Initializable, WorksheetControllerTest.WorksheetObserver {
     public AnchorPane generatorWindowParent;
     public Pane wrapperCustomDropdownMenuOne;
     public Pane wrapperCustomDropdownMenuTwo;
@@ -35,13 +34,14 @@ public class GeneratorWindowController implements Initializable {
     public Button testBtn;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
 
-    private WorksheetController worksheetController;
+    private final WorksheetController worksheetController = new WorksheetController();
+    private final WorksheetControllerTest worksheetControllerTest = new WorksheetControllerTest();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        WorksheetService worksheetService = new WorksheetService(new OpenAIService(), new WorksheetDAOImpl());
-        this.worksheetController = new WorksheetController(worksheetService);
+        // Observer pattern
+        worksheetControllerTest.addObserver(this);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
@@ -114,9 +114,6 @@ public class GeneratorWindowController implements Initializable {
                 difficultyLevel.closeDropdown();
             }
 
-            testBtn.setOnAction(e->{
-                loadingIndicatorComponent.setVisible(true);
-            });
         });
 
         //LISTENER
@@ -148,6 +145,18 @@ public class GeneratorWindowController implements Initializable {
         if passage section required accordingly will be active */
         generateBtn.disableProperty().bind(allDropdownsSelected.not());
 
+
+        // Test Listener TEST
+        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            loadingIndicatorComponent.setVisible(true);
+            try {
+                worksheetControllerTest.generateWorksheet(); // calling worksheetcontroller
+                //System.out.println("from ui" + worksheet.getPassage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     } // End of initialise
 
     private void generateButtonActivationControl() {
@@ -156,8 +165,8 @@ public class GeneratorWindowController implements Initializable {
                 && Model.getInstance().getSubSubject() != null;
 
         boolean isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
-                        && !Model.getInstance().getPassageTitle().isEmpty()
-                        && !Model.getInstance().getQuestionTypeList().isEmpty();
+                && !Model.getInstance().getPassageTitle().isEmpty()
+                && !Model.getInstance().getQuestionTypeList().isEmpty();
 
         allDropdownsSelected.set(areDropdownsSelected && (isPassageSectionRequired() && isPassageSectionContentSet));
     } // End of checkAllDropdownsSelected
@@ -198,50 +207,27 @@ public class GeneratorWindowController implements Initializable {
 
         try {
             // Handle the generated worksheet here
-          //  worksheetController.generateWorksheet(); // Use instance method
+            worksheetControllerTest.generateWorksheet(); // Use instance method
         } catch (Exception e) {
             // Show error to user, perhaps in a dialog
             e.printStackTrace();
         } finally {
-;
             // Setting loading indicator's visibility to false again
-            //loadingIndicatorComponent.setVisible(false);
+            loadingIndicatorComponent.setVisible(false);
         }
     }
 
-//    private void onWorksheetGenerateButtonClickedHandler() {
-//        // Show the loading indicator
-//        loadingIndicatorComponent.setVisible(true);
-//
-//        // Create a background task
-//        Task<Void> generateWorksheetTask = new Task<>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                // Simulate worksheet generation (replace with actual logic)
-//               // worksheetController.generateWorksheet();
-//                return null;
-//            }
-//        };
-//
-//        // Handle success
-//        generateWorksheetTask.setOnSucceeded(event -> {
-//            loadingIndicatorComponent.setVisible(false);
-//            // Handle successful completion (e.g., show a success message)
-//        });
-//
-//        // Handle failure
-//        generateWorksheetTask.setOnFailed(event -> {
-//            loadingIndicatorComponent.setVisible(false);
-//            Throwable error = generateWorksheetTask.getException();
-//            error.printStackTrace();
-//            // Show error to user
-//        });
-//
-//        // Run the task in a background thread
-//        new Thread(generateWorksheetTask).start();
-//    }
+    @Override
+    public void onWorksheetGenerated(Worksheet worksheet) {
+        //System.out.println("from ui" + worksheet.getPassage().getPassageText());
+        Model.getInstance().setWorksheet(worksheet);
+        Model.getInstance().getViewFactory().showWorksheetWindow();
+    }
 
 }
+
+
+
 
 
 

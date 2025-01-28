@@ -24,8 +24,8 @@ public class App extends Application {
 
         // Show the main window using the ViewFactory
         //viewFactory.showMainWindow();
-         viewFactory.showLandingWindow();
-        //viewFactory.showGeneratorWindow();
+         //viewFactory.showLandingWindow();
+        viewFactory.showGeneratorWindow();
 
 
         DatabaseConnection.getConnection();
