@@ -8,30 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="worksheetWindowWithPassageParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWindowWithPassage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
+<AnchorPane fx:id="worksheetWindowWithPassageParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWindowWithPassage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
     <HBox fx:id="topSection" prefHeight="100.0" prefWidth="200.0" styleClass="worksheetWindow__parent-titlesWrapper" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
-      <VBox prefHeight="100.0" prefWidth="246.0" spacing="5.0">
-         <children>
-              <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="WorksheetId: 1" underline="true" />
-              <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Main Subject:English" />
-              <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Sub-Subject: Comprehension" />
-              <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Grade Level: Grade 3" />
-         </children>
-      </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="315.0">
-         <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="198.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Show Answers" />
-         </children>
-      </VBox>
+        <VBox prefHeight="100.0" prefWidth="246.0" spacing="5.0">
+            <children>
+                <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="WorksheetId: 1" underline="true" />
+                <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Main Subject:English" />
+                <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Sub-Subject: Comprehension" />
+                <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Grade Level: Grade 3" />
+            </children>
+        </VBox>
+        <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="315.0">
+            <children>
+                <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="198.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Show Answers" />
+            </children>
+        </VBox>
     </HBox>
     <HBox fx:id="bottomSection" layoutX="14.0" layoutY="100.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
-        <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="550.0" HBox.hgrow="ALWAYS">
-            <AnchorPane fx:id="innerLeft" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="670.0" prefWidth="490.0" styleClass="worksheetWindow__leftSection-inner">
-                <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="443.21630859375" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
-                <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" textAlignment="CENTER" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+        <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="540.0" HBox.hgrow="ALWAYS">
+            <AnchorPane fx:id="innerLeft" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="520.0" styleClass="worksheetWindow__leftSection-inner">
+                <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="483.0" AnchorPane.topAnchor="35.0" />
+                <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" text="title" textAlignment="CENTER" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
             </AnchorPane>
         </ScrollPane>
-        <ScrollPane fx:id="bottomRightSection" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="674.0" prefWidth="538.0" styleClass="worksheetWindow__rightSection" HBox.hgrow="ALWAYS">
+        <ScrollPane fx:id="bottomRightSection" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="540.0" styleClass="worksheetWindow__rightSection" HBox.hgrow="ALWAYS">
             <VBox fx:id="innerRight" alignment="CENTER" fillWidth="false" styleClass="worksheetWindow__rightSection-inner" />
             <HBox.margin>
                 <Insets />

@@ -11,6 +11,12 @@
 
 }
 
+.passageTitle {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: 800;
+
+}
+
 .worksheetWindow__parent-mainTitle {
     -fx-font-size: 1.2em;
     -fx-fill: #fbd784;
@@ -18,7 +24,7 @@
 }
 
 .worksheetWindow__rightSection-inner {
-    -fx-padding: 1em;
+
 }
 
 .worksheetWindow__leftSection-inner {

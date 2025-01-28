@@ -59,7 +59,7 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         // Dynamically update wrapping width for passageText based on the width of innerLeft
         bottomLeftSection.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double newWidth = newValue.doubleValue() - 20; // Adjust for padding or margins
+            double newWidth = newValue.doubleValue() - 40; // Adjust for padding or margins
            // System.out.println("Updated Width from innerLeft widthProperty: " + newWidth);
 
             // Update the wrapping width of the passageText
