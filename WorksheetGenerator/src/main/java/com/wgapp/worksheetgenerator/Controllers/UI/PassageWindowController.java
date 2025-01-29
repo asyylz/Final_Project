@@ -2,7 +2,7 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Utils.UtilForStrings;
+import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.Initializable;
@@ -133,7 +133,7 @@ public class PassageWindowController implements Initializable {
                 String title = checkbox.getText();
 
                 // Create a BooleanProperty for binding
-                BooleanProperty isTrueProperty = UtilForStrings.hasQuestionType(title);
+                BooleanProperty isTrueProperty = Utils.hasQuestionType(title);
 
                 // Bind the CheckBox's selectedProperty bidirectionally to the BooleanProperty
                 checkbox.selectedProperty().bindBidirectional(isTrueProperty);

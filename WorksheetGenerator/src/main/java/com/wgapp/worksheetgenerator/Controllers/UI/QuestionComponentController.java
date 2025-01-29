@@ -1,4 +1,5 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
+
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Models.Question;
 import com.wgapp.worksheetgenerator.Models.UserAnswer;
@@ -10,9 +11,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 
 public class QuestionComponentController implements Initializable {
@@ -36,9 +37,10 @@ public class QuestionComponentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Model.getInstance().getUserAnswersListProperty().addListener((observable, oldValue, newValue) -> {
-           for(UserAnswer answer : Model.getInstance().getUserAnswersList()){
-              // System.out.println(answer.getQuestionIndex());
-           }
+            if (Model.getInstance().getUserAnswersListProperty().isEmpty()) {
+
+            }
+
         });
 
 
@@ -144,8 +146,19 @@ public class QuestionComponentController implements Initializable {
         choiceRadioBtn2.setSelected(false);
         choiceRadioBtn3.setSelected(false);
         choiceRadioBtn4.setSelected(false);
+
     }
 
+    public void removeShowAnswerStyleClasses(){
+        choiceWrapper1.getStyleClass().remove("correctAnswer");
+        choiceWrapper1.getStyleClass().remove("incorrectAnswer");
+        choiceWrapper2.getStyleClass().remove("correctAnswer");
+        choiceWrapper2.getStyleClass().remove("incorrectAnswer");
+        choiceWrapper3.getStyleClass().remove("correctAnswer");
+        choiceWrapper3.getStyleClass().remove("incorrectAnswer");
+        choiceWrapper4.getStyleClass().remove("correctAnswer");
+        choiceWrapper4.getStyleClass().remove("incorrectAnswer");
+    }
 
     public void showAnswer(String correctAnswer, int questionIndex) {
         // Flag to track if the user's answer is correct

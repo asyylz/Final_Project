@@ -4,8 +4,9 @@ import com.wgapp.worksheetgenerator.Models.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.Models.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Models.Question;
-import com.wgapp.worksheetgenerator.Utils.UtilForStrings;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -41,6 +42,7 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Button closeBtn;
     public Button clearSelectionBtn;
 
+    private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,12 +87,23 @@ public class WorksheetWindowWithPassageController implements Initializable {
         clearSelectionBtn.setOnAction(event -> {
             Model.getInstance().getUserAnswersList().clear();
             onUserAnswersClearedListener();
+            isShowingAnswers.set(false);
+
         });
 
         showAnswersBtn.setOnAction(event -> {
             onShowAnswerBtnClickedHandler();
-
+            isShowingAnswers.set(!isShowingAnswers.get());
         });
+
+        isShowingAnswers.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                showAnswersBtn.setText("Hide Answers");
+            } else {
+                showAnswersBtn.setText("Show Answers");
+            }
+        });
+
 
     }
 
@@ -140,8 +153,8 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
                     // If the controller is present, call the clearSelection method
                     if (controller != null) {
-                        System.out.println("asiye");
                         controller.clearSelection(); // Clear the selection for the current question
+                        controller.removeShowAnswerStyleClasses();
                     }
 
                 }
@@ -153,8 +166,9 @@ public class WorksheetWindowWithPassageController implements Initializable {
     }
 
     private void onShowAnswerBtnClickedHandler() {
-        List<Question> questions = Model.getInstance().getWorksheet().getQuestionList();
+
         try {
+            List<Question> questions = Model.getInstance().getWorksheet().getQuestionList();
             // Iterate through all children in the VBox (userAnswers)
             for (int i = 0; i < innerRight.getChildren().size(); i++) {
                 Node node = innerRight.getChildren().get(i);
@@ -166,22 +180,24 @@ public class WorksheetWindowWithPassageController implements Initializable {
                     // If the controller is present, call the showAnswers method
                     if (controller != null) {
                         for (Question question : questions) {
-                            if (questions.indexOf(question) == nodeIndex) {
+                            if ((questions.indexOf(question) == nodeIndex) && !isShowingAnswers.get()) {
                                 controller.showAnswer(question.getCorrectAnswerText(), questions.indexOf(question));
+                            } else if (isShowingAnswers.get()) {
+                                controller.removeShowAnswerStyleClasses();
                             }
                         }
                     }
                 }
 
             }
+
         } catch (Exception e) {
             e.printStackTrace();
-
-
         }
     }
-
 }
+
+
 
 
 

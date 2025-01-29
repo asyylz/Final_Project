@@ -3,6 +3,8 @@ package com.wgapp.worksheetgenerator.Services;
 
 import com.wgapp.worksheetgenerator.Database.WorksheetDAOImpl;
 import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.Utils.PromtConstants;
+import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.concurrent.Task;
@@ -14,9 +16,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-public class WorksheetService implements  IService {
+public class WorksheetService implements IService {
     private static final String PROMPT_BEGINNING_COMPREHENSION;
-    private  static  final OpenAIService openaiService = new OpenAIService();
+    private static final OpenAIService openaiService = new OpenAIService();
     private static final WorksheetDAOImpl worksheetDAO = new WorksheetDAOImpl();
 
     static {
@@ -48,32 +50,12 @@ public class WorksheetService implements  IService {
 
         List<ComprehensionQuestionTypes> questionTypes = model.getQuestionTypeList();
 
+        // We are  starting to build our prompt  with constant related to Model
+        String initialPrompt = Utils.checkSubSubject();
+
         // Build the prompt
-        StringBuilder promptBuilder = new StringBuilder(PROMPT_BEGINNING_COMPREHENSION);
+        StringBuilder promptBuilder = new StringBuilder(initialPrompt);
         promptBuilder
-                .append("""
-                        Use the following format for the questions:
-                        1. [Question text] ([Question type]) ([Correct Option: X)]
-                        2. [Question text] ([Question type]) ([Correct Option: X)]
-                        
-                        Examples of question structures:
-                        - Question 1: What does the term "quagmire" mean in the passage? (VOCABULARY)(Correct Option: A)
-                          A.[Option Text]
-                          B.[Option Text]
-                          C.[Option Text]
-                          D.[Option Text]
-                        - Question 2: Why did Ferdinand Magellan offer to serve the future Emperor Charles V of Spain? (CHARACTER ANALYSIS)(Correct Option: B)
-                          A.[Option Text]
-                          B.[Option Text]
-                          C.[Option Text]
-                          D.[Option Text]
-                        
-                        Rules:
-                        1. Ensure each question is directly related to the passage.
-                        2. Maintain a balance between difficulty levels across the questions.
-                        3. Format the output as a numbered list.
-                        User Options:
-                        """)
                 .append("\nMain Subject: ").append(mainSubject.toString())
                 .append("\nSub Subject: ").append(subSubject.toString())
                 .append("\nDifficulty Level: ").append(difficultyLevel.toString())
@@ -98,7 +80,7 @@ public class WorksheetService implements  IService {
             worksheet.setDifficultyLevel(difficultyLevel);
 
             // Set Passage in Worksheet object
-            worksheet.setPassage(new Passage( passageTitle, passageText)); // at this point my id is not available since needs to  come from db
+            worksheet.setPassage(new Passage(passageTitle, passageText)); // at this point my id is not available since needs to  come from db
 
             // Persist the worksheet using DAO
             Worksheet savedWorksheet = worksheetDAO.createWorksheet(worksheet);

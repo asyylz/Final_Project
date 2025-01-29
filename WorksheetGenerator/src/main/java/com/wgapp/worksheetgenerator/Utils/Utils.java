@@ -2,14 +2,13 @@ package com.wgapp.worksheetgenerator.Utils;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.Question;
-import com.wgapp.worksheetgenerator.Models.UserAnswer;
+import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.List;
 
-public class UtilForStrings {
+public class Utils {
     public static BooleanProperty hasQuestionType(String checkBoxTextValue) {
 
         List<ComprehensionQuestionTypes> list = Model.getInstance().getQuestionTypeList();
@@ -57,14 +56,20 @@ public class UtilForStrings {
         return new SimpleBooleanProperty(false);
     }
 
-    public static Boolean isUserAnswerCorrect(String correctAnswer) {
+    public static String checkSubSubject() {
 
-        for (UserAnswer answer : Model.getInstance().getUserAnswersList()) {
-            if (answer.getAnswer().equals(correctAnswer)) {
-                return true;
+        switch (Model.getInstance().getSubSubject().get()) {
+            case SubSubjectOptionsEnglish.COMPREHENSION -> {
+                return PromtConstants.PROMPT_BEGINNING_COMPREHENSION;
             }
+            case SubSubjectOptionsEnglish.CLOZETEST -> {
+                return PromtConstants.PROMPT_BEGINNING_CLOZE;
+            }
+            case SubSubjectOptionsEnglish.VOCABULARY -> {
+                return PromtConstants.PROMPT_BEGINNING_VOCABULARY;
+            }
+            default ->
+                    throw new IllegalStateException("Unexpected value: " + Model.getInstance().getSubSubject().get());
         }
-        return false;
-
     }
 }
