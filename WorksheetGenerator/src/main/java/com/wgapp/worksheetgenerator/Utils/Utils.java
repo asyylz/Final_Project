@@ -62,11 +62,15 @@ public class Utils {
             case SubSubjectOptionsEnglish.COMPREHENSION -> {
                 return PromtConstants.PROMPT_BEGINNING_COMPREHENSION;
             }
-            case SubSubjectOptionsEnglish.CLOZETEST -> {
+            case SubSubjectOptionsEnglish.CLOZE_TEST -> {
                 return PromtConstants.PROMPT_BEGINNING_CLOZE;
             }
             case SubSubjectOptionsEnglish.VOCABULARY -> {
                 return PromtConstants.PROMPT_BEGINNING_VOCABULARY;
+            }
+            case SubSubjectOptionsEnglish.SPAG ->
+            {
+                return PromtConstants.PROMPT_BEGINNING_SPAG;
             }
             default ->
                     throw new IllegalStateException("Unexpected value: " + Model.getInstance().getSubSubject().get());

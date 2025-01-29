@@ -1,30 +1,27 @@
 package com.wgapp.worksheetgenerator.Services;
 
-
 import com.wgapp.worksheetgenerator.Database.WorksheetDAOImpl;
 import com.wgapp.worksheetgenerator.Models.*;
-import com.wgapp.worksheetgenerator.Utils.PromtConstants;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 import javafx.concurrent.Task;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
 public class WorksheetService implements IService {
-    private static final String PROMPT_BEGINNING_COMPREHENSION;
+    //private static final String PROMPT_BEGINNING_COMPREHENSION;
     private static final OpenAIService openaiService = new OpenAIService();
     private static final WorksheetDAOImpl worksheetDAO = new WorksheetDAOImpl();
 
     static {
         // Load environment variables from .env file
         Dotenv dotenv = Dotenv.load();
-        PROMPT_BEGINNING_COMPREHENSION = dotenv.get("PROMPT_BEGINNING_COMPREHENSION");
+       // PROMPT_BEGINNING_COMPREHENSION = dotenv.get("PROMPT_BEGINNING_COMPREHENSION");
     }
 
 //    private final OpenAIService openAIService;
@@ -53,7 +50,7 @@ public class WorksheetService implements IService {
         // We are  starting to build our prompt  with constant related to Model
         String initialPrompt = Utils.checkSubSubject();
 
-        // Build the prompt
+        // Build the prompt starting from initial prompt
         StringBuilder promptBuilder = new StringBuilder(initialPrompt);
         promptBuilder
                 .append("\nMain Subject: ").append(mainSubject.toString())

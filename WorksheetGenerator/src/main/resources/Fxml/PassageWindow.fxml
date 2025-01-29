@@ -15,7 +15,8 @@
         <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Clear" />
         <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Close" />
     </VBox>
-    <VBox fx:id="questionTypes" layoutX="639.0" layoutY="90.0" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">
+    <VBox fx:id="questionTypes" layoutX="632.0" layoutY="38.0" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please  choose questio types for your comprehension worksheet,  otherwise all types will be included." wrappingWidth="290.0" />
         <CheckBox fx:id="inferential" mnemonicParsing="false" text="Inferential" />
         <CheckBox fx:id="literal" mnemonicParsing="false" text="Literal" />
         <CheckBox fx:id="summarizing" mnemonicParsing="false" text="Summarizing" />
@@ -26,7 +27,6 @@
         <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
         <CheckBox fx:id="structure" layoutX="10.0" layoutY="203.0" mnemonicParsing="false" text="Structure" />
     </VBox>
-   <Text layoutX="626.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please  choose questio types for your comprehension worksheet,  otherwise all types will be included." wrappingWidth="291.15576171875" />
    <TextField fx:id="passageTitle" layoutX="14.0" layoutY="38.0" prefHeight="34.0" prefWidth="605.0" />
    <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="103.0" />
    <Text layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passage" wrappingWidth="103.0" />

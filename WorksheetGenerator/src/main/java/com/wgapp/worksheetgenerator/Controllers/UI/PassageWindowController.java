@@ -2,6 +2,7 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -36,17 +37,22 @@ public class PassageWindowController implements Initializable {
     public TextArea readingPassage;
     public VBox questionTypes;
     public TextField passageTitle;
-    private BooleanProperty isTrue = new SimpleBooleanProperty(false);
+    private BooleanProperty doesQuestionTypesRequire = new SimpleBooleanProperty();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubject().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
+
         // Set the initial content of the TextArea to the value stored in the model
         readingPassage.setText(Model.getInstance().getPassageContent());
-
         // Set the initial title of the passage to the value stored in the model
         passageTitle.setText(Model.getInstance().getPassageTitle());
 
+        // Listener collection
         addListener();
+
+        questionTypes.visibleProperty().bind(doesQuestionTypesRequire);
+
 
     } // End of initialize
 
@@ -109,7 +115,7 @@ public class PassageWindowController implements Initializable {
     private void onCloseBtnClickedHandler() {
         // We are getting current stage
         Stage currentStage = (Stage) closeBtn.getScene().getWindow();
-        if (Model.getInstance().getQuestionTypeList().isEmpty()) {
+        if (Model.getInstance().getQuestionTypeList().isEmpty() && doesQuestionTypesRequire.get()) {
             Model.getInstance().getViewFactory().showModalWindow("You haven’t chosen any question type." +
                     " All types will be included.");
         } else if (Model.getInstance().getPassageContent().isEmpty()) {

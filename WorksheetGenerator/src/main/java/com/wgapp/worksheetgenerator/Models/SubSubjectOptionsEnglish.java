@@ -5,6 +5,6 @@ import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 public enum SubSubjectOptionsEnglish implements ISubSubjectOptions {
     COMPREHENSION,
     SPAG,
-    CLOZETEST,
+    CLOZE_TEST,
     VOCABULARY
 }

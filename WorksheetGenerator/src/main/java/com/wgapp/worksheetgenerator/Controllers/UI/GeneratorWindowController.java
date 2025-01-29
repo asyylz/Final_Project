@@ -33,6 +33,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public StackPane loadingIndicatorComponent;
     public Button testBtn;
     private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
+    private BooleanProperty doesQuestionTypesRequire = new SimpleBooleanProperty();
 
     private final WorksheetController worksheetController = new WorksheetController();
     private final WorksheetControllerTest worksheetControllerTest = new WorksheetControllerTest();
@@ -45,6 +46,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
+        // Listens for sub subject is comprehension
+        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubject().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
+
 
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
@@ -83,9 +87,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         });
 
         //LISTENER
-        // Set up model the connection subSubjectDropdown
         dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownHandler(dropdownSubSubject));
 
+        // Set up model the connection subSubjectDropdown
         //LISTENER
         // Set up model the connection difficultyLevel
         difficultyLevel.setOnSelectionChanged(difficultyLevelEvent -> {
@@ -164,16 +168,30 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                 && Model.getInstance().getDifficultyLevel() != null
                 && Model.getInstance().getSubSubject() != null;
 
-        boolean isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
-                && !Model.getInstance().getPassageTitle().isEmpty()
-                && !Model.getInstance().getQuestionTypeList().isEmpty();
+        boolean isPassageSectionContentSet;
+
+        if (doesQuestionTypesRequire.get()) {
+            isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
+                    && !Model.getInstance().getPassageTitle().isEmpty()
+                    && !Model.getInstance().getQuestionTypeList().isEmpty();
+
+        } else {
+            isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
+                    && !Model.getInstance().getPassageTitle().isEmpty();
+
+        }
+//        boolean isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
+//                && !Model.getInstance().getPassageTitle().isEmpty()
+//                && !Model.getInstance().getQuestionTypeList().isEmpty();
+
 
         allDropdownsSelected.set(areDropdownsSelected && (isPassageSectionRequired() && isPassageSectionContentSet));
     } // End of checkAllDropdownsSelected
 
     private boolean isPassageSectionRequired() {
         switch (Model.getInstance().getSubSubject().get()) {
-            case SubSubjectOptionsEnglish.COMPREHENSION, SubSubjectOptionsEnglish.CLOZETEST:
+            case SubSubjectOptionsEnglish.COMPREHENSION, SubSubjectOptionsEnglish.CLOZE_TEST,
+                 SubSubjectOptionsEnglish.VOCABULARY,SubSubjectOptionsEnglish.SPAG:
                 return true;
             default:
                 return false;
@@ -186,7 +204,10 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         String selectedSubText = dropdownSubSubject.getSelectedValue();
 
         // If Comprehension is selected , passage window will appear
-        if (selectedSubText.contains("COMPREHENSION")) {
+        if (selectedSubText.contains("COMPREHENSION")
+                || selectedSubText.contains("CLOZE_TEST")
+                || selectedSubText.contains("VOCABULARY")
+                || selectedSubText.contains("SPAG")) {
             passageTextWrapper.setVisible(true);
             passageBtn.setOnAction(event -> {
                 Model.getInstance().getViewFactory().showPassageWindow();
@@ -194,6 +215,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         } else {
             passageTextWrapper.setVisible(false);
         }
+
+        System.out.println(selectedSubText);
         // Cast the text back to ISubSubjectOptions
         ISubSubjectOptions selectedSub = SubSubjectOptionsEnglish.valueOf(selectedSubText); // Assuming enum values match text
         Model.getInstance().setSubSubject(selectedSub);
