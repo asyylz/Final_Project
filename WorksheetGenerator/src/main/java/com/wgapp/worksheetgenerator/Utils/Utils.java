@@ -10,7 +10,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
 import java.util.List;
 
 public class Utils {
@@ -64,7 +67,7 @@ public class Utils {
 
     public static String checkSubSubject() {
 
-        switch (Model.getInstance().getSubSubject().get()) {
+        switch (Model.getInstance().getSubSubjectProperty().get()) {
             case SubSubjectOptionsEnglish.COMPREHENSION -> {
                 return PromtConstants.PROMPT_BEGINNING_COMPREHENSION;
             }
@@ -78,7 +81,67 @@ public class Utils {
                 return PromtConstants.PROMPT_BEGINNING_SPAG;
             }
             default ->
-                    throw new IllegalStateException("Unexpected value: " + Model.getInstance().getSubSubject().get());
+                    throw new IllegalStateException("Unexpected value: " + Model.getInstance().getSubSubjectProperty().get());
+        }
+    }
+
+    public static void setTimer(Text timerLabel) {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds = 1200; // Reset to initial time
+
+        // Update label to show initial time
+        updateTimerLabel(timerLabel);
+
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    timeSeconds--;
+                    updateTimerLabel(timerLabel);
+                    if (timeSeconds <= 0) {
+                        timeline.stop();
+                        // Handle time up
+                        handleTimeUp();
+                    }
+                })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+
+    }
+
+    private static void updateTimerLabel(Text timerLabel) {
+        int minutes = timeSeconds / 60;
+        int seconds = timeSeconds % 60;
+        timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+
+    private static void handleTimeUp() {
+        // What to do when time is up
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Time's Up!");
+        alert.setHeaderText(null);
+        alert.setContentText("Time has expired!");
+        alert.showAndWait();
+    }
+
+    // Methods to control the timer
+    public static void pauseTimer() {
+        if (timeline != null) {
+            timeline.pause();
+        }
+    }
+
+    public static void resumeTimer() {
+        if (timeline != null) {
+            timeline.play();
+        }
+    }
+
+    public static void stopTimer() {
+        if (timeline != null) {
+            timeline.stop();
         }
     }
 

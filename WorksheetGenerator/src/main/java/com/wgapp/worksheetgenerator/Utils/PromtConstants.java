@@ -34,12 +34,12 @@ public class PromtConstants {
                 Create a cloze test worksheet based on the provided passage. The worksheet should have exactly 5 questions, with a focus on vocabulary, grammar, or context-based knowledge. Follow these instructions carefully:
            
                 **Instructions for the passage:**
-                - Rewrite the passage by replacing 5 key words or phrases with blanks (denoted as `________`).
                 - Ensure the blanks test specific knowledge about word usage, grammar, or vocabulary in context.
             
                 **Instructions for the questions:**
-                - Each blank in the passage should correspond to a multiple-choice question.
                 - The questions should ask for the best word or phrase to fit the blank, based on the context in the passage.
+                - There should be 5 questions.
+                - Correct option must append  at end of the question text.
                 - Each question should follow the structure below:
             
                 **Question Format:**

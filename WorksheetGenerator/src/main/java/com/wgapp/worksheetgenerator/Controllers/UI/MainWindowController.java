@@ -1,17 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 import com.wgapp.worksheetgenerator.Models.Model;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,12 +14,12 @@ public class MainWindowController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Listen for changes in the sub-subject
-        Model.getInstance().getSubSubject().addListener((observable, oldValue, newValue) -> {
+        Model.getInstance().getSubSubjectProperty().addListener((observable, oldValue, newValue) -> {
 
         });
 
         // Listen for changes in the main subject
-        Model.getInstance().getMainSubject().addListener((observable, oldValue, newValue) -> {
+        Model.getInstance().getMainSubjectProperty().addListener((observable, oldValue, newValue) -> {
 
         });
 

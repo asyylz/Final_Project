@@ -5,17 +5,21 @@ import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
+import javafx.animation.PauseTransition;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,16 +32,22 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public Pane wrapperCustomDropdownMenuThree;
     public Button generateBtn;
     public HBox passageTextWrapper;
-    public Button passageBtn;
+    public ImageView passageBtn;
     public Button clearSelectionBtn;
     public StackPane loadingIndicatorComponent;
     public Button testBtn;
-    private BooleanProperty allDropdownsSelected = new SimpleBooleanProperty(false);
-    private BooleanProperty doesQuestionTypesRequire = new SimpleBooleanProperty();
+    public ImageView stepOneTick;
+    public ImageView stepTwoTick;
+    public ImageView stepThreeTick;
+    private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
 
     private final WorksheetController worksheetController = new WorksheetController();
     private final WorksheetControllerTest worksheetControllerTest = new WorksheetControllerTest();
 
+    // Initialize CustomDropdowns and populating their content
+    CustomDropdownMenu dropdownMainSubject = new CustomDropdownMenu("MAIN SUBJECT", MainSubjectOptions.values());
+    CustomDropdownMenu dropdownSubSubject = new CustomDropdownMenu("SUB SUBJECT");
+    CustomDropdownMenu difficultyLevel = new CustomDropdownMenu("DIFFICULTY LEVEL", DifficultyLevelOptions.values());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,57 +56,56 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
-        // Listens for sub subject is comprehension
-        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubject().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
-
 
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
         generatorWindowParent.setStyle("-fx-font-family: 'Oswald'; -fx-font-size: 14px;");
 
 
-        // Initialize CustomDropdowns and populating their content
-        CustomDropdownMenu dropdownMainSubject = new CustomDropdownMenu("MAIN SUBJECT", MainSubjectOptions.values());
-        CustomDropdownMenu dropdownSubSubject = new CustomDropdownMenu("SUB SUBJECT");
-        CustomDropdownMenu difficultyLevel = new CustomDropdownMenu("DIFFICULTY LEVEL", DifficultyLevelOptions.values());
-
         // Add CustomDropdownMenus to the associated panes in layout
         wrapperCustomDropdownMenuOne.getChildren().add(dropdownMainSubject);
         wrapperCustomDropdownMenuTwo.getChildren().add(dropdownSubSubject);
         wrapperCustomDropdownMenuThree.getChildren().add(difficultyLevel);
-        passageTextWrapper.setVisible(false);
+
+        stepOneTick.visibleProperty().bind(Model.getInstance().getMainSubjectProperty().isNotNull());
+        stepTwoTick.visibleProperty().bind(Model.getInstance().getSubSubjectProperty().isNotNull());
+        stepThreeTick.visibleProperty().bind(Model.getInstance().getDifficultyLevelProperty().isNotNull());
+        passageTextWrapper.visibleProperty().bind(passageSectionRequiredProperty());
+
+        generateBtn.disableProperty().bind(
+                Bindings.createBooleanBinding(() ->
+                                Model.getInstance().getMainSubjectProperty().get() == null ||
+                                        Model.getInstance().getSubSubjectProperty().get() == null ||
+                                        Model.getInstance().getDifficultyLevel() == null ||
+                                        (passageSectionRequired.get() &&
+                                                (Model.getInstance().getPassageContentProperty().get() == null ||
+                                                        Model.getInstance().getPassageContentProperty().get().isEmpty() ||
+                                                        Model.getInstance().getPassageTitleProperty().get() == null ||
+                                                        Model.getInstance().getPassageTitleProperty().get().isEmpty())),
+                        Model.getInstance().getMainSubjectProperty(),
+                        Model.getInstance().getSubSubjectProperty(),
+                        Model.getInstance().getDifficultyLevelProperty(),
+                        passageSectionRequired,
+                        Model.getInstance().getPassageContentProperty(),
+                        Model.getInstance().getPassageTitleProperty()
+                ));
 
 
         //LISTENER
         // Set up model the connection mainSubjectDropdown
-        dropdownMainSubject.setOnSelectionChanged(event -> {
-            String selectedMain = dropdownMainSubject.getSelectedValue();
-            switch (selectedMain) {
-                case "ENGLISH":
-                    dropdownSubSubject.setDropdownContent(SubSubjectOptionsEnglish.values());
-                    dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
-                    Model.getInstance().setMainSubject(MainSubjectOptions.ENGLISH);
-                    break;
-                case "MATHS":
-                    dropdownSubSubject.setDropdownContent(SubSubjectOptionsMaths.values());
-                    dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
-                    Model.getInstance().setMainSubject(MainSubjectOptions.MATHS);
-                    break;
-            }
-            generateButtonActivationControl();
+        dropdownMainSubject.setOnSelectionChanged(mainSubjectEvent -> {
+            onMainSubjectDropdownHandler();
         });
 
         //LISTENER
-        dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownHandler(dropdownSubSubject));
+        dropdownSubSubject.setOnSelectionChanged(subSubjectEvent -> onSubSubjectDropdownHandler());
 
-        // Set up model the connection subSubjectDropdown
         //LISTENER
         // Set up model the connection difficultyLevel
         difficultyLevel.setOnSelectionChanged(difficultyLevelEvent -> {
             String selectedDifficulty = difficultyLevel.getSelectedValue();
             DifficultyLevelOptions difficultyLevelOptions = DifficultyLevelOptions.valueOf(selectedDifficulty);
             Model.getInstance().setDifficultyLevel(difficultyLevelOptions);
-            generateButtonActivationControl();
         });
 
         //LISTENER
@@ -122,128 +131,133 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         //LISTENER
         clearSelectionBtn.setOnMouseClicked(event -> {
-            dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
-            dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
-            difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
-            allDropdownsSelected.set(false);
-            Model.getInstance().setMainSubject(null);
-            Model.getInstance().setDifficultyLevel(null);
-            Model.getInstance().setSubSubject(null);
-            Model.getInstance().setPassageContent(null);
-            Model.getInstance().setPassageTitle(null);
-            Model.getInstance().removeQuestionsFromList();
+            clearSelectionsHandler();
+            updatePassageSectionRequired();
 
-        });
-
-        // Listener for passage field
-        Model.getInstance().getPassageContentProperty().addListener((observable, oldValue, newValue) -> generateButtonActivationControl());
-
-        // Listener for title field
-        Model.getInstance().getPassageTitleProperty().addListener((observable, oldValue, newValue) -> generateButtonActivationControl());
-
-        // Listener for question list
-        Model.getInstance().getQuestionTypeListProperty().addListener((ListChangeListener<String>) change -> generateButtonActivationControl());
-
-        /* Initially disable the generate button,
-        Bind generate button's disable property to the inverse of allDropdownsSelected ,
-        if passage section required accordingly will be active */
-        generateBtn.disableProperty().bind(allDropdownsSelected.not());
-
-
-        // Test Listener TEST
-        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            loadingIndicatorComponent.setVisible(true);
-            try {
-                worksheetControllerTest.generateWorksheet(); // calling worksheetcontroller
-                //System.out.println("from ui" + worksheet.getPassage());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         });
 
     } // End of initialise
 
-    private void generateButtonActivationControl() {
-        boolean areDropdownsSelected = Model.getInstance().getMainSubject() != null
-                && Model.getInstance().getDifficultyLevel() != null
-                && Model.getInstance().getSubSubject() != null;
-
-        boolean isPassageSectionContentSet;
-
-        if (doesQuestionTypesRequire.get()) {
-            isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
-                    && !Model.getInstance().getPassageTitle().isEmpty()
-                    && !Model.getInstance().getQuestionTypeList().isEmpty();
-
-        } else {
-            isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
-                    && !Model.getInstance().getPassageTitle().isEmpty();
-
-        }
-//        boolean isPassageSectionContentSet = !Model.getInstance().getPassageContent().isEmpty()
-//                && !Model.getInstance().getPassageTitle().isEmpty()
-//                && !Model.getInstance().getQuestionTypeList().isEmpty();
-
-
-        allDropdownsSelected.set(areDropdownsSelected && (isPassageSectionRequired() && isPassageSectionContentSet));
-    } // End of checkAllDropdownsSelected
-
-    private boolean isPassageSectionRequired() {
-        switch (Model.getInstance().getSubSubject().get()) {
-            case SubSubjectOptionsEnglish.COMPREHENSION, SubSubjectOptionsEnglish.CLOZE_TEST,
-                 SubSubjectOptionsEnglish.VOCABULARY,SubSubjectOptionsEnglish.SPAG:
-                return true;
-            default:
-                return false;
-        }
-    } // end of isPassageSectionRequired
-
-
     /*================================= LISTENERS HANDLERS===================================== */
-    private void onSubSubjectDropdownHandler(CustomDropdownMenu dropdownSubSubject) {
-        String selectedSubText = dropdownSubSubject.getSelectedValue();
+    private void onMainSubjectDropdownHandler() {
+        String selectedMain = dropdownMainSubject.getSelectedValue();
+        switch (selectedMain) {
+            case "ENGLISH":
+                dropdownSubSubject.setDropdownContent(SubSubjectOptionsEnglish.values());
+                dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
+                Model.getInstance().setMainSubject(MainSubjectOptions.ENGLISH);
+                if (Model.getInstance().getSubSubjectProperty().get() != null) {
+                    updatePassageSectionRequired();
+                    Model.getInstance().getSubSubjectProperty().set(null);
+                }
+                break;
+            case "MATHS":
+                dropdownSubSubject.setDropdownContent(SubSubjectOptionsMaths.values());
+                dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
+                Model.getInstance().setMainSubject(MainSubjectOptions.MATHS);
+                if (Model.getInstance().getSubSubjectProperty().get() != null) {
+                    Model.getInstance().getSubSubjectProperty().set(null);
+                    updatePassageSectionRequired();
+                }
+                break;
+        }
+    }
 
+    private void onSubSubjectDropdownHandler() {
+        String selectedSubText = dropdownSubSubject.getSelectedValue();
         // If Comprehension is selected , passage window will appear
-        if (selectedSubText.contains("COMPREHENSION")
+        if ((selectedSubText.contains("COMPREHENSION")
                 || selectedSubText.contains("CLOZE_TEST")
                 || selectedSubText.contains("VOCABULARY")
-                || selectedSubText.contains("SPAG")) {
-            passageTextWrapper.setVisible(true);
-            passageBtn.setOnAction(event -> {
+                || selectedSubText.contains("SPAG")
+                && Model.getInstance().getMainSubjectProperty().get().equals(MainSubjectOptions.ENGLISH))) {
+            passageBtn.setOnMouseClicked(event -> {
                 Model.getInstance().getViewFactory().showPassageWindow();
             });
+            // Cast the text back to ISubSubjectOptions
+            ISubSubjectOptions selectedSub = SubSubjectOptionsEnglish.valueOf(selectedSubText); // Assuming enum values match text
+            Model.getInstance().setSubSubject(selectedSub);
+            updatePassageSectionRequired();
         } else {
-            passageTextWrapper.setVisible(false);
+            // Cast the text back to ISubSubjectOptions
+            ISubSubjectOptions selectedSub = SubSubjectOptionsMaths.valueOf(selectedSubText); // Assuming enum values match text
+            Model.getInstance().setSubSubject(selectedSub);
+            updatePassageSectionRequired();
         }
+    }
 
-        System.out.println(selectedSubText);
-        // Cast the text back to ISubSubjectOptions
-        ISubSubjectOptions selectedSub = SubSubjectOptionsEnglish.valueOf(selectedSubText); // Assuming enum values match text
-        Model.getInstance().setSubSubject(selectedSub);
-        generateButtonActivationControl();
+    private void clearSelectionsHandler() {
+        dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
+        dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
+        difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
+        Model.getInstance().setMainSubject(null);
+        Model.getInstance().setDifficultyLevel(null);
+        Model.getInstance().setSubSubject(null);
+        Model.getInstance().setPassageContent(null);
+        Model.getInstance().setPassageTitle(null);
+        Model.getInstance().removeQuestionsFromList();
     }
 
     private void onWorksheetGenerateButtonClickedHandler() {
-
         // Setting loading indicator's visibility to true
         loadingIndicatorComponent.setVisible(true);
 
-        try {
-            // Handle the generated worksheet here
-            worksheetControllerTest.generateWorksheet(); // Use instance method
-        } catch (Exception e) {
-            // Show error to user, perhaps in a dialog
-            e.printStackTrace();
-        } finally {
-            // Setting loading indicator's visibility to false again
-            loadingIndicatorComponent.setVisible(false);
+        // Handle the generated worksheet here
+        worksheetControllerTest.generateWorksheet(); // This method already handles exceptions internally
+
+       clearSelectionsHandler();
+    }
+
+    private void updatePassageSectionRequired() {
+        // Ensure MainSubject is not null before checking its value
+        if (Model.getInstance().getMainSubjectProperty().get() != null &&
+                Model.getInstance().getMainSubjectProperty().get().equals(MainSubjectOptions.ENGLISH)) {
+
+            boolean required = false;
+
+            // Ensure SubSubject is not null before checking its value
+            if (Model.getInstance().getSubSubjectProperty().get() != null) {
+                required = switch (Model.getInstance().getSubSubjectProperty().get()) {
+                    case SubSubjectOptionsEnglish.COMPREHENSION,
+                         SubSubjectOptionsEnglish.CLOZE_TEST,
+                         SubSubjectOptionsEnglish.VOCABULARY,
+                         SubSubjectOptionsEnglish.SPAG -> true;
+                    default -> false;
+                };
+            }
+            passageSectionRequired.set(required);
+        } else {
+            passageSectionRequired.set(false);
         }
+    }
+
+
+    public BooleanProperty passageSectionRequiredProperty() {
+        return passageSectionRequired;
     }
 
     @Override
     public void onWorksheetGenerated(Worksheet worksheet) {
+
         Model.getInstance().setWorksheet(worksheet);
         Model.getInstance().getViewFactory().showWorksheetWindowWithPassage();
+        // Show success message
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("Worksheet Generated");
+        alert.setContentText("Worksheet has been generated successfully!");
+        alert.show();
+
+        // Create a PauseTransition to wait for 5 seconds
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+        // Set an action to close the alert when the time is up
+        pause.setOnFinished(e -> alert.close());
+
+        // Start the pause transition
+        pause.play();
+
+        loadingIndicatorComponent.setVisible(false);
     }
 
 }

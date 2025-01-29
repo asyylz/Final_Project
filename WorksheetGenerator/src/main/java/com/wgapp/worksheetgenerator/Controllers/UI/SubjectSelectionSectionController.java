@@ -22,14 +22,14 @@ public class SubjectSelectionSectionController implements Initializable {
         // Setting English mainSubject by default
        // mainSubject.setValue(Model.getInstance().getViewFactory().getMainSubject());
         //new
-        mainSubject.setValue(Model.getInstance().getMainSubject().getValue());
+        mainSubject.setValue(Model.getInstance().getMainSubjectProperty().getValue());
 
         // Populating subSubject ChoiceBox
         subSubject.setItems(FXCollections.observableArrayList(SubSubjectOptionsEnglish.values()));
         // Setting Comprehension initial SubSubject (default to English)
         //subSubject.setValue(Model.getInstance().getViewFactory().getSubSubject().getValue());
         //new
-        subSubject.setValue(Model.getInstance().getSubSubject().getValue());
+        subSubject.setValue(Model.getInstance().getSubSubjectProperty().getValue());
 
         // Populating schoolYear ChoiceBox
        // schoolYear.setItems(FXCollections.observableArrayList(SchoolYearOptions.values()));
@@ -85,8 +85,8 @@ public class SubjectSelectionSectionController implements Initializable {
             // Calling .set(newValue) directly updates the value and automatically notifies any listeners that are observing this property.
            // Model.getInstance().getViewFactory().getSubSubject().set(newValue);
             //new
-            Model.getInstance().getSubSubject().set(newValue);
-            System.out.println("Sub-Subject: line 89 " + Model.getInstance().getSubSubject());
+            Model.getInstance().getSubSubjectProperty().set(newValue);
+            System.out.println("Sub-Subject: line 89 " + Model.getInstance().getSubSubjectProperty());
         });
     }
 //

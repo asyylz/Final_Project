@@ -22,13 +22,36 @@ public class WorksheetControllerTest {
         observers.add(observer);
     }
 
-    public void generateWorksheet() throws Exception {
-        mockService.generateWorksheetAsync()
+    //    public void generateWorksheet() throws Exception {
+//
+//        try {
+//            mockService.generateWorksheetAsync()
+//                    .thenAccept(worksheet -> {
+//                        Platform.runLater(() -> {
+//                            this.worksheet = worksheet;
+//                            notifyObservers();
+//                        });
+//                    });
+//        }catch (Exception e){
+//
+//        }
+//
+//    }
+    public void generateWorksheet() {
+        worksheetService.generateWorksheetAsync()
                 .thenAccept(worksheet -> {
-                    Platform.runLater(() -> {
-                        this.worksheet = worksheet;
-                        notifyObservers();
-                    });
+                    try {
+                        Platform.runLater(() -> {
+                            this.worksheet = worksheet;
+                            notifyObservers();
+                        });
+                    } catch (Exception e) {
+                        System.err.println("Error updating worksheet: " + e.getMessage());
+                    }
+                })
+                .exceptionally(ex -> {
+                    System.err.println("Error generating worksheet: " + ex.getMessage());
+                    return null;  // Returning null to handle failure
                 });
     }
 

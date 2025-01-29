@@ -15,7 +15,7 @@ public class Model {
 
     // Initialize directly in the field declaration
     private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
-    private DifficultyLevelOptions difficultyLevel;
+    private ObjectProperty<DifficultyLevelOptions> difficultyLevel = new SimpleObjectProperty<>();
     private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>();
 
     // Comprehension
@@ -58,7 +58,7 @@ public class Model {
     }
 
     /*================================= GETTERS AND SETTER ===================================== */
-    public ObjectProperty<MainSubjectOptions> getMainSubject() {
+    public ObjectProperty<MainSubjectOptions> getMainSubjectProperty() {
         return mainSubject;
     }
 
@@ -67,14 +67,18 @@ public class Model {
     }
 
     public DifficultyLevelOptions getDifficultyLevel() {
+        return difficultyLevel.get();
+    }
+
+    public ObjectProperty<DifficultyLevelOptions> getDifficultyLevelProperty() {
         return difficultyLevel;
     }
 
     public void setDifficultyLevel(DifficultyLevelOptions difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
+        this.difficultyLevel.set(difficultyLevel);
     }
 
-    public ObjectProperty<ISubSubjectOptions> getSubSubject() {
+    public ObjectProperty<ISubSubjectOptions> getSubSubjectProperty() {
         return subSubject;
     }
 

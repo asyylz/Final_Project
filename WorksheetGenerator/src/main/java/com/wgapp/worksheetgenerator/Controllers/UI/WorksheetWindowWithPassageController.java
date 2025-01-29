@@ -4,40 +4,41 @@ import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
-import javafx.beans.binding.Bindings;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+=======
+>>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+<<<<<<< HEAD
 import javax.print.DocFlavor;
 import java.io.File;
+=======
+>>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class WorksheetWindowWithPassageController implements Initializable {
     public AnchorPane worksheetWindowWithPassageParent;
@@ -129,6 +130,29 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         downloadWorksheet.setOnMouseClicked(event -> {
             WorksheetPDFGenerator.downloadWorksheetHandler(downloadWorksheet.getScene().getWindow());
+<<<<<<< HEAD
+=======
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Worksheet PDF Generator");
+            alert.setContentText("Worksheet has been saved as PDF successfully.!");
+            alert.show();
+
+            // Create a PauseTransition to wait for 5 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+            // Set an action to close the alert when the time is up
+            pause.setOnFinished(e -> alert.close());
+
+            // Start the pause transition
+            pause.play();
+        });
+
+        timer.setOnMouseClicked(event -> {
+            Utils.setTimer(timerText);
+            isTimerOn.set(!isTimerOn.get());
+>>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
         });
 
         timer.setOnMouseClicked(event -> {

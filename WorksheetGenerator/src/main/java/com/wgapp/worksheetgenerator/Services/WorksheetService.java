@@ -39,8 +39,8 @@ public class WorksheetService implements IService {
     public Worksheet generateWorksheetCallFromController() {
         // Fetch values from the model
         Model model = Model.getInstance();
-        MainSubjectOptions mainSubject = model.getMainSubject().get();
-        ISubSubjectOptions subSubject = model.getSubSubject().get();
+        MainSubjectOptions mainSubject = model.getMainSubjectProperty().get();
+        ISubSubjectOptions subSubject = model.getSubSubjectProperty().get();
         DifficultyLevelOptions difficultyLevel = model.getDifficultyLevel();
         String passageText = model.getPassageContent();
         String passageTitle = model.getPassageTitle();

@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -41,7 +40,7 @@ public class PassageWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubject().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
+        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubjectProperty().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
 
         // Set the initial content of the TextArea to the value stored in the model
         readingPassage.setText(Model.getInstance().getPassageContent());
@@ -92,7 +91,6 @@ public class PassageWindowController implements Initializable {
         });
 
         onComprehensionQuestionTypesListener();
-
         populateCheckBoxes();
 
     }
@@ -112,21 +110,30 @@ public class PassageWindowController implements Initializable {
 
     /*================================= HANDLERS ===================================== */
     private void onCloseBtnClickedHandler() {
-        // We are getting current stage
+        // Get the current stage
         Stage currentStage = (Stage) closeBtn.getScene().getWindow();
-        if (Model.getInstance().getQuestionTypeList().isEmpty() && doesQuestionTypesRequire.get()) {
-            Model.getInstance().getViewFactory().showModalWindow("You haven’t chosen any question type." +
-                    " All types will be included.");
-        } else if (Model.getInstance().getPassageContent().isEmpty()) {
-            Model.getInstance().getViewFactory().showModalWindow("You haven’t set passage, please add a reading passage.");
 
-        } else if (Model.getInstance().getPassageTitle().isEmpty()) {
-            Model.getInstance().getViewFactory().showModalWindow("You haven’t set passage title, please add a reading passage title.");
+        boolean isTitleEmpty = Model.getInstance().getPassageTitle().isEmpty();
+        boolean isPassageEmpty = Model.getInstance().getPassageContent().isEmpty();
+        boolean isQuestionListEmpty = Model.getInstance().getQuestionTypeList().isEmpty();
+
+        if (doesQuestionTypesRequire.get() && isQuestionListEmpty) {
+            Model.getInstance().getViewFactory().showModalWindow(
+                    "You haven’t chosen any question type. All types will be included."
+            );
+        } else if (isPassageEmpty) {
+            Model.getInstance().getViewFactory().showModalWindow(
+                    "You haven’t set passage, please add a reading passage."
+            );
+        } else if (isTitleEmpty) {
+            Model.getInstance().getViewFactory().showModalWindow(
+                    "You haven’t set passage title, please add a reading passage title."
+            );
         } else {
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }
-
     }
+
 
     public void onComprehensionQuestionTypesListener() {
         // Iterate through all children in the VBox (questionTypes)
@@ -153,14 +160,13 @@ public class PassageWindowController implements Initializable {
                     } else {
                         // Remove from the list if unchecked
                         Model.getInstance().getQuestionTypeList().remove(questionType);
-                        // System.out.println("Removed from List: " + questionType);
+
                     }
                 });
 
             }
         }
     }
-
 
     /*================================= BEAUTIFY METHODS ===================================== */
     private void onBeautifyButtonClicked() {
@@ -197,54 +203,3 @@ public class PassageWindowController implements Initializable {
     }
 
 }
-
-
-/*================================= LISTENERS ===================================== */
-//
-//    public void onComprehensionQuestionTypesListener() {
-//
-//        //  for (int i = 0; i < questionTypes.getChildren().size(); i++) {
-//
-//        // VBox contains CheckBox(es), add listener to them
-//        for (int j = 0; j < questionTypes.getChildren().size(); j++) {
-//            Node node = questionTypes.getChildren().get(j);
-//
-//            if (node instanceof CheckBox) {
-//
-//                CheckBox checkbox = (CheckBox) node;
-//                String title = checkbox.getText();
-//
-//                // First checking which types of questions has been selected previously
-//
-//                isTrue = UtilForStrings.hasQuestionType(title);
-//                System.out.println("istrue" +isTrue);
-//
-////                if (isTrue) {
-////                    checkbox.setSelected(true);
-////                }
-//                checkbox.selectedProperty().bindBidirectional(isTrue);
-//
-//                // Add a listener to the selected property of the CheckBox
-//                checkbox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-//                    // Ensure the newValue is valid (check if the checkbox is selected)
-//                    if (newValue != null) {
-//                        ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
-//
-//                        // Add the selected question type to the list if it’s checked
-//                        if (newValue) {
-//                            // Only add if not already in the list
-//                            if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
-//                                Model.getInstance().getQuestionTypeList().add(questionType); // Add to list
-//                                System.out.println("List" + Model.getInstance().getQuestionTypeList());
-//                            }
-//                        } else {
-//                            // Remove the question type from the list if it’s unchecked
-//                            Model.getInstance().getQuestionTypeList().remove(questionType);
-//                            System.out.println("List" + Model.getInstance().getQuestionTypeList());
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//        //}
-//    }
