@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.Model;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -16,11 +17,26 @@ public class LandingWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //OnClick letStartBtn , landing window will be closed and generatingWindow will appear
-        letsStartBtn.setOnAction(e -> {
+//        letsStartBtn.setOnAction(e -> {
+//          Stage stage = (Stage) letsStartBtn.getScene().getWindow(); // it is not null here
+//            Model.getInstance().getViewFactory().closeStage(stage);
+//            Model.getInstance().getViewFactory().showGeneratorWindow();
+//        });
+
+        Platform.runLater(() -> {
             Stage stage = (Stage) letsStartBtn.getScene().getWindow();
-            Model.getInstance().getViewFactory().closeStage(stage);
-            Model.getInstance().getViewFactory().showGeneratorWindow();
+            // In your start method or where you create your stage
+            stage.setOnCloseRequest(event -> {
+                //event.consume(); // This prevents the window from closing
+                Model.getInstance().getViewFactory().showGeneratorWindow();
+
+            });
+
+            letsStartBtn.setOnAction(e -> {
+                Model.getInstance().getViewFactory().closeStage(stage);
+                Model.getInstance().getViewFactory().showGeneratorWindow();
+            });
         });
+
     }
 }

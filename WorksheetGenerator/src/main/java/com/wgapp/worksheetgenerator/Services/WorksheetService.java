@@ -139,7 +139,8 @@ public class WorksheetService implements IService {
                 }
 
                 // Extract question text
-                currentQuestionText = line.substring(line.indexOf(".") + 1).trim();
+                //currentQuestionText = line.substring(line.indexOf(".") + 1).trim();
+                currentQuestionText = line.substring(line.indexOf(". ") -1).trim();
                 System.out.println("currentQuestionText: " + currentQuestionText);
                 // Extract correct option if present
                 if (currentQuestionText.contains("(Correct Option:")) {

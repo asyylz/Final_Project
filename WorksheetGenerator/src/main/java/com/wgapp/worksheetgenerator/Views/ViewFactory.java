@@ -91,6 +91,13 @@ public class ViewFactory {
             e.printStackTrace();
         }
         Stage stage = new Stage();
+
+        // This prevents the window from closing via x button
+        stage.setOnCloseRequest(event -> {
+           // event.consume();
+            //showGeneratorWindow();
+        });
+
         stage.setScene(scene);
         stage.setTitle(stageTitle);
         stage.setMinWidth(width);
