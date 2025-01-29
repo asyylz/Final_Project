@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
@@ -23,13 +25,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class WorksheetWindowWithPassageController implements Initializable {
     public AnchorPane worksheetWindowWithPassageParent;
@@ -57,11 +62,16 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
     public Text scoreText;
+    public ImageView downloadWorksheet;
+    public Circle backgroundCircle4;
+    private final Model model;
 
+    public WorksheetWindowWithPassageController() {
+        this.model = Model.getInstance();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Fetch worksheet details
         int worksheetId = Model.getInstance().getWorksheet().getWorksheetId();
         MainSubjectOptions mainSubject = Model.getInstance().getWorksheet().getMainSubject();
@@ -113,6 +123,12 @@ public class WorksheetWindowWithPassageController implements Initializable {
             isShowingAnswers.set(!isShowingAnswers.get());
         });
 
+        downloadWorksheet.setOnMouseClicked(event -> {
+            downloadWorksheetHandler();
+        });
+
+
+        /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
         DropShadow dropShadow = new DropShadow();
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         dropShadow.setColor(Color.valueOf("#FFF5FA"));
@@ -144,6 +160,13 @@ public class WorksheetWindowWithPassageController implements Initializable {
                 backgroundCircle3.setEffect(null);
             }
         });
+        downloadWorksheet.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle4.setEffect(dropShadow);
+            } else {
+                backgroundCircle4.setEffect(null);
+            }
+        });
 
         isShowingAnswers.addListener((obs, oldVal, newVal) -> {
             if (newVal) {
@@ -152,8 +175,62 @@ public class WorksheetWindowWithPassageController implements Initializable {
                 backgroundCircle1.setEffect(null); // Remove only if not hovering
             }
         });
+        /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
+    }   /*======================================== END OF INITIALIZER =============================================*/
 
+    private void downloadWorksheetHandler() {
+        Worksheet worksheet = model.getWorksheet();
 
+        FileChooser newFileChooser = new FileChooser();
+        newFileChooser.setTitle("Save as a Pdf file");
+        newFileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+        File file = newFileChooser.showSaveDialog(downloadWorksheet.getScene().getWindow());
+
+        // Get worksheet title and passage
+        String title = worksheet.getPassage().getPassageTitle();
+        String passage = worksheet.getPassage().getPassageText();
+       // List<Choice> listOfChoices = worksheet.getQuestionList()
+
+        if (file != null) {
+            // Convert Question objects to strings including their choices
+            List<String> questionTexts = worksheet.getQuestionList().stream()
+                    .map(question -> {
+                        StringBuilder questionWithChoices = new StringBuilder();
+                        questionWithChoices.append(question.getQuestionText()).append("\n");
+
+                        // Add each choice
+                        List<Choice> choices = question.getChoices();
+                        for (int i = 0; i < choices.size(); i++) {
+                         //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
+                            questionWithChoices
+                                    //.append(choiceLetter)
+                                    //.append(") ")
+                                    .append(choices.get(i).getChoiceText())
+                                    .append("\n");
+                        }
+                        questionWithChoices.append("\n"); // Extra line break
+
+                        return questionWithChoices.toString();
+                    })
+                    .collect(Collectors.toList());
+
+            // Generate the PDF
+            WorksheetPDFGenerator.saveWorksheetAsPDF(
+                    title,
+                    passage,
+                    questionTexts,
+                    file.getAbsolutePath()
+            );
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("PDF Generated");
+            alert.setContentText("Worksheet has been saved successfully!");
+            alert.showAndWait();
+        }
     }
 
     private void checkTotalScore() {

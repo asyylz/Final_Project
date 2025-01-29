@@ -61,6 +61,19 @@
                 </ImageView>
             </StackPane>
             <StackPane prefHeight="150.0" prefWidth="200.0">
+                <Circle fx:id="backgroundCircle4" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Circle>
+                <ImageView fx:id="downloadWorksheet" fitHeight="50.0" fitWidth="50.0" translateX="3.0">
+                    <Image url="@../Images/file.png" />
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </ImageView>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
                 <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
                     <cursor>
                         <Cursor fx:constant="HAND" />
