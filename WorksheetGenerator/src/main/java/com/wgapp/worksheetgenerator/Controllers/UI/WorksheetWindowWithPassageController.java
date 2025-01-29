@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.beans.binding.Bindings;
@@ -12,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -28,6 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.print.DocFlavor;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -50,14 +53,11 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text worksheetIdText;
     public Text passageText;
     public Text passageTitle;
-    // public Button showAnswersBtn;
     public ImageView closeBtn;
-    //public Button closeBtn;
     public ImageView clearSelectionBtn;
-    //public Button clearSelectionBtn;
     public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
-    public ImageView questionAndAnswer;
+    private final BooleanProperty isTimerOn = new SimpleBooleanProperty(false);
     public Circle backgroundCircle3;
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
@@ -65,6 +65,10 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public ImageView downloadWorksheet;
     public Circle backgroundCircle4;
     private final Model model;
+    public Circle backgroundCircle5;
+    public Text timerText;
+    public ImageView timer;
+
 
     public WorksheetWindowWithPassageController() {
         this.model = Model.getInstance();
@@ -79,13 +83,13 @@ public class WorksheetWindowWithPassageController implements Initializable {
         DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheet().getDifficultyLevel();
 
         // Setting worksheetId text
-        worksheetIdText.setText("Worksheet Id: " + worksheetId);
+        worksheetIdText.setText(String.valueOf(worksheetId));
         //Setting main subject
-        mainSubjectText.setText("Main Subject: " + (mainSubject.toString().substring(0, 1)) + (mainSubject.toString().substring(1).toLowerCase()));
+        mainSubjectText.setText((mainSubject.toString().substring(0, 1)) + (mainSubject.toString().substring(1)));
         // Setting sub-subject
-        subSubjectText.setText("Sub Subject: " + (subSubject.toString().substring(0, 1)) + (subSubject.toString().substring(1).toLowerCase()));
+        subSubjectText.setText((subSubject.toString().substring(0, 1)) + (subSubject.toString().substring(1)));
         // Setting grade level
-        gradeLevel.setText("Grade Level: " + diffLevel);
+        gradeLevel.setText(diffLevel.toString());
         //Setting passage
         passageText.setText(Model.getInstance().getWorksheet().getPassage().getPassageText());
         //Setting passage title
@@ -124,15 +128,21 @@ public class WorksheetWindowWithPassageController implements Initializable {
         });
 
         downloadWorksheet.setOnMouseClicked(event -> {
-            downloadWorksheetHandler();
+            WorksheetPDFGenerator.downloadWorksheetHandler(downloadWorksheet.getScene().getWindow());
         });
+
+        timer.setOnMouseClicked(event -> {
+            Utils.setTimer(timerText);
+            isTimerOn.set(!isTimerOn.get());
+        });
+
+
 
 
         /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
         DropShadow dropShadow = new DropShadow();
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         dropShadow.setColor(Color.valueOf("#FFF5FA"));
-        // dropShadow.setColor(Color.GRAY);
         dropShadow.setRadius(50);
 
 
@@ -175,63 +185,23 @@ public class WorksheetWindowWithPassageController implements Initializable {
                 backgroundCircle1.setEffect(null); // Remove only if not hovering
             }
         });
+
+        isTimerOn.addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                backgroundCircle5.setEffect(dropShadow);
+            } else if (!timer.isHover()) {
+                backgroundCircle5.setEffect(null);
+            }
+        });
+        timer.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue || isTimerOn.get()) {
+                backgroundCircle5.setEffect(dropShadow);
+            } else {
+                backgroundCircle5.setEffect(null);
+            }
+        });
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
-
-    private void downloadWorksheetHandler() {
-        Worksheet worksheet = model.getWorksheet();
-
-        FileChooser newFileChooser = new FileChooser();
-        newFileChooser.setTitle("Save as a Pdf file");
-        newFileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
-        );
-        File file = newFileChooser.showSaveDialog(downloadWorksheet.getScene().getWindow());
-
-        // Get worksheet title and passage
-        String title = worksheet.getPassage().getPassageTitle();
-        String passage = worksheet.getPassage().getPassageText();
-       // List<Choice> listOfChoices = worksheet.getQuestionList()
-
-        if (file != null) {
-            // Convert Question objects to strings including their choices
-            List<String> questionTexts = worksheet.getQuestionList().stream()
-                    .map(question -> {
-                        StringBuilder questionWithChoices = new StringBuilder();
-                        questionWithChoices.append(question.getQuestionText()).append("\n");
-
-                        // Add each choice
-                        List<Choice> choices = question.getChoices();
-                        for (int i = 0; i < choices.size(); i++) {
-                         //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
-                            questionWithChoices
-                                    //.append(choiceLetter)
-                                    //.append(") ")
-                                    .append(choices.get(i).getChoiceText())
-                                    .append("\n");
-                        }
-                        questionWithChoices.append("\n"); // Extra line break
-
-                        return questionWithChoices.toString();
-                    })
-                    .collect(Collectors.toList());
-
-            // Generate the PDF
-            WorksheetPDFGenerator.saveWorksheetAsPDF(
-                    title,
-                    passage,
-                    questionTexts,
-                    file.getAbsolutePath()
-            );
-
-            // Show success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("PDF Generated");
-            alert.setContentText("Worksheet has been saved successfully!");
-            alert.showAndWait();
-        }
-    }
 
     private void checkTotalScore() {
         int totalScore = 0;

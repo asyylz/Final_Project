@@ -6,13 +6,20 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
+import com.wgapp.worksheetgenerator.Models.Choice;
+import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.Models.Worksheet;
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.stream.Collectors;
 
 public class WorksheetPDFGenerator {
 
-    public static void saveWorksheetAsPDF(String worksheetTitle, String passage, java.util.List<String> questions,String filePath) {
+    public static void saveWorksheetAsPDF(String worksheetTitle, String passage, java.util.List<String> questions, String filePath) {
         System.out.println(filePath);
 
         try {
@@ -45,4 +52,60 @@ public class WorksheetPDFGenerator {
         }
     }
 
+    public static void downloadWorksheetHandler(Window currentWindow) {
+        Worksheet worksheet = Model.getInstance().getWorksheet();
+
+        FileChooser newFileChooser = new FileChooser();
+        newFileChooser.setTitle("Save as a Pdf file");
+        newFileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+        // File file = newFileChooser.showSaveDialog(downloadWorksheet.getScene().getWindow());
+        File file = newFileChooser.showSaveDialog(currentWindow);
+
+        // Get worksheet title and passage
+        String title = worksheet.getPassage().getPassageTitle();
+        String passage = worksheet.getPassage().getPassageText();
+        // List<Choice> listOfChoices = worksheet.getQuestionList()
+
+        if (file != null) {
+            // Convert Question objects to strings including their choices
+            java.util.List<String> questionTexts = worksheet.getQuestionList().stream()
+                    .map(question -> {
+                        StringBuilder questionWithChoices = new StringBuilder();
+                        questionWithChoices.append(question.getQuestionText()).append("\n");
+
+                        // Add each choice
+                        java.util.List<Choice> choices = question.getChoices();
+                        for (int i = 0; i < choices.size(); i++) {
+                            //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
+                            questionWithChoices
+                                    //.append(choiceLetter)
+                                    //.append(") ")
+                                    .append(choices.get(i).getChoiceText())
+                                    .append("\n");
+                        }
+                        questionWithChoices.append("\n"); // Extra line break
+
+                        return questionWithChoices.toString();
+                    })
+                    .collect(Collectors.toList());
+
+            // Generate the PDF
+            WorksheetPDFGenerator.saveWorksheetAsPDF(
+                    title,
+                    passage,
+                    questionTexts,
+                    file.getAbsolutePath()
+            );
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("PDF Generated");
+            alert.setContentText("Worksheet has been saved successfully!");
+            alert.showAndWait();
+        }
+
+    }
 }

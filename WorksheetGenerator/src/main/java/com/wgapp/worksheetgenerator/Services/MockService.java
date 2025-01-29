@@ -61,7 +61,7 @@ public class MockService implements IService {
                 MainSubjectOptions.ENGLISH,
                 SubSubjectOptionsEnglish.COMPREHENSION,
                 listOfQuestions,
-                DifficultyLevelOptions.Grade3,
+                DifficultyLevelOptions.GRADE3,
                 passage
         );
     }

@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
 .worksheetWindow__parent{
     -fx-background-color: #132B40;
-    -fx-padding: 1em;
 
 }
 .worksheetWindow__parent-titlesWrapper {
@@ -40,5 +39,17 @@
     -fx-font-family: "Maven Pro";
     -fx-font-size: 1.2em;
     /*-fx-border-color: red;*/
+}
+.worksheetWindow__bottom Text {
+    -fx-fill:#fbd784;
+    -fx-font-family: Oswald;
+    -fx-font-size: 1em;
+}
+.worksheetWindow__bottomSection-timerText {
+    -fx-font-size: 1.3em;
+    -fx-fill:#fbd784;
+    -fx-background-color: #E6E3E8;
+    -fx-font-weight: 800;
+
 }
 
