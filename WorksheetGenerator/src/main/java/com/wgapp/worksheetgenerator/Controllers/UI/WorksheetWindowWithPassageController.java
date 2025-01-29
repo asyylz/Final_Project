@@ -1,20 +1,27 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.DifficultyLevelOptions;
-import com.wgapp.worksheetgenerator.Models.MainSubjectOptions;
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.Question;
+import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Shadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -38,11 +45,19 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text worksheetIdText;
     public Text passageText;
     public Text passageTitle;
-    public Button showAnswersBtn;
-    public Button closeBtn;
-    public Button clearSelectionBtn;
-
+    // public Button showAnswersBtn;
+    public ImageView closeBtn;
+    //public Button closeBtn;
+    public ImageView clearSelectionBtn;
+    //public Button clearSelectionBtn;
+    public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
+    public ImageView questionAndAnswer;
+    public Circle backgroundCircle3;
+    public Circle backgroundCircle1;
+    public Circle backgroundCircle2;
+    public Text scoreText;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,33 +93,83 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         // Questions being set to Ui
         initializeQuestions();
-        closeBtn.setOnAction(event -> {
+        closeBtn.setOnMouseClicked(event -> {
             Stage currentStage = (Stage) closeBtn.getScene().getWindow();
             currentStage.close();
         });
 
+
         // Clearing all userAnswers
-        clearSelectionBtn.setOnAction(event -> {
+        clearSelectionBtn.setOnMouseClicked(event -> {
             Model.getInstance().getUserAnswersList().clear();
             onUserAnswersClearedListener();
             isShowingAnswers.set(false);
 
         });
 
-        showAnswersBtn.setOnAction(event -> {
+        showAnswersBtn.setOnMouseClicked(event -> {
             onShowAnswerBtnClickedHandler();
+            checkTotalScore();
             isShowingAnswers.set(!isShowingAnswers.get());
         });
 
-        isShowingAnswers.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                showAnswersBtn.setText("Hide Answers");
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        dropShadow.setColor(Color.valueOf("#FFF5FA"));
+        // dropShadow.setColor(Color.GRAY);
+        dropShadow.setRadius(50);
+
+
+        showAnswersBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue || isShowingAnswers.get()) {
+                backgroundCircle1.setEffect(dropShadow); // Apply shadow on hover OR when answers are shown
             } else {
-                showAnswersBtn.setText("Show Answers");
+                backgroundCircle1.setEffect(null); // Remove shadow when not hovering and answers are not shown
+            }
+        });
+
+        clearSelectionBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle2.setEffect(dropShadow);
+            } else {
+                backgroundCircle2.setEffect(null);
+            }
+        });
+
+        closeBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle3.setEffect(dropShadow);
+            } else if (!isShowingAnswers.get()) {
+                System.out.println(isShowingAnswers.toString());
+                backgroundCircle3.setEffect(null);
+            }
+        });
+
+        isShowingAnswers.addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                backgroundCircle1.setEffect(dropShadow); // Keep shadow when showing answers
+            } else if (!showAnswersBtn.isHover()) {
+                backgroundCircle1.setEffect(null); // Remove only if not hovering
             }
         });
 
 
+    }
+
+    private void checkTotalScore() {
+        int totalScore = 0;
+        int numberOfQuestion = Model.getInstance().getWorksheet().getQuestionList().size();
+        List<Question> questionList = Model.getInstance().getWorksheet().getQuestionList();
+        List<UserAnswer> userAnswers = Model.getInstance().getUserAnswersList();
+
+        for (UserAnswer userAnswer : userAnswers) {
+            for (Question question : questionList)
+                if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswerText())) {
+                    totalScore++;
+                }
+        }
+
+        scoreText.setText("Total Score: " + totalScore + "/" + numberOfQuestion);
     }
 
 

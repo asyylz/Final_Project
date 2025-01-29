@@ -47,7 +47,6 @@ public class PassageWindowController implements Initializable {
         readingPassage.setText(Model.getInstance().getPassageContent());
         // Set the initial title of the passage to the value stored in the model
         passageTitle.setText(Model.getInstance().getPassageTitle());
-
         // Listener collection
         addListener();
 

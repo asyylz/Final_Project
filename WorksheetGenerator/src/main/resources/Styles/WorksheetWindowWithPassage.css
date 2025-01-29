@@ -8,12 +8,21 @@
 
 }
 .worksheetWindow__parent-titlesWrapper {
-
+-fx-font-family: Oswald;
+    -fx-font-size: 1.3em;
 }
 
 .passageTitle {
     -fx-font-size: 1.5em;
     -fx-font-weight: 800;
+
+}
+
+.worksheetWindow__topSection Text {
+    -fx-font-size: 1.2em;
+    -fx-fill: #fbd784;
+    -fx-end-margin: 1em;
+    -fx-font-family: Oswald;
 
 }
 

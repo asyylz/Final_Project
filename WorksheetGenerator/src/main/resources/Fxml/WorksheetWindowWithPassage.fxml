@@ -1,26 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="worksheetWindowWithPassageParent" prefHeight="800.0" prefWidth="1100.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWindowWithPassage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
-    <HBox fx:id="topSection" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
-        <VBox prefHeight="100.0" prefWidth="246.0" spacing="5.0" styleClass="worksheetWindow__parent-titlesWrapper">
-            <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="WorksheetId: 1" underline="true" />
-            <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Main Subject:English" />
-            <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Sub-Subject: Comprehension" />
-            <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Grade Level: Grade 3" />
+<AnchorPane fx:id="worksheetWindowWithPassageParent" prefHeight="900.0" prefWidth="1100.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWindowWithPassage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
+    <AnchorPane layoutX="13.0" layoutY="13.0" styleClass="worksheetWindow__topSection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+        <VBox prefHeight="100.0" prefWidth="246.0" styleClass="worksheetWindow__parent-titlesWrapper">
+            <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="WorksheetId: 1" underline="true" />
+            <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Subject:English" />
+            <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub-Subject: Comprehension" />
+            <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" text="Grade Level: Grade 3" />
         </VBox>
-        <Button fx:id="showAnswersBtn" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="198.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Show Answers" />
-        <Button fx:id="clearSelectionBtn" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="198.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Clear Selection" />
-        <Button fx:id="closeBtn" contentDisplay="CENTER" layoutX="494.0" layoutY="39.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="198.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Close" />
-    </HBox>
-    <HBox fx:id="bottomSection" layoutX="14.0" layoutY="100.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" layoutX="768.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <StackPane prefHeight="100.0" prefWidth="200.0">
+                <Circle fx:id="backgroundCircle1" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Circle>
+                <!--        <Button fx:id="clearSelectionBtn" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0"-->
+                <!--                prefWidth="154.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css"-->
+                <!--                text="Clear Selection"/>-->
+                <!--        <Button fx:id="closeBtn" contentDisplay="CENTER" layoutX="494.0" layoutY="39.0" mnemonicParsing="false"-->
+                <!--                prefHeight="50.0" prefWidth="89.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css"-->
+                <!--                text="Close"/>-->
+                <ImageView fx:id="showAnswersBtn" fitHeight="42.0" fitWidth="46.0" translateX="1.0" translateY="5.0">
+                    <Image url="@../Images/answers.png" />
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </ImageView>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+                <Circle fx:id="backgroundCircle2" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Circle>
+                <ImageView fx:id="clearSelectionBtn" fitHeight="50.0" fitWidth="50.0">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <Image url="@../Images/erase.png" />
+                </ImageView>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+                <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Circle>
+                <ImageView fx:id="closeBtn" fitHeight="50.0" fitWidth="55.0" translateX="3.0">
+                    <Image url="@../Images/logout.png" />
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </ImageView>
+            </StackPane>
+        </HBox>
+        <Text fx:id="scoreText" layoutX="246.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__parent-mainTitle" text="Score:" wrappingWidth="147.0" />
+    </AnchorPane>
+    <HBox fx:id="bottomSection" layoutX="26.0" layoutY="126.0" prefHeight="100.0" prefWidth="1074.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
         <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="540.0" HBox.hgrow="ALWAYS">
             <AnchorPane fx:id="innerLeft" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="worksheetWindow__leftSection-inner">
                 <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />

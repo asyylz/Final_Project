@@ -23,7 +23,7 @@ public class WorksheetControllerTest {
     }
 
     public void generateWorksheet() throws Exception {
-        worksheetService.generateWorksheetAsync()
+        mockService.generateWorksheetAsync()
                 .thenAccept(worksheet -> {
                     Platform.runLater(() -> {
                         this.worksheet = worksheet;
