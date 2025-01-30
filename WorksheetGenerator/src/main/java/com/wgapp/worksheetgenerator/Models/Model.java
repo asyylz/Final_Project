@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Models;
 
 
+import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.Views.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import java.util.List;
 public class Model {
     private static Model model;
     private Worksheet worksheet;
+    private UserDTO user;
     private final ViewFactory viewFactory;
 
     // Initialize directly in the field declaration
@@ -27,6 +29,10 @@ public class Model {
 
     //User Answer List
     private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    // User
+    StringProperty userName = new SimpleStringProperty("");
+    StringProperty password = new SimpleStringProperty("");
 
 
     private Model() {
@@ -155,5 +161,28 @@ public class Model {
         userAnswerList.add(choice);
     }
 
+    public String getUserName() {
+        return userName.get();
+    }
+
+    public StringProperty userNameProperty() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName.set(userName);
+    }
+
+    public String getPassword() {
+        return password.get();
+    }
+
+    public StringProperty passwordProperty() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password.set(password);
+    }
 }
 

@@ -4,6 +4,7 @@ import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
 import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.animation.PauseTransition;
 import javafx.beans.binding.Bindings;
@@ -251,21 +252,23 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         Model.getInstance().setWorksheet(worksheet);
         Model.getInstance().getViewFactory().showWorksheetWindowWithPassage();
+
         // Show success message
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText("Worksheet Generated");
-        alert.setContentText("Worksheet has been generated successfully!");
-        alert.show();
-
-        // Create a PauseTransition to wait for 5 seconds
-        PauseTransition pause = new PauseTransition(Duration.seconds(2));
-
-        // Set an action to close the alert when the time is up
-        pause.setOnFinished(e -> alert.close());
-
-        // Start the pause transition
-        pause.play();
+        Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
+//        Alert alert = new Alert();
+//        alert.setTitle();
+//        alert.setHeaderText();
+//        alert.setContentText();
+//        alert.show();
+//
+//        // Create a PauseTransition to wait for 5 seconds
+//        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+//
+//        // Set an action to close the alert when the time is up
+//        pause.setOnFinished(e -> alert.close());
+//
+//        // Start the pause transition
+//        pause.play();
 
         loadingIndicatorComponent.setVisible(false);
     }

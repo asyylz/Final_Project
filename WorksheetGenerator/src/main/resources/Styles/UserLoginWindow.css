@@ -1,27 +1,31 @@
 
-.loginWindow__parent{
-    -fx-font-family:Didot;
-    -fx-background-color:#E8E1DF ;
+.loginWindow__parent {
+    -fx-font-family: Didot;
+    -fx-background-color: #E8E1DF;
 
 }
+
 .decorativePaneTop {
-    -fx-background-color: #fbd784; ;
+    -fx-background-color: #fbd784;;
 
 }
+
 .decorativePaneBottom {
     -fx-background-color: #132B40;
 
 }
 
-.login_mainTitle{
+.login_mainTitle {
     -fx-font-size: 48px;
     -fx-fill: #132B40;
     -fx-font-weight: 800;
 }
-.login_welcomeTitle{
+
+.login_welcomeTitle {
     -fx-font-size: 26px;
-    -fx-font-family:Didot;
+    -fx-font-family: Didot;
 }
+
 .loginSection__wrapper Text {
     -fx-font-size: 1.3em;
     -fx-font-weight: 700;
@@ -33,3 +37,16 @@
     -fx-background-color: #132B40;
 
 }
+
+.loginwindow_userInputFields:focused {
+    -fx-prompt-text-fill: #132B40; /* Change to any colour */
+    -fx-font-weight: 800;
+    -fx-font-size: 22px;
+}
+
+.loginwindow_userInputFields {
+    -fx-prompt-text-fill: #132B40; /* Change to any colour */
+    -fx-font-weight: 800;
+    -fx-font-size: 18px;
+}
+

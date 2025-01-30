@@ -14,6 +14,7 @@ module com.wgapp.worksheetgenerator {
     requires kernel;
     requires layout;
     requires io;
+    requires jbcrypt;
     //  requires com.microsoft.sqlserver.jdbc;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
@@ -24,6 +25,7 @@ module com.wgapp.worksheetgenerator {
     exports com.wgapp.worksheetgenerator.Controllers;
     exports com.wgapp.worksheetgenerator.Models;
     exports com.wgapp.worksheetgenerator.Controllers.UI;
+    exports com.wgapp.worksheetgenerator.DTOs;
 
 
 }
