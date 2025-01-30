@@ -1,0 +1,35 @@
+
+.loginWindow__parent{
+    -fx-font-family:Didot;
+    -fx-background-color:#E8E1DF ;
+
+}
+.decorativePaneTop {
+    -fx-background-color: #fbd784; ;
+
+}
+.decorativePaneBottom {
+    -fx-background-color: #132B40;
+
+}
+
+.login_mainTitle{
+    -fx-font-size: 48px;
+    -fx-fill: #132B40;
+    -fx-font-weight: 800;
+}
+.login_welcomeTitle{
+    -fx-font-size: 26px;
+    -fx-font-family:Didot;
+}
+.loginSection__wrapper Text {
+    -fx-font-size: 1.3em;
+    -fx-font-weight: 700;
+    -fx-fill: #132B40;
+
+}
+
+.decorativePaneMiddle {
+    -fx-background-color: #132B40;
+
+}
