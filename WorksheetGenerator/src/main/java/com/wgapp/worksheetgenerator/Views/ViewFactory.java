@@ -43,34 +43,34 @@ public class ViewFactory {
     public void showGeneratorWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/GeneratorWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/CustomDropdownStyle.css").toExternalForm();
-        createStage(loader, stylesheetPath, 630, 900, "Worksheet Generator");
+        createStage(loader, stylesheetPath, 630, 900, "Worksheet Generator",false);
     }
 
     public void showPassageWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
-        createStage(loader, stylesheetPath, 900, 700, "Reading Passage");
+        createStage(loader, stylesheetPath, 900, 700, "Reading Passage",true);
     }
 
     public void showWorksheetWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/QuestionComponent.css").toExternalForm();
-        createStage(loader, stylesheetPath, 800, 1000, "Worksheet");
+        createStage(loader, stylesheetPath, 800, 1000, "Worksheet",true);
     }
 
     public void showWorksheetWindowWithPassage() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindowWithPassage.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/WorksheetWindowWithPassage.css").toExternalForm();
-        createStage(loader, stylesheetPath, 1100, 1000, "English Worksheet");
+        createStage(loader, stylesheetPath, 1100, 1000, "English Worksheet",true);
     }
   public void showLoginWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/UserLoginWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/UserLoginWindow.css").toExternalForm();
-        createStage(loader, stylesheetPath, 600, 400, "LOGIN/REGISTER");
+        createStage(loader, stylesheetPath, 600, 400, "LOGIN/REGISTER",false);
     }
 
     /*================================= STAGE METHODS ===================================== */
-    private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height, String title) {
+    private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height, String title, Boolean isResizable) {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
@@ -83,7 +83,7 @@ public class ViewFactory {
         stage.setTitle(title);
         stage.setMinWidth(width);
         stage.setMinHeight(height);
-        //stage.setResizable(false);
+        stage.setResizable(isResizable);
         stage.show();
     }
 
