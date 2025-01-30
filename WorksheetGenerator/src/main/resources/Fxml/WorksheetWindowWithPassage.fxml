@@ -77,12 +77,6 @@
                         <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Circle>
-                <!--        <Button fx:id="clearSelectionBtn" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0"-->
-                <!--                prefWidth="154.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css"-->
-                <!--                text="Clear Selection"/>-->
-                <!--        <Button fx:id="closeBtn" contentDisplay="CENTER" layoutX="494.0" layoutY="39.0" mnemonicParsing="false"-->
-                <!--                prefHeight="50.0" prefWidth="89.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css"-->
-                <!--                text="Close"/>-->
                 <ImageView fx:id="showAnswersBtn" fitHeight="42.0" fitWidth="46.0" translateX="1.0" translateY="5.0">
                     <Image url="@../Images/answers.png"/>
                     <cursor>

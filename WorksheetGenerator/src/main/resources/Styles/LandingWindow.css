@@ -34,7 +34,7 @@
     -fx-font-size: 1em;
 }
 
-.startBtn {
+.yellowBtn {
     -fx-alignment: center;
     -fx-background-color: linear-gradient(rgba(251, 215, 132, 1) 30%, rgba(0, 0, 0, 0.7651654411764706) 100%);
     -fx-background-insets: 0, 1;
@@ -55,16 +55,16 @@
     -fx-user-select: none;
 }
 
-.startBtn:hover {
+.yellowBtn:hover {
     -fx-background-color: #fbd784;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
 }
 
-.startBtn:hover {
+.yellowBtn:hover {
     -fx-translate-y: -5px; /* Move the button upwards slightly */
 }
 
-.startBtn:pressed {
+.yellowBtn:pressed {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.06), 4, 0, 0, 2);
     -fx-translate-y: 0; /* Reset translation */
 }

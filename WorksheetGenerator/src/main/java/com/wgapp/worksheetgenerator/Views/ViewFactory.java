@@ -63,6 +63,11 @@ public class ViewFactory {
         String stylesheetPath = getClass().getResource("/Styles/WorksheetWindowWithPassage.css").toExternalForm();
         createStage(loader, stylesheetPath, 1100, 1000, "English Worksheet");
     }
+  public void showLoginWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/UserLoginWindow.fxml"));
+        String stylesheetPath = getClass().getResource("/Styles/UserLoginWindow.css").toExternalForm();
+        createStage(loader, stylesheetPath, 600, 400, "LOGIN/REGISTER");
+    }
 
     /*================================= STAGE METHODS ===================================== */
     private void createStage(FXMLLoader loader, String stylesheetPath, int width, int height, String title) {
