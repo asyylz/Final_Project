@@ -36,7 +36,7 @@
 
 .yellowBtn {
     -fx-alignment: center;
-    -fx-background-color: linear-gradient(rgba(251, 215, 132, 1) 30%, rgba(0, 0, 0, 0.7651654411764706) 100%);
+    -fx-background-color: linear-gradient(rgba(251, 215, 132, 1) 60%, rgba(0, 0, 0, 0.7651654411764706) 100%);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 0.5em; /* Border radius */
     -fx-border-color: transparent;
