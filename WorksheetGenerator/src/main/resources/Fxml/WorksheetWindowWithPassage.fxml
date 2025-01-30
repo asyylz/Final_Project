@@ -179,7 +179,6 @@
         </ScrollPane>
     </HBox>
 
-
     <Text fx:id="timerText" layoutX="1043.0" layoutY="985.0498046875" strokeType="OUTSIDE" strokeWidth="0.0"
           styleClass="worksheetWindow__bottomSection-timerText" textAlignment="CENTER" wrappingWidth="85.17320251464844"
           AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0"/>
