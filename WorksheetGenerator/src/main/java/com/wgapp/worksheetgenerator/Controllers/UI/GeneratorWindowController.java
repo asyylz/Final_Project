@@ -135,6 +135,16 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             updatePassageSectionRequired();
 
         });
+        // Test Listener TEST
+        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            loadingIndicatorComponent.setVisible(true);
+            try {
+                worksheetControllerTest.generateWorksheet(); // calling worksheetcontroller
+                //System.out.println("from ui" + worksheet.getPassage());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     } // End of initialise
 
@@ -205,7 +215,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Handle the generated worksheet here
         worksheetControllerTest.generateWorksheet(); // This method already handles exceptions internally
 
-       clearSelectionsHandler();
+        clearSelectionsHandler();
     }
 
     private void updatePassageSectionRequired() {

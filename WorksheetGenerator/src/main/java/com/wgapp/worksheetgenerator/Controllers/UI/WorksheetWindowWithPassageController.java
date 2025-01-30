@@ -11,11 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-<<<<<<< HEAD
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-=======
->>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -26,19 +21,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-<<<<<<< HEAD
-import javax.print.DocFlavor;
 import java.io.File;
-=======
->>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class WorksheetWindowWithPassageController implements Initializable {
     public AnchorPane worksheetWindowWithPassageParent;
@@ -130,8 +122,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         downloadWorksheet.setOnMouseClicked(event -> {
             WorksheetPDFGenerator.downloadWorksheetHandler(downloadWorksheet.getScene().getWindow());
-<<<<<<< HEAD
-=======
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
@@ -152,15 +142,8 @@ public class WorksheetWindowWithPassageController implements Initializable {
         timer.setOnMouseClicked(event -> {
             Utils.setTimer(timerText);
             isTimerOn.set(!isTimerOn.get());
->>>>>>> 5444e83 (Notify the user once the worksheet has been successfully loaded. (close #9))
+
         });
-
-        timer.setOnMouseClicked(event -> {
-            Utils.setTimer(timerText);
-            isTimerOn.set(!isTimerOn.get());
-        });
-
-
 
 
         /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
@@ -226,6 +209,61 @@ public class WorksheetWindowWithPassageController implements Initializable {
         });
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
+
+    private void downloadWorksheetHandler() {
+        Worksheet worksheet = model.getWorksheet();
+
+        FileChooser newFileChooser = new FileChooser();
+        newFileChooser.setTitle("Save as a Pdf file");
+        newFileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+        File file = newFileChooser.showSaveDialog(downloadWorksheet.getScene().getWindow());
+
+        // Get worksheet title and passage
+        String title = worksheet.getPassage().getPassageTitle();
+        String passage = worksheet.getPassage().getPassageText();
+       // List<Choice> listOfChoices = worksheet.getQuestionList()
+
+        if (file != null) {
+            // Convert Question objects to strings including their choices
+            List<String> questionTexts = worksheet.getQuestionList().stream()
+                    .map(question -> {
+                        StringBuilder questionWithChoices = new StringBuilder();
+                        questionWithChoices.append(question.getQuestionText()).append("\n");
+
+                        // Add each choice
+                        List<Choice> choices = question.getChoices();
+                        for (int i = 0; i < choices.size(); i++) {
+                         //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
+                            questionWithChoices
+                                    //.append(choiceLetter)
+                                    //.append(") ")
+                                    .append(choices.get(i).getChoiceText())
+                                    .append("\n");
+                        }
+                        questionWithChoices.append("\n"); // Extra line break
+
+                        return questionWithChoices.toString();
+                    })
+                    .collect(Collectors.toList());
+
+            // Generate the PDF
+            WorksheetPDFGenerator.saveWorksheetAsPDF(
+                    title,
+                    passage,
+                    questionTexts,
+                    file.getAbsolutePath()
+            );
+
+            // Show success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("PDF Generated");
+            alert.setContentText("Worksheet has been saved successfully!");
+            alert.showAndWait();
+        }
+    }
 
     private void checkTotalScore() {
         int totalScore = 0;

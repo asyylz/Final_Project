@@ -38,7 +38,7 @@ public class WorksheetControllerTest {
 //
 //    }
     public void generateWorksheet() {
-        worksheetService.generateWorksheetAsync()
+        mockService.generateWorksheetAsync()
                 .thenAccept(worksheet -> {
                     try {
                         Platform.runLater(() -> {
