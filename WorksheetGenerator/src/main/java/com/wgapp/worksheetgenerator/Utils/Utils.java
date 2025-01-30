@@ -4,6 +4,7 @@ import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.Models.Model;
 import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -82,6 +83,8 @@ public class Utils {
         }
     }
 
+
+    /*====================================== TIMER ====================================*/
     public static void setTimer(Text timerLabel) {
         if (timeline != null) {
             timeline.stop();
@@ -142,7 +145,23 @@ public class Utils {
         }
     }
 
+public static void  notifyUser(String message, String header, String title, Alert.AlertType alertType) {
+        // Show success message
+    Alert alert = new Alert(alertType);
+    alert.setTitle(title);
+    alert.setHeaderText(header);
+    alert.setContentText(message);
+    alert.show();
 
+    // Create a PauseTransition to wait for 5 seconds
+    PauseTransition pause = new PauseTransition(Duration.seconds(2));
 
+    // Set an action to close the alert when the time is up
+    pause.setOnFinished(e -> alert.close());
+
+    // Start the pause transition
+    pause.play();
+
+    }
 
 }

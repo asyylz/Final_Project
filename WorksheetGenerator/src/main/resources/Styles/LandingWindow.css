@@ -58,10 +58,11 @@
 .yellowBtn:hover {
     -fx-background-color: #fbd784;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-translate-y: -5px; /* Move the button upwards slightly */
 }
 
 .yellowBtn:hover {
-    -fx-translate-y: -5px; /* Move the button upwards slightly */
+
 }
 
 .yellowBtn:pressed {
@@ -70,4 +71,9 @@
 }
 
 
+.yellowBtn:focused{
+    -fx-background-color: #fbd784;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-translate-y: -5px; /* Move the button upwards slightly */
+}
 
