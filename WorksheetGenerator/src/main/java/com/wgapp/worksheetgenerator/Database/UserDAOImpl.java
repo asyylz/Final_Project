@@ -38,11 +38,11 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
 
-            throw new SQLException("Failed to create user, no rows affected.");
+            throw new CustomDatabaseException("Failed to create user, no rows affected.");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error creating user in database", e);
+            throw new CustomDatabaseException(e);
         }
     }
 
@@ -55,7 +55,6 @@ public class UserDAOImpl implements UserDAO {
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, username);
-            System.out.println("from DA)" + password);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     String storedHashedPassword = rs.getString("user_password");
@@ -70,17 +69,19 @@ public class UserDAOImpl implements UserDAO {
 
                         return user;
                     } else {
-                        throw new RuntimeException("Invalid password");
+                        throw new CustomDatabaseException("Your password is incorrect. Please try again.");
                     }
                 }
             }
-            throw new RuntimeException("User not found");
+            throw new CustomDatabaseException("Your username is incorrect.");
 
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error retrieving user", e);
         }
     }
+
+
 
     //Repo/DAO
     @Override
@@ -101,11 +102,55 @@ public class UserDAOImpl implements UserDAO {
             }
 
         } catch (SQLException e) {
-            throw new CustomDatabaseException("Failed to update PIN for user: " + username, e);
+            throw new CustomDatabaseException(e);
         }
 
 
     }
+
+    @Override
+    public void updatePassword(String username, String oldPassword, String newPassword) {
+        String sqlSelect = "SELECT user_password FROM users WHERE user_name = ?";
+        String sqlUpdate = "UPDATE users SET user_password = ? WHERE user_name = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement selectStmt = connection.prepareStatement(sqlSelect);
+             PreparedStatement updateStmt = connection.prepareStatement(sqlUpdate)) {
+
+            // Step 1: Fetch the stored hashed password from the database
+            selectStmt.setString(1, username);
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (!rs.next()) {
+                throw new CustomDatabaseException("User not found with username: " + username);
+            }
+
+            String storedHashedPassword = rs.getString("user_password");
+            System.out.println(storedHashedPassword);
+            // Step 2: Compare the old password with the stored hash
+            if (!BCrypt.checkpw(oldPassword, storedHashedPassword)) {
+                throw new CustomDatabaseException("Incorrect old password.");
+            }
+
+            // Step 3: Hash the new password
+            String newHashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+
+            // Step 4: Update the password in the database
+            updateStmt.setString(1, newHashedPassword);
+            updateStmt.setString(2, username);
+            int affectedRows = updateStmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating password failed, no user found with username: " + username);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating password in database", e);
+        }
+    }
+
 }
 
 

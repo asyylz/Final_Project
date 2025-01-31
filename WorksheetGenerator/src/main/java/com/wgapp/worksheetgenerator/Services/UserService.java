@@ -6,4 +6,5 @@ public interface UserService {
     UserDTO register(UserDTO userDTO);
     UserDTO login(UserDTO userDTO)  ;
     void setPinNumber(UserDTO userDTO);
+    void updatePassword(UserDTO userDTO);
 }

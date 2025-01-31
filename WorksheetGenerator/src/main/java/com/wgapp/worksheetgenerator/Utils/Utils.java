@@ -155,7 +155,7 @@ public class Utils {
         alert.setHeaderText(header);
         alert.setContentText(message);
 
-        if (alertType == Alert.AlertType.INFORMATION || alertType == Alert.AlertType.NONE) {
+        if (alertType == Alert.AlertType.INFORMATION) {
             alert.show();
 
             // Auto-close after 2 seconds

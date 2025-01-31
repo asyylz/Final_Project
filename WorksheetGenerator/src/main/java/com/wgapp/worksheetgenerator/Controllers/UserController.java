@@ -18,16 +18,18 @@ public class UserController {
 
     }
 
-    //UserController
+
     public void loginUser(UserDTO userDTO) {
         userService.login(userDTO);
     }
 
 
-    //Controller
-    public  void setPin(UserDTO userDTO) {
+    public void setPin(UserDTO userDTO) {
         userService.setPinNumber(userDTO);
     }
 
+    public void updatePassword(UserDTO userDTO) {
+        userService.updatePassword(userDTO);
+    }
 
 }

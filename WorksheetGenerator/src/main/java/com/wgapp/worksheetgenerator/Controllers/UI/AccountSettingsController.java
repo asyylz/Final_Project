@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,12 +30,26 @@ public class AccountSettingsController implements Initializable {
         createPinBtn.setOnAction(e -> {
             String pin = pinNumberField.getText();
             String confirmPin = pinNumberConfirmField.getText();
-            if(pin.equals(confirmPin)) {
+            if (pin.equals(confirmPin)) {
                 userController.setPin(new UserDTO(Model.getInstance().getUserName(), Integer.parseInt(pin)));
                 pinNumberField.clear();
                 pinNumberConfirmField.clear();
             }
-            Utils.notifyUser("PIN successfully created.","Pin Creation","Success", Alert.AlertType.INFORMATION);
+            Utils.notifyUser("PIN successfully created.", "Pin Creation", "Success", Alert.AlertType.INFORMATION);
+        });
+
+        updatePasswordBtn.setOnAction(e -> {
+            String oldPassword = oldPasswordField.getText();
+            String confirmPassword = confirmPasswordField.getText();
+            String newPassword = newPasswordField.getText();
+
+            System.out.println(oldPassword);
+            System.out.println(confirmPassword);
+            System.out.println(newPassword);
+            if (newPassword.equals(confirmPassword)) {
+                userController.updatePassword(new UserDTO(Model.getInstance().getUserName(), oldPassword, newPassword));
+                Utils.notifyUser("Password successfully updated.", "Password Update", "Success", Alert.AlertType.INFORMATION);
+            }
         });
 
     }
