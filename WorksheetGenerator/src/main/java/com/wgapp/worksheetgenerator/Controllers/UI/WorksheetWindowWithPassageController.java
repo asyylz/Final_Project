@@ -22,16 +22,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+
 
 public class WorksheetWindowWithPassageController implements Initializable {
     public AnchorPane worksheetWindowWithPassageParent;
@@ -56,7 +54,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text scoreText;
     public ImageView downloadWorksheet;
     public Circle backgroundCircle4;
-    private final Model model;
     public Circle backgroundCircle5;
     public Text timerText;
     public ImageView timer;
@@ -64,11 +61,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text userNameAfterLogin;
     public ImageView avatar;
     public ImageView backWindowBtn;
-
-
-    public WorksheetWindowWithPassageController() {
-        this.model = Model.getInstance();
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -232,9 +224,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
 
-    private  void deneme(){
-        scoreText.setText("Score: 0");
-    }
     private void checkTotalScore() {
         int totalScore = 0;
         int numberOfQuestion = Model.getInstance().getWorksheet().getQuestionList().size();
