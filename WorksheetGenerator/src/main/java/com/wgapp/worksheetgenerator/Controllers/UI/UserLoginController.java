@@ -64,8 +64,9 @@ public class UserLoginController implements Initializable {
             }
         });
 
-        userNameField.textProperty().bindBidirectional(Model.getInstance().userNameProperty());
-        passwordField.textProperty().bindBidirectional(Model.getInstance().passwordProperty());
+        //userNameField.textProperty().bindBidirectional(Model.getInstance().userNameProperty());
+        //passwordField.textProperty().bindBidirectional(Model.getInstance().passwordProperty());
+       // Model.getInstance().userNameProperty().bind(userNameField.textProperty());
 
         registerBtn.disableProperty().bind(
                 Bindings.createBooleanBinding(() ->
@@ -144,7 +145,6 @@ public class UserLoginController implements Initializable {
 
 
         if (!isRegisterMode.get()) { //
-            System.out.println(userNameField.getText());
             userController.loginUser(new UserDTO(userNameField.getText(), passwordField.getText()));
 
             Model.getInstance().getViewFactory().showLandingWindow();
@@ -152,6 +152,8 @@ public class UserLoginController implements Initializable {
             Utils.notifyUser("You successfully logged in!", "Login", "Success", Alert.AlertType.INFORMATION);
 
             Stage currentStage = (Stage) loginWindowParent.getScene().getWindow();
+
+            Model.getInstance().setUserName(userNameField.getText());
 
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }

@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 .generatorWindow__container {
-    -fx-background-color:#132B40 ;
+    -fx-background-color: #132B40;
     -fx-font-family: "Oswald";
     -fx-fill: #fbd784;
 }
@@ -16,12 +16,12 @@
 
 }
 
-.generatorWindow__container_choiceBox {
-
-
-
+.userNameNearAvatar {
+    -fx-fill:#F2A649 ;
+    -fx-font-size: 14px;
+    -fx-font-family: Oswald;
+    -fx-font-weight: 800;
 }
-
 
 
 

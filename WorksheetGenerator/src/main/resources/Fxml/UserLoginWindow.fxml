@@ -25,8 +25,8 @@
             <Text fx:id="confirmPasswordText" layoutX="10.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" />
          <PasswordField fx:id="confirmPasswordField" prefHeight="40.0" prefWidth="250.0" />
             <HBox fx:id="loginButtonsWrapper" spacing="20.0" translateY="20.0">
-                <Button fx:id="loginBtn" minHeight="39.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="yellowBtn" stylesheets="@../Styles/LandingWindow.css" text="Login" />
-                <Button fx:id="registerBtn" layoutX="10.0" layoutY="10.0" minHeight="39.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="yellowBtn" stylesheets="@../Styles/LandingWindow.css" text="Register" />
+                <Button fx:id="loginBtn" minHeight="39.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="yellowBtn" stylesheets="@../Styles/YellowBtn.css" text="Login" />
+                <Button fx:id="registerBtn" layoutX="10.0" layoutY="10.0" minHeight="39.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" styleClass="yellowBtn" stylesheets="@../Styles/YellowBtn.css" text="Register" />
             </HBox>
         </VBox>
         <effect>

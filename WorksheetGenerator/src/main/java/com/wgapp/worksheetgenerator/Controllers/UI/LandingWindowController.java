@@ -17,11 +17,7 @@ public class LandingWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-//        letsStartBtn.setOnAction(e -> {
-//          Stage stage = (Stage) letsStartBtn.getScene().getWindow(); // it is not null here
-//            Model.getInstance().getViewFactory().closeStage(stage);
-//            Model.getInstance().getViewFactory().showGeneratorWindow();
-//        });
+        letsStartBtn.setFocusTraversable(Boolean.FALSE);
 
         Platform.runLater(() -> {
             Stage stage = (Stage) letsStartBtn.getScene().getWindow();

@@ -39,14 +39,13 @@
 }
 
 .loginwindow_userInputFields:focused {
-    -fx-prompt-text-fill: #132B40; /* Change to any colour */
+    -fx-prompt-text-fill: #132B40;
     -fx-font-weight: 800;
     -fx-font-size: 22px;
 }
 
 .loginwindow_userInputFields {
-    -fx-prompt-text-fill: #132B40; /* Change to any colour */
+    -fx-prompt-text-fill: #132B40;
     -fx-font-weight: 800;
     -fx-font-size: 18px;
 }
-

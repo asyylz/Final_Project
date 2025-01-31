@@ -11,9 +11,9 @@
 <AnchorPane fx:id="passageWrapper" prefHeight="716.0" prefWidth="930.0" styleClass="passageWindow__wrapper" stylesheets="@../Styles/PassageWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.PassageWindowController">
     <TextArea fx:id="readingPassage" layoutX="14.0" layoutY="110.0" prefHeight="593.0" prefWidth="605.0" />
     <VBox fx:id="wrapperBtns" layoutX="646.0" layoutY="407.0" prefHeight="182.0" prefWidth="178.0" spacing="10.0">
-        <Button fx:id="beautifyBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Beautify" />
-        <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Clear" />
-        <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/ButtonStyles.css" text="Close" />
+        <Button fx:id="beautifyBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" styleClass="startBtn" stylesheets="@../Styles/YellowBtn.css" text="Beautify" />
+        <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/YellowBtn.css" text="Clear" />
+        <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="startBtn" stylesheets="@../Styles/YellowBtn.css" text="Close" />
     </VBox>
     <VBox fx:id="questionTypes" layoutX="632.0" layoutY="38.0" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please  choose questio types for your comprehension worksheet,  otherwise all types will be included." wrappingWidth="290.0" />
