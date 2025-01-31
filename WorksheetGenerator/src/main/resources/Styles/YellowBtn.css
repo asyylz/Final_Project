@@ -1,6 +1,6 @@
-.startBtn {
+.yellowBtn {
     -fx-alignment: center;
-    -fx-background-color: linear-gradient(#F2F2F2 0%, #595856 100%);
+    -fx-background-color: linear-gradient(rgba(251, 215, 132, 1) 60%, rgba(0, 0, 0, 0.7651654411764706) 100%);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 0.5em; /* Border radius */
     -fx-border-color: transparent;
@@ -9,27 +9,30 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.02), 3, 0, 0, 1); /* Shadow effect */
     -fx-text-fill: #0B1D26;
     -fx-font-family: "Oswald", "Helvetica", "Arial", "sans-serif";
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-font-weight: 600;
     -fx-padding: 0.5em 1em; /* Adjusted padding */
-    -fx-cursor: hand; /* Pointer cursor */
     -fx-line-height: 1.25;
     -fx-min-height: 2.5em;
     -fx-transition: all 250ms;
     -fx-user-select: none;
-
 }
 
-.startBtn:hover {
-    -fx-background-color: #AAAAAA;
+.yellowBtn:hover {
+    -fx-background-color: #fbd784;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
-}
-
-.startBtn:hover {
     -fx-translate-y: -5px; /* Move the button upwards slightly */
+    -fx-cursor: HAND;
 }
 
-.startBtn:pressed {
+.yellowBtn:pressed {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.06), 4, 0, 0, 2);
     -fx-translate-y: 0; /* Reset translation */
+}
+
+
+.yellowBtn:focused{
+    -fx-background-color: #fbd784;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-translate-y: -5px; /* Move the button upwards slightly */
 }

@@ -5,6 +5,7 @@ import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,6 @@ import java.util.stream.Collectors;
 
 public class WorksheetWindowWithPassageController implements Initializable {
     public AnchorPane worksheetWindowWithPassageParent;
-    public HBox topSection;
     public HBox bottomSection;
     public ScrollPane bottomLeftSection;
     public ScrollPane bottomRightSection;
@@ -46,7 +46,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Text worksheetIdText;
     public Text passageText;
     public Text passageTitle;
-    public ImageView closeBtn;
     public ImageView clearSelectionBtn;
     public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
@@ -61,6 +60,10 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Circle backgroundCircle5;
     public Text timerText;
     public ImageView timer;
+    public HBox userAvatarWrapper;
+    public Text userNameAfterLogin;
+    public ImageView avatar;
+    public ImageView backWindowBtn;
 
 
     public WorksheetWindowWithPassageController() {
@@ -88,6 +91,9 @@ public class WorksheetWindowWithPassageController implements Initializable {
         //Setting passage title
         passageTitle.setText(Model.getInstance().getWorksheet().getPassage().getPassageTitle());
 
+        // Setting  user name near avatar
+        userNameAfterLogin.setText(Model.getInstance().getUserName());
+
         // Dynamically update wrapping width for passageText based on the width of innerLeft
         bottomLeftSection.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue() - 40; // Adjust for padding or margins
@@ -100,8 +106,8 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         // Questions being set to Ui
         initializeQuestions();
-        closeBtn.setOnMouseClicked(event -> {
-            Stage currentStage = (Stage) closeBtn.getScene().getWindow();
+        backWindowBtn.setOnMouseClicked(event -> {
+            Stage currentStage = (Stage) backWindowBtn.getScene().getWindow();
             currentStage.close();
         });
 
@@ -145,6 +151,22 @@ public class WorksheetWindowWithPassageController implements Initializable {
 
         });
 
+        avatar.setOnMouseClicked(event -> {
+            BooleanProperty isLogout = Utils.notifyUser("Would you like to log out ?", "Logout request", "Logout", Alert.AlertType.CONFIRMATION);
+
+//            if (isLogout.get()) {
+//                Stage currentStage = (Stage) avatar.getScene().getWindow();
+//                Model.getInstance().getViewFactory().closeStage(currentStage);
+//                Model.getInstance().setUserName(null);
+//            }
+
+            if (isLogout.get()) {
+                Platform.exit(); // Closes all stages and stops JavaFX
+                System.exit(0);  // Ensures JVM stops completely (optional)
+            }
+
+        });
+
 
         /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
         DropShadow dropShadow = new DropShadow();
@@ -169,7 +191,7 @@ public class WorksheetWindowWithPassageController implements Initializable {
             }
         });
 
-        closeBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+        backWindowBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 backgroundCircle3.setEffect(dropShadow);
             } else if (!isShowingAnswers.get()) {
@@ -210,61 +232,9 @@ public class WorksheetWindowWithPassageController implements Initializable {
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
 
-    private void downloadWorksheetHandler() {
-        Worksheet worksheet = model.getWorksheet();
-
-        FileChooser newFileChooser = new FileChooser();
-        newFileChooser.setTitle("Save as a Pdf file");
-        newFileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
-        );
-        File file = newFileChooser.showSaveDialog(downloadWorksheet.getScene().getWindow());
-
-        // Get worksheet title and passage
-        String title = worksheet.getPassage().getPassageTitle();
-        String passage = worksheet.getPassage().getPassageText();
-       // List<Choice> listOfChoices = worksheet.getQuestionList()
-
-        if (file != null) {
-            // Convert Question objects to strings including their choices
-            List<String> questionTexts = worksheet.getQuestionList().stream()
-                    .map(question -> {
-                        StringBuilder questionWithChoices = new StringBuilder();
-                        questionWithChoices.append(question.getQuestionText()).append("\n");
-
-                        // Add each choice
-                        List<Choice> choices = question.getChoices();
-                        for (int i = 0; i < choices.size(); i++) {
-                         //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
-                            questionWithChoices
-                                    //.append(choiceLetter)
-                                    //.append(") ")
-                                    .append(choices.get(i).getChoiceText())
-                                    .append("\n");
-                        }
-                        questionWithChoices.append("\n"); // Extra line break
-
-                        return questionWithChoices.toString();
-                    })
-                    .collect(Collectors.toList());
-
-            // Generate the PDF
-            WorksheetPDFGenerator.saveWorksheetAsPDF(
-                    title,
-                    passage,
-                    questionTexts,
-                    file.getAbsolutePath()
-            );
-
-            // Show success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("PDF Generated");
-            alert.setContentText("Worksheet has been saved successfully!");
-            alert.showAndWait();
-        }
+    private  void deneme(){
+        scoreText.setText("Score: 0");
     }
-
     private void checkTotalScore() {
         int totalScore = 0;
         int numberOfQuestion = Model.getInstance().getWorksheet().getQuestionList().size();

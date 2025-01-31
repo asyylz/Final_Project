@@ -9,10 +9,12 @@ import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Utils {
 
@@ -145,23 +147,31 @@ public class Utils {
         }
     }
 
-public static void  notifyUser(String message, String header, String title, Alert.AlertType alertType) {
-        // Show success message
-    Alert alert = new Alert(alertType);
-    alert.setTitle(title);
-    alert.setHeaderText(header);
-    alert.setContentText(message);
-    alert.show();
+    public static BooleanProperty notifyUser(String message, String header, String title, Alert.AlertType alertType) {
+        BooleanProperty userResponse = new SimpleBooleanProperty(false); // Default is false
 
-    // Create a PauseTransition to wait for 5 seconds
-    PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
 
-    // Set an action to close the alert when the time is up
-    pause.setOnFinished(e -> alert.close());
+        if (alertType == Alert.AlertType.INFORMATION) {
+            alert.show();
 
-    // Start the pause transition
-    pause.play();
+            // Auto-close after 2 seconds
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> alert.close());
+            pause.play();
 
+        } else if (alertType == Alert.AlertType.CONFIRMATION) {
+            Optional<ButtonType> result = alert.showAndWait();
+            userResponse.set(result.isPresent() && result.get() == ButtonType.OK); // Set property value based on user action
+        } else {
+            alert.showAndWait();
+        }
+
+        return userResponse;
     }
+
 
 }
