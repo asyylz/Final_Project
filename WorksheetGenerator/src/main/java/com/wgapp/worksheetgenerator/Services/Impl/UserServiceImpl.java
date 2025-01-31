@@ -4,6 +4,8 @@ import com.wgapp.worksheetgenerator.Database.UserEntity;
 import com.wgapp.worksheetgenerator.Database.UserDAOImpl;
 import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.Services.UserService;
+import com.wgapp.worksheetgenerator.Utils.Utils;
+import javafx.scene.control.Alert;
 
 public class UserServiceImpl implements UserService {
 
@@ -13,7 +15,7 @@ public class UserServiceImpl implements UserService {
         this.userDAO = userDAO;
     }
 
-    public UserServiceImpl( ) {
+    public UserServiceImpl() {
         this.userDAO = userDAO;
     }
 
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
         String password = userDTO.getPassword();
         String validationMessage = getPasswordValidationMessage(password);
         if (validationMessage != null) {
+            Utils.notifyUser(validationMessage,"Invalid Password","Password Error", Alert.AlertType.ERROR);
             throw new IllegalArgumentException(validationMessage);
         }
 
@@ -48,14 +51,23 @@ public class UserServiceImpl implements UserService {
         return new UserDTO(userEntity.getUsername(), userEntity.getPinNumber());
     }
 
+    // service
+    @Override
+    public void setPinNumber(UserDTO userDTO) {
+        userDAO.setPinNumber(userDTO.getPinNumber(), userDTO.getUsername());
+    }
 
+    @Override
+    public void updatePassword(UserDTO userDTO) {
+        String oldPassword = userDTO.getOldPassword();
+        String newPassword = userDTO.getNewPassword();
+        String validationMessage = getPasswordValidationMessage(newPassword);
+        if (validationMessage == null) {
+            userDAO.updatePassword(userDTO.getUsername(), oldPassword, newPassword);
+        }
 
-//
-//    private boolean isValidPassword(String password) {
-//        // Regular expression: At least 6 characters and at least one uppercase letter
-//        String passwordPattern = "^(?=.*[A-Z]).{6,}$";
-//        return Pattern.matches(passwordPattern, password);
-//    }
+    }
+
 
     private String getPasswordValidationMessage(String password) {
         if (password.length() < 6) {

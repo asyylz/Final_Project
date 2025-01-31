@@ -114,17 +114,18 @@ public class UserLoginController implements Initializable {
 
         } else {
             // Second click: Actually register the user
-            String username = Model.getInstance().userNameProperty().get();
-            String password = Model.getInstance().passwordProperty().get();
+            String username = userNameField.getText();
+            String password = passwordField.getText();
             String confirmPassword = confirmPasswordField.getText();
-
+            System.out.println(password);
+            System.out.println(confirmPassword);
             // Check if passwords match
             if (!password.equals(confirmPassword)) {
                 System.out.println("Passwords do not match!");
                 return; // Stop registration if passwords don't match
             }
 
-            userController.registerUser(new UserDTO(username, password));
+            userController.registerUser(new UserDTO(username.trim(), password.trim()));
 
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
@@ -145,7 +146,9 @@ public class UserLoginController implements Initializable {
 
 
         if (!isRegisterMode.get()) { //
-            userController.loginUser(new UserDTO(userNameField.getText(), passwordField.getText()));
+            userController.loginUser(new UserDTO(userNameField.getText().trim(), passwordField.getText().trim()));
+
+
 
             Model.getInstance().getViewFactory().showLandingWindow();
             // Show success message
@@ -153,7 +156,7 @@ public class UserLoginController implements Initializable {
 
             Stage currentStage = (Stage) loginWindowParent.getScene().getWindow();
 
-            Model.getInstance().setUserName(userNameField.getText());
+            Model.getInstance().setUserName(userNameField.getText().trim());
 
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }

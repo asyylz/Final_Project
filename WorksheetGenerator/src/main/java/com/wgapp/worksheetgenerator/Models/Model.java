@@ -33,6 +33,7 @@ public class Model {
     // User
     StringProperty userName = new SimpleStringProperty("");
     StringProperty password = new SimpleStringProperty("");
+    StringProperty pin = new SimpleStringProperty("");
 
 
     private Model() {
@@ -183,6 +184,18 @@ public class Model {
 
     public void setPassword(String password) {
         this.password.set(password);
+    }
+
+    public String getPin() {
+        return pin.get();
+    }
+
+    public StringProperty pinProperty() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin.set(pin);
     }
 }
 

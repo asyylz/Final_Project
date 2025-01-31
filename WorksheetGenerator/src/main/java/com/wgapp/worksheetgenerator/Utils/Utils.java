@@ -163,6 +163,7 @@ public class Utils {
             pause.setOnFinished(e -> alert.close());
             pause.play();
 
+
         } else if (alertType == Alert.AlertType.CONFIRMATION) {
             Optional<ButtonType> result = alert.showAndWait();
             userResponse.set(result.isPresent() && result.get() == ButtonType.OK); // Set property value based on user action
