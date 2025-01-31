@@ -1,5 +1,6 @@
 package com.wgapp.worksheetgenerator.Database;
 
+import com.wgapp.worksheetgenerator.Exceptions.CustomDatabaseException;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -44,44 +45,70 @@ public class UserDAOImpl implements UserDAO {
             throw new RuntimeException("Error creating user in database", e);
         }
     }
-// userdaoImpl
-@Override
-public UserEntity findUserByUsername(String username, String password) {
-    String sql = "SELECT user_name, user_password, user_pinNumber FROM users WHERE user_name = ?";
 
-    try (Connection connection = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = connection.prepareStatement(sql)) {
+    // userdaoImpl
+    @Override
+    public UserEntity findUserByUsername(String username, String password) {
+        String sql = "SELECT user_name, user_password, user_pinNumber FROM users WHERE user_name = ?";
 
-        pstmt.setString(1, username);
-        System.out.println("from DA)" + password);
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                String storedHashedPassword = rs.getString("user_password");
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-                // Check if the provided password matches the stored hash
-                if (BCrypt.checkpw(password, storedHashedPassword)) {
-                    // Create UserEntity and return it
-                    UserEntity user = new UserEntity();
-                    user.setUsername(rs.getString("user_name"));
-                    user.setPassword(storedHashedPassword); // Store hashed password (not raw)
-                    user.setPinNumber(rs.getInt("user_pinNumber")); // Include other user details
+            pstmt.setString(1, username);
+            System.out.println("from DA)" + password);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedHashedPassword = rs.getString("user_password");
 
-                    return user;
-                } else {
-                    throw new RuntimeException("Invalid password");
+                    // Check if the provided password matches the stored hash
+                    if (BCrypt.checkpw(password, storedHashedPassword)) {
+                        // Create UserEntity and return it
+                        UserEntity user = new UserEntity();
+                        user.setUsername(rs.getString("user_name"));
+                        user.setPassword(storedHashedPassword); // Store hashed password (not raw)
+                        user.setPinNumber(rs.getInt("user_pinNumber")); // Include other user details
+
+                        return user;
+                    } else {
+                        throw new RuntimeException("Invalid password");
+                    }
                 }
             }
-        }
-        throw new RuntimeException("User not found");
+            throw new RuntimeException("User not found");
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        throw new RuntimeException("Error retrieving user", e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving user", e);
+        }
+    }
+
+    //Repo/DAO
+    @Override
+    public void setPinNumber(int pinNumber, String username) {
+        String sql = "UPDATE users SET user_pinNumber = ? WHERE user_name = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            // Set values in the prepared statement
+            pstmt.setInt(1, pinNumber);   // Set the PIN
+            pstmt.setString(2, username); // Identify user by username
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Updating PIN failed, no user found with username: " + username);
+            }
+
+        } catch (SQLException e) {
+            throw new CustomDatabaseException("Failed to update PIN for user: " + username, e);
+        }
+
+
     }
 }
 
 
-}
 
 
 

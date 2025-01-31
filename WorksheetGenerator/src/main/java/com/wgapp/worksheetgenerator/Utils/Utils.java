@@ -155,13 +155,14 @@ public class Utils {
         alert.setHeaderText(header);
         alert.setContentText(message);
 
-        if (alertType == Alert.AlertType.INFORMATION) {
+        if (alertType == Alert.AlertType.INFORMATION || alertType == Alert.AlertType.NONE) {
             alert.show();
 
             // Auto-close after 2 seconds
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(e -> alert.close());
             pause.play();
+
 
         } else if (alertType == Alert.AlertType.CONFIRMATION) {
             Optional<ButtonType> result = alert.showAndWait();

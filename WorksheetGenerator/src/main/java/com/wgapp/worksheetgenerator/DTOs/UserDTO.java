@@ -8,20 +8,20 @@ public class UserDTO {
     private String password;
     private int pinNumber;
 
+
     public UserDTO(String username, String password) {
         this.password = password;
         this.username = username;
-    }
-
-    public UserDTO(String username, int pinNumber) {
-        this.username = username;
-        this.pinNumber = pinNumber;
     }
 
     public UserDTO() {
 
     }
 
+    public UserDTO(String username, int pinNumber) {
+        this.pinNumber = pinNumber;
+        this.username = username;
+    }
     public String getPassword() {
         return password;
     }
@@ -37,6 +37,7 @@ public class UserDTO {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public int getPinNumber() {
         return pinNumber;

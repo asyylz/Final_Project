@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
         this.userDAO = userDAO;
     }
 
-    public UserServiceImpl( ) {
+    public UserServiceImpl() {
         this.userDAO = userDAO;
     }
 
@@ -47,6 +47,14 @@ public class UserServiceImpl implements UserService {
         // Convert UserEntity to UserDTO (don't expose password)
         return new UserDTO(userEntity.getUsername(), userEntity.getPinNumber());
     }
+
+    // service
+    @Override
+    public void setPinNumber(UserDTO userDTO) {
+        System.out.println("Hello from user service");
+        userDAO.setPinNumber(userDTO.getPinNumber(), userDTO.getUsername());
+    }
+
 
 
 

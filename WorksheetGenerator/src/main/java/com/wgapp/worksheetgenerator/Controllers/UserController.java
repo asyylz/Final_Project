@@ -24,4 +24,10 @@ public class UserController {
     }
 
 
+    //Controller
+    public  void setPin(UserDTO userDTO) {
+        userService.setPinNumber(userDTO);
+    }
+
+
 }
