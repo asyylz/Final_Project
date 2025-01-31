@@ -17,10 +17,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox fx:id="userMenu" alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="200.0" spacing="10.0" styleClass="userMenu__wrapper-parent" stylesheets="@../Styles/UserMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.UserMenuController">
    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-      <HBox fx:id="userAvatarWrapper" alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" spacing="5.0" styleClass="userMenu__avatarWrapper" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+      <HBox fx:id="userAvatarWrapper" alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="200.0" spacing="5.0" styleClass="userMenu__avatarWrapper" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <Text fx:id="logoutText" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" wrappingWidth="42.0" />
          <FontAwesomeIconView fill="#f2a649" glyphName="ARROW_RIGHT" selectionFill="#b52a2a00" size="15" translateX="-5.0" />
          <StackPane prefHeight="29.0" prefWidth="0.0">
@@ -47,7 +46,7 @@
                <Image url="@../Images/avatar.png" />
             </ImageView>
          </StackPane>
-         <Text fx:id="userNameAfterLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="50.0" />
+         <Text fx:id="userNameAfterLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="UserName:" wrappingWidth="63.0" />
       </HBox>
    </AnchorPane>
    <Line endX="100.0" layoutX="112.0" layoutY="272.0" startX="-100.0" stroke="#b8aa8f" strokeWidth="3.0">

@@ -30,6 +30,10 @@ public class UserMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
+        if (Model.getInstance().getUserName() != null) {
+            userNameAfterLogin.setText(Model.getInstance().getUserName());
+
+        }
 
         avatar.setOnMouseClicked(event -> {
             BooleanProperty isLogout = Utils.notifyUser("Would you like to log out ?", "Logout request", "Logout", Alert.AlertType.CONFIRMATION);

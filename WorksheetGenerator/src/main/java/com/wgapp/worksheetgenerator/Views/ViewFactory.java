@@ -43,7 +43,7 @@ public class ViewFactory {
         return switch (option) {
             case GENERATOR -> loadFXML("/Fxml/GeneratorView.fxml");
             case WORKSHEET -> loadFXML("/Fxml/WorksheetWithPassageView.fxml");
-            case SETTINGS -> loadFXML("AccountSettingsView.fxml");
+            case SETTINGS -> loadFXML("/Fxml/AccountSettingsView.fxml");
             default -> loadFXML("/Fxml/GeneratorView.fxml");
         };
     }

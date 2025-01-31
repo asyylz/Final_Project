@@ -26,9 +26,9 @@ public class App extends Application {
         //viewFactory.showMainWindow();
 //         viewFactory.showLandingWindow();
   //   viewFactory.showUserMenu();
-        viewFactory.showMainWindow();
+        //viewFactory.showMainWindow();
 //        viewFactory.showGeneratorWindow();
-//viewFactory.showLoginWindow();
+viewFactory.showLoginWindow();
        // viewFactory.showWorksheetWindowWithPassage();
 
         DatabaseConnection.getConnection();
