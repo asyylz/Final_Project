@@ -6,6 +6,7 @@ import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
+import com.wgapp.worksheetgenerator.Views.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,9 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,8 +38,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepOneTick;
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
-    public Text userNameAfterLogin;
-    public ImageView avatar;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
 
     private final WorksheetController worksheetController = new WorksheetController();
@@ -56,6 +52,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Observer pattern
         worksheetControllerTest.addObserver(this);
+
+        generatorWindowParent.setMaxWidth(650);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
@@ -74,8 +72,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         stepTwoTick.visibleProperty().bind(Model.getInstance().getSubSubjectProperty().isNotNull());
         stepThreeTick.visibleProperty().bind(Model.getInstance().getDifficultyLevelProperty().isNotNull());
         passageTextWrapper.visibleProperty().bind(passageSectionRequiredProperty());
-        // User name near avatar
-        userNameAfterLogin.setText(Model.getInstance().getUserName());
+
 
 
         generateBtn.disableProperty().bind(
@@ -149,16 +146,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                 //System.out.println("from ui" + worksheet.getPassage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
-            }
-        });
-
-        avatar.setOnMouseClicked(event -> {
-            BooleanProperty isLogout = Utils.notifyUser("Would you like to log out ?", "Logout request", "Logout", Alert.AlertType.CONFIRMATION);
-
-            if (isLogout.get()) {
-                Stage currentStage = (Stage) avatar.getScene().getWindow();
-                Model.getInstance().getViewFactory().closeStage(currentStage);
-                Model.getInstance().setUserName(null);
             }
         });
 
@@ -266,24 +253,11 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public void onWorksheetGenerated(Worksheet worksheet) {
 
         Model.getInstance().setWorksheet(worksheet);
-        Model.getInstance().getViewFactory().showWorksheetWindowWithPassage();
+
+        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
 
         // Show success message
         Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
-//        Alert alert = new Alert();
-//        alert.setTitle();
-//        alert.setHeaderText();
-//        alert.setContentText();
-//        alert.show();
-//
-//        // Create a PauseTransition to wait for 5 seconds
-//        PauseTransition pause = new PauseTransition(Duration.seconds(2));
-//
-//        // Set an action to close the alert when the time is up
-//        pause.setOnFinished(e -> alert.close());
-//
-//        // Start the pause transition
-//        pause.play();
 
         loadingIndicatorComponent.setVisible(false);
     }

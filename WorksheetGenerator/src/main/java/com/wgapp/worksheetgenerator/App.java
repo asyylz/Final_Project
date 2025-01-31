@@ -25,8 +25,11 @@ public class App extends Application {
         // Show the main window using the ViewFactory
         //viewFactory.showMainWindow();
 //         viewFactory.showLandingWindow();
-       viewFactory.showGeneratorWindow();
-//viewFactory.showLoginWindow();
+  //   viewFactory.showUserMenu();
+        //viewFactory.showMainWindow();
+//        viewFactory.showGeneratorWindow();
+viewFactory.showLoginWindow();
+       // viewFactory.showWorksheetWindowWithPassage();
 
         DatabaseConnection.getConnection();
     }

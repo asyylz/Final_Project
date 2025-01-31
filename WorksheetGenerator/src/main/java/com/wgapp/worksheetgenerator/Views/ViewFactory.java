@@ -1,19 +1,73 @@
 package com.wgapp.worksheetgenerator.Views;
 
+import com.wgapp.worksheetgenerator.Controllers.UI.MainWindowController;
 import com.wgapp.worksheetgenerator.Controllers.UI.ModalWindowController;
 import javafx.animation.FadeTransition;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.Node;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ViewFactory {
+    private final Map<UserMenuOptions, Node> viewCache = new HashMap<>();
+    private final ObjectProperty<UserMenuOptions> userMenuItemView;
+    private AnchorPane worksheetViewWithPassage;
+    private AnchorPane generatorView;
 
     /*================================= VIEW METHODS ===================================== */
+
+    public ViewFactory() {
+        this.userMenuItemView = new SimpleObjectProperty<>();
+    }
+
+    public ObjectProperty<UserMenuOptions> getUserSelectMenuView() {
+        return userMenuItemView;
+    }
+
+    public Node getView(UserMenuOptions option) {
+        return viewCache.computeIfAbsent(option, this::loadView);
+    }
+
+    private Node loadView(UserMenuOptions option) {
+        return switch (option) {
+            case GENERATOR -> loadFXML("/Fxml/GeneratorView.fxml");
+            case WORKSHEET -> loadFXML("/Fxml/WorksheetWithPassageView.fxml");
+            case SETTINGS -> loadFXML("/Fxml/AccountSettingsView.fxml");
+            default -> loadFXML("/Fxml/GeneratorView.fxml");
+        };
+    }
+
+    private Node loadFXML(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            return loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new Label("Error loading view: " + fxml);
+        }
+    }
+
+
+    public void showMainWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/MainWindow.fxml"));
+        MainWindowController controller = new MainWindowController();
+        loader.setController(controller);
+        // String stylesheetPath = getClass().getResource("/Styles/UserMenu.css").toExternalForm();
+        createStage(loader, 1200, 1000, "Main", false);
+    }
+
+
     public void showModalWindow(String warningText) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ModalWindow.fxml"));
 
@@ -40,33 +94,17 @@ public class ViewFactory {
 
     }
 
-    public void showGeneratorWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/GeneratorWindow.fxml"));
-        String stylesheetPath = getClass().getResource("/Styles/CustomDropdownStyle.css").toExternalForm();
-        createStage(loader, stylesheetPath, 630, 900, "Worksheet Generator",false);
-    }
-
     public void showPassageWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/PassageWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/PassageWindow.css").toExternalForm();
-        createStage(loader, stylesheetPath, 900, 700, "Reading Passage",true);
+        createStage(loader, stylesheetPath, 900, 700, "Reading Passage", true);
     }
 
-    public void showWorksheetWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindow.fxml"));
-        String stylesheetPath = getClass().getResource("/Styles/QuestionComponent.css").toExternalForm();
-        createStage(loader, stylesheetPath, 800, 1000, "Worksheet",true);
-    }
 
-    public void showWorksheetWindowWithPassage() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/WorksheetWindowWithPassage.fxml"));
-        String stylesheetPath = getClass().getResource("/Styles/WorksheetWindowWithPassage.css").toExternalForm();
-        createStage(loader, stylesheetPath, 1100, 1000, "English Worksheet",true);
-    }
-  public void showLoginWindow() {
+    public void showLoginWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/UserLoginWindow.fxml"));
         String stylesheetPath = getClass().getResource("/Styles/UserLoginWindow.css").toExternalForm();
-        createStage(loader, stylesheetPath, 600, 400, "LOGIN/REGISTER",false);
+        createStage(loader, stylesheetPath, 600, 400, "LOGIN/REGISTER", false);
     }
 
     /*================================= STAGE METHODS ===================================== */
@@ -99,7 +137,7 @@ public class ViewFactory {
 
         // This prevents the window from closing via x button
         stage.setOnCloseRequest(event -> {
-           // event.consume();
+            // event.consume();
             //showGeneratorWindow();
         });
 
@@ -121,6 +159,24 @@ public class ViewFactory {
         stage.setHeight(height);
         stage.setResizable(false);
         stage.showAndWait();
+
+    }
+
+    private void createStage(FXMLLoader loader, int width, int height, String stageTitle, Boolean isResizable) {
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+            // scene.getStylesheets().add(stylesheetPath);  // Add stylesheet to the scene here
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(stageTitle);
+        stage.setMinWidth(width);
+        stage.setMinHeight(height);
+        stage.setResizable(isResizable);
+        stage.show();
 
     }
 

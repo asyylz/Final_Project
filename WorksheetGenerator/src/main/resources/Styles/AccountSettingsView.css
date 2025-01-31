@@ -1,0 +1,14 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700&display=swap');
+/* Import the font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.accountSettings__wrapperParent {
+    -fx-background-color: #132B40;
+    -fx-font-family: Oswald;
+}
+.accountSettings__wrapperParent Label {
+    -fx-text-fill: #fbd784;
+    -fx-font-size: 16px;
+
+}

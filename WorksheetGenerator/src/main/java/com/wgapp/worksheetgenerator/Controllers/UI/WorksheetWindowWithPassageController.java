@@ -1,11 +1,11 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
+import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
@@ -57,34 +57,37 @@ public class WorksheetWindowWithPassageController implements Initializable {
     public Circle backgroundCircle5;
     public Text timerText;
     public ImageView timer;
-    public HBox userAvatarWrapper;
-    public Text userNameAfterLogin;
-    public ImageView avatar;
     public ImageView backWindowBtn;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Fetch worksheet details
-        int worksheetId = Model.getInstance().getWorksheet().getWorksheetId();
-        MainSubjectOptions mainSubject = Model.getInstance().getWorksheet().getMainSubject();
-        ISubSubjectOptions subSubject = Model.getInstance().getWorksheet().getSubSubject();
-        DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheet().getDifficultyLevel();
+        if(Model.getInstance().getWorksheet()!=null) {
+            int worksheetId = Model.getInstance().getWorksheet().getWorksheetId();
+            MainSubjectOptions mainSubject = Model.getInstance().getWorksheet().getMainSubject();
+            ISubSubjectOptions subSubject = Model.getInstance().getWorksheet().getSubSubject();
+            DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheet().getDifficultyLevel();
 
-        // Setting worksheetId text
-        worksheetIdText.setText(String.valueOf(worksheetId));
-        //Setting main subject
-        mainSubjectText.setText((mainSubject.toString().substring(0, 1)) + (mainSubject.toString().substring(1)));
-        // Setting sub-subject
-        subSubjectText.setText((subSubject.toString().substring(0, 1)) + (subSubject.toString().substring(1)));
-        // Setting grade level
-        gradeLevel.setText(diffLevel.toString());
-        //Setting passage
-        passageText.setText(Model.getInstance().getWorksheet().getPassage().getPassageText());
-        //Setting passage title
-        passageTitle.setText(Model.getInstance().getWorksheet().getPassage().getPassageTitle());
 
-        // Setting  user name near avatar
-        userNameAfterLogin.setText(Model.getInstance().getUserName());
+            // Setting worksheetId text
+            worksheetIdText.setText(String.valueOf(worksheetId));
+            //Setting main subject
+            mainSubjectText.setText((mainSubject.toString().substring(0, 1)) + (mainSubject.toString().substring(1)));
+            // Setting sub-subject
+            subSubjectText.setText((subSubject.toString().substring(0, 1)) + (subSubject.toString().substring(1)));
+            // Setting grade level
+            gradeLevel.setText(diffLevel.toString());
+            //Setting passage
+            passageText.setText(Model.getInstance().getWorksheet().getPassage().getPassageText());
+            //Setting passage title
+            passageTitle.setText(Model.getInstance().getWorksheet().getPassage().getPassageTitle());
+
+            // Questions being set to Ui
+            initializeQuestions();
+        }
+
+       // accountMenu.setVisible(false);
 
         // Dynamically update wrapping width for passageText based on the width of innerLeft
         bottomLeftSection.widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,8 +99,7 @@ public class WorksheetWindowWithPassageController implements Initializable {
             passageTitle.setWrappingWidth(newWidth);
         });
 
-        // Questions being set to Ui
-        initializeQuestions();
+
         backWindowBtn.setOnMouseClicked(event -> {
             Stage currentStage = (Stage) backWindowBtn.getScene().getWindow();
             currentStage.close();
@@ -142,24 +144,6 @@ public class WorksheetWindowWithPassageController implements Initializable {
             isTimerOn.set(!isTimerOn.get());
 
         });
-
-        avatar.setOnMouseClicked(event -> {
-            BooleanProperty isLogout = Utils.notifyUser("Would you like to log out ?", "Logout request", "Logout", Alert.AlertType.CONFIRMATION);
-
-//            if (isLogout.get()) {
-//                Stage currentStage = (Stage) avatar.getScene().getWindow();
-//                Model.getInstance().getViewFactory().closeStage(currentStage);
-//                Model.getInstance().setUserName(null);
-//            }
-
-            if (isLogout.get()) {
-                Platform.exit(); // Closes all stages and stops JavaFX
-                System.exit(0);  // Ensures JVM stops completely (optional)
-            }
-
-        });
-
-
         /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
         DropShadow dropShadow = new DropShadow();
         dropShadow.setBlurType(BlurType.GAUSSIAN);
