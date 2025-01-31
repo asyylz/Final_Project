@@ -24,13 +24,13 @@ public class LandingWindowController implements Initializable {
             // In your start method or where you create your stage
             stage.setOnCloseRequest(event -> {
                 //event.consume(); // This prevents the window from closing
-                Model.getInstance().getViewFactory().showGeneratorWindow();
+                Model.getInstance().getViewFactory().showMainWindow();
 
             });
 
             letsStartBtn.setOnAction(e -> {
                 Model.getInstance().getViewFactory().closeStage(stage);
-                Model.getInstance().getViewFactory().showGeneratorWindow();
+                Model.getInstance().getViewFactory().showMainWindow();
             });
         });
 

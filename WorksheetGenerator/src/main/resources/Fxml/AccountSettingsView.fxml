@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="accountSettings__wrapperParent" stylesheets="@../Styles/AccountSettingsView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.AccountSettingsController">
+   <children>
+      <VBox layoutX="40.0" layoutY="26.0" prefHeight="200.0" prefWidth="203.0" spacing="10.0">
+         <children>
+            <Label text="Pin Number" translateY="10.0" />
+            <TextField prefHeight="29.0" prefWidth="201.0" />
+            <Label layoutX="10.0" layoutY="10.0" text="Confirm Pin Number" translateY="10.0" />
+            <TextField layoutX="10.0" layoutY="55.0" prefHeight="29.0" prefWidth="201.0" />
+            <Button minHeight="44.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="108.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Create Pin" translateX="25.0" />
+         </children>
+      </VBox>
+   </children>
+   <effect>
+      <InnerShadow height="41.76" radius="17.415" width="29.9">
+         <color>
+            <Color red="1.0" green="0.9629629850387573" blue="0.9629629850387573" />
+         </color>
+      </InnerShadow>
+   </effect>
+</AnchorPane>

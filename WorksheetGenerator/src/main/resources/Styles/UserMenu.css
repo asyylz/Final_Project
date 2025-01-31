@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700&display=swap');
+/* Import the font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.userMenu__wrapper-parent {
+    -fx-background-color: #132B40;
+    -fx-font-family: "Oswald";
+}
+
+.userMenu__buttons {
+    -fx-pref-width: 190px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #132B40;
+    -fx-text-fill: #fbd784;
+    /*-fx-text-fill: #D4CDCB;*/
+    -fx-font-family: Oswald;
+    -fx-font-size: 18px;
+
+}
+
+.userMenu__buttons:hover {
+    -fx-effect: dropshadow(three-pass-box, #d3c7c7, 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-translate-y: -1px; /* Move the button upwards slightly */
+    -fx-cursor: HAND;
+
+}
+
+.userMenu__buttons:focused {
+    -fx-effect: dropshadow(three-pass-box, #d3c7c7, 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-cursor: HAND;
+
+}
+
+.userMenu__bottomText {
+    -fx-font-size: 1em;
+    -fx-fill: #fbd784;
+    -fx-font-weight: 600;
+}
+
+.userMenu__avatarWrapper Text {
+    -fx-font-size: 16px;
+    -fx-fill: #fbd784;
+}
+
+#avatar:hover{
+    -fx-effect: dropshadow(three-pass-box, #d3c7c7, 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-translate-y: -1px; /* Move the button upwards slightly */
+    -fx-cursor: HAND;
+
+}
