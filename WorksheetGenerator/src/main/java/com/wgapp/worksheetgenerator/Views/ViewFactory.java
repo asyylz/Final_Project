@@ -46,11 +46,13 @@ public class ViewFactory {
             case SETTINGS -> loadFXML("/Fxml/AccountSettingsView.fxml");
             default -> loadFXML("/Fxml/GeneratorView.fxml");
         };
+
     }
 
     private Node loadFXML(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+
             return loader.load();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,7 +66,7 @@ public class ViewFactory {
         MainWindowController controller = new MainWindowController();
         loader.setController(controller);
         // String stylesheetPath = getClass().getResource("/Styles/UserMenu.css").toExternalForm();
-        createStage(loader, 1200, 1000, "Main", false);
+        createStage(loader, 1200, 1000, "Main", true);
     }
 
 

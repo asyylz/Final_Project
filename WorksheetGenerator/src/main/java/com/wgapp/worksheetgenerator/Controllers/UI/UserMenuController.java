@@ -29,6 +29,23 @@ public class UserMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Generate button  show up first with active style since its related view is active on screen
+        generatorBtn.getStyleClass().add("active");
+        //When ever other buttons are being clicked we are removing generateBtn's  active style
+        worksheetBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                generatorBtn.getStyleClass().remove("active");
+            }
+        });
+        accountBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                generatorBtn.getStyleClass().remove("active");
+            }
+        });
+
+
+
         addListeners();
         if (Model.getInstance().getUserName() != null) {
             userNameAfterLogin.setText(Model.getInstance().getUserName());

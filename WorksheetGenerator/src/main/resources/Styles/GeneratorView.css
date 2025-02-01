@@ -2,18 +2,21 @@
 /* Import the font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-.generatorWindow__container {
+.generatorWindow__wrapper-parent {
     -fx-background-color: #132B40;
     -fx-font-family: "Oswald";
     -fx-fill: #fbd784;
 }
 
-.generatorWindow__container Text {
+.generatorWindow__wrapper-parent Text {
     -fx-font-size: 1em;
     -fx-fill: #fbd784;
     -fx-font-family: "Oswald";
     -fx-font-weight: 600;
 
+}
+.generatorWindow__wrapper-parent .innerWrapper {
+    -fx-border-color: red;
 }
 
 .userNameNearAvatar {

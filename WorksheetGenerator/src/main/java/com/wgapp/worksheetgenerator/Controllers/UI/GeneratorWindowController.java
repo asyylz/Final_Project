@@ -10,6 +10,7 @@ import com.wgapp.worksheetgenerator.Views.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableNumberValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -52,8 +53,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Observer pattern
         worksheetControllerTest.addObserver(this);
-
-        generatorWindowParent.setMaxWidth(650);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);

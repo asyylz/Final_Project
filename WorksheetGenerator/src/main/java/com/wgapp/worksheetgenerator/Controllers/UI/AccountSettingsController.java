@@ -43,9 +43,6 @@ public class AccountSettingsController implements Initializable {
             String confirmPassword = confirmPasswordField.getText();
             String newPassword = newPasswordField.getText();
 
-            System.out.println(oldPassword);
-            System.out.println(confirmPassword);
-            System.out.println(newPassword);
             if (newPassword.equals(confirmPassword)) {
                 userController.updatePassword(new UserDTO(Model.getInstance().getUserName(), oldPassword, newPassword));
                 Utils.notifyUser("Password successfully updated.", "Password Update", "Success", Alert.AlertType.INFORMATION);
