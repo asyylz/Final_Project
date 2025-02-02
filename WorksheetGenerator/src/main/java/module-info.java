@@ -15,6 +15,7 @@ module com.wgapp.worksheetgenerator {
     requires layout;
     requires io;
     requires jbcrypt;
+    requires jdk.jshell;
     //  requires com.microsoft.sqlserver.jdbc;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;

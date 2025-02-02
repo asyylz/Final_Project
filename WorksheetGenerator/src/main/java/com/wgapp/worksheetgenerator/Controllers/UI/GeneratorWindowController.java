@@ -1,7 +1,6 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
-import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
 import com.wgapp.worksheetgenerator.Models.*;
 import com.wgapp.worksheetgenerator.Utils.Utils;
@@ -10,7 +9,6 @@ import com.wgapp.worksheetgenerator.Views.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableNumberValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -41,8 +39,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepThreeTick;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
 
-    private final WorksheetController worksheetController = new WorksheetController();
-    private final WorksheetControllerTest worksheetControllerTest = new WorksheetControllerTest();
+  //  private final WorksheetController worksheetController = new WorksheetController();
+    private final WorksheetControllerTest worksheetController = new WorksheetControllerTest();
 
     // Initialize CustomDropdowns and populating their content
     CustomDropdownMenu dropdownMainSubject = new CustomDropdownMenu("MAIN SUBJECT", MainSubjectOptions.values());
@@ -52,7 +50,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Observer pattern
-        worksheetControllerTest.addObserver(this);
+        worksheetController.addObserver(this);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
@@ -141,7 +139,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             loadingIndicatorComponent.setVisible(true);
             try {
-                worksheetControllerTest.generateWorksheet(); // calling worksheetcontroller
+                worksheetController.generateWorksheet(); // calling worksheetcontroller
                 //System.out.println("from ui" + worksheet.getPassage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -215,7 +213,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         loadingIndicatorComponent.setVisible(true);
 
         // Handle the generated worksheet here
-        worksheetControllerTest.generateWorksheet(); // This method already handles exceptions internally
+        worksheetController.generateWorksheet(); // This method already handles exceptions internally
 
         clearSelectionsHandler();
     }
@@ -253,7 +251,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         Model.getInstance().setWorksheet(worksheet);
 
-        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+       Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
 
         // Show success message
         Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);

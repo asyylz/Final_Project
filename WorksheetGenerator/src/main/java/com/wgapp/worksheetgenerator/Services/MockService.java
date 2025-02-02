@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MockService implements IService {
-   // private static final String PROMPT_BEGINNING_COMPREHENSION;
+    // private static final String PROMPT_BEGINNING_COMPREHENSION;
 
 
     public MockService() {
@@ -89,6 +89,32 @@ public class MockService implements IService {
         new Thread(generateWorksheetTask).start();
 
         return future;
+    }
+
+    @Override
+    public CompletableFuture<Worksheet> findWorksheetAsync(String searchTerm) {
+        CompletableFuture<Worksheet> future = new CompletableFuture<>();
+
+        Task<Worksheet> findWorksheetTask = new Task<>() {
+            @Override
+            protected Worksheet call() throws Exception {
+                return generateMockWorksheet();
+            }
+        };
+
+        findWorksheetTask.setOnSucceeded(event -> {
+            Worksheet generatedWorksheet = findWorksheetTask.getValue();
+            future.complete(generatedWorksheet);
+        });
+
+        findWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(findWorksheetTask.getException());
+        });
+
+        new Thread(findWorksheetTask).start();
+
+        return future;
+
     }
 
 }

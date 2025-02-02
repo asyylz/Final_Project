@@ -7,10 +7,10 @@ import com.wgapp.worksheetgenerator.Models.Worksheet;
 
 import java.util.List;
 
-public interface IWorksheetDAO {
+public interface WorksheetDAO {
     public Worksheet getWorksheetById(long id);
     public List<Worksheet> getAllWorksheets();
-    public List<Worksheet> getWorksheetsByTitle(String title);
+    public Worksheet findWorksheet(String title);
     public Worksheet createWorksheet(Worksheet worksheet);
     public Worksheet updateWorksheet(Worksheet worksheet);
     public void deleteWorksheet(int id);

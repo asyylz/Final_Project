@@ -2,12 +2,14 @@
 /* Import the font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
-.worksheetWindow__parent{
+
+.worksheetWindow__parent {
     -fx-background-color: #132B40;
 
 }
+
 .worksheetWindow__parent-titlesWrapper {
--fx-font-family: Oswald;
+    -fx-font-family: Oswald;
     -fx-font-size: 1.3em;
 }
 
@@ -17,13 +19,13 @@
 
 }
 
-.worksheetWindow__topSection Text {
-    -fx-font-size: 1.2em;
-    -fx-fill: #fbd784;
-    -fx-end-margin: 1em;
-    -fx-font-family: Oswald;
+/*.worksheetWindow__topSection Text {*/
+/*    -fx-font-size: 1.2em;*/
+/*    -fx-fill: #fbd784;*/
+/*    -fx-end-margin: 1em;*/
+/*    -fx-font-family: Oswald;*/
 
-}
+/*}*/
 
 .worksheetWindow__parent-mainTitle {
     -fx-font-size: 1.2em;
@@ -40,16 +42,41 @@
     -fx-font-size: 1.2em;
     /*-fx-border-color: red;*/
 }
+
 .worksheetWindow__bottom Text {
-    -fx-fill:#fbd784;
+    -fx-fill: #fbd784;
     -fx-font-family: Oswald;
     -fx-font-size: 1em;
 }
-.worksheetWindow__bottomSection-timerText {
-    -fx-font-size: 1.3em;
-    -fx-fill:#fbd784;
+
+.worksheetWindow__bottomSection-timerText,
+.worksheetWindow__bottomSection-score {
+    -fx-font-size: 1.2em;
+    -fx-fill: #fbd784;
     -fx-background-color: #E6E3E8;
     -fx-font-weight: 800;
-
+    -fx-font-family: Oswald;
 }
 
+
+.worksheetWindow__topSection-searchField {
+    -fx-background-color: transparent;
+    -fx-border-style: hidden hidden solid hidden;;
+    -fx-border-color: #fbd784;
+    -fx-border-width: 2px;
+    -fx-text-fill: #c5c4c4;
+    -fx-font-size: 18px;
+    -fx-font-family: Oswald;
+    /*-fx-prompt-text-fill: #fbd784;*/
+}
+
+.worksheetWindow__topSection-search:hover,
+.worksheetWindow__topSection-search:focused {
+}
+
+.topSection__search-innerText {
+    -fx-text-fill: #fbd784;
+    -fx-font-family: Oswald;
+    -fx-font-size: 16px;
+
+}

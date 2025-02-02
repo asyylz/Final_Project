@@ -10,6 +10,9 @@ public class Passage {
         this.passageTitle = passageTitle;
         this.passageText = passageText;
     }
+    public Passage( ) {
+
+    }
 
     public int getPassageId() {
         return passageId;

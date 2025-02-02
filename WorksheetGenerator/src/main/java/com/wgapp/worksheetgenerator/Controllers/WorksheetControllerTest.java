@@ -1,5 +1,4 @@
 package com.wgapp.worksheetgenerator.Controllers;
-
 import com.wgapp.worksheetgenerator.Models.Worksheet;
 import com.wgapp.worksheetgenerator.Services.MockService;
 import com.wgapp.worksheetgenerator.Services.WorksheetService;
@@ -14,6 +13,7 @@ public class WorksheetControllerTest {
     private Worksheet worksheet;
     private List<WorksheetObserver> observers = new ArrayList<>();
 
+
     public interface WorksheetObserver {
         void onWorksheetGenerated(Worksheet worksheet);
     }
@@ -22,23 +22,8 @@ public class WorksheetControllerTest {
         observers.add(observer);
     }
 
-    //    public void generateWorksheet() throws Exception {
-//
-//        try {
-//            mockService.generateWorksheetAsync()
-//                    .thenAccept(worksheet -> {
-//                        Platform.runLater(() -> {
-//                            this.worksheet = worksheet;
-//                            notifyObservers();
-//                        });
-//                    });
-//        }catch (Exception e){
-//
-//        }
-//
-//    }
     public void generateWorksheet() {
-        mockService.generateWorksheetAsync()
+        worksheetService.generateWorksheetAsync()
                 .thenAccept(worksheet -> {
                     try {
                         Platform.runLater(() -> {
@@ -52,6 +37,23 @@ public class WorksheetControllerTest {
                 .exceptionally(ex -> {
                     System.err.println("Error generating worksheet: " + ex.getMessage());
                     return null;  // Returning null to handle failure
+                });
+    }
+
+    public  void findWorksheet(String searchTerm) {
+        worksheetService.findWorksheetAsync(searchTerm)
+                .thenAccept( worksheet -> {
+                    try {
+                        Platform.runLater(() -> {
+                            this.worksheet = worksheet;
+                            notifyObservers();
+                        });
+
+                    }catch (Exception e) {
+                        System.err.println("Error fetching worksheet: " + e.getMessage());
+                    }
+                }).exceptionally(ex -> {
+                     return null;
                 });
     }
 

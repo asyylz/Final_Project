@@ -66,7 +66,7 @@ public class ViewFactory {
         MainWindowController controller = new MainWindowController();
         loader.setController(controller);
         // String stylesheetPath = getClass().getResource("/Styles/UserMenu.css").toExternalForm();
-        createStage(loader, 1200, 1000, "Main", true);
+        createStage(loader, 1200, 920, "Main", true);
     }
 
 
