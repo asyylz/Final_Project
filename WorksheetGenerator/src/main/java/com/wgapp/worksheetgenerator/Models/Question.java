@@ -15,6 +15,10 @@ public class Question {
         this.correctAnswerText = correctAnswerText;
     }
 
+    public Question() {
+
+    }
+
 
     // Getters and Setters
     public String getQuestionText() {

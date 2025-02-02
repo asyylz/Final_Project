@@ -11,9 +11,12 @@ import java.util.List;
 
 public class Model {
     private static Model model;
-    private Worksheet worksheet;
+    //private Worksheet worksheet;
     private UserDTO user;
     private final ViewFactory viewFactory;
+
+    // Worksheet
+    private final ObjectProperty<Worksheet> worksheet = new SimpleObjectProperty<>();
 
     // Initialize directly in the field declaration
     private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
@@ -29,6 +32,9 @@ public class Model {
 
     //User Answer List
     private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+    // Search box
+    StringProperty searchTerm = new SimpleStringProperty("");
 
     // User
     StringProperty userName = new SimpleStringProperty("");
@@ -142,13 +148,13 @@ public class Model {
         this.passageTitle.set(passageTitle);
     }
 
-    public Worksheet getWorksheet() {
-        return worksheet;
-    }
-
-    public void setWorksheet(Worksheet worksheet) {
-        this.worksheet = worksheet;
-    }
+//    public Worksheet getWorksheet() {
+//        return worksheet;
+//    }
+//
+//    public void setWorksheet(Worksheet worksheet) {
+//        this.worksheet = worksheet;
+//    }
 
     public ListProperty<UserAnswer> getUserAnswersListProperty() {
         return userAnswerList;
@@ -196,6 +202,29 @@ public class Model {
 
     public void setPin(String pin) {
         this.pin.set(pin);
+    }
+
+    public String getSearchTerm() {
+        return searchTerm.get();
+    }
+
+    public StringProperty searchTermProperty() {
+        return searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm.set(searchTerm);
+    }
+
+    public Worksheet getWorksheet() {
+        return worksheet.get();
+    }
+
+    public ObjectProperty<Worksheet> worksheetProperty() {
+        return worksheet;
+    }
+    public void setWorksheet(Worksheet worksheet) {
+        this.worksheet.set(worksheet);
     }
 }
 

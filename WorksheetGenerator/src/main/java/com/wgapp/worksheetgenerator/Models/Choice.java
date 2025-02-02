@@ -3,11 +3,15 @@ package com.wgapp.worksheetgenerator.Models;
 public class Choice {
     private int choiceId;
     private String choiceText;
-    private boolean isCorrectAnswer;
 
     public Choice(String choiceText) {
         this.choiceText = choiceText;
 
+    }
+
+    public Choice(int choiceId, String choiceText) {
+        this.choiceId = choiceId;
+        this.choiceText = choiceText;
     }
 
     public String getChoiceText() {
@@ -16,14 +20,6 @@ public class Choice {
 
     public void setChoiceText(String choiceText) {
         this.choiceText = choiceText;
-    }
-
-    public boolean isCorrectAnswer() {
-        return isCorrectAnswer;
-    }
-
-    public void setCorrectAnswer(boolean correctAnswer) {
-        isCorrectAnswer = correctAnswer;
     }
 
     @Override

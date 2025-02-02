@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.BoxBlur?>
@@ -17,70 +16,69 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="userMenu" alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="200.0" spacing="10.0" styleClass="userMenu__wrapper-parent" stylesheets="@../Styles/UserMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.UserMenuController">
-   <AnchorPane prefHeight="200.0" prefWidth="200.0">
-      <HBox fx:id="userAvatarWrapper" alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="200.0" spacing="5.0" styleClass="userMenu__avatarWrapper" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-         <Text fx:id="logoutText" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" wrappingWidth="42.0" />
-         <FontAwesomeIconView fill="#f2a649" glyphName="ARROW_RIGHT" selectionFill="#b52a2a00" size="15" translateX="-5.0" />
-         <StackPane prefHeight="29.0" prefWidth="0.0">
-            <Circle fill="#33404a" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE">
-               <effect>
-                  <DropShadow height="87.71" radius="43.724999999999994" spread="0.35" width="89.19">
-                     <color>
-                        <Color opacity="0.3409961760044098" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Circle>
-            <ImageView fx:id="avatar" fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" height="32.86" radius="32.980000000000004" spread="0.41" width="101.06">
-                     <color>
-                        <Color red="1.0" green="0.9399999976158142" blue="0.9399999976158142" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <Image url="@../Images/avatar.png" />
-            </ImageView>
-         </StackPane>
-         <Text fx:id="userNameAfterLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="UserName:" wrappingWidth="63.0" />
-      </HBox>
-   </AnchorPane>
-   <Line endX="100.0" layoutX="112.0" layoutY="272.0" startX="-100.0" stroke="#b8aa8f" strokeWidth="3.0">
-      <effect>
-         <BoxBlur />
-      </effect>
-   </Line>
-   <Button fx:id="generatorBtn" mnemonicParsing="false" styleClass="userMenu__buttons" text="Generator" />
-   <Line endX="100.0" layoutX="112.0" layoutY="222.0" startX="-100.0" stroke="#b8aa8f" strokeWidth="3.0">
-      <effect>
-         <BoxBlur />
-      </effect>
-   </Line>
-   <Button fx:id="worksheetBtn" mnemonicParsing="false" styleClass="userMenu__buttons" text="Worksheet" />
-   <Line endX="100.0" layoutX="112.0" layoutY="222.0" startX="-100.0" stroke="#b8aa8f" strokeWidth="3.0">
-      <effect>
-         <BoxBlur />
-      </effect>
-   </Line>
-   <Button fx:id="accountBtn" mnemonicParsing="false" styleClass="userMenu__buttons" text="Account Settings" />
-   <Line endX="100.0" layoutX="112.0" layoutY="348.0" startX="-100.0" stroke="#b8aa8f" strokeWidth="3.0">
-      <effect>
-         <BoxBlur />
-      </effect>
-   </Line>
-   <HBox alignment="CENTER" translateY="560.0">
-      <Line endX="-1.511199951171875" endY="-0.5" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" strokeWidth="2.0" />
-      <Text strokeWidth="0.0" styleClass="userMenu__bottomText" text="WORKSHEET GENERATOR" textAlignment="CENTER" wrappingWidth="134.0" />
-   </HBox>
+<AnchorPane prefHeight="1000.0" prefWidth="150.0" styleClass="userMenu__wrapper-parent" stylesheets="@../Styles/UserMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.UserMenuController">
    <effect>
-      <InnerShadow choke="0.14" height="32.86" radius="15.93" width="32.86">
+      <InnerShadow choke="0.27" height="28.42" radius="15.5625" width="35.83">
          <color>
-            <Color red="0.9700000286102295" green="0.9409000277519226" blue="0.9409000277519226" />
+            <Color red="1.0" green="0.9490740895271301" blue="0.9490740895271301" />
          </color>
       </InnerShadow>
    </effect>
-</VBox>
+   <VBox fx:id="userMenu" alignment="TOP_CENTER" spacing="10.0" styleClass="userMenu__wrapper-parent" stylesheets="@../Styles/UserMenu.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="200.0">
+         <HBox fx:id="userAvatarWrapper" alignment="CENTER" spacing="5.0" styleClass="userMenu__avatarWrapper" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <StackPane prefHeight="29.0" prefWidth="0.0">
+               <Circle fill="#33404a" radius="25.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                  <effect>
+                     <DropShadow height="87.71" radius="43.724999999999994" spread="0.35" width="89.19">
+                        <color>
+                           <Color opacity="0.3409961760044098" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+               </Circle>
+               <ImageView fx:id="avatar" fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <effect>
+                     <DropShadow blurType="GAUSSIAN" height="32.86" radius="32.980000000000004" spread="0.41" width="101.06">
+                        <color>
+                           <Color red="1.0" green="0.9399999976158142" blue="0.9399999976158142" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <Image url="@../Images/avatar.png" />
+               </ImageView>
+            </StackPane>
+            <Text fx:id="userNameAfterLogin" strokeType="OUTSIDE" strokeWidth="0.0" text="UserName:" wrappingWidth="63.0" />
+         </HBox>
+      </AnchorPane>
+      <Line endX="100.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Line>
+      <Button fx:id="generatorBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" styleClass="userMenu__buttons" text="Generator" />
+      <Line endX="100.0" layoutX="86.0" layoutY="222.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Line>
+      <Button fx:id="worksheetBtn" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="41.0" prefWidth="130.0" styleClass="userMenu__buttons" text="Worksheet" />
+      <Line endX="100.0" layoutX="86.0" layoutY="235.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Line>
+      <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" styleClass="userMenu__buttons" text="Account Settings" />
+      <Line endX="100.0" layoutX="86.0" layoutY="235.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Line>
+   </VBox>
+   <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0">
+      <Text strokeWidth="0.0" styleClass="userMenu__bottomText" text="WORKSHEET GENERATOR" textAlignment="CENTER" wrappingWidth="134.0" />
+   </HBox>
+</AnchorPane>

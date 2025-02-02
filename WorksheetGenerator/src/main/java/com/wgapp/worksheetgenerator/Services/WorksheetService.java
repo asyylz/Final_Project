@@ -189,5 +189,31 @@ public class WorksheetService implements IService {
 
         return future;
     }
+
+    @Override
+    public CompletableFuture<Worksheet> findWorksheetAsync(String searchTerm) {
+        CompletableFuture<Worksheet> future = new CompletableFuture<>();
+
+        Task<Worksheet> findWorksheetTask = new Task<>() {
+            @Override
+            protected Worksheet call() throws Exception {
+                return worksheetDAO.findWorksheet(searchTerm);
+            }
+        };
+
+        findWorksheetTask.setOnSucceeded(event -> {
+            Worksheet generatedWorksheet = findWorksheetTask.getValue();
+            future.complete(generatedWorksheet);
+        });
+
+        findWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(findWorksheetTask.getException());
+        });
+
+        new Thread(findWorksheetTask).start();
+
+        return future;
+
+    }
 }
 
