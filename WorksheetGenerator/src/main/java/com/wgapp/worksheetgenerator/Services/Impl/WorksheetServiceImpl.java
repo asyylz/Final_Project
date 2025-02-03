@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Services.Impl;
 
 import com.wgapp.worksheetgenerator.Config.OpenAIConfig;
+import com.wgapp.worksheetgenerator.DAO.Entities.*;
 import com.wgapp.worksheetgenerator.DAO.Impl.WorksheetDAOImpl;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
@@ -12,6 +13,7 @@ import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import javafx.concurrent.Task;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -21,39 +23,22 @@ public class WorksheetServiceImpl implements WorksheetService {
     private static final OpenAIConfig OPENAI_CONFIG = new OpenAIConfig();
     private static final WorksheetDAOImpl worksheetDAO = new WorksheetDAOImpl();
 
-    //static {
-        // Load environment variables from .env file
-       // Dotenv dotenv = Dotenv.load();
-       // PROMPT_BEGINNING_COMPREHENSION = dotenv.get("PROMPT_BEGINNING_COMPREHENSION");
-   // }
-
-
 
     public WorksheetServiceImpl() {
     }
 
-    public Worksheet generateWorksheetCallFromController() {
-        // Fetch values from the model
-        Model model = Model.getInstance();
-        MainSubjectOptions mainSubject = model.getWorksheetPropertyForGeneration().getMainSubject();
-        ISubSubjectOptions subSubject = model.getWorksheetPropertyForGeneration().getSubSubject();
-        DifficultyLevelOptions difficultyLevel = model.getWorksheetPropertyForGeneration().getDiffLevel();
-        String passageText = model.getWorksheetPropertyForGeneration().passageProperty().getPassageContent();
-        String passageTitle = model.getWorksheetPropertyForGeneration().passageProperty().getPassageTitle();
-
-        List<ComprehensionQuestionTypes> questionTypes = model.getWorksheetPropertyForGeneration().getQuestionTypeList();
-
+    public WorksheetEntity generateWorksheetCallFromController(WorksheetEntity worksheetEntity) {
         // We are  starting to build our prompt  with constant related to Model
         String initialPrompt = Utils.checkSubSubject();
 
         // Build the prompt starting from initial prompt
         StringBuilder promptBuilder = new StringBuilder(initialPrompt);
         promptBuilder
-                .append("\nMain Subject: ").append(mainSubject.toString())
-                .append("\nSub Subject: ").append(subSubject.toString())
-                .append("\nDifficulty Level: ").append(difficultyLevel.toString())
-                .append("\nPassage Text: ").append(passageText)
-                .append("\nQuestion Types: ").append(questionTypes);
+                .append("\nMain Subject: ").append(worksheetEntity.getMainSubject())
+                .append("\nSub Subject: ").append(worksheetEntity.getSubSubject())
+                .append("\nDifficulty Level: ").append(worksheetEntity.getDifficultyLevel())
+                .append("\nPassage Text: ").append(worksheetEntity.getPassage().getPassageText())
+                .append("\nQuestion Types: ").append(worksheetEntity.getQuestionTypesList());
 
         String fullPrompt = promptBuilder.toString();
 
@@ -64,25 +49,28 @@ public class WorksheetServiceImpl implements WorksheetService {
 
 
             // Parse the response into a Worksheet object
-            Worksheet worksheet = parseOpenAIResponseAndCreateWorksheet(response);
+            WorksheetEntity responseWorksheetEntity = parseOpenAIResponseAndCreateWorksheet(response);
 
 
             // Set additional metadata before saving
-            worksheet.setMainSubject(mainSubject);
-            worksheet.setSubSubject(subSubject);
-            worksheet.setDifficultyLevel(difficultyLevel);
+            responseWorksheetEntity.setMainSubject(worksheetEntity.getMainSubject());
+            responseWorksheetEntity.setSubSubject(worksheetEntity.getSubSubject());
+            responseWorksheetEntity.setDifficultyLevel(worksheetEntity.getDifficultyLevel());
+            responseWorksheetEntity.setUserEntity(new UserEntity(worksheetEntity.getUserEntity().getUsername()));
 
             // Set Passage in Worksheet object
-            worksheet.setPassage(new Passage(passageTitle, passageText));
+            responseWorksheetEntity.setPassage(new PassageEntity(
+                    worksheetEntity.getPassage().getPassageTitle(),
+                    worksheetEntity.getPassage().getPassageText()));
 
             // Persist the worksheet using DAO
-            Worksheet savedWorksheet = worksheetDAO.createWorksheet(worksheet);
+            WorksheetEntity savedWorksheetEntity = worksheetDAO.createWorksheet(responseWorksheetEntity);
 
-            if (savedWorksheet == null) {
+            if (savedWorksheetEntity == null) {
                 throw new RuntimeException("Failed to save worksheet to database");
             }
 
-            return savedWorksheet;
+            return savedWorksheetEntity;
 
 
         } catch (Exception e) {
@@ -91,7 +79,59 @@ public class WorksheetServiceImpl implements WorksheetService {
         }
     }
 
-    private static Worksheet parseOpenAIResponseAndCreateWorksheet(String response) {
+    @Override
+    public CompletableFuture<WorksheetEntity> generateWorksheetAsync(WorksheetEntity worksheetEntity) {
+        CompletableFuture<WorksheetEntity> future = new CompletableFuture<>();
+
+        Task<WorksheetEntity> generateWorksheetTask = new Task<>() {
+            @Override
+            protected WorksheetEntity call() throws Exception {
+                return generateWorksheetCallFromController(worksheetEntity);
+            }
+        };
+
+        generateWorksheetTask.setOnSucceeded(event -> {
+            WorksheetEntity generatedWorksheetEntity = generateWorksheetTask.getValue();
+            future.complete(generatedWorksheetEntity);
+        });
+
+        generateWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(generateWorksheetTask.getException());
+        });
+
+        new Thread(generateWorksheetTask).start();
+
+        return future;
+    }
+
+
+    @Override
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm) {
+        CompletableFuture<WorksheetEntity> future = new CompletableFuture<>();
+
+        Task<WorksheetEntity> findWorksheetTask = new Task<>() {
+            @Override
+            protected WorksheetEntity call() throws Exception {
+                return worksheetDAO.findWorksheet(searchTerm);
+            }
+        };
+
+        findWorksheetTask.setOnSucceeded(event -> {
+            WorksheetEntity generatedWorksheetEntity = findWorksheetTask.getValue();
+            future.complete(generatedWorksheetEntity);
+        });
+
+        findWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(findWorksheetTask.getException());
+        });
+
+        new Thread(findWorksheetTask).start();
+
+        return future;
+
+    }
+
+    private static WorksheetEntity parseOpenAIResponseAndCreateWorksheet(String response) {
 
         JSONObject jsonResponse = new JSONObject(response);
         JSONArray choices = jsonResponse.getJSONArray("choices");
@@ -104,19 +144,19 @@ public class WorksheetServiceImpl implements WorksheetService {
         String content = message.getString("content"); // Content located inside messages
 
         // Process the content to create a Worksheet
-        Worksheet worksheet = new Worksheet();
-        worksheet.setQuestionList(parseQuestionsFromContent(content));
+        WorksheetEntity worksheetEntity = new WorksheetEntity();
+        worksheetEntity.setQuestionList(parseQuestionsFromContent(content));
 
-        return worksheet;
+        return worksheetEntity;
     }
 
-    private static List<Question> parseQuestionsFromContent(String content) {
-        List<Question> questions = new ArrayList<>();
+    private static List<QuestionEntity> parseQuestionsFromContent(String content) {
+        List<QuestionEntity> questionEntities = new ArrayList<>();
         String[] lines = content.split("\n");
 
         String currentQuestionText = null;
         String correctOption = null;
-        List<Choice> currentChoices = new ArrayList<>();
+        List<ChoiceEntity> currentChoiceEntities = new ArrayList<>();
 
         for (String line : lines) {
             line = line.trim();
@@ -125,15 +165,15 @@ public class WorksheetServiceImpl implements WorksheetService {
                 // If there's a previous question, add it to the list ; previous iteration extracting question
                 // following iteration we are adding to questions
                 if (currentQuestionText != null) {
-                    questions.add(new Question(currentQuestionText, currentChoices, correctOption));
+                    questionEntities.add(new QuestionEntity(currentQuestionText, currentChoiceEntities, correctOption));
 
                     // Reset for the next question
-                    currentChoices = new ArrayList<>();
+                    currentChoiceEntities = new ArrayList<>();
                     correctOption = null;
                 }
 
                 // Extract question text
-                currentQuestionText = line.substring(line.indexOf(". ") -1).trim();
+                currentQuestionText = line.substring(line.indexOf(". ") - 1).trim();
                 System.out.println("currentQuestionText: " + currentQuestionText);
                 // Extract correct option if present
                 if (currentQuestionText.contains("(Correct Option:")) {
@@ -147,69 +187,19 @@ public class WorksheetServiceImpl implements WorksheetService {
             }
             // Check for choice lines
             else if (line.matches("^[A-D]\\. .*")) {
-                currentChoices.add(new Choice(line));
+                currentChoiceEntities.add(new ChoiceEntity(line));
             }
 
         }
 
         // Add the last question
         if (currentQuestionText != null) {
-            questions.add(new Question(currentQuestionText, currentChoices, correctOption));
+            questionEntities.add(new QuestionEntity(currentQuestionText, currentChoiceEntities, correctOption));
         }
 
 
-        return questions;
+        return questionEntities;
     }
 
-    @Override
-    public CompletableFuture<Worksheet> generateWorksheetAsync() {
-        CompletableFuture<Worksheet> future = new CompletableFuture<>();
-
-        Task<Worksheet> generateWorksheetTask = new Task<>() {
-            @Override
-            protected Worksheet call() throws Exception {
-                return generateWorksheetCallFromController();
-            }
-        };
-
-        generateWorksheetTask.setOnSucceeded(event -> {
-            Worksheet generatedWorksheet = generateWorksheetTask.getValue();
-            future.complete(generatedWorksheet);
-        });
-
-        generateWorksheetTask.setOnFailed(event -> {
-            future.completeExceptionally(generateWorksheetTask.getException());
-        });
-
-        new Thread(generateWorksheetTask).start();
-
-        return future;
-    }
-
-    @Override
-    public CompletableFuture<Worksheet> findWorksheetAsync(String searchTerm) {
-        CompletableFuture<Worksheet> future = new CompletableFuture<>();
-
-        Task<Worksheet> findWorksheetTask = new Task<>() {
-            @Override
-            protected Worksheet call() throws Exception {
-                return worksheetDAO.findWorksheet(searchTerm);
-            }
-        };
-
-        findWorksheetTask.setOnSucceeded(event -> {
-            Worksheet generatedWorksheet = findWorksheetTask.getValue();
-            future.complete(generatedWorksheet);
-        });
-
-        findWorksheetTask.setOnFailed(event -> {
-            future.completeExceptionally(findWorksheetTask.getException());
-        });
-
-        new Thread(findWorksheetTask).start();
-
-        return future;
-
-    }
 }
 

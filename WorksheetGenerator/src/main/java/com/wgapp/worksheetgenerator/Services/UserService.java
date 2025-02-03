@@ -1,10 +1,10 @@
 package com.wgapp.worksheetgenerator.Services;
 
-import com.wgapp.worksheetgenerator.DTOs.UserDTO;
+import com.wgapp.worksheetgenerator.DAO.Entities.UserEntity;
 
 public interface UserService {
-    UserDTO register(UserDTO userDTO);
-    UserDTO login(UserDTO userDTO)  ;
-    void setPinNumber(UserDTO userDTO);
-    void updatePassword(UserDTO userDTO);
+    void register(UserEntity userEntity);
+    UserEntity login(UserEntity userEntity)  ;
+    void setPinNumber(UserEntity userEntity);
+    void updatePassword(UserEntity userEntity);
 }

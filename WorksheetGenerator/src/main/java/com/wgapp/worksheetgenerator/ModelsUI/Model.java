@@ -3,8 +3,6 @@ package com.wgapp.worksheetgenerator.ModelsUI;
 import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.ViewFactory.*;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import java.util.List;
 
 public class Model {
     private static Model model;
@@ -16,23 +14,15 @@ public class Model {
     // This object will hold data from fields to generate worksheet with different constructor (Going)
     private ObjectProperty<WorksheetProperty> worksheetPropertyForGeneration = new SimpleObjectProperty<>(new WorksheetProperty());
 
-
-    //User Answer List
-    //private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+    // Holds user'd data for UI
+    private ObjectProperty<UserProperty> userProperty = new SimpleObjectProperty<>(new UserProperty());
 
     // Search box
     StringProperty searchTerm = new SimpleStringProperty("");
 
-    // User
-    StringProperty userName = new SimpleStringProperty("");
-    StringProperty password = new SimpleStringProperty("");
-    StringProperty pin = new SimpleStringProperty("");
-
-
     private Model() {
         this.viewFactory = new ViewFactory();
     }
-
 
     // Singleton pattern to ensure only one instance of Model
     public static synchronized Model getInstance() {
@@ -48,52 +38,17 @@ public class Model {
 
     /*================================= GETTERS AND SETTER ===================================== */
 
-//    public ListProperty<UserAnswer> getUserAnswersListProperty() {
-//        return userAnswerList;
-//    }
-//
-//    public List<UserAnswer> getUserAnswersList() {
-//        return userAnswerList.get();
-//    }
-//
-//    public void addUserAnswerToUserAnswerList(UserAnswer choice) {
-//        userAnswerList.add(choice);
-//    }
-
-    public String getUserName() {
-        return userName.get();
+//============================================== USER =================================================//
+    public UserProperty getUserProperty() {
+        return userProperty.get();
     }
 
-    public StringProperty userNameProperty() {
-        return userName;
+    public ObjectProperty<UserProperty> userProperty() {
+        return userProperty;
     }
 
-    public void setUserName(String userName) {
-        this.userName.set(userName);
-    }
-
-    public String getPassword() {
-        return password.get();
-    }
-
-    public StringProperty passwordProperty() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
-    }
-
-    public String getPin() {
-        return pin.get();
-    }
-
-    public StringProperty pinProperty() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin.set(pin);
+    public void setUserProperty(UserProperty userProperty) {
+        this.userProperty.set(userProperty);
     }
 
     public String getSearchTerm() {

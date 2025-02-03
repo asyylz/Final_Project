@@ -1,90 +1,149 @@
 package com.wgapp.worksheetgenerator.Controllers;
 
-import com.wgapp.worksheetgenerator.ModelsUI.Worksheet;
+import com.wgapp.worksheetgenerator.DAO.Entities.*;
+import com.wgapp.worksheetgenerator.Exceptions.CustomDatabaseException;
+import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.Services.Impl.MockService;
 import com.wgapp.worksheetgenerator.Services.Impl.WorksheetServiceImpl;
+import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import javafx.application.Platform;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorksheetController {
-
-
-
-     private final WorksheetServiceImpl worksheetServiceImpl = new WorksheetServiceImpl();
     private final MockService mockService = new MockService();
-    private  Worksheet worksheet;
-
-//    public Worksheet generateWorksheet() throws Exception {  // Either specify exact exception or rethrow
-//        try {
-//            return worksheetService.generateWorksheetCallFromController();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw e;  // Rethrow the exception or handle it appropriately
-//            // OR return null; // If you want to return null in case of failure
-//            // OR throw new CustomException("Failed to generate worksheet", e); // If you want to wrap in custom exception
-//        }
-//    }
+    private final WorksheetService worksheetService = new WorksheetServiceImpl();
+    //private final WorksheetServiceImpl worksheetServiceImpl = new WorksheetServiceImpl();
+    private WorksheetEntity worksheetEntity;
+    private WorksheetProperty worksheetProperty = new WorksheetProperty();
+    private List<WorksheetObserver> observers = new ArrayList<>();
 
 
-    public void generateWorksheet() throws Exception {
-        worksheetServiceImpl.generateWorksheetAsync()
+    public interface WorksheetObserver {
+        void onWorksheetGenerated(WorksheetProperty worksheetProperty);
+    }
+
+    public void addObserver(WorksheetObserver observer) {
+        observers.add(observer);
+    }
+
+    public void generateWorksheet(WorksheetProperty worksheetPropertyDTO) {
+        WorksheetEntity worksheetEntity = convertFromPropertyDTOToEntity(worksheetPropertyDTO);
+        mockService.generateWorksheetAsync(worksheetEntity)
                 .thenAccept(worksheet -> {
-                    Platform.runLater(() -> {
-                        setWorksheet(worksheet);
-                    });
+                    try {
+                        Platform.runLater(() -> {
+                            this.worksheetEntity = worksheet;
+                            notifyObservers();
+                        });
+                    } catch (Exception e) {
+                        System.err.println("Error updating worksheet: " + e.getMessage());
+                    }
                 })
-                .exceptionally(error -> {
-                    Platform.runLater(() -> {
-                        // Handle error in UI
-                       // handleError(error);
-                    });
+                .exceptionally(ex -> {
+                    System.err.println("Error generating worksheet: " + ex.getMessage());
+                    return null;  // Returning null to handle failure
+                });
+    }
+
+    public void findWorksheet(String searchTerm) {
+        worksheetService.findWorksheetAsync(searchTerm)
+                .thenAccept(worksheet -> {
+                    try {
+                        Platform.runLater(() -> {
+                            this.worksheetEntity = worksheet;
+                            notifyObservers();
+                        });
+
+                    } catch (Exception e) {
+                        System.err.println("Error fetching worksheet: " + e.getMessage());
+                    }
+                }).exceptionally(ex -> {
                     return null;
                 });
     }
 
-    public Worksheet getWorksheet() {
-        return worksheet;
+    private void notifyObservers() {
+        for (WorksheetObserver observer : observers) {
+            WorksheetProperty worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
+            observer.onWorksheetGenerated(worksheetProperty);
+        }
     }
 
-    public void setWorksheet(Worksheet worksheet) {
-        this.worksheet = worksheet;
+
+    private WorksheetProperty convertFromEntityToDTOProperty(WorksheetEntity worksheetEntity) {
+        if (worksheetEntity == null) {
+            throw new CustomDatabaseException("The worksheet you are looking for is not found please try  another worksheet");
+        }
+
+        // Convert list of questions (assuming worksheet.getQuestionList() is of type List<Question>)
+        ListProperty<QuestionProperty> questionPropertiesList = new SimpleListProperty<>(FXCollections.observableArrayList());
+        ListProperty<ChoiceProperty> choiceList = new SimpleListProperty<>(FXCollections.observableArrayList());
+
+        for (QuestionEntity questionEntity : worksheetEntity.getQuestionList()) {
+            QuestionProperty questionProperty = new QuestionProperty(
+                    new SimpleIntegerProperty(questionEntity.getQuestionId()),
+                    new SimpleStringProperty(questionEntity.getQuestionText()),
+                    new SimpleStringProperty(questionEntity.getCorrectAnswerText()));
+
+            for (ChoiceEntity choiceEntity : questionEntity.getChoices()) {
+                choiceList.add(new ChoiceProperty(
+                        new SimpleIntegerProperty(choiceEntity.getChoiceId()),
+                        new SimpleStringProperty(choiceEntity.getChoiceText())));
+            }
+            questionProperty.setChoices(choiceList);
+            questionPropertiesList.add(questionProperty);
+
+
+        }
+
+        // Check for null in passage
+        PassageProperty passageProperty = null;
+        if (worksheetEntity.getPassage() != null) {
+            passageProperty = new PassageProperty(
+                    //new SimpleIntegerProperty(worksheet.getPassage().getPassageId()),
+                    new SimpleStringProperty(worksheetEntity.getPassage().getPassageTitle()),
+                    new SimpleStringProperty(worksheetEntity.getPassage().getPassageText())
+            );
+
+        }
+
+        WorksheetProperty worksheetProperty = new WorksheetProperty(
+                new SimpleIntegerProperty(worksheetEntity.getWorksheetId()),
+                worksheetEntity.getMainSubject(), // ✅ Directly pass enum
+                worksheetEntity.getSubSubject(),  // ✅ Directly pass enum
+                worksheetEntity.getDifficultyLevel(), // ✅ Directly pass enum
+                new SimpleListProperty<>(FXCollections.observableArrayList(questionPropertiesList)),
+                passageProperty  // May be null if passage is missing
+        );
+
+        return worksheetProperty;
+
     }
 
+    private WorksheetEntity convertFromPropertyDTOToEntity(WorksheetProperty worksheetPropertyDTO) {
+        if (worksheetPropertyDTO == null) {
+            //throw new CustomDatabaseException("The worksheet you are looking for is not found please try  another worksheet");
+        }
 
+        System.out.println(worksheetPropertyDTO.getUserProperty().getUsername());
+        WorksheetEntity worksheetEntity = new WorksheetEntity();
+        worksheetEntity.setMainSubject(worksheetPropertyDTO.getMainSubject());
+        worksheetEntity.setSubSubject(worksheetPropertyDTO.getSubSubject());
+        worksheetEntity.setDifficultyLevel(worksheetPropertyDTO.getDiffLevel());
+        worksheetEntity.setPassage(new PassageEntity(
+                worksheetPropertyDTO.passageProperty().getPassageTitle(),
+                worksheetPropertyDTO.passageProperty().getPassageContent()
 
+        ));
+        worksheetEntity.setQuestionTypesList(worksheetPropertyDTO.getQuestionTypeList());
+        worksheetEntity.setUserEntity(new UserEntity(worksheetPropertyDTO.getUserProperty().getUsername()));
 
-
-    //    public Worksheet generateWorksheet(Worksheet worksheet) throws Exception {
-//        // Show the loading indicator
-//       // loadingIndicatorComponent.setVisible(true);
-//
-//        // Create a background task
-//        Task<Void> generateWorksheetTask = new Task<>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                // Simulate worksheet generation (replace with actual logic)
-//                worksheetController.generateWorksheet();
-//                return null;
-//            }
-//        };
-//
-//        // Handle success
-//        generateWorksheetTask.setOnSucceeded(event -> {
-//           // loadingIndicatorComponent.setVisible(false);
-//            // Handle successful completion (e.g., show a success message)
-//        });
-//
-//        // Handle failure
-//        generateWorksheetTask.setOnFailed(event -> {
-//           // loadingIndicatorComponent.setVisible(false);
-//            Throwable error = generateWorksheetTask.getException();
-//            error.printStackTrace();
-//            // Show error to user
-//        });
-//
-//        // Run the task in a background thread
-//        new Thread(generateWorksheetTask).start();
-//    }
+        return worksheetEntity;
+    }
 
 
 }

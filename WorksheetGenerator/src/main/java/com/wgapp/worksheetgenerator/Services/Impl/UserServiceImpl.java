@@ -21,49 +21,38 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDTO register(UserDTO userDTO) {
+    public void register(UserEntity userEntity) {
 
         // Validate the password before proceeding
-        String password = userDTO.getPassword();
+        String password = userEntity.getPassword();
         String validationMessage = getPasswordValidationMessage(password);
         if (validationMessage != null) {
-            Utils.notifyUser(validationMessage,"Invalid Password","Password Error", Alert.AlertType.ERROR);
+            Utils.notifyUser(validationMessage, "Invalid Password", "Password Error", Alert.AlertType.ERROR);
             throw new IllegalArgumentException(validationMessage);
         }
-
         // Create the user using the UserDAO and get the created UserEntity
-        UserEntity userEntity = userDAO.createUser(userDTO.getUsername(), password);
-
-        // Convert the UserEntity to a UserDTO to return
-        UserDTO newUserDTO = new UserDTO();
-        newUserDTO.setUsername(userEntity.getUsername());
-        newUserDTO.setPassword(userEntity.getPassword()); // You may not want to return password, but for now, I included it.
-
-        // Return the newly created UserDTO
-        return newUserDTO;
+        userDAO.createUser(userEntity.getUsername(), password);
     }
 
     @Override
-    public UserDTO login(UserDTO userDTO) {
-        UserEntity userEntity = userDAO.findUserByUsername(userDTO.getUsername(), userDTO.getPassword());
+    public UserEntity login(UserEntity userEntity) {
+        return userDAO.findUserByUsername(userEntity.getUsername(), userEntity.getPassword());
 
-        // Convert UserEntity to UserDTO (don't expose password)
-        return new UserDTO(userEntity.getUsername(), userEntity.getPinNumber());
     }
 
     // service
     @Override
-    public void setPinNumber(UserDTO userDTO) {
-        userDAO.setPinNumber(userDTO.getPinNumber(), userDTO.getUsername());
+    public void setPinNumber(UserEntity userEntity) {
+        userDAO.setPinNumber(userEntity.getPinNumber(), userEntity.getUsername());
     }
 
     @Override
-    public void updatePassword(UserDTO userDTO) {
-        String oldPassword = userDTO.getOldPassword();
-        String newPassword = userDTO.getNewPassword();
+    public void updatePassword(UserEntity userEntity) {
+        String oldPassword = userEntity.getPassword();
+        String newPassword = userEntity.getNewPassword();
         String validationMessage = getPasswordValidationMessage(newPassword);
         if (validationMessage == null) {
-            userDAO.updatePassword(userDTO.getUsername(), oldPassword, newPassword);
+            userDAO.updatePassword(userEntity.getUsername(), oldPassword, newPassword);
         }
 
     }

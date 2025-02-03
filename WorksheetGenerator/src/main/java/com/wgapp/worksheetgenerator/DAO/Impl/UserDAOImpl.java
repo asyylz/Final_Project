@@ -11,7 +11,7 @@ import java.sql.*;
 public class UserDAOImpl implements UserDAO {
 
     @Override
-    public UserEntity createUser(String username, String password) {
+    public void createUser(String username, String password) {
 
         String sql = "INSERT INTO users (user_name, user_password) VALUES (?, ?)";
 
@@ -36,7 +36,6 @@ public class UserDAOImpl implements UserDAO {
                         user.setUserId(rs.getInt(1));  // Set generated user ID
                         user.setUsername(username);  // Set username
                         user.setPassword(hashedPassword);  // Set hashed password
-                        return user;
                     }
                 }
             }

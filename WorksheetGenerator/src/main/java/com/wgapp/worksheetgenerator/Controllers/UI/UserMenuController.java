@@ -32,31 +32,10 @@ public class UserMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         addListeners();
-       // System.out.println("from userMenu" + Model.getInstance().getViewFactory().getUserSelectMenuView().get());
+
         // Generate button  show up first with active style since its related view is active on screen
         generatorBtn.getStyleClass().add("active");
 
-       // Platform.runLater(() -> generatorBtn.requestFocus());
-
-
-//        //When ever other buttons are being clicked we are removing generateBtn's  active style
-//        worksheetBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue ) {
-//                generatorBtn.getStyleClass().remove("active");
-//            }
-//        });
-//
-//        accountBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                generatorBtn.getStyleClass().remove("active");
-//            }
-//        });
-//
-//        generatorBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue) {
-//                generatorBtn.getStyleClass().remove("active");
-//            }
-//        });
 
         Model.getInstance().getViewFactory().getUserSelectMenuView().addListener((obs, oldVal, newVal) -> {
 
@@ -87,9 +66,8 @@ public class UserMenuController implements Initializable {
         });
 
 
-
-        if (Model.getInstance().getUserName() != null) {
-            userNameAfterLogin.setText(Model.getInstance().getUserName());
+        if (Model.getInstance().getUserProperty().getUsername()!= null) {
+            userNameAfterLogin.setText(Model.getInstance().getUserProperty().getUsername());
 
         }
 
@@ -99,7 +77,7 @@ public class UserMenuController implements Initializable {
             if (isLogout.get()) {
                 Stage currentStage = (Stage) avatar.getScene().getWindow();
                 Model.getInstance().getViewFactory().closeStage(currentStage);
-                Model.getInstance().setUserName(null);
+                Model.getInstance().getUserProperty().setUsername(null);
             }
 
             if (isLogout.get()) {
@@ -119,24 +97,15 @@ public class UserMenuController implements Initializable {
 
     private void onGenerator() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.GENERATOR);
-//        generatorBtn.getStyleClass().add("active");
-//        worksheetBtn.getStyleClass().remove("active");
-//        accountBtn.getStyleClass().remove("active");
     }
 
     private void onWorksheet() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
-//        worksheetBtn.getStyleClass().add("active");
-//        generatorBtn.getStyleClass().remove("active");
-//        accountBtn.getStyleClass().remove("active");
 
     }
 
     private void onSettings() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.SETTINGS);
-//        accountBtn.getStyleClass().add("active");
-//        worksheetBtn.getStyleClass().remove("active");
-//        generatorBtn.getStyleClass().remove("active");
     }
 
 

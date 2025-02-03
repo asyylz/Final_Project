@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Controllers.UserController;
-import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.UserProperty;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -64,10 +64,6 @@ public class UserLoginController implements Initializable {
             }
         });
 
-        //userNameField.textProperty().bindBidirectional(Model.getInstance().userNameProperty());
-        //passwordField.textProperty().bindBidirectional(Model.getInstance().passwordProperty());
-       // Model.getInstance().userNameProperty().bind(userNameField.textProperty());
-
         registerBtn.disableProperty().bind(
                 Bindings.createBooleanBinding(() ->
                                 isRegisterMode.get() && (
@@ -117,15 +113,16 @@ public class UserLoginController implements Initializable {
             String username = userNameField.getText();
             String password = passwordField.getText();
             String confirmPassword = confirmPasswordField.getText();
-            System.out.println(password);
-            System.out.println(confirmPassword);
+
             // Check if passwords match
             if (!password.equals(confirmPassword)) {
                 System.out.println("Passwords do not match!");
                 return; // Stop registration if passwords don't match
             }
+            Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
+            Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
 
-            userController.registerUser(new UserDTO(username.trim(), password.trim()));
+            userController.registerUser(Model.getInstance().getUserProperty());
 
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
@@ -146,17 +143,21 @@ public class UserLoginController implements Initializable {
 
 
         if (!isRegisterMode.get()) { //
-            userController.loginUser(new UserDTO(userNameField.getText().trim(), passwordField.getText().trim()));
 
+            Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
+            Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
 
-
+            //userController.loginUser(Model.getInstance().getUserProperty());
+            Model.getInstance().setUserProperty(userController.loginUser(Model.getInstance().getUserProperty()));
             Model.getInstance().getViewFactory().showLandingWindow();
+
             // Show success message
             Utils.notifyUser("You successfully logged in!", "Login", "Success", Alert.AlertType.INFORMATION);
 
             Stage currentStage = (Stage) loginWindowParent.getScene().getWindow();
 
-            Model.getInstance().setUserName(userNameField.getText().trim());
+            // We are  attaching username  for worksheet generation
+            Model.getInstance().getWorksheetPropertyForGeneration().setUserProperty(new UserProperty(userNameField.getText().trim()));
 
             Model.getInstance().getViewFactory().closeStage(currentStage);
         }

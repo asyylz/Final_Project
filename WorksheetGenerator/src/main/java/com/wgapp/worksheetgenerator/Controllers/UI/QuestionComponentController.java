@@ -1,9 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
-import com.wgapp.worksheetgenerator.ModelsUI.Question;
 import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
-import com.wgapp.worksheetgenerator.ModelsUI.UserAnswer;
+import com.wgapp.worksheetgenerator.ModelsUI.UserAnswerProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
@@ -12,6 +11,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -112,7 +112,7 @@ public class QuestionComponentController implements Initializable {
                     // Check if there's already an answer for the question
                     boolean answerUpdated = false;
 
-                    for (UserAnswer userAnswer : Model.getInstance().getWorksheetProperty().userAnswerListProperty()) {
+                    for (UserAnswerProperty userAnswer : Model.getInstance().getWorksheetProperty().userAnswerListProperty()) {
                         if (userAnswer.getQuestionIndex() == questionIndex) {
                             // Update the existing answer
                             userAnswer.setAnswer(selectedChoice);
@@ -124,7 +124,7 @@ public class QuestionComponentController implements Initializable {
 
                     if (!answerUpdated) {
                         // No existing answer for this question, so add a new one
-                        Model.getInstance().getWorksheetProperty().userAnswerListProperty().add(new UserAnswer(selectedChoice, questionIndex));
+                        Model.getInstance().getWorksheetProperty().userAnswerListProperty().add(new UserAnswerProperty(selectedChoice, questionIndex));
                         System.out.println("Saved answer for question " + questionIndex + ": " + selectedChoice);
                     }
                 }
@@ -141,7 +141,7 @@ public class QuestionComponentController implements Initializable {
 
     }
 
-    public void removeShowAnswerStyleClasses(){
+    public void removeShowAnswerStyleClasses() {
         choiceWrapper1.getStyleClass().remove("correctAnswer");
         choiceWrapper1.getStyleClass().remove("incorrectAnswer");
         choiceWrapper2.getStyleClass().remove("correctAnswer");
@@ -157,7 +157,7 @@ public class QuestionComponentController implements Initializable {
         boolean isUserCorrect = false;
 
         // Find the user's answer for this specific question
-        for (UserAnswer answer : Model.getInstance().getWorksheetProperty().getUserAnswerList()) {
+        for (UserAnswerProperty answer : Model.getInstance().getWorksheetProperty().getUserAnswerPropertyList()) {
             if (answer.getQuestionIndex() == questionIndex) {
                 // Check if the user's answer matches the correct answer
                 if (answer.getAnswer().equals(correctAnswer)) {

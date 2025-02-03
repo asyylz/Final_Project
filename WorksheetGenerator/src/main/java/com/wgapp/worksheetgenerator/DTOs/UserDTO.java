@@ -2,9 +2,6 @@ package com.wgapp.worksheetgenerator.DTOs;
 
 public class UserDTO {
     private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
     private String password;
     private int pinNumber;
     private String newPassword;

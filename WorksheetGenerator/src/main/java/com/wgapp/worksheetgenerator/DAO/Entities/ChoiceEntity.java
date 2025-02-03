@@ -1,15 +1,15 @@
-package com.wgapp.worksheetgenerator.ModelsUI;
+package com.wgapp.worksheetgenerator.DAO.Entities;
 
-public class Choice {
+public class ChoiceEntity {
     private int choiceId;
     private String choiceText;
 
-    public Choice(String choiceText) {
+    public ChoiceEntity(String choiceText) {
         this.choiceText = choiceText;
 
     }
 
-    public Choice(int choiceId, String choiceText) {
+    public ChoiceEntity(int choiceId, String choiceText) {
         this.choiceId = choiceId;
         this.choiceText = choiceText;
     }
