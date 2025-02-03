@@ -2,7 +2,6 @@ module com.wgapp.worksheetgenerator {
     requires javafx.controls;
     requires javafx.fxml;
     requires de.jensd.fx.glyphs.fontawesome;
-
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
@@ -16,7 +15,6 @@ module com.wgapp.worksheetgenerator {
     requires io;
     requires jbcrypt;
     requires jdk.jshell;
-    //  requires com.microsoft.sqlserver.jdbc;
 
     opens com.wgapp.worksheetgenerator to javafx.fxml;
 
@@ -26,7 +24,6 @@ module com.wgapp.worksheetgenerator {
     exports com.wgapp.worksheetgenerator.Controllers;
     exports com.wgapp.worksheetgenerator.ModelsUI;
     exports com.wgapp.worksheetgenerator.Controllers.UI;
-    exports com.wgapp.worksheetgenerator.DTOs;
     exports com.wgapp.worksheetgenerator.ModelsUI.Enums;
     exports com.wgapp.worksheetgenerator.DAO.Entities;
 

@@ -16,9 +16,7 @@ import java.util.List;
 public class WorksheetController {
     private final MockService mockService = new MockService();
     private final WorksheetService worksheetService = new WorksheetServiceImpl();
-    //private final WorksheetServiceImpl worksheetServiceImpl = new WorksheetServiceImpl();
     private WorksheetEntity worksheetEntity;
-    private WorksheetProperty worksheetProperty = new WorksheetProperty();
     private List<WorksheetObserver> observers = new ArrayList<>();
 
 

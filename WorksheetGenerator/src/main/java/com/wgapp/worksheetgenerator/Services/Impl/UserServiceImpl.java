@@ -2,7 +2,6 @@ package com.wgapp.worksheetgenerator.Services.Impl;
 
 import com.wgapp.worksheetgenerator.DAO.Entities.UserEntity;
 import com.wgapp.worksheetgenerator.DAO.Impl.UserDAOImpl;
-import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.Services.UserService;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.scene.control.Alert;

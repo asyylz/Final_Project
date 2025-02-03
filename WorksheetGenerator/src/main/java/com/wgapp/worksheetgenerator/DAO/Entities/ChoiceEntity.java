@@ -35,16 +35,4 @@ public class ChoiceEntity {
         return choiceId;
     }
 
-    //    @Override
-//    public String toString() {
-//        // Return the question text and the options as a formatted string
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Question: ").append(questionText).append("\n");
-//
-//        for (Choice option : choices) {
-//            sb.append(option).append("\n");  // This will use Option's toString() method
-//        }
-//
-//        return sb.toString();
-//    }
 }

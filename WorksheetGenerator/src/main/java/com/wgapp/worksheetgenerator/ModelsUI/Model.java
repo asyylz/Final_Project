@@ -1,12 +1,10 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
 
-import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.ViewFactory.*;
 import javafx.beans.property.*;
 
 public class Model {
     private static Model model;
-    private UserDTO user;
     private final ViewFactory viewFactory;
 
     //This object will hold data from fields to update UI (Coming)

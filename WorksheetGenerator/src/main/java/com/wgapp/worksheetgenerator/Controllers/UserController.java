@@ -1,7 +1,6 @@
 package com.wgapp.worksheetgenerator.Controllers;
 
 import com.wgapp.worksheetgenerator.DAO.Entities.UserEntity;
-import com.wgapp.worksheetgenerator.DTOs.UserDTO;
 import com.wgapp.worksheetgenerator.ModelsUI.UserProperty;
 import com.wgapp.worksheetgenerator.Services.Impl.UserServiceImpl;
 import com.wgapp.worksheetgenerator.Services.UserService;
@@ -9,7 +8,6 @@ import com.wgapp.worksheetgenerator.Services.UserService;
 public class UserController {
 
     private final UserService userService = new UserServiceImpl();
-
 
     public UserController() {
 
