@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,7 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 public class PassageWindowController implements Initializable {
@@ -40,16 +42,18 @@ public class PassageWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        doesQuestionTypesRequire.bind(Model.getInstance().getSubSubjectProperty().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
+        doesQuestionTypesRequire.bind(Model.getInstance().getWorksheetProperty().subSubjectProperty().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
 
         // Set the initial content of the TextArea to the value stored in the model
-        readingPassage.setText(Model.getInstance().getPassageContent());
+        readingPassage.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
         // Set the initial title of the passage to the value stored in the model
-        passageTitle.setText(Model.getInstance().getPassageTitle());
+        passageTitle.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle());
         // Listener collection
         addListener();
 
         questionTypes.visibleProperty().bind(doesQuestionTypesRequire);
+
+
 
 
     } // End of initialize
@@ -73,11 +77,13 @@ public class PassageWindowController implements Initializable {
         });
 
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().setPassageContent(readingPassage.getText());
+            System.out.println(newValue);
+            Model.getInstance().getWorksheetProperty().passageProperty().setPassageContent(newValue);
+
         });
 
         passageTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().setPassageTitle(newValue);
+            Model.getInstance().getWorksheetProperty().passageProperty().setPassageTitle(newValue);
         });
 
         // Listener for closeBtn
@@ -110,11 +116,14 @@ public class PassageWindowController implements Initializable {
 
     /*================================= HANDLERS ===================================== */
     private void onCloseBtnClickedHandler() {
+
+
+        System.out.println("passage contetnt" +Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
         // Get the current stage
         Stage currentStage = (Stage) closeBtn.getScene().getWindow();
 
-        boolean isTitleEmpty = Model.getInstance().getPassageTitle().isEmpty();
-        boolean isPassageEmpty = Model.getInstance().getPassageContent().isEmpty();
+        boolean isTitleEmpty = Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle() == null;
+        boolean isPassageEmpty = Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent() == null;
         boolean isQuestionListEmpty = Model.getInstance().getQuestionTypeList().isEmpty();
 
         if (doesQuestionTypesRequire.get() && isQuestionListEmpty) {

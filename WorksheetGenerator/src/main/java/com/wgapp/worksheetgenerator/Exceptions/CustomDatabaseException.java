@@ -25,7 +25,7 @@ public class CustomDatabaseException extends RuntimeException {
 
     private static String transformMessage(Throwable cause) {
         if (cause.getMessage().contains("CK__users__user_pinN")) {
-            System.out.println(cause.getMessage());
+            //System.out.println(cause.getMessage());
             Utils.notifyUser("Invalid PIN format! The PIN must be exactly 4 numeric digits.", "Invalid PIN", "PIN Creation Error", Alert.AlertType.ERROR);
             return "Invalid PIN format! The PIN must be exactly 4 numeric digits.";
         }

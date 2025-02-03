@@ -1,16 +1,15 @@
 package com.wgapp.worksheetgenerator.Utils;
 
-import com.wgapp.worksheetgenerator.Models.Question;
-
 public class PromtConstants {
 
     public static final String PROMPT_BEGINNING_COMPREHENSION = """
             Create a comprehension worksheet based on the provided passage. The worksheet should have exactly 5 questions, focusing on the following types specified by the user:
-            Use the following format for the questions:
+           
+            **Question Format:**
             1. [Question text] ([Question type]) ([Correct Option: X])
             2. [Question text] ([Question type]) ([Correct Option: X])
             
-            Examples of question structures:
+            **Examples of question structures:**
             - Question 1: What does the term "quagmire" mean in the passage? (VOCABULARY)(Correct Option: A)
               A.[Option Text]
               B.[Option Text]
@@ -25,7 +24,7 @@ public class PromtConstants {
             Rules:
             1. Ensure each question is directly related to the passage.
             2. Maintain a balance between difficulty levels across the questions.
-            3. Format the output as a numbered list.
+            3. The worksheet should have exactly 5 questions
             User Options:
             """;
 

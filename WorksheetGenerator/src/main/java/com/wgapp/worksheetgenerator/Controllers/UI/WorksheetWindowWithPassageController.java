@@ -1,11 +1,13 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
-import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.ModelsUI.*;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
-import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
-
+import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
+import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -29,7 +31,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.beans.binding.Bindings;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +56,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
     private final BooleanProperty isTimerOn = new SimpleBooleanProperty(false);
-    private final BooleanProperty didWorksheetFound = new SimpleBooleanProperty(false);
+    private final BooleanProperty isItAtStart = new SimpleBooleanProperty(true);
     public Circle backgroundCircle3;
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
@@ -78,48 +79,34 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         // Observer pattern
         worksheetController.addObserver(this);
 
-        // Bind the property to update UI automatically when `didWorksheetFound` changes
+        if (isItAtStart.get()) {
+            if (Model.getInstance().getWorksheetProperty().getId()!=0) { // equals zero means null
 
-        didWorksheetFound.bind(
-                Bindings.createBooleanBinding(() ->
-                                Model.getInstance().getWorksheet() != null,
-                        Model.getInstance().worksheetProperty()
-                ));
+                updateWorksheetUI();
+            }
+            isItAtStart.set(false);
+        }
 
-        // Add a listener to react whenever `didWorksheetFound` changes
-        didWorksheetFound.addListener((obs, oldValue, newValue) -> {
-            if (newValue) {
-                System.out.println("worksheet from database");
+        Model.getInstance().worksheetProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null) {
                 updateWorksheetUI();
             }
         });
 
-        // Check if a worksheet is already available at initialization
-        if (Model.getInstance().getWorksheet() != null) {
-            System.out.println("new worksheet generation");
-//            Platform.runLater(() -> {
-//               updateWorksheetUI();
-//          });
-
-            updateWorksheetUI();
-        }
-
         searchIconBtn.setOnMouseClicked(event -> {
-            //  System.out.println("Search term" + searchTextField.getText());
             worksheetController.findWorksheet(searchTextField.getText());
             searchTextField.clear();
             // To be able to load second  next search
-            Model.getInstance().setWorksheet(null);
+            Model.getInstance().setWorksheetProperty(null);
 
         });
 
         searchTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                //   System.out.println("Search term" + searchTextField.getText());
                 worksheetController.findWorksheet(searchTextField.getText());
                 searchTextField.clear();
                 // To be able to load second  next search
-                Model.getInstance().setWorksheet(null);
+                Model.getInstance().setWorksheetProperty(null);
             }
 
         });
@@ -174,9 +161,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             pause.play();
         });
 
-        timer.setOnMouseClicked(event -> {
-            // System.out.println("Before toggle: " + isTimerOn.get());
 
+        timer.setOnMouseClicked(event -> {
             if (!isTimerOn.get()) {
                 Utils.setTimer(timerText);  // Start the timer
             } else {
@@ -184,8 +170,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
                 //timerText.setText("");      // Clear the timer when stopping
             }
             isTimerOn.set(!isTimerOn.get()); // Toggle the state
-
-            //System.out.println("After toggle: " + isTimerOn.get());
         });
 
 
@@ -266,11 +250,10 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     // Extracted method to update UI whenever a worksheet is found
     private void updateWorksheetUI() {
-        int worksheetId = Model.getInstance().getWorksheet().getWorksheetId();
-        MainSubjectOptions mainSubject = Model.getInstance().getWorksheet().getMainSubject();
-        ISubSubjectOptions subSubject = Model.getInstance().getWorksheet().getSubSubject();
-        DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheet().getDifficultyLevel();
-
+        int worksheetId = Model.getInstance().getWorksheetProperty().getId();
+        MainSubjectOptions mainSubject = Model.getInstance().getWorksheetProperty().getMainSubject();
+        ISubSubjectOptions subSubject = Model.getInstance().getWorksheetProperty().getSubSubject();
+        DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheetProperty().getDiffLevel();
 
         // Setting worksheetId text
         worksheetIdText.setText(String.valueOf(worksheetId));
@@ -281,9 +264,9 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         // Setting grade level
         gradeLevel.setText(diffLevel.toString());
         //Setting passage
-        passageText.setText(Model.getInstance().getWorksheet().getPassage().getPassageText());
+        passageText.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
         //Setting passage title
-        passageTitle.setText(Model.getInstance().getWorksheet().getPassage().getPassageTitle());
+        passageTitle.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle());
 
         // At first score text invisible
         scoreText.setText("");
@@ -296,13 +279,13 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     private void checkTotalScore() {
         if (!isShowingAnswers.get()) {
             int totalScore = 0;
-            int numberOfQuestion = Model.getInstance().getWorksheet().getQuestionList().size();
-            List<Question> questionList = Model.getInstance().getWorksheet().getQuestionList();
+            int numberOfQuestion = Model.getInstance().getWorksheetProperty().getQuestionList().size();
+            List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
             List<UserAnswer> userAnswers = Model.getInstance().getUserAnswersList();
 
             for (UserAnswer userAnswer : userAnswers) {
-                for (Question question : questionList)
-                    if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswerText())) {
+                for (QuestionProperty question : questionList)
+                    if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswer())) {
                         totalScore++;
                     }
             }
@@ -314,15 +297,15 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     }
 
     private void initializeQuestions() {
-        List<Question> questionList = Model.getInstance().getWorksheet().getQuestionList();
+        List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
         // Prepare a separate list to store QuestionComponents
         List<Node> questionComponents = new ArrayList<>();
 
         if (questionList != null && questionList.size() > 0) {
             // For each question, load and add a QuestionComponent
-            for (Question question : questionList) {
+            for (QuestionProperty question : questionList) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/QuestionComponent.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/QuestionComponent.fxml"));
                     Node questionComponent = loader.load();
 
                     // Get the controller and set the question data
@@ -375,7 +358,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     private void onShowAnswerBtnClickedHandler() {
 
         try {
-            List<Question> questions = Model.getInstance().getWorksheet().getQuestionList();
+            List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();
             // Iterate through all children in the VBox (userAnswers)
             for (int i = 0; i < innerRight.getChildren().size(); i++) {
                 Node node = innerRight.getChildren().get(i);
@@ -386,9 +369,9 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
                     // If the controller is present, call the showAnswers method
                     if (controller != null) {
-                        for (Question question : questions) {
+                        for (QuestionProperty question : questions) {
                             if ((questions.indexOf(question) == nodeIndex) && !isShowingAnswers.get()) {
-                                controller.showAnswer(question.getCorrectAnswerText(), questions.indexOf(question));
+                                controller.showAnswer(question.getCorrectAnswer(), questions.indexOf(question));
                             } else if (isShowingAnswers.get()) {
                                 controller.removeShowAnswerStyleClasses();
                             }
@@ -405,16 +388,11 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
 
     @Override
-    public void onWorksheetGenerated(Worksheet worksheet) {
-        // Set new worksheet to model
-       Model.getInstance().setWorksheet(worksheet);
+    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) { // only hapens from database
 
-        // Show success message
+        Model.getInstance().setWorksheetProperty(worksheetProperty);
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
-
-
     }
-
 }
 
 

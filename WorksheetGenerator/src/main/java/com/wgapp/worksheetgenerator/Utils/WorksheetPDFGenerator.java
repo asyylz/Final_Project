@@ -7,9 +7,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
-import com.wgapp.worksheetgenerator.Models.Choice;
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.Worksheet;
+import com.wgapp.worksheetgenerator.ModelsUI.*;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -56,7 +54,7 @@ public class WorksheetPDFGenerator {
 
     public static void downloadWorksheetHandler(Window currentWindow) throws IOException {
         try {
-            Worksheet worksheet = Model.getInstance().getWorksheet();
+            WorksheetProperty worksheet = Model.getInstance().getWorksheetProperty();
 
             FileChooser newFileChooser = new FileChooser();
             newFileChooser.setTitle("Save as a Pdf file");
@@ -66,8 +64,8 @@ public class WorksheetPDFGenerator {
             File file = newFileChooser.showSaveDialog(currentWindow);
 
             // Get worksheet title and passage
-            String title = worksheet.getPassage().getPassageTitle();
-            String passage = worksheet.getPassage().getPassageText();
+            String title = worksheet.passageProperty().getPassageTitle();
+            String passage = worksheet.passageProperty().getPassageContent();
             // List<Choice> listOfChoices = worksheet.getQuestionList()
 
             if (file != null) {
@@ -78,7 +76,7 @@ public class WorksheetPDFGenerator {
                             questionWithChoices.append(question.getQuestionText()).append("\n");
 
                             // Add each choice
-                            java.util.List<Choice> choices = question.getChoices();
+                            java.util.List<ChoiceProperty> choices = question.getChoices();
                             for (int i = 0; i < choices.size(); i++) {
                                 //   char choiceLetter = (char) ('A' + i);  // Convert 0->A, 1->B, etc.
                                 questionWithChoices

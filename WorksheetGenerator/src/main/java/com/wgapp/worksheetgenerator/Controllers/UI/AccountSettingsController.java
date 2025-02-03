@@ -2,7 +2,7 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Controllers.UserController;
 import com.wgapp.worksheetgenerator.DTOs.UserDTO;
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

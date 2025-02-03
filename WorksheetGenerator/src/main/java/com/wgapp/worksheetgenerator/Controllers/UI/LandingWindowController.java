@@ -1,6 +1,6 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
