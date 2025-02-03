@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Utils;
 
-import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -67,7 +67,7 @@ public class Utils {
 
     public static String checkSubSubject() {
 
-        switch (Model.getInstance().getSubSubjectProperty().get()) {
+        switch (Model.getInstance().getWorksheetProperty().getSubSubject()) {
             case SubSubjectOptionsEnglish.COMPREHENSION -> {
                 return PromtConstants.PROMPT_BEGINNING_COMPREHENSION;
             }
@@ -81,7 +81,7 @@ public class Utils {
                 return PromtConstants.PROMPT_BEGINNING_SPAG;
             }
             default ->
-                    throw new IllegalStateException("Unexpected value: " + Model.getInstance().getSubSubjectProperty().get());
+                    throw new IllegalStateException("Unexpected value: " + Model.getInstance().getWorksheetProperty().getSubSubject());
         }
     }
 
@@ -159,7 +159,7 @@ public class Utils {
             alert.show();
 
             // Auto-close after 2 seconds
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(e -> alert.close());
             pause.play();
 

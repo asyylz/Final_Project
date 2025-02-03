@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers;
 
-import com.wgapp.worksheetgenerator.Models.Worksheet;
-import com.wgapp.worksheetgenerator.Services.MockService;
-import com.wgapp.worksheetgenerator.Services.WorksheetService;
+import com.wgapp.worksheetgenerator.ModelsUI.Worksheet;
+import com.wgapp.worksheetgenerator.Services.Impl.MockService;
+import com.wgapp.worksheetgenerator.Services.Impl.WorksheetServiceImpl;
 import javafx.application.Platform;
 
 
@@ -10,7 +10,7 @@ public class WorksheetController {
 
 
 
-     private final WorksheetService worksheetService = new WorksheetService();
+     private final WorksheetServiceImpl worksheetServiceImpl = new WorksheetServiceImpl();
     private final MockService mockService = new MockService();
     private  Worksheet worksheet;
 
@@ -27,7 +27,7 @@ public class WorksheetController {
 
 
     public void generateWorksheet() throws Exception {
-        worksheetService.generateWorksheetAsync()
+        worksheetServiceImpl.generateWorksheetAsync()
                 .thenAccept(worksheet -> {
                     Platform.runLater(() -> {
                         setWorksheet(worksheet);

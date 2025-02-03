@@ -2,10 +2,14 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
 import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
-import com.wgapp.worksheetgenerator.Models.*;
+import com.wgapp.worksheetgenerator.ModelsUI.*;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
 import com.wgapp.worksheetgenerator.Utils.Utils;
-import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
-import com.wgapp.worksheetgenerator.Views.UserMenuOptions;
+import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
+import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,8 +43,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
+    private BooleanProperty isGenerationCompleted = new SimpleBooleanProperty(false);
 
-  //  private final WorksheetController worksheetController = new WorksheetController();
+    //  private final WorksheetController worksheetController = new WorksheetController();
     private final WorksheetControllerTest worksheetController = new WorksheetControllerTest();
 
     // Initialize CustomDropdowns and populating their content
@@ -59,37 +65,57 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
         generatorWindowParent.setStyle("-fx-font-family: 'Oswald'; -fx-font-size: 14px;");
 
+        dropdownMainSubject.selectedProperty().set("MAIN");
+        dropdownSubSubject.selectedProperty().set("SUB");
+        difficultyLevel.selectedProperty().set("DIFF");
+
 
         // Add CustomDropdownMenus to the associated panes in layout
         wrapperCustomDropdownMenuOne.getChildren().add(dropdownMainSubject);
         wrapperCustomDropdownMenuTwo.getChildren().add(dropdownSubSubject);
         wrapperCustomDropdownMenuThree.getChildren().add(difficultyLevel);
 
-        stepOneTick.visibleProperty().bind(Model.getInstance().getMainSubjectProperty().isNotNull());
-        stepTwoTick.visibleProperty().bind(Model.getInstance().getSubSubjectProperty().isNotNull());
-        stepThreeTick.visibleProperty().bind(Model.getInstance().getDifficultyLevelProperty().isNotNull());
+
+        stepOneTick.visibleProperty().bind(
+                Bindings.createBooleanBinding(
+                        () -> !dropdownMainSubject.selectedProperty().get().contains("MAIN"),
+                        dropdownMainSubject.selectedProperty() // Binding to the custom property
+                )
+        );
+
+        stepTwoTick.visibleProperty().bind(
+                Bindings.createBooleanBinding(
+                        () -> !dropdownSubSubject.selectedProperty().get().contains("SUB"),
+                        dropdownSubSubject.selectedProperty() // Binding to the custom property
+                )
+        );
+
+        stepThreeTick.visibleProperty().bind(
+                Bindings.createBooleanBinding(
+                        () -> !difficultyLevel.selectedProperty().get().contains("DIFF"),
+                        difficultyLevel.selectedProperty() // Binding to the custom property
+                )
+        );
+
         passageTextWrapper.visibleProperty().bind(passageSectionRequiredProperty());
-
-
 
         generateBtn.disableProperty().bind(
                 Bindings.createBooleanBinding(() ->
-                                Model.getInstance().getMainSubjectProperty().get() == null ||
-                                        Model.getInstance().getSubSubjectProperty().get() == null ||
-                                        Model.getInstance().getDifficultyLevel() == null ||
+                                Model.getInstance().getWorksheetProperty().mainSubjectProperty().get() == null ||
+                                        Model.getInstance().getWorksheetProperty().subSubjectProperty().get() == null ||
+                                        Model.getInstance().getWorksheetProperty().diffLevelProperty().get() == null ||
                                         (passageSectionRequired.get() &&
-                                                (Model.getInstance().getPassageContentProperty().get() == null ||
-                                                        Model.getInstance().getPassageContentProperty().get().isEmpty() ||
-                                                        Model.getInstance().getPassageTitleProperty().get() == null ||
-                                                        Model.getInstance().getPassageTitleProperty().get().isEmpty())),
-                        Model.getInstance().getMainSubjectProperty(),
-                        Model.getInstance().getSubSubjectProperty(),
-                        Model.getInstance().getDifficultyLevelProperty(),
+                                                (Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent() == null ||
+                                                        Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent().isEmpty() ||
+                                                        Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle() == null ||
+                                                        Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle().isEmpty())),
+                        Model.getInstance().getWorksheetProperty().mainSubjectProperty(),
+                        Model.getInstance().getWorksheetProperty().subSubjectProperty(),
+                        Model.getInstance().getWorksheetProperty().diffLevelProperty(),
                         passageSectionRequired,
-                        Model.getInstance().getPassageContentProperty(),
-                        Model.getInstance().getPassageTitleProperty()
+                        Model.getInstance().getWorksheetProperty().passageProperty().passageContentProperty(),
+                        Model.getInstance().getWorksheetProperty().passageProperty().passageTitleProperty()
                 ));
-
 
         //LISTENER
         // Set up model the connection mainSubjectDropdown
@@ -105,7 +131,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         difficultyLevel.setOnSelectionChanged(difficultyLevelEvent -> {
             String selectedDifficulty = difficultyLevel.getSelectedValue();
             DifficultyLevelOptions difficultyLevelOptions = DifficultyLevelOptions.valueOf(selectedDifficulty);
-            Model.getInstance().setDifficultyLevel(difficultyLevelOptions);
+            Model.getInstance().getWorksheetProperty().diffLevelProperty().set(difficultyLevelOptions);
+
         });
 
         //LISTENER
@@ -140,10 +167,10 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             loadingIndicatorComponent.setVisible(true);
             try {
                 worksheetController.generateWorksheet(); // calling worksheetcontroller
-                //System.out.println("from ui" + worksheet.getPassage());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+           // Model.getInstance().setWorksheetProperty(null);
         });
 
     } // End of initialise
@@ -155,18 +182,18 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             case "ENGLISH":
                 dropdownSubSubject.setDropdownContent(SubSubjectOptionsEnglish.values());
                 dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
-                Model.getInstance().setMainSubject(MainSubjectOptions.ENGLISH);
-                if (Model.getInstance().getSubSubjectProperty().get() != null) {
+                Model.getInstance().getWorksheetProperty().setMainSubject(MainSubjectOptions.ENGLISH);
+                if (Model.getInstance().getWorksheetProperty().getSubSubject() != null) {
                     updatePassageSectionRequired();
-                    Model.getInstance().getSubSubjectProperty().set(null);
+                    Model.getInstance().getWorksheetProperty().setSubSubject(null);
                 }
                 break;
             case "MATHS":
                 dropdownSubSubject.setDropdownContent(SubSubjectOptionsMaths.values());
                 dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
-                Model.getInstance().setMainSubject(MainSubjectOptions.MATHS);
-                if (Model.getInstance().getSubSubjectProperty().get() != null) {
-                    Model.getInstance().getSubSubjectProperty().set(null);
+                Model.getInstance().getWorksheetProperty().setMainSubject(MainSubjectOptions.MATHS);
+                if (Model.getInstance().getWorksheetProperty().getSubSubject() != null) {
+                    Model.getInstance().getWorksheetProperty().setSubSubject(null);
                     updatePassageSectionRequired();
                 }
                 break;
@@ -180,18 +207,18 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                 || selectedSubText.contains("CLOZE_TEST")
                 || selectedSubText.contains("VOCABULARY")
                 || selectedSubText.contains("SPAG")
-                && Model.getInstance().getMainSubjectProperty().get().equals(MainSubjectOptions.ENGLISH))) {
+                && Model.getInstance().getWorksheetProperty().getMainSubject().equals(MainSubjectOptions.ENGLISH))) {
             passageBtn.setOnMouseClicked(event -> {
                 Model.getInstance().getViewFactory().showPassageWindow();
             });
             // Cast the text back to ISubSubjectOptions
             ISubSubjectOptions selectedSub = SubSubjectOptionsEnglish.valueOf(selectedSubText); // Assuming enum values match text
-            Model.getInstance().setSubSubject(selectedSub);
+            Model.getInstance().getWorksheetProperty().setSubSubject(selectedSub);
             updatePassageSectionRequired();
         } else {
             // Cast the text back to ISubSubjectOptions
             ISubSubjectOptions selectedSub = SubSubjectOptionsMaths.valueOf(selectedSubText); // Assuming enum values match text
-            Model.getInstance().setSubSubject(selectedSub);
+            Model.getInstance().getWorksheetProperty().setSubSubject(selectedSub);
             updatePassageSectionRequired();
         }
     }
@@ -200,12 +227,17 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
         dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
         difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
-        Model.getInstance().setMainSubject(null);
-        Model.getInstance().setDifficultyLevel(null);
-        Model.getInstance().setSubSubject(null);
-        Model.getInstance().setPassageContent(null);
-        Model.getInstance().setPassageTitle(null);
-        Model.getInstance().removeQuestionsFromList();
+        Model.getInstance().getWorksheetProperty().setMainSubject(null);
+        Model.getInstance().getWorksheetProperty().setDiffLevel(null);
+        Model.getInstance().getWorksheetProperty().setSubSubject(null);
+        Model.getInstance().getWorksheetProperty().passageProperty().setPassageContent(null);
+        Model.getInstance().getWorksheetProperty().passageProperty().setPassageTitle(null);
+        Model.getInstance().removeQuestionsFromList(); // This belongs to model separately
+
+        dropdownMainSubject.selectedProperty().set("MAIN");
+        dropdownSubSubject.selectedProperty().set("SUB");
+        difficultyLevel.selectedProperty().set("DIFF");
+
     }
 
     private void onWorksheetGenerateButtonClickedHandler() {
@@ -220,14 +252,14 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
     private void updatePassageSectionRequired() {
         // Ensure MainSubject is not null before checking its value
-        if (Model.getInstance().getMainSubjectProperty().get() != null &&
-                Model.getInstance().getMainSubjectProperty().get().equals(MainSubjectOptions.ENGLISH)) {
+        if (Model.getInstance().getWorksheetProperty().getMainSubject() != null &&
+                Model.getInstance().getWorksheetProperty().getMainSubject().equals(MainSubjectOptions.ENGLISH)) {
 
             boolean required = false;
 
             // Ensure SubSubject is not null before checking its value
-            if (Model.getInstance().getSubSubjectProperty().get() != null) {
-                required = switch (Model.getInstance().getSubSubjectProperty().get()) {
+            if (Model.getInstance().getWorksheetProperty().getSubSubject() != null) {
+                required = switch (Model.getInstance().getWorksheetProperty().getSubSubject()) {
                     case SubSubjectOptionsEnglish.COMPREHENSION,
                          SubSubjectOptionsEnglish.CLOZE_TEST,
                          SubSubjectOptionsEnglish.VOCABULARY,
@@ -247,18 +279,17 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     }
 
     @Override
-    public void onWorksheetGenerated(Worksheet worksheet) {
+    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
+        Model.getInstance().setWorksheetProperty(worksheetProperty);
+       System.out.println(Model.getInstance().getWorksheetProperty().getId());
+        System.out.println(Model.getInstance().getWorksheetProperty());
 
-        Model.getInstance().setWorksheet(worksheet);
+        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET); // I update here
 
-       Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
-
-        // Show success message
         Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
-
         loadingIndicatorComponent.setVisible(false);
-    }
 
+    }
 }
 
 

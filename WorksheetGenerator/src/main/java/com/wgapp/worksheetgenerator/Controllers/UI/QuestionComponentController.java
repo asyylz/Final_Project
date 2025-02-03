@@ -1,8 +1,9 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.Question;
-import com.wgapp.worksheetgenerator.Models.UserAnswer;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Question;
+import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
+import com.wgapp.worksheetgenerator.ModelsUI.UserAnswer;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
@@ -35,32 +36,14 @@ public class QuestionComponentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Model.getInstance().getUserAnswersListProperty().addListener((observable, oldValue, newValue) -> {
-//            if (Model.getInstance().getUserAnswersListProperty().isEmpty()) {
-//
-//            }
-//
-//        });
-
 
     } // End of Initializer
 
 
-    public void setQuestion(Question question, int questionIndex, ScrollPane rigthScrollPane) {
+    public void setQuestion(QuestionProperty question, int questionIndex, ScrollPane rigthScrollPane) {
         // Set the question text
         questionText.setText(question.getQuestionText());
 
-        // Update the questionWrapper width and wrapping widths
-//        questionWrapper.setPrefWidth(rigthScrollPane.getWidth());
-//        questionText.setWrappingWidth(rigthScrollPane.getWidth() - 80); // Wrapping width of the question
-//        choiceText1.setWrappingWidth(rigthScrollPane.getWidth() - 80);  // Adjust wrapping for choices
-//        choiceText2.setWrappingWidth(rigthScrollPane.getWidth() - 80);
-//        choiceText3.setWrappingWidth(rigthScrollPane.getWidth() - 80);
-//        choiceText4.setWrappingWidth(rigthScrollPane.getWidth() - 80);
-
-
-        System.out.println(rigthScrollPane.getWidth());
-        System.out.println(questionWrapper.getWidth());
         // Listen to the width of the ScrollPane dynamically
         rigthScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
             double newWidth = newValue.doubleValue() - 90; // Adjust for padding or margins

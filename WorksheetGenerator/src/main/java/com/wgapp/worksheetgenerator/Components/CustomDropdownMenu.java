@@ -1,5 +1,7 @@
 package com.wgapp.worksheetgenerator.Components;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
@@ -10,6 +12,8 @@ public class CustomDropdownMenu<T> extends VBox {
     private final VBox dropdownContent;
     private boolean isExpanded = false;
     private EventHandler<ActionEvent> onSelectionChanged;
+    private StringProperty selectedMainSubject = new SimpleStringProperty();
+
 
     public CustomDropdownMenu(String mainButtonText, T[] menuItems) {
         dropdownContent = new VBox();
@@ -79,12 +83,23 @@ public class CustomDropdownMenu<T> extends VBox {
     }
 
     public void setOnSelectionChanged(EventHandler<ActionEvent> handler) {
+
         this.onSelectionChanged = handler;
     }
 
+    public EventHandler<ActionEvent> getOnSelectionChanged() {
+        return onSelectionChanged;
+    }
+
     public String getSelectedValue() {
+        selectedMainSubject.set(mainButton.getText());
         return mainButton.getText();
     }
+
+    public StringProperty selectedProperty() {
+        return selectedMainSubject;
+    }
+
 
     public void setMainButtonText(String text) {
         mainButton.setText(text);

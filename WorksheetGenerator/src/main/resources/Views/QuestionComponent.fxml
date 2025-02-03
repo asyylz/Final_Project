@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="questionWrapper" fillWidth="false" prefHeight="150.0" prefWidth="490.0" styleClass="questionsWrapper" stylesheets="@../Styles/QuestionComponent.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.QuestionComponentController">
+    <Text fx:id="questionText" lineSpacing="5.0" styleClass="questionWrapper_questionText" text="Text" textAlignment="JUSTIFY" wrappingWidth="470.0">
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+    </Text>
+    <VBox fx:id="choicesWrapper" prefHeight="150.0" prefWidth="420.0" styleClass="questionsWrapper__choicesBox">
+        <HBox fx:id="choiceWrapper1" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn1" mnemonicParsing="false" />
+            <Text fx:id="choiceText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="450.0" />
+        </HBox>
+        <HBox fx:id="choiceWrapper2" layoutX="27.0" layoutY="27.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn2" mnemonicParsing="false" />
+            <Text fx:id="choiceText2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="450.0" />
+        </HBox>
+        <HBox fx:id="choiceWrapper3" layoutX="27.0" layoutY="97.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn3" mnemonicParsing="false" />
+            <Text fx:id="choiceText3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="450.0" />
+        </HBox>
+        <HBox fx:id="choiceWrapper4" layoutX="27.0" layoutY="167.0" styleClass="choiceBox__choice">
+            <RadioButton fx:id="choiceRadioBtn4" mnemonicParsing="false" />
+            <Text fx:id="choiceText4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" wrappingWidth="450.0" />
+        </HBox>
+    </VBox>
+</VBox>

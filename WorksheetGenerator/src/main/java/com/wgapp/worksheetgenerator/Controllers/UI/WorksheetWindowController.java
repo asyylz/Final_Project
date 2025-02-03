@@ -1,10 +1,11 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.DifficultyLevelOptions;
-import com.wgapp.worksheetgenerator.Models.MainSubjectOptions;
-import com.wgapp.worksheetgenerator.Models.Model;
-import com.wgapp.worksheetgenerator.Models.Question;
-import com.wgapp.worksheetgenerator.Views.ISubSubjectOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Question;
+import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
+import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -30,11 +31,11 @@ public class WorksheetWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Fetch worksheet details
-        int worksheetId = Model.getInstance().getWorksheet().getWorksheetId();
-        MainSubjectOptions mainSubject = Model.getInstance().getWorksheet().getMainSubject();
-        ISubSubjectOptions subSubject = Model.getInstance().getWorksheet().getSubSubject();
-        DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheet().getDifficultyLevel();
-        List<Question> questionList = Model.getInstance().getWorksheet().getQuestionList();
+        int worksheetId = Model.getInstance().getWorksheetProperty().getId();;
+        MainSubjectOptions mainSubject = Model.getInstance().getWorksheetProperty().getMainSubject();
+        ISubSubjectOptions subSubject = Model.getInstance().getWorksheetProperty().getSubSubject();
+        DifficultyLevelOptions diffLevel = Model.getInstance().getWorksheetProperty().getDiffLevel();
+        List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
 
         // Setting worksheetId text
         worksheetIdText.setText("Worksheet Id: " + worksheetId);
@@ -50,9 +51,9 @@ public class WorksheetWindowController implements Initializable {
         List<Node> questionComponents = new ArrayList<>();
 
         // For each question, load and add a QuestionComponent
-        for (Question question : questionList) {
+        for (QuestionProperty question : questionList) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/QuestionComponent.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/QuestionComponent.fxml"));
                 Node questionComponent = loader.load();
 
                 // Get the controller and set the question data

@@ -22,11 +22,12 @@ module com.wgapp.worksheetgenerator {
 
     exports com.wgapp.worksheetgenerator;
     exports com.wgapp.worksheetgenerator.Components;
-    exports com.wgapp.worksheetgenerator.Views;
+    exports com.wgapp.worksheetgenerator.ViewFactory;
     exports com.wgapp.worksheetgenerator.Controllers;
-    exports com.wgapp.worksheetgenerator.Models;
+    exports com.wgapp.worksheetgenerator.ModelsUI;
     exports com.wgapp.worksheetgenerator.Controllers.UI;
     exports com.wgapp.worksheetgenerator.DTOs;
+    exports com.wgapp.worksheetgenerator.ModelsUI.Enums;
 
 
 }

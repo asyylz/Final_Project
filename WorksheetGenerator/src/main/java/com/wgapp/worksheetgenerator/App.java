@@ -1,7 +1,7 @@
 package com.wgapp.worksheetgenerator;
 
-import com.wgapp.worksheetgenerator.Database.DatabaseConnection;
-import com.wgapp.worksheetgenerator.Views.ViewFactory;
+import com.wgapp.worksheetgenerator.Config.DatabaseConnection;
+import com.wgapp.worksheetgenerator.ViewFactory.ViewFactory;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

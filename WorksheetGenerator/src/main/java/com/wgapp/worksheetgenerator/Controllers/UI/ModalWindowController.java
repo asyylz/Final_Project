@@ -1,7 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.fxml.Initializable;

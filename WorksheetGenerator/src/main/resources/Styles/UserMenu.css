@@ -23,11 +23,11 @@
     -fx-cursor: HAND;
 }
 
-.userMenu__buttons:focused {
-    -fx-effect: dropshadow(three-pass-box, #d3c7c7, 12, 0, 0, 4); /* Shadow effect on hover */
-    -fx-cursor: HAND;
+/*.userMenu__buttons:focused {*/
+/*    -fx-effect: dropshadow(three-pass-box, #d3c7c7, 12, 0, 0, 4); !* Shadow effect on hover *!*/
+/*    -fx-cursor: HAND;*/
 
-}
+/*}*/
 
 .userMenu__bottomText {
     -fx-font-size: 1em;

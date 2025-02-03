@@ -1,8 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Models.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.Utils.Utils;
-import com.wgapp.worksheetgenerator.Views.UserMenuOptions;
+import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.fxml.Initializable;
@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 public class UserMenuController implements Initializable {
@@ -30,23 +31,63 @@ public class UserMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        addListeners();
+       // System.out.println("from userMenu" + Model.getInstance().getViewFactory().getUserSelectMenuView().get());
         // Generate button  show up first with active style since its related view is active on screen
         generatorBtn.getStyleClass().add("active");
-        //When ever other buttons are being clicked we are removing generateBtn's  active style
-        worksheetBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                generatorBtn.getStyleClass().remove("active");
+
+       // Platform.runLater(() -> generatorBtn.requestFocus());
+
+
+//        //When ever other buttons are being clicked we are removing generateBtn's  active style
+//        worksheetBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue ) {
+//                generatorBtn.getStyleClass().remove("active");
+//            }
+//        });
+//
+//        accountBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                generatorBtn.getStyleClass().remove("active");
+//            }
+//        });
+//
+//        generatorBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                generatorBtn.getStyleClass().remove("active");
+//            }
+//        });
+
+        Model.getInstance().getViewFactory().getUserSelectMenuView().addListener((obs, oldVal, newVal) -> {
+
+            if(newVal.equals(UserMenuOptions.GENERATOR)) {
+                if (!generatorBtn.getStyleClass().contains("active")) {
+                    generatorBtn.getStyleClass().add("active"); // Add class if it’s not already there
+                }
+            } else {
+                generatorBtn.getStyleClass().remove("active"); // Remove class if condition is false
             }
-        });
-        accountBtn.pressedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                generatorBtn.getStyleClass().remove("active");
+
+            if(newVal.equals(UserMenuOptions.WORKSHEET)) { // it does not enter here
+                if (!worksheetBtn.getStyleClass().contains("active")) {
+                    worksheetBtn.getStyleClass().add("active"); // Add class if it’s not already there
+                }
+            } else {
+                worksheetBtn.getStyleClass().remove("active"); // Remove class if condition is false
             }
+
+            if(newVal.equals(UserMenuOptions.SETTINGS)) {
+                if (!accountBtn.getStyleClass().contains("active")) {
+                    accountBtn.getStyleClass().add("active"); // Add class if it’s not already there
+                }
+            } else {
+                accountBtn.getStyleClass().remove("active"); // Remove class if condition is false
+            }
+
         });
 
 
 
-        addListeners();
         if (Model.getInstance().getUserName() != null) {
             userNameAfterLogin.setText(Model.getInstance().getUserName());
 
@@ -78,14 +119,24 @@ public class UserMenuController implements Initializable {
 
     private void onGenerator() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.GENERATOR);
+//        generatorBtn.getStyleClass().add("active");
+//        worksheetBtn.getStyleClass().remove("active");
+//        accountBtn.getStyleClass().remove("active");
     }
 
     private void onWorksheet() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+//        worksheetBtn.getStyleClass().add("active");
+//        generatorBtn.getStyleClass().remove("active");
+//        accountBtn.getStyleClass().remove("active");
+
     }
 
     private void onSettings() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.SETTINGS);
+//        accountBtn.getStyleClass().add("active");
+//        worksheetBtn.getStyleClass().remove("active");
+//        generatorBtn.getStyleClass().remove("active");
     }
 
 
