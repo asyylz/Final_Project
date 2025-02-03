@@ -34,12 +34,11 @@ public class ModalWindowController implements Initializable {
 
         okBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             Stage stage = (Stage) modalWindow.getScene().getWindow();
-            //Model.getInstance().setQuestionTypeList(ComprehensionQuestionTypes.values());
             applyScaleTransitionOnHide(stage);
 
-            if (Model.getInstance().getQuestionTypeList().isEmpty())
+            if (Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList().isEmpty())
                 for (ComprehensionQuestionTypes questionType : ComprehensionQuestionTypes.values()) {
-                    Model.getInstance().addQuestionType(questionType);
+                    Model.getInstance().getWorksheetPropertyForGeneration().addQuestionType(questionType);
                 }
 
         });
@@ -51,14 +50,6 @@ public class ModalWindowController implements Initializable {
         transition.setToValue(0.0);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
-        // Apply the scale transition on hiding the modal
-//        ScaleTransition st = new ScaleTransition(Duration.millis(200), modalWindow);
-//        st.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
-//        st.setFromX(1);  // Starting scale
-//        st.setFromY(1);  // Starting scale
-//        st.setToX(0);    // Scale to 0 when hiding
-//        st.setToY(0);    // Scale to 0 when hiding
-//        // Once the transition finishes, close the stage
         transition.setOnFinished(e -> Model.getInstance().getViewFactory().closeStage(stage));
         transition.play();
     }

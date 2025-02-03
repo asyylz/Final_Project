@@ -42,18 +42,16 @@ public class PassageWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        doesQuestionTypesRequire.bind(Model.getInstance().getWorksheetProperty().subSubjectProperty().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
+        doesQuestionTypesRequire.bind(Model.getInstance().getWorksheetPropertyForGeneration().subSubjectProperty().isEqualTo(SubSubjectOptionsEnglish.COMPREHENSION));
 
         // Set the initial content of the TextArea to the value stored in the model
-        readingPassage.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
+        readingPassage.setText(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().getPassageContent());
         // Set the initial title of the passage to the value stored in the model
-        passageTitle.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle());
+        passageTitle.setText(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().getPassageTitle());
         // Listener collection
         addListener();
 
         questionTypes.visibleProperty().bind(doesQuestionTypesRequire);
-
-
 
 
     } // End of initialize
@@ -77,13 +75,13 @@ public class PassageWindowController implements Initializable {
         });
 
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
-            Model.getInstance().getWorksheetProperty().passageProperty().setPassageContent(newValue);
+          //  System.out.println(newValue);
+            Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().setPassageContent(newValue);
 
         });
 
         passageTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            Model.getInstance().getWorksheetProperty().passageProperty().setPassageTitle(newValue);
+            Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().setPassageTitle(newValue);
         });
 
         // Listener for closeBtn
@@ -92,11 +90,11 @@ public class PassageWindowController implements Initializable {
         });
 
         //Listens questions types list in model to update ui
-        Model.getInstance().getQuestionTypeListProperty().addListener((observable, oldValue, newValue) -> {
+        Model.getInstance().getWorksheetPropertyForGeneration().questionTypeListProperty().addListener((observable, oldValue, newValue) -> {
             onComprehensionQuestionTypesListener();
         });
 
-        onComprehensionQuestionTypesListener();
+      onComprehensionQuestionTypesListener();
         populateCheckBoxes();
 
     }
@@ -117,14 +115,12 @@ public class PassageWindowController implements Initializable {
     /*================================= HANDLERS ===================================== */
     private void onCloseBtnClickedHandler() {
 
-
-        System.out.println("passage contetnt" +Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
         // Get the current stage
         Stage currentStage = (Stage) closeBtn.getScene().getWindow();
 
-        boolean isTitleEmpty = Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle() == null;
-        boolean isPassageEmpty = Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent() == null;
-        boolean isQuestionListEmpty = Model.getInstance().getQuestionTypeList().isEmpty();
+        boolean isTitleEmpty = Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().getPassageTitle() == null;
+        boolean isPassageEmpty = Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().getPassageContent() == null;
+        boolean isQuestionListEmpty = Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList().isEmpty();
 
         if (doesQuestionTypesRequire.get() && isQuestionListEmpty) {
             Model.getInstance().getViewFactory().showModalWindow(
@@ -163,12 +159,12 @@ public class PassageWindowController implements Initializable {
                     ComprehensionQuestionTypes questionType = (ComprehensionQuestionTypes) checkbox.getUserData();
                     if (newValue) {
                         // Add to list if not already present
-                        if (!Model.getInstance().getQuestionTypeList().contains(questionType)) {
-                            Model.getInstance().getQuestionTypeList().add(questionType);
+                        if (!Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList().contains(questionType)) {
+                            Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList().add(questionType);
                         }
                     } else {
                         // Remove from the list if unchecked
-                        Model.getInstance().getQuestionTypeList().remove(questionType);
+                        Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList().remove(questionType);
 
                     }
                 });

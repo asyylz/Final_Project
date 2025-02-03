@@ -112,7 +112,7 @@ public class QuestionComponentController implements Initializable {
                     // Check if there's already an answer for the question
                     boolean answerUpdated = false;
 
-                    for (UserAnswer userAnswer : Model.getInstance().getUserAnswersListProperty()) {
+                    for (UserAnswer userAnswer : Model.getInstance().getWorksheetProperty().userAnswerListProperty()) {
                         if (userAnswer.getQuestionIndex() == questionIndex) {
                             // Update the existing answer
                             userAnswer.setAnswer(selectedChoice);
@@ -124,7 +124,7 @@ public class QuestionComponentController implements Initializable {
 
                     if (!answerUpdated) {
                         // No existing answer for this question, so add a new one
-                        Model.getInstance().getUserAnswersListProperty().add(new UserAnswer(selectedChoice, questionIndex));
+                        Model.getInstance().getWorksheetProperty().userAnswerListProperty().add(new UserAnswer(selectedChoice, questionIndex));
                         System.out.println("Saved answer for question " + questionIndex + ": " + selectedChoice);
                     }
                 }
@@ -157,7 +157,7 @@ public class QuestionComponentController implements Initializable {
         boolean isUserCorrect = false;
 
         // Find the user's answer for this specific question
-        for (UserAnswer answer : Model.getInstance().getUserAnswersList()) {
+        for (UserAnswer answer : Model.getInstance().getWorksheetProperty().getUserAnswerList()) {
             if (answer.getQuestionIndex() == questionIndex) {
                 // Check if the user's answer matches the correct answer
                 if (answer.getAnswer().equals(correctAnswer)) {

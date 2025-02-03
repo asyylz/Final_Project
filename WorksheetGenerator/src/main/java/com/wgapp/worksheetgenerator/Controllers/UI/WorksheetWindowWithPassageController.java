@@ -130,7 +130,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         // Clearing all userAnswers
         clearSelectionBtn.setOnMouseClicked(event -> {
-            Model.getInstance().getUserAnswersList().clear();
+            Model.getInstance().getWorksheetProperty().getUserAnswerList().clear();
             onUserAnswersClearedListener();
             isShowingAnswers.set(false);
 
@@ -281,7 +281,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             int totalScore = 0;
             int numberOfQuestion = Model.getInstance().getWorksheetProperty().getQuestionList().size();
             List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
-            List<UserAnswer> userAnswers = Model.getInstance().getUserAnswersList();
+            List<UserAnswer> userAnswers = Model.getInstance().getWorksheetProperty().getUserAnswerList();
 
             for (UserAnswer userAnswer : userAnswers) {
                 for (QuestionProperty question : questionList)

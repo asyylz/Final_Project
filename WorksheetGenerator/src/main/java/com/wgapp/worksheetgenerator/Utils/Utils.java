@@ -23,7 +23,7 @@ public class Utils {
 
     public static BooleanProperty hasQuestionType(String checkBoxTextValue) {
 
-        List<ComprehensionQuestionTypes> list = Model.getInstance().getQuestionTypeList();
+        List<ComprehensionQuestionTypes> list = Model.getInstance().getWorksheetPropertyForGeneration().getQuestionTypeList();
 
         String placeHolderForTextValue = "";
 
@@ -67,7 +67,7 @@ public class Utils {
 
     public static String checkSubSubject() {
 
-        switch (Model.getInstance().getWorksheetProperty().getSubSubject()) {
+        switch (Model.getInstance().getWorksheetPropertyForGeneration().getSubSubject()) {
             case SubSubjectOptionsEnglish.COMPREHENSION -> {
                 return PromtConstants.PROMPT_BEGINNING_COMPREHENSION;
             }
