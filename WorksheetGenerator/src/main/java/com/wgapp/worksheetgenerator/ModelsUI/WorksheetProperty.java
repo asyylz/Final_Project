@@ -1,4 +1,6 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
+
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
@@ -10,13 +12,14 @@ import java.util.List;
 
 
 public class WorksheetProperty {
-    private  IntegerProperty id = new SimpleIntegerProperty();
-    private  ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
-    private  ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>();
-    private  ObjectProperty<DifficultyLevelOptions> diffLevel = new SimpleObjectProperty<>();
-    private  ListProperty<QuestionProperty> questionList = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private IntegerProperty id = new SimpleIntegerProperty();
+    private ObjectProperty<MainSubjectOptions> mainSubject = new SimpleObjectProperty<>();
+    private ObjectProperty<ISubSubjectOptions> subSubject = new SimpleObjectProperty<>();
+    private ObjectProperty<DifficultyLevelOptions> diffLevel = new SimpleObjectProperty<>();
+    private ListProperty<QuestionProperty> questionList = new SimpleListProperty<>(FXCollections.observableArrayList());
     private PassageProperty passage = new PassageProperty();
     private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
 
 
     public WorksheetProperty(IntegerProperty id,
@@ -32,6 +35,31 @@ public class WorksheetProperty {
         this.questionList = questionList;
         this.passage = passage;
     }
+
+    // This constructor is used while sending data (COMPREHENSION)
+    public WorksheetProperty(MainSubjectOptions mainSubject,
+                             ISubSubjectOptions subSubject,
+                             DifficultyLevelOptions diffLevel,
+                             PassageProperty passage,
+                             ListProperty<ComprehensionQuestionTypes> questionTypeList) {
+        this.mainSubject.set(mainSubject);
+        this.subSubject.set(subSubject);
+        this.diffLevel.set(diffLevel);
+        this.questionTypeList = questionTypeList;
+        this.passage = passage;
+    }
+
+    // This constructor is used while sending data (OTHER PASSAGE RELATED WORKSHEETS)
+    public WorksheetProperty(MainSubjectOptions mainSubject,
+                             ISubSubjectOptions subSubject,
+                             DifficultyLevelOptions diffLevel,
+                             PassageProperty passage) {
+        this.mainSubject.set(mainSubject);
+        this.subSubject.set(subSubject);
+        this.diffLevel.set(diffLevel);
+        this.passage = passage;
+    }
+
 
     public WorksheetProperty() {
     }
@@ -112,7 +140,33 @@ public class WorksheetProperty {
         this.diffLevel.set(diffLevel);
     }
 
+    public PassageProperty getPassage() {
+        return passage;
+    }
+
+//====================================== Question Types List ===============================================
     public void removeQuestionsFromList() {
         this.questionList.clear();
+    }
+
+
+    public ListProperty<QuestionProperty> questionListProperty() {
+        return questionList;
+    }
+
+    public void setQuestionList(ObservableList<QuestionProperty> questionList) {
+        this.questionList.set(questionList);
+    }
+
+
+    public ObservableList<ComprehensionQuestionTypes> getQuestionTypeList() {
+        return questionTypeList.get();
+    }
+
+    public ListProperty<ComprehensionQuestionTypes> questionTypeListProperty() {
+        return questionTypeList;
+    }
+    public void addQuestionType(ComprehensionQuestionTypes questionType) {
+        this.questionTypeList.add(questionType);
     }
 }

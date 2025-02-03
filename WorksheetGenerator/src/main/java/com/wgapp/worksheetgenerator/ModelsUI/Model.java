@@ -17,10 +17,11 @@ public class Model {
     private UserDTO user;
     private final ViewFactory viewFactory;
 
-    // Worksheet
- //   private  WorksheetProperty worksheetProperty = new WorksheetProperty();
+    // Worksheet coming and going data
+   //private  WorksheetProperty worksheetProperty = new WorksheetProperty();
     private ObjectProperty<WorksheetProperty> worksheetProperty = new SimpleObjectProperty<>(new WorksheetProperty());
-
+    // This object will hold data from fields to generate worksheet with different constructor
+    private ObjectProperty<WorksheetProperty> worksheetPropertyForGeneration = new SimpleObjectProperty<>(new WorksheetProperty());
 
     // Comprehension
     private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
@@ -54,17 +55,6 @@ public class Model {
         return viewFactory;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Model{" +
-//                "mainSubject=" + mainSubject.get() +
-//                ", difficultyLevel=" + difficultyLevel +
-//                ", subSubject=" + subSubject.get() +
-//                ", questionTypeList=" + questionTypeList.get() +
-//                ", passageContent=" + passageContent +
-//                '}';
-//    }
-
     /*================================= GETTERS AND SETTER ===================================== */
 
 
@@ -83,9 +73,11 @@ public class Model {
     public void removeQuestionsFromList() {
         this.questionTypeList.clear();
     }
+
     public ListProperty getQuestionTypeListProperty() {
         return questionTypeList;
     }
+
     public ListProperty<UserAnswer> getUserAnswersListProperty() {
         return userAnswerList;
     }
@@ -146,14 +138,6 @@ public class Model {
         this.searchTerm.set(searchTerm);
     }
 
-//    public WorksheetProperty getWorksheetProperty() {
-//        return worksheetProperty;
-//    }
-//
-//    public void setWorksheetProperty(WorksheetProperty worksheetProperty) {
-//        this.worksheetProperty =worksheetProperty;
-//    }
-
     public WorksheetProperty getWorksheetProperty() {
         return worksheetProperty.get();
     }
@@ -165,5 +149,18 @@ public class Model {
     public void setWorksheetProperty(WorksheetProperty worksheetProperty) {
         this.worksheetProperty.set(worksheetProperty);
     }
+
+    public WorksheetProperty getWorksheetPropertyForGeneration() {
+        return worksheetPropertyForGeneration.get();
+    }
+
+    public ObjectProperty<WorksheetProperty> worksheetPropertyForGenerationProperty() {
+        return worksheetPropertyForGeneration;
+    }
+
+    public void setWorksheetPropertyForGeneration(WorksheetProperty worksheetPropertyForGeneration) {
+        this.worksheetPropertyForGeneration.set(worksheetPropertyForGeneration);
+    }
 }
+
 
