@@ -168,7 +168,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             try {
                 worksheetController.generateWorksheet(); // calling worksheetcontroller
 //                Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
-                clearSelectionsHandler();
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -290,9 +289,13 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
       //  System.out.println(Model.getInstance().getWorksheetProperty().getId());
        // System.out.println(Model.getInstance().getWorksheetProperty());
 
-        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET); // I update here
+        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+
+
         Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
         loadingIndicatorComponent.setVisible(false);
+
+        clearSelectionsHandler();
 
     }
 

@@ -35,13 +35,13 @@ public class WorksheetServiceImpl implements WorksheetService {
     public Worksheet generateWorksheetCallFromController() {
         // Fetch values from the model
         Model model = Model.getInstance();
-        MainSubjectOptions mainSubject = model.getWorksheetProperty().getMainSubject();
-        ISubSubjectOptions subSubject = model.getWorksheetProperty().getSubSubject();
-        DifficultyLevelOptions difficultyLevel = model.getWorksheetProperty().getDiffLevel();
-        String passageText = model.getWorksheetProperty().passageProperty().getPassageContent();
-        String passageTitle = model.getWorksheetProperty().passageProperty().getPassageTitle();
+        MainSubjectOptions mainSubject = model.getWorksheetPropertyForGeneration().getMainSubject();
+        ISubSubjectOptions subSubject = model.getWorksheetPropertyForGeneration().getSubSubject();
+        DifficultyLevelOptions difficultyLevel = model.getWorksheetPropertyForGeneration().getDiffLevel();
+        String passageText = model.getWorksheetPropertyForGeneration().passageProperty().getPassageContent();
+        String passageTitle = model.getWorksheetPropertyForGeneration().passageProperty().getPassageTitle();
 
-        List<ComprehensionQuestionTypes> questionTypes = model.getQuestionTypeList();
+        List<ComprehensionQuestionTypes> questionTypes = model.getWorksheetPropertyForGeneration().getQuestionTypeList();
 
         // We are  starting to build our prompt  with constant related to Model
         String initialPrompt = Utils.checkSubSubject();

@@ -1,15 +1,9 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
 
-
 import com.wgapp.worksheetgenerator.DTOs.UserDTO;
-import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
-import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
-import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.*;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.List;
 
 public class Model {
@@ -17,17 +11,14 @@ public class Model {
     private UserDTO user;
     private final ViewFactory viewFactory;
 
-    // Worksheet coming and going data
-   //private  WorksheetProperty worksheetProperty = new WorksheetProperty();
+    //This object will hold data from fields to update UI (Coming)
     private ObjectProperty<WorksheetProperty> worksheetProperty = new SimpleObjectProperty<>(new WorksheetProperty());
-    // This object will hold data from fields to generate worksheet with different constructor
+    // This object will hold data from fields to generate worksheet with different constructor (Going)
     private ObjectProperty<WorksheetProperty> worksheetPropertyForGeneration = new SimpleObjectProperty<>(new WorksheetProperty());
 
-    // Comprehension
-    private final ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
 
     //User Answer List
-    private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+    //private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     // Search box
     StringProperty searchTerm = new SimpleStringProperty("");
@@ -57,38 +48,17 @@ public class Model {
 
     /*================================= GETTERS AND SETTER ===================================== */
 
-
-    public ObservableList<ComprehensionQuestionTypes> getQuestionTypeList() {
-        return questionTypeList.get();
-    }
-
-    public ListProperty<ComprehensionQuestionTypes> questionTypeListProperty() {
-        return questionTypeList;
-    }
-
-    public void addQuestionType(ComprehensionQuestionTypes questionType) {
-        this.questionTypeList.add(questionType);
-    }
-
-    public void removeQuestionsFromList() {
-        this.questionTypeList.clear();
-    }
-
-    public ListProperty getQuestionTypeListProperty() {
-        return questionTypeList;
-    }
-
-    public ListProperty<UserAnswer> getUserAnswersListProperty() {
-        return userAnswerList;
-    }
-
-    public List<UserAnswer> getUserAnswersList() {
-        return userAnswerList.get();
-    }
-
-    public void addUserAnswerToUserAnswerList(UserAnswer choice) {
-        userAnswerList.add(choice);
-    }
+//    public ListProperty<UserAnswer> getUserAnswersListProperty() {
+//        return userAnswerList;
+//    }
+//
+//    public List<UserAnswer> getUserAnswersList() {
+//        return userAnswerList.get();
+//    }
+//
+//    public void addUserAnswerToUserAnswerList(UserAnswer choice) {
+//        userAnswerList.add(choice);
+//    }
 
     public String getUserName() {
         return userName.get();

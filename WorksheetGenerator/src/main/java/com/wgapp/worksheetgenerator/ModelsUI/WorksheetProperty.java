@@ -115,19 +115,6 @@ public class WorksheetProperty {
     public void setPassage(PassageProperty passage) {
         this.passage = passage;
     }
-
-    public ObservableList<UserAnswer> getUserAnswerList() {
-        return userAnswerList.get();
-    }
-
-    public ListProperty<UserAnswer> userAnswerListProperty() {
-        return userAnswerList;
-    }
-
-    public void setUserAnswerList(ObservableList<UserAnswer> userAnswerList) {
-        this.userAnswerList.set(userAnswerList);
-    }
-
     public void setMainSubject(MainSubjectOptions mainSubject) {
         this.mainSubject.set(mainSubject);
     }
@@ -143,8 +130,21 @@ public class WorksheetProperty {
     public PassageProperty getPassage() {
         return passage;
     }
+//====================================== User Answers List ===============================================//
 
-//====================================== Question Types List ===============================================
+    public ObservableList<UserAnswer> getUserAnswerList() {
+        return userAnswerList.get();
+    }
+
+    public ListProperty<UserAnswer> userAnswerListProperty() {
+        return userAnswerList;
+    }
+
+    public void setUserAnswerList(ObservableList<UserAnswer> userAnswerList) {
+        this.userAnswerList.set(userAnswerList);
+    }
+
+//====================================== Question List ===============================================//
     public void removeQuestionsFromList() {
         this.questionList.clear();
     }
@@ -158,7 +158,7 @@ public class WorksheetProperty {
         this.questionList.set(questionList);
     }
 
-
+    //====================================== Question Types List ===============================================//
     public ObservableList<ComprehensionQuestionTypes> getQuestionTypeList() {
         return questionTypeList.get();
     }
