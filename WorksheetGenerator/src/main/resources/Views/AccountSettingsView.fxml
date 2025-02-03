@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -25,9 +25,9 @@
         </padding>
         <VBox prefHeight="200.0" prefWidth="203.0" spacing="10.0">
             <Label text="Pin number" translateY="10.0" />
-            <TextField prefHeight="29.0" prefWidth="201.0" />
+         <PasswordField fx:id="pinNumberField" />
             <Label layoutX="10.0" layoutY="10.0" text="Confirm pin number" translateY="10.0" />
-            <TextField layoutX="10.0" layoutY="55.0" prefHeight="29.0" prefWidth="201.0" />
+         <PasswordField fx:id="pinNumberConfirmField" />
             <Button fx:id="createPinBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="108.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Create Pin" translateX="25.0" />
         </VBox>
     </HBox>
@@ -38,11 +38,11 @@
         </padding>
         <VBox prefHeight="200.0" prefWidth="203.0" spacing="10.0">
             <Label text="Old password" translateY="10.0" />
-            <TextField prefHeight="29.0" prefWidth="201.0" />
+         <PasswordField fx:id="oldPasswordField" />
             <Label layoutX="10.0" layoutY="10.0" text="New password" translateY="10.0" />
-            <TextField layoutX="10.0" layoutY="55.0" prefHeight="29.0" prefWidth="201.0" />
+         <PasswordField fx:id="newPasswordField" />
           <Label layoutX="10.0" layoutY="84.0" text="Confirm your new password" />
-          <TextField layoutX="10.0" layoutY="119.0" prefHeight="29.0" prefWidth="201.0" />
+         <PasswordField fx:id="confirmPasswordField" />
             <Button fx:id="updatePasswordBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="108.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Update" translateX="25.0" />
         </VBox>
     </HBox>

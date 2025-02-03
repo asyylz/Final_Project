@@ -1,21 +1,21 @@
-package com.wgapp.worksheetgenerator.ModelsUI;
+package com.wgapp.worksheetgenerator.DAO.Entities;
 
 import java.util.List;
 
-public class Question {
+public class QuestionEntity {
     private int questionId;
     private String questionText;
-    private List<Choice> choices;
+    private List<ChoiceEntity> choiceEntities;
     private String correctAnswerText;
 
 
-    public Question(String questionText, List<Choice> choices, String correctAnswerText) {
+    public QuestionEntity(String questionText, List<ChoiceEntity> choiceEntities, String correctAnswerText) {
         this.questionText = questionText;
-        this.choices = choices;
+        this.choiceEntities = choiceEntities;
         this.correctAnswerText = correctAnswerText;
     }
 
-    public Question() {
+    public QuestionEntity() {
 
     }
 
@@ -29,12 +29,12 @@ public class Question {
         this.questionText = questionText;
     }
 
-    public List<Choice> getChoices() {
-        return choices;
+    public List<ChoiceEntity> getChoices() {
+        return choiceEntities;
     }
 
-    public void setChoices(List<Choice> options) {
-        this.choices = options;
+    public void setChoices(List<ChoiceEntity> options) {
+        this.choiceEntities = options;
     }
 
     public int getQuestionId() {
@@ -59,7 +59,7 @@ public class Question {
         StringBuilder sb = new StringBuilder();
         sb.append("Question: ").append(questionText).append("\n");
 
-        for (Choice option : choices) {
+        for (ChoiceEntity option : choiceEntities) {
             sb.append(option).append("\n");  // This will use Option's toString() method
         }
 

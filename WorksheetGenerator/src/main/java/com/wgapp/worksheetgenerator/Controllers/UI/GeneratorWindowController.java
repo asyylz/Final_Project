@@ -1,7 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Components.CustomDropdownMenu;
-import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
+import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
@@ -28,7 +28,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class GeneratorWindowController implements Initializable, WorksheetControllerTest.WorksheetObserver {
+public class GeneratorWindowController implements Initializable, WorksheetController.WorksheetObserver {
     public AnchorPane generatorWindowParent;
     public Pane wrapperCustomDropdownMenuOne;
     public Pane wrapperCustomDropdownMenuTwo;
@@ -46,7 +46,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     private BooleanProperty isGenerationCompleted = new SimpleBooleanProperty(false);
 
     //  private final WorksheetController worksheetController = new WorksheetController();
-    private final WorksheetControllerTest worksheetController = new WorksheetControllerTest();
+    private final WorksheetController worksheetController = new WorksheetController();
 
     // Initialize CustomDropdowns and populating their content
     CustomDropdownMenu dropdownMainSubject = new CustomDropdownMenu("MAIN SUBJECT", MainSubjectOptions.values());
@@ -165,9 +165,10 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Test Listener TEST
         testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             loadingIndicatorComponent.setVisible(true);
+
+            //System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().getUserProperty().getUsername());
             try {
-                worksheetController.generateWorksheet(); // calling worksheetcontroller
-//                Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
+                worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -250,7 +251,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         loadingIndicatorComponent.setVisible(true);
 
         // Handle the generated worksheet here
-        worksheetController.generateWorksheet(); // This method already handles exceptions internally
+        worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration()); // This method already handles exceptions internally
 
         clearSelectionsHandler();
     }
@@ -286,11 +287,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
-      //  System.out.println(Model.getInstance().getWorksheetProperty().getId());
-       // System.out.println(Model.getInstance().getWorksheetProperty());
 
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
-
 
         Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
         loadingIndicatorComponent.setVisible(false);

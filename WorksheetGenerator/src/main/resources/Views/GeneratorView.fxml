@@ -38,7 +38,7 @@
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="222.0" prefWidth="700.0">
             <HBox fx:id="passageTextWrapper" alignment="CENTER_LEFT" layoutX="11.0" layoutY="195.0" prefHeight="60.0" prefWidth="690.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="If you would like to generate comprehension worksheet please provide a reading passage text. Press the document icon." wrappingWidth="480.0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="If you would like to generate comprehension worksheetEntity please provide a reading passageEntity text. Press the document icon." wrappingWidth="480.0" />
                 <ImageView fx:id="passageBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -71,7 +71,7 @@
             <ImageView fitHeight="123.0" fitWidth="175.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../Images/03.png" />
             </ImageView>
-            <HBox alignment="TOP_RIGHT" layoutX="290.0" layoutY="77.0" prefHeight="60.0" prefWidth="340.0" AnchorPane.rightAnchor="40.0">
+            <HBox alignment="TOP_RIGHT" layoutX="290.0" layoutY="77.0" prefHeight="60.0" prefWidth="340.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
                 <Pane fx:id="wrapperCustomDropdownMenuThree" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/CustomDropdownStyle.css" />
                 <ImageView fx:id="stepThreeTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                     <effect>

@@ -1,6 +1,8 @@
 package com.wgapp.worksheetgenerator.Controllers;
 
+import com.wgapp.worksheetgenerator.DAO.Entities.UserEntity;
 import com.wgapp.worksheetgenerator.DTOs.UserDTO;
+import com.wgapp.worksheetgenerator.ModelsUI.UserProperty;
 import com.wgapp.worksheetgenerator.Services.Impl.UserServiceImpl;
 import com.wgapp.worksheetgenerator.Services.UserService;
 
@@ -13,23 +15,44 @@ public class UserController {
 
     }
 
-    public void registerUser(UserDTO userDTO) {
-        userService.register(userDTO);
+    public void registerUser(UserProperty userProperty) {
+        // From userPropertyDTO to UserEntity
+        UserEntity userEntity = new UserEntity(userProperty.getUsername(), userProperty.getPassword());
+        userService.register(userEntity);
 
     }
 
+    public UserProperty loginUser(UserProperty userProperty) {
+        // From userPropertyDTO to UserEntity
+        UserEntity userEntity = new UserEntity(userProperty.getUsername(), userProperty.getPassword());
+        userEntity = userService.login(userEntity);
 
-    public void loginUser(UserDTO userDTO) {
-        userService.login(userDTO);
+        return new UserProperty(userEntity.getId(), userEntity.getUsername(), userEntity.getPinNumber());
     }
 
 
-    public void setPin(UserDTO userDTO) {
-        userService.setPinNumber(userDTO);
+    public UserProperty setPin(UserProperty userProperty) {
+        UserEntity userEntity = new UserEntity(
+                userProperty.getUserId(),
+                userProperty.getUsername(),
+                userProperty.getPassword(),
+                userProperty.getPinNumber());
+
+        userService.setPinNumber(userEntity);
+
+        return new UserProperty(userEntity.getId(), userEntity.getUsername(), userEntity.getPinNumber());
+
     }
 
-    public void updatePassword(UserDTO userDTO) {
-        userService.updatePassword(userDTO);
+    public void updatePassword(UserProperty userProperty) {
+
+        UserEntity userEntity = new UserEntity(
+                userProperty.getUserId(),
+                userProperty.getUsername(),
+                userProperty.getPassword(),
+                userProperty.getNewPassword()
+        );
+        userService.updatePassword(userEntity);
     }
 
 }

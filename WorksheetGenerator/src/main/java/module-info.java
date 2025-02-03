@@ -28,6 +28,7 @@ module com.wgapp.worksheetgenerator {
     exports com.wgapp.worksheetgenerator.Controllers.UI;
     exports com.wgapp.worksheetgenerator.DTOs;
     exports com.wgapp.worksheetgenerator.ModelsUI.Enums;
+    exports com.wgapp.worksheetgenerator.DAO.Entities;
 
 
 }

@@ -1,16 +1,13 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.Controllers.WorksheetControllerTest;
+import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
-import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +36,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class WorksheetWindowWithPassageController implements Initializable, WorksheetControllerTest.WorksheetObserver {
+public class WorksheetWindowWithPassageController implements Initializable, WorksheetController.WorksheetObserver {
     public AnchorPane worksheetWindowWithPassageParent;
     public HBox bottomSection;
     public ScrollPane bottomLeftSection;
@@ -70,7 +67,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public ImageView searchIconBtn;
     public Circle backgroundCircle6;
     public ImageView exitBtn;
-    private final WorksheetControllerTest worksheetController = new WorksheetControllerTest();
+    private final WorksheetController worksheetController = new WorksheetController();
 
 
     @Override
@@ -130,7 +127,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         // Clearing all userAnswers
         clearSelectionBtn.setOnMouseClicked(event -> {
-            Model.getInstance().getWorksheetProperty().getUserAnswerList().clear();
+            Model.getInstance().getWorksheetProperty().getUserAnswerPropertyList().clear();
             onUserAnswersClearedListener();
             isShowingAnswers.set(false);
 
@@ -281,9 +278,9 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             int totalScore = 0;
             int numberOfQuestion = Model.getInstance().getWorksheetProperty().getQuestionList().size();
             List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
-            List<UserAnswer> userAnswers = Model.getInstance().getWorksheetProperty().getUserAnswerList();
+            List<UserAnswerProperty> userAnswers = Model.getInstance().getWorksheetProperty().getUserAnswerPropertyList();
 
-            for (UserAnswer userAnswer : userAnswers) {
+            for (UserAnswerProperty userAnswer : userAnswers) {
                 for (QuestionProperty question : questionList)
                     if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswer())) {
                         totalScore++;

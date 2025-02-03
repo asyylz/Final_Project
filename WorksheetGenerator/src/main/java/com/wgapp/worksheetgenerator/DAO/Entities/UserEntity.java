@@ -4,27 +4,49 @@ public class UserEntity {
 
     private int id;
     private String username;
-    private String firstName;
-    private String lastName;
-    private String email;
     private String password;
     private int pinNumber;
-
-    public UserEntity(String password, String username) {
-        this.password = password;
-        this.username = username;
-    }
+private  String newPassword;
 
     public UserEntity() {
 
     }
 
-    public String getPassword() {
-        return password;
+    public UserEntity(String username) {
+        this.username = username;
     }
 
-    public void setPassword(String password) {
+    public UserEntity(String username, String password) {
+        this.username = username;
         this.password = password;
+    }
+
+    public UserEntity(int id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public UserEntity(int id, String username, String password, int pinNumber) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.pinNumber = pinNumber;
+    }
+
+    public UserEntity(int id, String username, String password, String newPassword) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.newPassword = newPassword;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -35,8 +57,12 @@ public class UserEntity {
         this.username = username;
     }
 
-    public void setUserId(int id) {
-        this.id = id;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getPinNumber() {
@@ -45,6 +71,17 @@ public class UserEntity {
 
     public void setPinNumber(int pinNumber) {
         this.pinNumber = pinNumber;
+    }
+
+    public void setUserId(int anInt) {
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }
 

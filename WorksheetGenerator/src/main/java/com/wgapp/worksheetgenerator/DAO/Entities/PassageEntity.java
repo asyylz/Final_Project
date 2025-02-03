@@ -1,16 +1,16 @@
-package com.wgapp.worksheetgenerator.ModelsUI;
+package com.wgapp.worksheetgenerator.DAO.Entities;
 
-public class Passage {
+public class PassageEntity {
     Integer passageId; //The Integer type can hold null values, making it suitable for scenarios where the ID is generated later.
     String passageTitle;
     String passageText;
 
-    public Passage( String passageTitle, String passageText) {
+    public PassageEntity(String passageTitle, String passageText) {
         this.passageId = null;
         this.passageTitle = passageTitle;
         this.passageText = passageText;
     }
-    public Passage( ) {
+    public PassageEntity( ) {
 
     }
 

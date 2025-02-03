@@ -3,7 +3,6 @@ package com.wgapp.worksheetgenerator.Controllers.UI;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
-import com.wgapp.worksheetgenerator.ModelsUI.Question;
 import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import javafx.fxml.FXMLLoader;

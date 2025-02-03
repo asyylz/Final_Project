@@ -18,9 +18,9 @@ public class WorksheetProperty {
     private ObjectProperty<DifficultyLevelOptions> diffLevel = new SimpleObjectProperty<>();
     private ListProperty<QuestionProperty> questionList = new SimpleListProperty<>(FXCollections.observableArrayList());
     private PassageProperty passage = new PassageProperty();
-    private ListProperty<UserAnswer> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private ListProperty<UserAnswerProperty> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
     private ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
-
+    private ObjectProperty<UserProperty> userProperty = new SimpleObjectProperty<>();
 
     public WorksheetProperty(IntegerProperty id,
                              MainSubjectOptions mainSubject,
@@ -115,6 +115,7 @@ public class WorksheetProperty {
     public void setPassage(PassageProperty passage) {
         this.passage = passage;
     }
+
     public void setMainSubject(MainSubjectOptions mainSubject) {
         this.mainSubject.set(mainSubject);
     }
@@ -127,24 +128,34 @@ public class WorksheetProperty {
         this.diffLevel.set(diffLevel);
     }
 
-    public PassageProperty getPassage() {
-        return passage;
+//====================================== User Property ===============================================//
+    public UserProperty getUserProperty() {
+        return userProperty.get();
     }
-//====================================== User Answers List ===============================================//
 
-    public ObservableList<UserAnswer> getUserAnswerList() {
+    public ObjectProperty<UserProperty> userPropertyProperty() {
+        return userProperty;
+    }
+
+    public void setUserProperty(UserProperty userProperty) {
+        this.userProperty.set(userProperty);
+    }
+
+// ====================================== User Answers List ===============================================//
+
+    public ObservableList<UserAnswerProperty> getUserAnswerPropertyList() {
         return userAnswerList.get();
     }
 
-    public ListProperty<UserAnswer> userAnswerListProperty() {
+    public ListProperty<UserAnswerProperty> userAnswerListProperty() {
         return userAnswerList;
     }
 
-    public void setUserAnswerList(ObservableList<UserAnswer> userAnswerList) {
+    public void setUserAnswerPropertyList(ObservableList<UserAnswerProperty> userAnswerList) {
         this.userAnswerList.set(userAnswerList);
     }
 
-//====================================== Question List ===============================================//
+    //====================================== Question List ===============================================//
     public void removeQuestionsFromList() {
         this.questionList.clear();
     }
@@ -166,6 +177,7 @@ public class WorksheetProperty {
     public ListProperty<ComprehensionQuestionTypes> questionTypeListProperty() {
         return questionTypeList;
     }
+
     public void addQuestionType(ComprehensionQuestionTypes questionType) {
         this.questionTypeList.add(questionType);
     }

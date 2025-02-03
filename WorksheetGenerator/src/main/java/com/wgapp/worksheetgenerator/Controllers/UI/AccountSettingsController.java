@@ -29,9 +29,15 @@ public class AccountSettingsController implements Initializable {
 
         createPinBtn.setOnAction(e -> {
             String pin = pinNumberField.getText();
+            System.out.println("pin: " + pin);
             String confirmPin = pinNumberConfirmField.getText();
             if (pin.equals(confirmPin)) {
-                userController.setPin(new UserDTO(Model.getInstance().getUserName(), Integer.parseInt(pin)));
+                // First we set value to be able to call pin. creation method
+                Model.getInstance().getUserProperty().setPinNumber(Integer.parseInt(pin));
+                // Here we are both calling and setting the return value
+                Model.getInstance().setUserProperty(userController.setPin(Model.getInstance().getUserProperty()));
+
+
                 pinNumberField.clear();
                 pinNumberConfirmField.clear();
             }
@@ -44,9 +50,14 @@ public class AccountSettingsController implements Initializable {
             String newPassword = newPasswordField.getText();
 
             if (newPassword.equals(confirmPassword)) {
-                userController.updatePassword(new UserDTO(Model.getInstance().getUserName(), oldPassword, newPassword));
-                Utils.notifyUser("Password successfully updated.", "Password Update", "Success", Alert.AlertType.INFORMATION);
+                Model.getInstance().getUserProperty().setPassword(oldPassword);
+                Model.getInstance().getUserProperty().setNewPassword(newPassword);
+                userController.updatePassword(Model.getInstance().getUserProperty());
+                oldPasswordField.clear();
+                confirmPasswordField.clear();
+                newPasswordField.clear();
             }
+            Utils.notifyUser("Password successfully updated.", "Password Update", "Success", Alert.AlertType.INFORMATION);
         });
 
     }
