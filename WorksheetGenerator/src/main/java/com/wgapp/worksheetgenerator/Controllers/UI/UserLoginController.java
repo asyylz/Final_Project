@@ -149,6 +149,12 @@ public class UserLoginController implements Initializable {
 
             //userController.loginUser(Model.getInstance().getUserProperty());
             Model.getInstance().setUserProperty(userController.loginUser(Model.getInstance().getUserProperty()));
+
+            Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
+
+          //  System.out.println(Model.getInstance().getUserProperty().getUserId());
+           // System.out.println(Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
+
             Model.getInstance().getViewFactory().showLandingWindow();
 
             // Show success message

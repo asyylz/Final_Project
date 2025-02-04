@@ -9,27 +9,16 @@ import javafx.stage.Stage;
 
 public class App extends Application {
     @Override
-//    public void start(Stage stage) {
-//        // Model.getInstance().getViewFactory().showGeneratorWindow();
-//       Model.getInstance().getViewFactory().showMainWindow();
-//
-//    }
     public void start(Stage stage) {
-        // Get the Model's instance
-//       Model model = Model.getInstance();
-//        System.out.println(model.getSubSubject());
-
         // Get the ViewFactory from the Model
         ViewFactory viewFactory = new ViewFactory();
 
-        // Show the main window using the ViewFactory
-        //viewFactory.showMainWindow();
+   //     viewFactory.showMainWindow();
 //  viewFactory.showLandingWindow();
-  //   viewFactory.showUserMenu();
         //viewFactory.showMainWindow();
 //        viewFactory.showGeneratorWindow();
 viewFactory.showLoginWindow();
-       // viewFactory.showWorksheetWindowWithPassage();
+
 
         DatabaseConnection.getConnection();
     }

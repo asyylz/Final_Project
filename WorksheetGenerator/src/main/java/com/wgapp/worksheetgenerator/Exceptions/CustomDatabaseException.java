@@ -14,7 +14,7 @@ public class CustomDatabaseException extends RuntimeException {
             Utils.notifyUser(message, "Invalid username.", "Login Error", Alert.AlertType.ERROR);
         } else {
 
-            Utils.notifyUser(message, "Database error", "Error", Alert.AlertType.ERROR);
+            Utils.notifyUser(message, "Worksheet Not Found", "NOT FOUND", Alert.AlertType.ERROR);
         }
     }
 

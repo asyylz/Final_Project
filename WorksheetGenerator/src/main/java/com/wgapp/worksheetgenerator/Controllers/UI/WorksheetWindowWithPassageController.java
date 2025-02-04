@@ -7,6 +7,7 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
+import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -68,6 +69,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public Circle backgroundCircle6;
     public ImageView exitBtn;
     private final WorksheetController worksheetController = new WorksheetController();
+    public ImageView deleteWorksheet;
+    public Circle backgroundCircle7;
 
 
     @Override
@@ -77,18 +80,22 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         worksheetController.addObserver(this);
 
         if (isItAtStart.get()) {
-            if (Model.getInstance().getWorksheetProperty().getId()!=0) { // equals zero means null
-
+            if (Model.getInstance().getWorksheetProperty().getId() != 0) { // equals zero means null
                 updateWorksheetUI();
             }
             isItAtStart.set(false);
         }
 
         Model.getInstance().worksheetProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue != null) {
-                updateWorksheetUI();
+            if (newValue == null) {
+               // updateWorksheetUI();
+                setfieldsDefault();
             }
         });
+
+//        if (Model.getInstance().getWorksheetProperty() == null) {
+//            setfieldsDefault();
+//        }
 
         searchIconBtn.setOnMouseClicked(event -> {
             worksheetController.findWorksheet(searchTextField.getText());
@@ -156,6 +163,13 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
             // Start the pause transition
             pause.play();
+        });
+
+        deleteWorksheet.setOnMouseClicked(event -> {
+            Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+            //  System.out.println("from"+Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
+            worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
+
         });
 
 
@@ -240,6 +254,13 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
         });
 
+        deleteWorksheet.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle7.setEffect(dropShadow);
+            } else {
+                backgroundCircle7.setEffect(null);
+            }
+        });
 
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
@@ -247,6 +268,11 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     // Extracted method to update UI whenever a worksheet is found
     private void updateWorksheetUI() {
+        // For deletion and worksheet null
+//        if (Model.getInstance().getWorksheetProperty() == null) {
+//            setfieldsDefault();
+//            return;
+//        }
         int worksheetId = Model.getInstance().getWorksheetProperty().getId();
         MainSubjectOptions mainSubject = Model.getInstance().getWorksheetProperty().getMainSubject();
         ISubSubjectOptions subSubject = Model.getInstance().getWorksheetProperty().getSubSubject();
@@ -380,24 +406,55 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         } catch (Exception e) {
             e.printStackTrace();
+            if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
+                Utils.notifyUser("Answers are not available yet please try later", "Showing Answers", "ANSWERS", Alert.AlertType.WARNING);
+            }
+
         }
     }
 
+    private void setfieldsDefault() {
+        // Setting worksheetId text
+        worksheetIdText.setText("");
+        //Setting main subject
+        mainSubjectText.setText("");
+        // Setting sub-subject
+        subSubjectText.setText("");
+        // Setting grade level
+        gradeLevel.setText("");
+        //Setting passage
+        passageText.setText("");
+        //Setting passage title
+        passageTitle.setText("");
+
+        // At first score text invisible
+        scoreText.setText("");
+
+        innerRight.getChildren().clear();
+    }
 
     @Override
-    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) { // only hapens from database
-
-        Model.getInstance().setWorksheetProperty(worksheetProperty);
+    // Since generation happens in generation view this observer does only notificataion
+    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
     }
+
+    @Override
+    public void onWorksheetDeleted() {
+        Model.getInstance().setWorksheetProperty(null);
+        Utils.notifyUser("Worksheet deleted successfully.", "Delete", "Success", Alert.AlertType.INFORMATION);
+        updateWorksheetUI();
+    }
+
+    @Override
+    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+        Model.getInstance().setWorksheetProperty(worksheetProperty);
+        Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
+        Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Found", "Success", Alert.AlertType.INFORMATION);
+        updateWorksheetUI();
+    }
+
 }
-
-
-
-
-
-
-
 
 
 

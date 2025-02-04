@@ -124,4 +124,9 @@ public class MockService implements WorksheetService {
 
     }
 
+    @Override
+    public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId) {
+        return null;
+    }
+
 }

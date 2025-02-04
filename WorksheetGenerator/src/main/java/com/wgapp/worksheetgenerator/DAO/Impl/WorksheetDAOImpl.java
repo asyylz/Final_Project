@@ -255,9 +255,34 @@ public class WorksheetDAOImpl implements WorksheetDAO {
     }
 
     @Override
-    public void deleteWorksheet(int id) {
+    public void deleteWorksheet(int worksheetId, int userId) {
+        // SQL query to delete a worksheet
+        String sql = "DELETE FROM worksheets WHERE worksheet_id = ? AND user_id = ?";
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            // Set the parameters for the SQL query
+            pstmt.setInt(1, worksheetId);
+            pstmt.setInt(2, userId);
+
+            // Execute the delete query
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Check if any row was affected
+            if (rowsAffected == 0) {
+                System.out.println("No worksheet found for the given ID and user ID.");
+            } else {
+                System.out.println("Worksheet deleted successfully.");
+            }
+
+        } catch (SQLException e) {
+            // Handle exception and print the error
+            e.printStackTrace();
+            throw new RuntimeException("Error deleting worksheet from database", e);
+        }
     }
+
 
     @Override
     public WorksheetEntity getWorksheetById(long id) {

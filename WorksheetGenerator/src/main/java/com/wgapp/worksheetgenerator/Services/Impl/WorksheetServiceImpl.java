@@ -131,6 +131,32 @@ public class WorksheetServiceImpl implements WorksheetService {
 
     }
 
+    @Override
+    public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+
+        Task<Void> deleteWorksheetTask = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                worksheetDAO.deleteWorksheet(worksheetId, userId);
+                return null; // No return value needed
+            }
+        };
+
+        deleteWorksheetTask.setOnSucceeded(event -> {
+            future.complete(null); // Mark the future as complete
+        });
+
+        deleteWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(deleteWorksheetTask.getException());
+        });
+
+        new Thread(deleteWorksheetTask).start();
+
+        return future;
+    }
+
+    //================================================== FORMATTER ====================================================//
     private static WorksheetEntity parseOpenAIResponseAndCreateWorksheet(String response) {
 
         JSONObject jsonResponse = new JSONObject(response);
@@ -149,6 +175,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
         return worksheetEntity;
     }
+
 
     private static List<QuestionEntity> parseQuestionsFromContent(String content) {
         List<QuestionEntity> questionEntities = new ArrayList<>();

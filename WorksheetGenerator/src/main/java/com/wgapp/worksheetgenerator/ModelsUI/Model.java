@@ -3,9 +3,16 @@ package com.wgapp.worksheetgenerator.ModelsUI;
 import com.wgapp.worksheetgenerator.ViewFactory.*;
 import javafx.beans.property.*;
 
-public class Model {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+public class Model  {
     private static Model model;
     private final ViewFactory viewFactory;
+
+    private final List<Observer> observers = new ArrayList<>();
 
     //This object will hold data from fields to update UI (Coming)
     private ObjectProperty<WorksheetProperty> worksheetProperty = new SimpleObjectProperty<>(new WorksheetProperty());
@@ -61,18 +68,6 @@ public class Model {
         this.searchTerm.set(searchTerm);
     }
 
-    public WorksheetProperty getWorksheetProperty() {
-        return worksheetProperty.get();
-    }
-
-    public ObjectProperty<WorksheetProperty> worksheetProperty() {
-        return worksheetProperty;
-    }
-
-    public void setWorksheetProperty(WorksheetProperty worksheetProperty) {
-        this.worksheetProperty.set(worksheetProperty);
-    }
-
     public WorksheetProperty getWorksheetPropertyForGeneration() {
         return worksheetPropertyForGeneration.get();
     }
@@ -84,6 +79,25 @@ public class Model {
     public void setWorksheetPropertyForGeneration(WorksheetProperty worksheetPropertyForGeneration) {
         this.worksheetPropertyForGeneration.set(worksheetPropertyForGeneration);
     }
+    //============================================== WORKSHEET AND OBSERVER =================================================//
+    public WorksheetProperty getWorksheetProperty() {
+        return worksheetProperty.get();
+    }
+
+    public ObjectProperty<WorksheetProperty> worksheetProperty() {
+        return worksheetProperty;
+    }
+
+    public void setWorksheetProperty(WorksheetProperty worksheetProperty) {
+
+        this.worksheetProperty.set(worksheetProperty);
+    }
+    public void deleteWorksheet() {
+        this.worksheetProperty.set(new WorksheetProperty()); // Reset worksheet
+
+    }
+
+
 }
 
 

@@ -71,7 +71,7 @@
             <BoxBlur />
          </effect>
       </Line>
-      <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" styleClass="userMenu__buttons" text="Account Settings" />
+      <Button fx:id="accountBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" styleClass="userMenu__buttons" text="Account" />
       <Line endX="100.0" layoutX="86.0" layoutY="235.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
          <effect>
             <BoxBlur />
