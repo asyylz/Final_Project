@@ -30,7 +30,7 @@ public class WorksheetController {
 
     public void generateWorksheet(WorksheetProperty worksheetPropertyDTO) {
         WorksheetEntity worksheetEntity = convertFromPropertyDTOToEntity(worksheetPropertyDTO);
-        mockService.generateWorksheetAsync(worksheetEntity)
+        worksheetService.generateWorksheetAsync(worksheetEntity)
                 .thenAccept(worksheet -> {
                     try {
                         Platform.runLater(() -> {
@@ -64,6 +64,29 @@ public class WorksheetController {
                 });
     }
 
+    public void deleteWorksheet(WorksheetProperty worksheetPropertyDTO) {
+
+        worksheetService.deleteWorksheetAsync(
+                worksheetPropertyDTO.getId(),
+                worksheetPropertyDTO.getUserProperty().getUserId()
+                ).thenRun(() -> { // Use thenRun() since there’s no return value
+            try {
+                Platform.runLater(() -> {
+                    this.worksheetEntity = null; // Clear the entity after deletion
+                   // notifyObservers();
+                    Model.getInstance().deleteWorksheet();
+                });
+
+            } catch (Exception e) {
+                System.err.println("Error deleting worksheet: " + e.getMessage());
+            }
+        }).exceptionally(ex -> {
+            System.err.println("Error deleting worksheet: " + ex.getMessage());
+            return null;
+        });
+    }
+
+//================================================== NOTIFIER ====================================================//
     private void notifyObservers() {
         for (WorksheetObserver observer : observers) {
             WorksheetProperty worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
@@ -71,7 +94,7 @@ public class WorksheetController {
         }
     }
 
-
+//================================================== CONVERSION ====================================================//
     private WorksheetProperty convertFromEntityToDTOProperty(WorksheetEntity worksheetEntity) {
         if (worksheetEntity == null) {
             throw new CustomDatabaseException("The worksheet you are looking for is not found please try  another worksheet");

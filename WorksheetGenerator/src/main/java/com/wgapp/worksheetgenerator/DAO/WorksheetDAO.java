@@ -13,7 +13,7 @@ public interface WorksheetDAO {
     public WorksheetEntity findWorksheet(String title);
     public WorksheetEntity createWorksheet(WorksheetEntity worksheetEntity);
     public WorksheetEntity updateWorksheet(WorksheetEntity worksheetEntity);
-    public void deleteWorksheet(int id);
+    public void deleteWorksheet(int worksheetId, int userId);
     public void createQuestion(QuestionEntity questionEntity, int worksheetId);
     public void createChoices(ChoiceEntity choiceEntity, int questionId);
     public  void createPassage(PassageEntity passageEntity, int worksheetId);

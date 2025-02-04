@@ -68,6 +68,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public Circle backgroundCircle6;
     public ImageView exitBtn;
     private final WorksheetController worksheetController = new WorksheetController();
+    public ImageView deleteWorksheet;
+    public Circle backgroundCircle7;
 
 
     @Override
@@ -77,7 +79,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         worksheetController.addObserver(this);
 
         if (isItAtStart.get()) {
-            if (Model.getInstance().getWorksheetProperty().getId()!=0) { // equals zero means null
+            if (Model.getInstance().getWorksheetProperty().getId() != 0) { // equals zero means null
 
                 updateWorksheetUI();
             }
@@ -156,6 +158,16 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
             // Start the pause transition
             pause.play();
+        });
+
+        deleteWorksheet.setOnMouseClicked(event -> {
+            Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+            System.out.println("from"+Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
+            worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
+
+            // Show success message
+            Utils.notifyUser("You successfully deleted.", "Delete", "Success", Alert.AlertType.INFORMATION);
+
         });
 
 
@@ -240,6 +252,13 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
         });
 
+        deleteWorksheet.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle7.setEffect(dropShadow);
+            } else {
+                backgroundCircle7.setEffect(null);
+            }
+        });
 
         /*======================================== END OF DROP DOWN SHADOW EFFECT =============================================*/
     }   /*======================================== END OF INITIALIZER =============================================*/
@@ -386,18 +405,11 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) { // only hapens from database
-
         Model.getInstance().setWorksheetProperty(worksheetProperty);
+        Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
     }
 }
-
-
-
-
-
-
-
 
 
 

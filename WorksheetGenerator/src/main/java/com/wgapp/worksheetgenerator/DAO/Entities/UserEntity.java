@@ -73,7 +73,8 @@ private  String newPassword;
         this.pinNumber = pinNumber;
     }
 
-    public void setUserId(int anInt) {
+    public void setUserId(int userId) {
+        this.id = userId;
     }
 
     public String getNewPassword() {

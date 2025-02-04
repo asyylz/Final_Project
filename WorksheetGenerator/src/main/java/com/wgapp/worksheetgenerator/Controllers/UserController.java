@@ -24,6 +24,8 @@ public class UserController {
         // From userPropertyDTO to UserEntity
         UserEntity userEntity = new UserEntity(userProperty.getUsername(), userProperty.getPassword());
         userEntity = userService.login(userEntity);
+        System.out.println(userEntity.getId());
+        System.out.println(userEntity.getUsername());
 
         return new UserProperty(userEntity.getId(), userEntity.getUsername(), userEntity.getPinNumber());
     }

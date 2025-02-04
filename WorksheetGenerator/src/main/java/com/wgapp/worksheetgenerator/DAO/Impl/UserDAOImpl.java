@@ -51,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
     // userdaoImpl
     @Override
     public UserEntity findUserByUsername(String username, String password) {
-        String sql = "SELECT user_name, user_password, user_pinNumber FROM users WHERE user_name = ?";
+        String sql = "SELECT user_id, user_name, user_password, user_pinNumber FROM users WHERE user_name = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -68,6 +68,7 @@ public class UserDAOImpl implements UserDAO {
                         user.setUsername(rs.getString("user_name"));
                         user.setPassword(storedHashedPassword); // Store hashed password (not raw)
                         user.setPinNumber(rs.getInt("user_pinNumber")); // Include other user details
+                        user.setUserId(rs.getInt("user_id"));
 
                         return user;
                     } else {
@@ -128,7 +129,6 @@ public class UserDAOImpl implements UserDAO {
             }
 
             String storedHashedPassword = rs.getString("user_password");
-            System.out.println(storedHashedPassword);
             // Step 2: Compare the old password with the stored hash
             if (!BCrypt.checkpw(oldPassword, storedHashedPassword)) {
                 throw new CustomDatabaseException("Incorrect old password.");
