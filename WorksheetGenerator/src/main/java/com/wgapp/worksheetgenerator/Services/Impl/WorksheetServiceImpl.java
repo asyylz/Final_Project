@@ -156,7 +156,7 @@ public class WorksheetServiceImpl implements WorksheetService {
         return future;
     }
 
-
+    //================================================== FORMATTER ====================================================//
     private static WorksheetEntity parseOpenAIResponseAndCreateWorksheet(String response) {
 
         JSONObject jsonResponse = new JSONObject(response);
@@ -176,7 +176,7 @@ public class WorksheetServiceImpl implements WorksheetService {
         return worksheetEntity;
     }
 
-    //================================================== NOTIFIER ====================================================//
+
     private static List<QuestionEntity> parseQuestionsFromContent(String content) {
         List<QuestionEntity> questionEntities = new ArrayList<>();
         String[] lines = content.split("\n");

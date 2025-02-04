@@ -56,7 +56,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Observer pattern
-        worksheetController.addObserver(this);
+          worksheetController.addObserver(this);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
@@ -167,12 +167,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             loadingIndicatorComponent.setVisible(true);
 
             //System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().getUserProperty().getUsername());
-            try {
+
                 worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
 
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
 
         });
 
@@ -286,16 +283,44 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
+      //  System.out.println("asiye from generate");
         Model.getInstance().setWorksheetProperty(worksheetProperty);
-
+        Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+    }
 
-        Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
-        loadingIndicatorComponent.setVisible(false);
-
-        clearSelectionsHandler();
+    @Override
+    public void onWorksheetDeleted( ) {
 
     }
+
+    @Override
+    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+
+    }
+
+//    @Override
+//    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
+//        Model.getInstance().setWorksheetProperty(worksheetProperty);
+//
+//        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+//
+//        Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
+//        loadingIndicatorComponent.setVisible(false);
+//
+//        clearSelectionsHandler();
+//
+//    }
+//
+//    @Override
+//    public void onWorksheetDeleted(WorksheetProperty worksheetProperty) {
+//
+//    }
+//
+//    @Override
+//    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+//
+//    }
 
 
 }

@@ -6,6 +6,7 @@ import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.Services.Impl.MockService;
 import com.wgapp.worksheetgenerator.Services.Impl.WorksheetServiceImpl;
 import com.wgapp.worksheetgenerator.Services.WorksheetService;
+import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -22,6 +23,10 @@ public class WorksheetController {
 
     public interface WorksheetObserver {
         void onWorksheetGenerated(WorksheetProperty worksheetProperty);
+
+        void onWorksheetDeleted();
+
+        void onWorksheetUpdated(WorksheetProperty worksheetProperty);
     }
 
     public void addObserver(WorksheetObserver observer) {
@@ -30,71 +35,72 @@ public class WorksheetController {
 
     public void generateWorksheet(WorksheetProperty worksheetPropertyDTO) {
         WorksheetEntity worksheetEntity = convertFromPropertyDTOToEntity(worksheetPropertyDTO);
-        worksheetService.generateWorksheetAsync(worksheetEntity)
+        mockService.generateWorksheetAsync(worksheetEntity)
                 .thenAccept(worksheet -> {
-                    try {
-                        Platform.runLater(() -> {
-                            this.worksheetEntity = worksheet;
-                            notifyObservers();
-                        });
-                    } catch (Exception e) {
-                        System.err.println("Error updating worksheet: " + e.getMessage());
-                    }
+                    Platform.runLater(() -> {
+                        this.worksheetEntity = worksheet;
+                        notifyObservers("generated");  // Notify only "generated"
+                        // Notify UI controller to switch to the worksheet view
+
+                    });
                 })
                 .exceptionally(ex -> {
                     System.err.println("Error generating worksheet: " + ex.getMessage());
-                    return null;  // Returning null to handle failure
+                    return null;
                 });
     }
 
     public void findWorksheet(String searchTerm) {
         worksheetService.findWorksheetAsync(searchTerm)
                 .thenAccept(worksheet -> {
-                    try {
-                        Platform.runLater(() -> {
-                            this.worksheetEntity = worksheet;
-                            notifyObservers();
-                        });
-
-                    } catch (Exception e) {
-                        System.err.println("Error fetching worksheet: " + e.getMessage());
-                    }
+                    Platform.runLater(() -> {
+                        this.worksheetEntity = worksheet;
+                        notifyObservers("updated");  // Notify only "updated"
+                    });
                 }).exceptionally(ex -> {
                     return null;
                 });
     }
 
-    public void deleteWorksheet(WorksheetProperty worksheetPropertyDTO) {
 
+    public void deleteWorksheet(WorksheetProperty worksheetPropertyDTO) {
         worksheetService.deleteWorksheetAsync(
                 worksheetPropertyDTO.getId(),
                 worksheetPropertyDTO.getUserProperty().getUserId()
-                ).thenRun(() -> { // Use thenRun() since there’s no return value
-            try {
-                Platform.runLater(() -> {
-                    this.worksheetEntity = null; // Clear the entity after deletion
-                   // notifyObservers();
-                    Model.getInstance().deleteWorksheet();
-                });
-
-            } catch (Exception e) {
-                System.err.println("Error deleting worksheet: " + e.getMessage());
-            }
+        ).thenRun(() -> {
+            Platform.runLater(() -> {
+                this.worksheetEntity = null; // Clear the entity after deletion
+                notifyObservers("deleted");  // Notify only "deleted"
+            });
         }).exceptionally(ex -> {
             System.err.println("Error deleting worksheet: " + ex.getMessage());
             return null;
         });
     }
 
-//================================================== NOTIFIER ====================================================//
-    private void notifyObservers() {
+
+    //================================================== NOTIFIER ====================================================//
+    private void notifyObservers(String action) {
+        WorksheetProperty worksheetProperty;
+
         for (WorksheetObserver observer : observers) {
-            WorksheetProperty worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
-            observer.onWorksheetGenerated(worksheetProperty);
+            switch (action) {
+                case "generated":
+                    worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
+                    observer.onWorksheetGenerated(worksheetProperty);
+                    break;
+                case "deleted":
+                    observer.onWorksheetDeleted();
+                    break;
+                case "updated":
+                    worksheetProperty  = convertFromEntityToDTOProperty(this.worksheetEntity);
+                    observer.onWorksheetUpdated(worksheetProperty);
+                    break;
+            }
         }
     }
 
-//================================================== CONVERSION ====================================================//
+    //================================================== CONVERSION ====================================================//
     private WorksheetProperty convertFromEntityToDTOProperty(WorksheetEntity worksheetEntity) {
         if (worksheetEntity == null) {
             throw new CustomDatabaseException("The worksheet you are looking for is not found please try  another worksheet");

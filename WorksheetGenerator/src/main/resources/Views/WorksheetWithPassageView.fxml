@@ -24,8 +24,8 @@
           <HBox fx:id="bottomSection" layoutX="26.0" layoutY="126.0" prefHeight="100.0" prefWidth="1074.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
               <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="510.0" HBox.hgrow="ALWAYS">
                   <AnchorPane fx:id="innerLeft" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="worksheetWindow__leftSection-inner">
-                      <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
-                      <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" text="title" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                      <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
+                      <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
                   </AnchorPane>
                <padding>
                   <Insets bottom="10.0" />
@@ -173,7 +173,7 @@
                            <GaussianBlur />
                        </effect>
                    </Circle>
-                   <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="Id:" />
+                   <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="Id" />
                </HBox>
                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
@@ -181,7 +181,7 @@
                            <GaussianBlur />
                        </effect>
                    </Circle>
-                   <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="ENGLISH" />
+                   <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Subject" />
                </HBox>
                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
@@ -189,7 +189,7 @@
                            <GaussianBlur />
                        </effect>
                    </Circle>
-                   <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="COMPREHENSION" />
+                   <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub-Topic" />
                </HBox>
                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
@@ -197,7 +197,7 @@
                            <GaussianBlur />
                        </effect>
                    </Circle>
-                   <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottom" text="GRADE 1" />
+                   <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottom" text="Grade" />
                </HBox>
            </HBox>
 
