@@ -7,14 +7,12 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
-import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,10 +21,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 public class GeneratorWindowController implements Initializable, WorksheetController.WorksheetObserver {
     public AnchorPane generatorWindowParent;
@@ -43,9 +39,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
-    private BooleanProperty isGenerationCompleted = new SimpleBooleanProperty(false);
 
-    //  private final WorksheetController worksheetController = new WorksheetController();
     private final WorksheetController worksheetController = new WorksheetController();
 
     // Initialize CustomDropdowns and populating their content
@@ -165,9 +159,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Test Listener TEST
         testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             loadingIndicatorComponent.setVisible(true);
-
-            //System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().getUserProperty().getUsername());
-
                 worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
 
 
@@ -229,12 +220,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
         dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
         difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
-//        Model.getInstance().getWorksheetPropertyForGeneration().setMainSubject(null);
-//        Model.getInstance().getWorksheetPropertyForGeneration().setDiffLevel(null);
-//        Model.getInstance().getWorksheetPropertyForGeneration().setSubSubject(null);
-//        Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().setPassageContent(null);
-//        Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().setPassageTitle(null);
-//        Model.getInstance().getWorksheetPropertyForGeneration().removeQuestionsFromList(); // This belongs to model separately
         Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
 
         dropdownMainSubject.selectedProperty().set("MAIN");
@@ -283,7 +268,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
-      //  System.out.println("asiye from generate");
         Model.getInstance().setWorksheetProperty(worksheetProperty);
         Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
@@ -298,30 +282,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
 
     }
-
-//    @Override
-//    public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
-//        Model.getInstance().setWorksheetProperty(worksheetProperty);
-//
-//        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
-//
-//        Utils.notifyUser("Worksheet has been generated successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
-//        loadingIndicatorComponent.setVisible(false);
-//
-//        clearSelectionsHandler();
-//
-//    }
-//
-//    @Override
-//    public void onWorksheetDeleted(WorksheetProperty worksheetProperty) {
-//
-//    }
-//
-//    @Override
-//    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
-//
-//    }
-
 
 }
 
