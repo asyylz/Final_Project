@@ -37,6 +37,10 @@ public class Model  {
         return model;
     }
 
+    public static void setInstance(Model mockModel) {
+
+    }
+
     public ViewFactory getViewFactory() {
         return viewFactory;
     }

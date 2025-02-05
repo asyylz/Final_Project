@@ -7,6 +7,7 @@ import com.wgapp.worksheetgenerator.Utils.Utils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -43,6 +44,7 @@ public class UserLoginController implements Initializable {
         loginSectionWrapper.setTranslateY(50);
 
         registerBtn.setOnAction(e -> {
+
             onRegisterHandler();
         });
         // Enter key
@@ -94,7 +96,6 @@ public class UserLoginController implements Initializable {
     }
 
     private void onRegisterHandler() {
-
         if (!isRegisterMode.get()) {
             // First click: Show the confirm password field
             confirmPasswordText.setVisible(true);
@@ -119,11 +120,11 @@ public class UserLoginController implements Initializable {
                 System.out.println("Passwords do not match!");
                 return; // Stop registration if passwords don't match
             }
-            Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
-            Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
+           // Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
+           // Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
 
             userController.registerUser(Model.getInstance().getUserProperty());
-
+            System.out.println("test from register");
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
 
@@ -152,8 +153,8 @@ public class UserLoginController implements Initializable {
 
             Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
 
-          //  System.out.println(Model.getInstance().getUserProperty().getUserId());
-           // System.out.println(Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
+            //  System.out.println(Model.getInstance().getUserProperty().getUserId());
+            // System.out.println(Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
 
             Model.getInstance().getViewFactory().showLandingWindow();
 
