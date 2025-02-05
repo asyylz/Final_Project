@@ -120,13 +120,15 @@ public class UserLoginController implements Initializable {
                 System.out.println("Passwords do not match!");
                 return; // Stop registration if passwords don't match
             }
-           // Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
-           // Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
+            // Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
+            // Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
 
             userController.registerUser(Model.getInstance().getUserProperty());
-            System.out.println("test from register");
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
+
+
+            System.out.println("test from register");
 
         }
         // Empty fields
