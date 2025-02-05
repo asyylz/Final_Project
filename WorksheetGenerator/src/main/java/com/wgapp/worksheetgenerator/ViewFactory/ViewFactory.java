@@ -1,6 +1,5 @@
 package com.wgapp.worksheetgenerator.ViewFactory;
 
-import com.wgapp.worksheetgenerator.Controllers.UI.MainWindowController;
 import com.wgapp.worksheetgenerator.Controllers.UI.ModalWindowController;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.ObjectProperty;
@@ -60,9 +59,8 @@ public class ViewFactory {
 
     public void showMainWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainWindow.fxml"));
-     //   MainWindowController controller = new MainWindowController();
-       // loader.setController(controller);
-        // String stylesheetPath = getClass().getResource("/Styles/UserMenu.css").toExternalForm();
+        //MainWindowController controller = new MainWindowController();
+        //loader.setController(controller);
         createStage(loader, 1200, 920, "Main", true);
     }
 
@@ -136,8 +134,6 @@ public class ViewFactory {
 
         // This prevents the window from closing via x button
         stage.setOnCloseRequest(event -> {
-            // event.consume();
-            //showGeneratorWindow();
         });
 
         stage.setScene(scene);
@@ -165,7 +161,6 @@ public class ViewFactory {
         Scene scene = null;
         try {
             scene = new Scene(loader.load());
-            // scene.getStylesheets().add(stylesheetPath);  // Add stylesheet to the scene here
         } catch (IOException e) {
             e.printStackTrace();
         }
