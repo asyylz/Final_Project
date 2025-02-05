@@ -60,8 +60,8 @@ public class ViewFactory {
 
     public void showMainWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/MainWindow.fxml"));
-        MainWindowController controller = new MainWindowController();
-        loader.setController(controller);
+     //   MainWindowController controller = new MainWindowController();
+       // loader.setController(controller);
         // String stylesheetPath = getClass().getResource("/Styles/UserMenu.css").toExternalForm();
         createStage(loader, 1200, 920, "Main", true);
     }
