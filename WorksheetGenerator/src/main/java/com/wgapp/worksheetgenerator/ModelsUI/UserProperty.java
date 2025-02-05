@@ -24,6 +24,19 @@ public class UserProperty {
         this.pinNumber.set(pinNumber);
     }
 
+
+
+    public UserProperty(StringProperty username, StringProperty password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public UserProperty(String newUser, String newPass, String newPass1) {
+    }
+
+    public UserProperty(String text, String text1) {
+    }
+
     public String getUsername() {
         return username.get();
     }
