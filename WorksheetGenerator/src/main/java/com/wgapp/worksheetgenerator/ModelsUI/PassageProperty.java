@@ -26,9 +26,6 @@ public class PassageProperty {
 
     }
 
-    public PassageProperty(PassageEntity passage) {
-    }
-
 
     public int getPassageId() {
         return passageId.get();

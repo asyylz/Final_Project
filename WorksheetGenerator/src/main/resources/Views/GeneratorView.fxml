@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="generatorWindowParent" styleClass="generatorWindow__wrapper-parent" stylesheets="@../Styles/GeneratorView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.GeneratorWindowController">
-    <VBox layoutY="56.0" spacing="30.0" styleClass="innerWrapper" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
+    <VBox layoutY="56.0" spacing="30.0" styleClass="innerWrapper" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
         <AnchorPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="700.0">
             <Text layoutX="26.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAIN SUBJECT" wrappingWidth="76.90299987792969" />
             <Line endX="191.0" endY="-0.5" layoutX="172.0" layoutY="24.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" strokeWidth="2.0" />
@@ -91,7 +91,6 @@
         </HBox>
     </VBox>
     <fx:include fx:id="loadingIndicatorComponent" source="LoadingIndicator.fxml" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="150.0" />
-    <Button fx:id="testBtn" layoutX="40.0" layoutY="842.0" mnemonicParsing="false" text="Button" />
     <effect>
         <InnerShadow height="84.3" radius="24.2825" width="14.83">
             <color>

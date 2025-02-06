@@ -42,7 +42,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepOneTick;
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
-    private BooleanProperty passageSectionRequired = new SimpleBooleanProperty();
+    private BooleanProperty passageSectionRequired = new SimpleBooleanProperty(false);
 
     private final WorksheetController worksheetController = new WorksheetController();
 
@@ -115,6 +115,18 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                         Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageTitleProperty()
                 ));
 
+
+        Model.getInstance().worksheetPropertyForGenerationProperty().addListener((obs, oldValue, newValue) -> {
+            System.out.println(newValue.mainSubjectProperty().get());
+            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().mainSubjectProperty().get());
+            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().subSubjectProperty().get());
+            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().diffLevelProperty().get());
+            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageContentProperty());
+            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageTitleProperty());
+            System.out.println(passageSectionRequired);
+        });
+
+
         //LISTENER
         // Set up model the connection mainSubjectDropdown
         dropdownMainSubject.setOnSelectionChanged(mainSubjectEvent -> {
@@ -157,16 +169,15 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         //LISTENER
         clearSelectionBtn.setOnMouseClicked(event -> {
             clearSelectionsHandler();
-            updatePassageSectionRequired();
 
         });
-        // Test Listener TEST
-        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            loadingIndicatorComponent.setVisible(true);
-          Model.getInstance().getWorksheetPropertyForGeneration().setUserProperty(new UserProperty("asiye","password"));
-            worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
-
-        });
+//        // Test Listener TEST
+//        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//            loadingIndicatorComponent.setVisible(true);
+//            Model.getInstance().getWorksheetPropertyForGeneration().setUserProperty(new UserProperty("asiye", "password"));
+//            worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
+//
+//        });
 
     } // End of initialise
 
@@ -236,7 +247,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownSubSubject.selectedProperty().set("SUB");
         difficultyLevel.selectedProperty().set("DIFF");
 
-        passageSectionRequired.set(false);
+        updatePassageSectionRequired();
 
         loadingIndicatorComponent.setVisible(false);
 

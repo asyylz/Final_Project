@@ -158,6 +158,8 @@ public class PromtConstants {
             
                 **Rules:**
                 1. Ensure each questionEntity is directly linked to the passageEntity.
+                2. Do not use line break (\n) in question text.
+                3. Line break should be used between question text and options.
             
                 User Options:
             """;
