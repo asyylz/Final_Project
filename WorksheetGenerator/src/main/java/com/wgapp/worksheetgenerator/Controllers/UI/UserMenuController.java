@@ -1,5 +1,6 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
+import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
@@ -26,8 +27,9 @@ public class UserMenuController implements Initializable {
     public Button accountBtn;
     public VBox userMenu;
     public HBox userAvatarWrapper;
-    public Text logoutText;
     public Button historyBtn;
+
+    private final WorksheetController worksheetController = new WorksheetController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,6 +110,7 @@ public class UserMenuController implements Initializable {
 
     private void onGenerator() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.GENERATOR);
+        worksheetController.listWorksheets(Model.getInstance().getUserProperty());
     }
 
     private void onWorksheet() {
@@ -121,6 +124,7 @@ public class UserMenuController implements Initializable {
 
     private void onHistory() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.HISTORY);
+
     }
 
 }

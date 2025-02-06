@@ -12,7 +12,7 @@
     -fx-font-size: 16px;
     -fx-font-weight: 400;
     /*-fx-padding: 0.5em 1em; !* Adjusted padding *!*/
-    -fx-cursor: hand; /* Pointer cursor */
+
     -fx-line-height: 1.25;
     -fx-min-height: 2em;
 
@@ -24,10 +24,11 @@
 .greyBtn:hover {
     -fx-background-color: #AAAAAA;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
+    -fx-cursor: HAND; /* Pointer cursor */
+    -fx-translate-y: -5px; /* Move the button upwards slightly */
 }
 
 .greyBtn:hover {
-    -fx-translate-y: -5px; /* Move the button upwards slightly */
 }
 
 .greyBtn:pressed {

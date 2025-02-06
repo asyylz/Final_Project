@@ -44,7 +44,6 @@ public class UserLoginController implements Initializable {
         loginSectionWrapper.setTranslateY(50);
 
         registerBtn.setOnAction(e -> {
-
             onRegisterHandler();
         });
         // Enter key
@@ -127,8 +126,6 @@ public class UserLoginController implements Initializable {
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
 
-
-            System.out.println("test from register");
 
         }
         // Empty fields

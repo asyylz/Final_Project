@@ -9,6 +9,7 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
@@ -22,8 +23,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class GeneratorWindowController implements Initializable, WorksheetController.WorksheetObserver {
     public AnchorPane generatorWindowParent;
@@ -51,7 +54,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Observer pattern
-          worksheetController.addObserver(this);
+        worksheetController.addObserver(this);
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
@@ -160,8 +163,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Test Listener TEST
         testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             loadingIndicatorComponent.setVisible(true);
-                worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
-
+          Model.getInstance().getWorksheetPropertyForGeneration().setUserProperty(new UserProperty("asiye","password"));
+            worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
 
         });
 
@@ -217,6 +220,12 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         }
     }
 
+    private void onWorksheetGenerateButtonClickedHandler() {
+        // Setting loading indicator's visibility to true
+        loadingIndicatorComponent.setVisible(true);
+        worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
+    }
+
     private void clearSelectionsHandler() {
         dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
         dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
@@ -227,17 +236,12 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownSubSubject.selectedProperty().set("SUB");
         difficultyLevel.selectedProperty().set("DIFF");
 
+        passageSectionRequired.set(false);
+
+        loadingIndicatorComponent.setVisible(false);
+
     }
 
-    private void onWorksheetGenerateButtonClickedHandler() {
-        // Setting loading indicator's visibility to true
-        loadingIndicatorComponent.setVisible(true);
-
-        // Handle the generated worksheet here
-        worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration()); // This method already handles exceptions internally
-
-        clearSelectionsHandler();
-    }
 
     private void updatePassageSectionRequired() {
         // Ensure MainSubject is not null before checking its value
@@ -272,15 +276,16 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         Model.getInstance().setWorksheetProperty(worksheetProperty);
         Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+        clearSelectionsHandler();
     }
 
     @Override
-    public void onWorksheetDeleted( ) {
+    public void onWorksheetDeleted() {
 
     }
 
     @Override
-    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+    public void onWorksheetFound(WorksheetProperty worksheetProperty) {
 
     }
 

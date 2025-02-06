@@ -1,9 +1,6 @@
 package com.wgapp.worksheetgenerator.Services.Impl;
 
-import com.wgapp.worksheetgenerator.DAO.Entities.ChoiceEntity;
-import com.wgapp.worksheetgenerator.DAO.Entities.PassageEntity;
-import com.wgapp.worksheetgenerator.DAO.Entities.QuestionEntity;
-import com.wgapp.worksheetgenerator.DAO.Entities.WorksheetEntity;
+import com.wgapp.worksheetgenerator.DAO.Entities.*;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
@@ -69,7 +66,8 @@ public class MockService implements WorksheetService {
                 SubSubjectOptionsEnglish.COMPREHENSION,
                 listOfQuestionEntities,
                 DifficultyLevelOptions.GRADE3,
-                passageEntity
+                passageEntity,
+                new UserEntity("asiye")
         );
     }
 
@@ -125,6 +123,11 @@ public class MockService implements WorksheetService {
     }
 
     @Override
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(int worksheetId) {
+        return null;
+    }
+
+    @Override
     public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId) {
 
         return null;
@@ -137,9 +140,27 @@ public class MockService implements WorksheetService {
         Task<List<WorksheetEntity>> listWorksheetTask = new Task<>() {
             @Override
             protected List<WorksheetEntity> call() throws Exception {
-                WorksheetEntity worksheetEntity = generateMockWorksheet();
+                WorksheetEntity worksheetEntity1 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity2 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity3 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity4 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity5 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity6 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity7 = generateMockWorksheet();
+                WorksheetEntity worksheetEntity8 = generateMockWorksheet();
+
                 List<WorksheetEntity> worksheetEntities = new ArrayList<>();
-                worksheetEntities.add(worksheetEntity);
+
+                worksheetEntities.add(worksheetEntity1);
+                worksheetEntities.add(worksheetEntity2);
+                worksheetEntities.add(worksheetEntity3);
+                worksheetEntities.add(worksheetEntity4);
+                worksheetEntities.add(worksheetEntity5);
+                worksheetEntities.add(worksheetEntity6);
+                worksheetEntities.add(worksheetEntity7);
+                worksheetEntities.add(worksheetEntity8);
+
+
                 return worksheetEntities;
             }
         };

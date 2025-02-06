@@ -37,6 +37,6 @@ class GeneratorWindowControllerTest {
     }
 
     @Test
-    void onWorksheetUpdated() {
+    void onWorksheetFound() {
     }
 }
