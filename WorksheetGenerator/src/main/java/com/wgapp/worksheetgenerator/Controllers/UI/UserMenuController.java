@@ -27,6 +27,7 @@ public class UserMenuController implements Initializable {
     public VBox userMenu;
     public HBox userAvatarWrapper;
     public Text logoutText;
+    public Button historyBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,7 +40,7 @@ public class UserMenuController implements Initializable {
 
         Model.getInstance().getViewFactory().getUserSelectMenuView().addListener((obs, oldVal, newVal) -> {
 
-            if(newVal.equals(UserMenuOptions.GENERATOR)) {
+            if (newVal.equals(UserMenuOptions.GENERATOR)) {
                 if (!generatorBtn.getStyleClass().contains("active")) {
                     generatorBtn.getStyleClass().add("active"); // Add class if it’s not already there
                 }
@@ -47,7 +48,7 @@ public class UserMenuController implements Initializable {
                 generatorBtn.getStyleClass().remove("active"); // Remove class if condition is false
             }
 
-            if(newVal.equals(UserMenuOptions.WORKSHEET)) { // it does not enter here
+            if (newVal.equals(UserMenuOptions.WORKSHEET)) { // it does not enter here
                 if (!worksheetBtn.getStyleClass().contains("active")) {
                     worksheetBtn.getStyleClass().add("active"); // Add class if it’s not already there
                 }
@@ -55,7 +56,7 @@ public class UserMenuController implements Initializable {
                 worksheetBtn.getStyleClass().remove("active"); // Remove class if condition is false
             }
 
-            if(newVal.equals(UserMenuOptions.SETTINGS)) {
+            if (newVal.equals(UserMenuOptions.SETTINGS)) {
                 if (!accountBtn.getStyleClass().contains("active")) {
                     accountBtn.getStyleClass().add("active"); // Add class if it’s not already there
                 }
@@ -63,10 +64,19 @@ public class UserMenuController implements Initializable {
                 accountBtn.getStyleClass().remove("active"); // Remove class if condition is false
             }
 
+            if (newVal.equals(UserMenuOptions.HISTORY)) {
+                if (!historyBtn.getStyleClass().contains("active")) {
+                    historyBtn.getStyleClass().add("active"); // Add class if it’s not already there
+                }
+            } else {
+                historyBtn.getStyleClass().remove("active"); // Remove class if condition is false
+
+
+            }
         });
 
 
-        if (Model.getInstance().getUserProperty().getUsername()!= null) {
+        if (Model.getInstance().getUserProperty().getUsername() != null) {
             userNameAfterLogin.setText(Model.getInstance().getUserProperty().getUsername());
 
         }
@@ -93,6 +103,7 @@ public class UserMenuController implements Initializable {
         generatorBtn.setOnAction(event -> onGenerator());
         worksheetBtn.setOnAction(event -> onWorksheet());
         accountBtn.setOnAction(event -> onSettings());
+        historyBtn.setOnAction(event -> onHistory());
     }
 
     private void onGenerator() {
@@ -108,5 +119,8 @@ public class UserMenuController implements Initializable {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.SETTINGS);
     }
 
+    private void onHistory() {
+        Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.HISTORY);
+    }
 
 }

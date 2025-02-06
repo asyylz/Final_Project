@@ -126,7 +126,38 @@ public class MockService implements WorksheetService {
 
     @Override
     public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId) {
+
         return null;
     }
+
+    @Override
+    public CompletableFuture<List<WorksheetEntity>> listWorksheetsAsync(int userId) {
+        CompletableFuture<List<WorksheetEntity>> future = new CompletableFuture<>();
+
+        Task<List<WorksheetEntity>> listWorksheetTask = new Task<>() {
+            @Override
+            protected List<WorksheetEntity> call() throws Exception {
+                WorksheetEntity worksheetEntity = generateMockWorksheet();
+                List<WorksheetEntity> worksheetEntities = new ArrayList<>();
+                worksheetEntities.add(worksheetEntity);
+                return worksheetEntities;
+            }
+        };
+
+        listWorksheetTask.setOnSucceeded(event -> {
+            List<WorksheetEntity> listWE = listWorksheetTask.getValue();
+            future.complete(listWE);
+        });
+
+        listWorksheetTask.setOnFailed(event -> {
+            future.completeExceptionally(listWorksheetTask.getException());
+        });
+
+        new Thread(listWorksheetTask).start();
+
+        return future;
+
+    }
+
 
 }

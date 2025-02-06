@@ -77,6 +77,12 @@
             <BoxBlur />
          </effect>
       </Line>
+      <Button fx:id="historyBtn" layoutX="22.0" layoutY="361.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" styleClass="userMenu__buttons" text="History" />
+      <Line endX="100.0" layoutX="62.0" layoutY="414.0" startX="-50.0" stroke="#b8aa8f" strokeWidth="3.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </Line>
    </VBox>
    <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0">
       <Text strokeWidth="0.0" styleClass="userMenu__bottomText" text="WORKSHEET GENERATOR" textAlignment="CENTER" wrappingWidth="134.0" />

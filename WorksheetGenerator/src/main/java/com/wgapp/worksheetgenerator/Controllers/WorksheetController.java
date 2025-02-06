@@ -6,7 +6,6 @@ import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.Services.Impl.MockService;
 import com.wgapp.worksheetgenerator.Services.Impl.WorksheetServiceImpl;
 import com.wgapp.worksheetgenerator.Services.WorksheetService;
-import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -18,6 +17,7 @@ public class WorksheetController {
     private final MockService mockService = new MockService();
     private final WorksheetService worksheetService = new WorksheetServiceImpl();
     private WorksheetEntity worksheetEntity;
+    private List<WorksheetEntity> worksheetEntityList;
     private List<WorksheetObserver> observers = new ArrayList<>();
 
 
@@ -27,6 +27,8 @@ public class WorksheetController {
         void onWorksheetDeleted();
 
         void onWorksheetUpdated(WorksheetProperty worksheetProperty);
+
+        void onWorksheetsListed(ListProperty<WorksheetProperty> worksheetPropertyList);
     }
 
     public void addObserver(WorksheetObserver observer) {
@@ -79,9 +81,23 @@ public class WorksheetController {
     }
 
 
+    public void listWorksheets(UserProperty userProperty) {
+        mockService.listWorksheetsAsync(userProperty.getUserId())
+                .thenAccept(listWorksheets -> {
+                    Platform.runLater(() -> {
+                        this.worksheetEntityList = listWorksheets;
+                        notifyObservers("listed");  // Notify only "updated"
+                    });
+                }).exceptionally(ex -> {
+                    return null;
+                });
+    }
+
+
     //================================================== NOTIFIER ====================================================//
     private void notifyObservers(String action) {
         WorksheetProperty worksheetProperty;
+        ListProperty<WorksheetProperty> worksheetPropertyList;
 
         for (WorksheetObserver observer : observers) {
             switch (action) {
@@ -93,8 +109,12 @@ public class WorksheetController {
                     observer.onWorksheetDeleted();
                     break;
                 case "updated":
-                    worksheetProperty  = convertFromEntityToDTOProperty(this.worksheetEntity);
+                    worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
                     observer.onWorksheetUpdated(worksheetProperty);
+                    break;
+                case "listed":
+                    worksheetPropertyList = convertFromEntityToPropertyList(this.worksheetEntityList);
+                    observer.onWorksheetsListed(worksheetPropertyList);
                     break;
             }
         }
@@ -155,8 +175,6 @@ public class WorksheetController {
         if (worksheetPropertyDTO == null) {
             //throw new CustomDatabaseException("The worksheet you are looking for is not found please try  another worksheet");
         }
-
-        System.out.println(worksheetPropertyDTO.getUserProperty().getUsername());
         WorksheetEntity worksheetEntity = new WorksheetEntity();
         worksheetEntity.setMainSubject(worksheetPropertyDTO.getMainSubject());
         worksheetEntity.setSubSubject(worksheetPropertyDTO.getSubSubject());
@@ -170,6 +188,26 @@ public class WorksheetController {
         worksheetEntity.setUserEntity(new UserEntity(worksheetPropertyDTO.getUserProperty().getUsername()));
 
         return worksheetEntity;
+    }
+
+    private ListProperty<WorksheetProperty> convertFromEntityToPropertyList(List<WorksheetEntity> worksheetEntityList) {
+        ListProperty<WorksheetProperty> worksheetPropertyList = new SimpleListProperty<>(FXCollections.observableArrayList());
+        if (worksheetEntityList == null) {
+            throw new CustomDatabaseException("The worksheet list couldn't being fetched.");
+        }
+
+        for (WorksheetEntity we : worksheetEntityList) {
+
+            WorksheetProperty worksheetProperty = new WorksheetProperty(
+                    new SimpleIntegerProperty(we.getWorksheetId()),
+                    we.getMainSubject(), // ✅ Directly pass enum
+                    we.getSubSubject(),  // ✅ Directly pass enum
+                    we.getDifficultyLevel() // ✅ Directly pass enum
+            );
+            worksheetPropertyList.add(worksheetProperty);
+        }
+
+        return worksheetPropertyList;
     }
 
 

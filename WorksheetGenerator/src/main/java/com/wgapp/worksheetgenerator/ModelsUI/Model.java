@@ -2,6 +2,8 @@ package com.wgapp.worksheetgenerator.ModelsUI;
 
 import com.wgapp.worksheetgenerator.ViewFactory.*;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,16 @@ public class Model  {
     private static Model model;
     private final ViewFactory viewFactory;
 
-    private final List<Observer> observers = new ArrayList<>();
-
     //This object will hold data from fields to update UI (Coming)
     private ObjectProperty<WorksheetProperty> worksheetProperty = new SimpleObjectProperty<>(new WorksheetProperty());
     // This object will hold data from fields to generate worksheet with different constructor (Going)
     private ObjectProperty<WorksheetProperty> worksheetPropertyForGeneration = new SimpleObjectProperty<>(new WorksheetProperty());
 
-    // Holds user'd data for UI
+    // Holds user's data for UI
     private ObjectProperty<UserProperty> userProperty = new SimpleObjectProperty<>(new UserProperty());
+
+    // List Worksheet
+    private ListProperty<WorksheetProperty> worksheetPropertyList = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     // Search box
     StringProperty searchTerm = new SimpleStringProperty("");
@@ -45,9 +48,21 @@ public class Model  {
         return viewFactory;
     }
 
-    /*================================= GETTERS AND SETTER ===================================== */
+    /*================================= WORKSHEET LIST ===================================== */
 
-//============================================== USER =================================================//
+    public ObservableList<WorksheetProperty> getWorksheetPropertyList() {
+        return worksheetPropertyList.get();
+    }
+
+    public ListProperty<WorksheetProperty> worksheetPropertyListProperty() {
+        return worksheetPropertyList;
+    }
+
+    public void setWorksheetPropertyList(ObservableList<WorksheetProperty> worksheetPropertyList) {
+        this.worksheetPropertyList.set(worksheetPropertyList);
+    }
+
+    //============================================== USER =================================================//
     public UserProperty getUserProperty() {
         return userProperty.get();
     }

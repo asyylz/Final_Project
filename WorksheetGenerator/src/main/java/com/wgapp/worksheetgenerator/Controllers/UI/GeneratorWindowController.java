@@ -11,6 +11,7 @@ import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -280,6 +281,11 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
     @Override
     public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+
+    }
+
+    @Override
+    public void onWorksheetsListed(ListProperty<WorksheetProperty> worksheetPropertyList) {
 
     }
 
