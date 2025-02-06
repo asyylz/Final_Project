@@ -2,7 +2,53 @@
     -fx-background-color: #132B40;
     -fx-font-family: Oswald;
 }
-#worksheetTable {
-    -fx-background-color: #D9D9D9;
+
+/* Style for the TableView */
+.table-view {
+    -fx-background-color: #f8f9fa; /* Light grey background */
+    /*-fx-border-color: #b0bec5; !* Border colour *!*/
+    /*-fx-border-radius: 8px; !* Rounded corners *!*/
+
 }
 
+/* Style for the table header */
+.table-view .column-header {
+    -fx-background-color: #132B40; /* Blue header background */
+    -fx-text-fill: white;;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #c5c4c4;
+    -fx-text-alignment: center;
+}
+
+
+/* Style for the table rows */
+.table-row-cell {
+    -fx-background-color: white; /* White row background */
+    -fx-border-color: #ddd; /* Light grey row borders */
+    -fx-text-alignment: center;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f1f1f1; /* Alternate row colour */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #00aaff; /* Blue selected row */
+    -fx-text-fill: white;
+}
+
+/* Style for individual table cells */
+.table-cell {
+    -fx-padding: 8px;
+    -fx-font-size: 13px;
+}
+
+/* Hover effect on rows */
+.table-row-cell:hover {
+    -fx-background-color: rgba(229, 228, 179, 0.74); /* Light blue hover effect */
+    -fx-cursor: HAND;
+}

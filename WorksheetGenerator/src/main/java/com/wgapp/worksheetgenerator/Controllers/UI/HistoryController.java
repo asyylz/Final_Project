@@ -7,6 +7,7 @@ import javafx.beans.property.ListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,7 +34,8 @@ public class HistoryController implements Initializable, WorksheetController.Wor
     public TableColumn<WorksheetProperty, String> mainSubColumn;
     public TableColumn<WorksheetProperty, String> subSubColumn;
     public TableColumn<WorksheetProperty, String> diffLevelColumn;
-
+    private static final int ROWS_PER_PAGE = 10; // Number of rows per page
+    private Pagination pagination;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

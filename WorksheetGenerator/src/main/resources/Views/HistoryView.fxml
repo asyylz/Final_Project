@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -10,10 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox styleClass="historyview_wrapperParent" stylesheets="@../Styles/HistoryView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.HistoryController">
+<VBox prefHeight="900.0" prefWidth="1000.0" styleClass="historyview_wrapperParent" stylesheets="@../Styles/HistoryView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.HistoryController">
     <AnchorPane prefHeight="90.0" prefWidth="1000.0">
         <AnchorPane prefHeight="79.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0">
             <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0" promptText="Enter your search here..." styleClass="worksheetWindow__topSection-searchField" stylesheets="@../Styles/WorksheetWithPassageView.css" AnchorPane.bottomAnchor="15.0" />
@@ -35,22 +35,16 @@
             </StackPane>
         </AnchorPane>
     </AnchorPane>
-    <AnchorPane prefHeight="620.0" prefWidth="1000.0">
-        <TableView fx:id="worksheetTable" layoutX="23.0" prefHeight="492.0" prefWidth="583.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+    <AnchorPane prefHeight="800.0" prefWidth="1000.0">
+        <TableView fx:id="worksheetTable" layoutX="23.0" prefHeight="600.0" prefWidth="488.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
             <columns>
-                <TableColumn fx:id="noColumn" prefWidth="46.0" text="No" />
-                <TableColumn fx:id="idColumn" prefWidth="47.0" text="Id" />
-                <TableColumn fx:id="mainSubColumn" prefWidth="117.0" text="Main Subject" />
-                <TableColumn fx:id="subSubColumn" prefWidth="117.0" text="Sub-Subject" />
-                <TableColumn fx:id="diffLevelColumn" prefWidth="127.0" text="Difficulty Level" />
+                <TableColumn fx:id="noColumn" prefWidth="54.0" text="No" />
+                <TableColumn fx:id="idColumn" prefWidth="49.0" text="Id" />
+                <TableColumn fx:id="mainSubColumn" prefWidth="139.0" text="Main Subject" />
+                <TableColumn fx:id="subSubColumn" prefWidth="116.0" text="Sub-Subject" />
+                <TableColumn fx:id="diffLevelColumn" prefWidth="138.0" text="Difficulty Level" />
             </columns>
-            <effect>
-                <DropShadow radius="10.74" width="23.96">
-                    <color>
-                        <Color red="0.9399999976158142" green="0.8835999965667725" blue="0.8835999965667725" />
-                    </color>
-                </DropShadow>
-            </effect>
         </TableView>
+      <Pagination fx:id="pagination" layoutX="134.0" layoutY="634.0" prefHeight="32.0" prefWidth="200.0" />
     </AnchorPane>
 </VBox>
