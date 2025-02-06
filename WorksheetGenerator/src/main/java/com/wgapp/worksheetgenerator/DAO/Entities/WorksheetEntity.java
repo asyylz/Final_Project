@@ -3,6 +3,7 @@ package com.wgapp.worksheetgenerator.DAO.Entities;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 
 import java.util.List;
@@ -44,6 +45,9 @@ public class WorksheetEntity {
         this.questionEntityList = questionEntityList;
         this.difficultyLevel = difficultyLevel;
         this.passageEntity = passageEntity;
+    }
+//mock
+    public WorksheetEntity(int i, MainSubjectOptions mainSubjectOptions, SubSubjectOptionsEnglish subSubjectOptionsEnglish, List<QuestionEntity> listOfQuestionEntities, DifficultyLevelOptions difficultyLevelOptions, PassageEntity passageEntity, UserEntity asiye) {
     }
 
     public List<QuestionEntity> getQuestionList() {

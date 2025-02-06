@@ -89,8 +89,9 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         Model.getInstance().worksheetProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue == null) {
-               // updateWorksheetUI();
                 setfieldsDefault();
+            } else {
+                updateWorksheetUI();
             }
         });
 
@@ -438,6 +439,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     // Since generation happens in generation view this observer does only notificataion
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
+        updateWorksheetUI();
     }
 
     @Override
@@ -448,7 +450,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     }
 
     @Override
-    public void onWorksheetUpdated(WorksheetProperty worksheetProperty) {
+    public void onWorksheetFound(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
         Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Found", "Success", Alert.AlertType.INFORMATION);

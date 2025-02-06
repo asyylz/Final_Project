@@ -1,5 +1,6 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
 
+import com.wgapp.worksheetgenerator.DAO.Entities.PassageEntity;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
@@ -7,6 +8,7 @@ import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class WorksheetProperty {
     private ListProperty<UserAnswerProperty> userAnswerList = new SimpleListProperty<>(FXCollections.observableArrayList());
     private ListProperty<ComprehensionQuestionTypes> questionTypeList = new SimpleListProperty<>(FXCollections.observableArrayList()); // Empty list for question types
     private ObjectProperty<UserProperty> userProperty = new SimpleObjectProperty<>();
+    private ImageView imageView = new ImageView();
 
     public WorksheetProperty(IntegerProperty id,
                              MainSubjectOptions mainSubject,
@@ -68,12 +71,16 @@ public class WorksheetProperty {
             IntegerProperty id,
             MainSubjectOptions mainSubject,
             ISubSubjectOptions subSubject,
-            DifficultyLevelOptions diffLevel) {
+            DifficultyLevelOptions diffLevel,
+            PassageProperty passage) {
         this.id = id;
         this.mainSubject.set(mainSubject);
         this.subSubject.set(subSubject);
         this.diffLevel.set(diffLevel);
+        this.passage = passage;
     }
+
+
 
     public int getId() {
         return id.get();
@@ -191,5 +198,13 @@ public class WorksheetProperty {
 
     public void addQuestionType(ComprehensionQuestionTypes questionType) {
         this.questionTypeList.add(questionType);
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 }

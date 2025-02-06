@@ -9,6 +9,7 @@ public interface WorksheetService {
     public CompletableFuture<WorksheetEntity> generateWorksheetAsync(WorksheetEntity worksheet);
 
     public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm);
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(int worksheetId);
 
     public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId);
 

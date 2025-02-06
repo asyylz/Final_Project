@@ -14,6 +14,10 @@ public class PassageEntity {
 
     }
 
+    public PassageEntity(String passageTitle) {
+        this.passageTitle = passageTitle;
+    }
+
     public int getPassageId() {
         return passageId;
     }

@@ -9,7 +9,6 @@ import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class WorksheetController {
 
         void onWorksheetDeleted();
 
-        void onWorksheetUpdated(WorksheetProperty worksheetProperty);
+        void onWorksheetFound(WorksheetProperty worksheetProperty);
 
         void onWorksheetsListed(ListProperty<WorksheetProperty> worksheetPropertyList);
     }
@@ -37,7 +36,7 @@ public class WorksheetController {
 
     public void generateWorksheet(WorksheetProperty worksheetPropertyDTO) {
         WorksheetEntity worksheetEntity = convertFromPropertyDTOToEntity(worksheetPropertyDTO);
-        mockService.generateWorksheetAsync(worksheetEntity)
+        worksheetService.generateWorksheetAsync(worksheetEntity)
                 .thenAccept(worksheet -> {
                     Platform.runLater(() -> {
                         this.worksheetEntity = worksheet;
@@ -54,6 +53,17 @@ public class WorksheetController {
 
     public void findWorksheet(String searchTerm) {
         worksheetService.findWorksheetAsync(searchTerm)
+                .thenAccept(worksheet -> {
+                    Platform.runLater(() -> {
+                        this.worksheetEntity = worksheet;
+                        notifyObservers("updated");  // Notify only "updated"
+                    });
+                }).exceptionally(ex -> {
+                    return null;
+                });
+    }
+    public void findWorksheet(int worksheetId) {
+        worksheetService.findWorksheetAsync(worksheetId)
                 .thenAccept(worksheet -> {
                     Platform.runLater(() -> {
                         this.worksheetEntity = worksheet;
@@ -82,7 +92,7 @@ public class WorksheetController {
 
 
     public void listWorksheets(UserProperty userProperty) {
-        mockService.listWorksheetsAsync(userProperty.getUserId())
+        worksheetService.listWorksheetsAsync(userProperty.getUserId())
                 .thenAccept(listWorksheets -> {
                     Platform.runLater(() -> {
                         this.worksheetEntityList = listWorksheets;
@@ -110,7 +120,7 @@ public class WorksheetController {
                     break;
                 case "updated":
                     worksheetProperty = convertFromEntityToDTOProperty(this.worksheetEntity);
-                    observer.onWorksheetUpdated(worksheetProperty);
+                    observer.onWorksheetFound(worksheetProperty);
                     break;
                 case "listed":
                     worksheetPropertyList = convertFromEntityToPropertyList(this.worksheetEntityList);
@@ -202,8 +212,10 @@ public class WorksheetController {
                     new SimpleIntegerProperty(we.getWorksheetId()),
                     we.getMainSubject(), // ✅ Directly pass enum
                     we.getSubSubject(),  // ✅ Directly pass enum
-                    we.getDifficultyLevel() // ✅ Directly pass enum
+                    we.getDifficultyLevel(),// ✅ Directly pass enum
+                    new PassageProperty()
             );
+            worksheetProperty.passageProperty().setPassageTitle(we.getPassage().getPassageTitle());
             worksheetPropertyList.add(worksheetProperty);
         }
 

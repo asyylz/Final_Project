@@ -32,6 +32,8 @@ public class OpenAIConfig {
         connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
         connection.setDoOutput(true);
 
+      //  System.out.println("PROMT"+ prompt);
+
         // Create the JSON payload
         JSONObject payload = new JSONObject();
         payload.put("model", "gpt-3.5-turbo");
