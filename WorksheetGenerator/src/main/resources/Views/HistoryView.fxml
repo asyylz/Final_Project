@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox styleClass="historyview_wrapperParent" stylesheets="@../Styles/HistoryView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.HistoryController">
+    <AnchorPane prefHeight="90.0" prefWidth="1000.0">
+        <AnchorPane prefHeight="79.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0">
+            <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0" promptText="Enter your search here..." styleClass="worksheetWindow__topSection-searchField" stylesheets="@../Styles/WorksheetWithPassageView.css" AnchorPane.bottomAnchor="15.0" />
+            <StackPane prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
+                <Circle fx:id="backgroundCircle" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Circle>
+                <ImageView fx:id="searchIconBtn" fitHeight="50.0" fitWidth="50.0">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <Image url="@../Images/search.png" />
+                </ImageView>
+            </StackPane>
+        </AnchorPane>
+    </AnchorPane>
+    <AnchorPane prefHeight="620.0" prefWidth="1000.0">
+        <TableView fx:id="worksheetTable" layoutX="23.0" prefHeight="492.0" prefWidth="583.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <columns>
+                <TableColumn fx:id="noColumn" prefWidth="46.0" text="No" />
+                <TableColumn fx:id="idColumn" prefWidth="47.0" text="Id" />
+                <TableColumn fx:id="mainSubColumn" prefWidth="117.0" text="Main Subject" />
+                <TableColumn fx:id="subSubColumn" prefWidth="117.0" text="Sub-Subject" />
+                <TableColumn fx:id="diffLevelColumn" prefWidth="127.0" text="Difficulty Level" />
+            </columns>
+            <effect>
+                <DropShadow radius="10.74" width="23.96">
+                    <color>
+                        <Color red="0.9399999976158142" green="0.8835999965667725" blue="0.8835999965667725" />
+                    </color>
+                </DropShadow>
+            </effect>
+        </TableView>
+    </AnchorPane>
+</VBox>

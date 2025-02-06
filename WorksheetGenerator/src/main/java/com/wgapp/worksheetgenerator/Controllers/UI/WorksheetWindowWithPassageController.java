@@ -10,6 +10,7 @@ import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -68,9 +69,9 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public ImageView searchIconBtn;
     public Circle backgroundCircle6;
     public ImageView exitBtn;
-    private final WorksheetController worksheetController = new WorksheetController();
     public ImageView deleteWorksheet;
     public Circle backgroundCircle7;
+    private final WorksheetController worksheetController = new WorksheetController();
 
 
     @Override
@@ -452,6 +453,11 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Found", "Success", Alert.AlertType.INFORMATION);
         updateWorksheetUI();
+    }
+
+    @Override
+    public void onWorksheetsListed(ListProperty<WorksheetProperty> worksheetPropertyList) {
+
     }
 
 }

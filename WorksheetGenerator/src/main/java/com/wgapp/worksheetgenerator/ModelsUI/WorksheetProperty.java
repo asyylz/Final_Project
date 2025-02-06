@@ -64,6 +64,17 @@ public class WorksheetProperty {
     public WorksheetProperty() {
     }
 
+    public WorksheetProperty(
+            IntegerProperty id,
+            MainSubjectOptions mainSubject,
+            ISubSubjectOptions subSubject,
+            DifficultyLevelOptions diffLevel) {
+        this.id = id;
+        this.mainSubject.set(mainSubject);
+        this.subSubject.set(subSubject);
+        this.diffLevel.set(diffLevel);
+    }
+
     public int getId() {
         return id.get();
     }
@@ -128,7 +139,7 @@ public class WorksheetProperty {
         this.diffLevel.set(diffLevel);
     }
 
-//====================================== User Property ===============================================//
+    //====================================== User Property ===============================================//
     public UserProperty getUserProperty() {
         return userProperty.get();
     }

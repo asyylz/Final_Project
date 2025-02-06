@@ -132,6 +132,31 @@ public class WorksheetServiceImpl implements WorksheetService {
     }
 
     @Override
+    public CompletableFuture<List<WorksheetEntity>> listWorksheetsAsync(int userId) {
+        CompletableFuture<List<WorksheetEntity>> future = new CompletableFuture<>();
+        Task<List<WorksheetEntity>> listTask = new Task<>() {
+            @Override
+            protected List<WorksheetEntity> call() throws Exception {
+                return worksheetDAO.listWorksheets(userId);
+            }
+        };
+        listTask.setOnSucceeded(event -> {
+           List<WorksheetEntity> list = listTask.getValue();
+            future.complete(list);
+        });
+
+        listTask.setOnFailed(event -> {
+            future.completeExceptionally(listTask.getException());
+        });
+
+        new Thread(listTask).start();
+
+
+        return future;
+    }
+
+
+    @Override
     public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId) {
         CompletableFuture<Void> future = new CompletableFuture<>();
 

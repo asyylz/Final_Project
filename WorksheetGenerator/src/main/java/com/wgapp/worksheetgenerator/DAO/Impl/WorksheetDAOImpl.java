@@ -250,11 +250,6 @@ public class WorksheetDAOImpl implements WorksheetDAO {
     }
 
     @Override
-    public WorksheetEntity updateWorksheet(WorksheetEntity worksheetEntity) {
-        return null;
-    }
-
-    @Override
     public void deleteWorksheet(int worksheetId, int userId) {
         // SQL query to delete a worksheet
         String sql = "DELETE FROM worksheets WHERE worksheet_id = ? AND user_id = ?";
@@ -283,16 +278,46 @@ public class WorksheetDAOImpl implements WorksheetDAO {
         }
     }
 
+    @Override
+    public List<WorksheetEntity> listWorksheets(int userId) {
+        List<WorksheetEntity> worksheetEntityList = new ArrayList<>();
+
+        // SQL query to list worksheets
+        String sql = "SELECT * FROM worksheets WHERE user_id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next()) {
+                    WorksheetEntity worksheetEntity = new WorksheetEntity();
+                    worksheetEntity.setWorksheetId(rs.getInt("worksheet_id"));
+                    worksheetEntity.setMainSubject(MainSubjectOptions.valueOf(rs.getString("main_subject")));
+                    worksheetEntity.setSubSubject(SubSubjectOptionsEnglish.valueOf(rs.getString("sub_subject")));
+                    worksheetEntity.setDifficultyLevel(DifficultyLevelOptions.valueOf(rs.getString("difficulty_level")));
+
+
+                worksheetEntityList.add(worksheetEntity);
+                }
+            }
+        } catch (
+                SQLException e) {
+            // Handle exception and print the error
+            e.printStackTrace();
+            throw new RuntimeException("Error listing worksheet from database", e);
+        }
+        for (WorksheetEntity worksheetEntity1 : worksheetEntityList) {
+            System.out.println(worksheetEntity1.getWorksheetId());
+        }
+
+        return worksheetEntityList;
+
+    }
 
     @Override
     public WorksheetEntity getWorksheetById(long id) {
         return null;
     }
-
-    @Override
-    public List<WorksheetEntity> getAllWorksheets() {
-        return List.of();
-    }
-
 
 }
