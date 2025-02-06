@@ -22,16 +22,20 @@
 }
 
 .greyBtn:hover {
-    -fx-background-color: #AAAAAA;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); /* Shadow effect on hover */
+    /*-fx-background-color: #AAAAAA;*/
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 12, 0, 0, 4); !* Shadow effect on hover *!*/
     -fx-cursor: HAND; /* Pointer cursor */
-    -fx-translate-y: -5px; /* Move the button upwards slightly */
+    /*-fx-translate-y: -2px;*/
+    -fx-background-color: #dfdfdf;
 }
 
-.greyBtn:hover {
+.greyBtn:focused {
+    -fx-background-color: #dfdfdf;
+
 }
+
 
 .greyBtn:pressed {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.06), 4, 0, 0, 2);
-    -fx-translate-y: 0; /* Reset translation */
+    /*-fx-translate-y: 0; !* Reset translation *!*/
 }

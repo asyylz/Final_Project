@@ -18,199 +18,234 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="900.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWithPassageView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
-   <center>
-      <AnchorPane fx:id="worksheetWindowWithPassageParent" prefHeight="900.0" prefWidth="1050.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWithPassageView.css">
-          <HBox fx:id="bottomSection" layoutX="26.0" layoutY="126.0" prefHeight="100.0" prefWidth="1074.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
-              <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="510.0" HBox.hgrow="ALWAYS">
-                  <AnchorPane fx:id="innerLeft" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="worksheetWindow__leftSection-inner">
-                      <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0" />
-                      <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
-                  </AnchorPane>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-              </ScrollPane>
-              <ScrollPane fx:id="bottomRightSection" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="500.0" styleClass="worksheetWindow__rightSection" HBox.hgrow="ALWAYS">
-                  <VBox fx:id="innerRight" fillWidth="false" minWidth="-Infinity" prefWidth="490.0" styleClass="worksheetWindow__rightSection-inner">
-                      <padding>
-                          <Insets bottom="20.0" left="10.0" />
-                      </padding>
-                      <cursor>
-                          <Cursor fx:constant="HAND" />
-                      </cursor>
-                  </VBox>
-                  <HBox.margin>
-                      <Insets left="2.0" />
-                  </HBox.margin>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-              </ScrollPane>
-          </HBox>
-          <AnchorPane layoutX="13.0" layoutY="13.0" styleClass="worksheetWindow__topSection" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
-              <HBox alignment="CENTER" layoutX="768.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.rightAnchor="0.0">
-                  <StackPane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle5" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="timer" fitHeight="50.0" fitWidth="50.0">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                          <Image url="@../Images/clock.png" />
-                      </ImageView>
-                  </StackPane>
-                  <StackPane prefHeight="100.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle1" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="showAnswersBtn" fitHeight="42.0" fitWidth="46.0" translateX="1.0" translateY="5.0">
-                          <Image url="@../Images/answers.png" />
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                          <effect>
-                              <DropShadow />
-                          </effect>
-                      </ImageView>
-                  </StackPane>
-                  <StackPane layoutX="292.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle7" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="deleteWorksheet" fitHeight="50.0" fitWidth="50.0" translateX="3.0">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                          <Image url="@../Images/trash.png" />
-                      </ImageView>
-                  </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle2" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="clearSelectionBtn" fitHeight="50.0" fitWidth="50.0">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                          <effect>
-                              <DropShadow />
-                          </effect>
-                          <Image url="@../Images/erase.png" />
-                      </ImageView>
-                  </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle4" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="downloadWorksheet" fitHeight="50.0" fitWidth="50.0" translateX="3.0">
-                          <Image url="@../Images/file.png" />
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </ImageView>
-                  </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                      <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="exitBtn" fitHeight="50.0" fitWidth="50.0">
-                          <Image url="@../Images/logout.png" />
-                          <effect>
-                              <DropShadow />
-                          </effect>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                      </ImageView>
-                  </StackPane>
-              </HBox>
-              <AnchorPane layoutX="540.0" layoutY="28.0" prefHeight="79.0" prefWidth="465.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
-                  <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0" promptText="Enter your search here..." styleClass="worksheetWindow__topSection-searchField" AnchorPane.bottomAnchor="15.0" />
-                  <StackPane prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
-                      <Circle fx:id="backgroundCircle6" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Circle>
-                      <ImageView fx:id="searchIconBtn" fitHeight="50.0" fitWidth="50.0">
-                          <effect>
-                              <DropShadow />
-                          </effect>
-                          <Image url="@../Images/search.png" />
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                      </ImageView>
-                  </StackPane>
-              </AnchorPane>
-          </AnchorPane>
-      
-                <padding>
-              <Insets left="10.0" right="10.0" />
-          </padding>
-      </AnchorPane>
-   </center>
-   <bottom>
-       <AnchorPane BorderPane.alignment="CENTER">
-           <HBox layoutX="10.0" layoutY="4.0" spacing="10.0">
-               <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
-                   <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                       <effect>
-                           <GaussianBlur />
-                       </effect>
-                   </Circle>
-                   <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="Id" />
-               </HBox>
-               <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
-                   <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                       <effect>
-                           <GaussianBlur />
-                       </effect>
-                   </Circle>
-                   <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Subject" />
-               </HBox>
-               <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
-                   <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                       <effect>
-                           <GaussianBlur />
-                       </effect>
-                   </Circle>
-                   <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub-Topic" />
-               </HBox>
-               <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
-                   <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                       <effect>
-                           <GaussianBlur />
-                       </effect>
-                   </Circle>
-                   <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottom" text="Grade" />
-               </HBox>
-           </HBox>
+<BorderPane prefHeight="900.0" styleClass="worksheetWindow__parent"
+            stylesheets="@../Styles/WorksheetWithPassageView.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.WorksheetWindowWithPassageController">
+    <center>
+        <AnchorPane fx:id="worksheetWindowWithPassageParent" prefHeight="900.0" prefWidth="1050.0"
+                    styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWithPassageView.css">
+            <HBox fx:id="bottomSection" layoutX="26.0" layoutY="126.0" prefHeight="100.0" prefWidth="1074.0"
+                  AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
+                <ScrollPane fx:id="bottomLeftSection" prefHeight="700.0" prefWidth="510.0" HBox.hgrow="ALWAYS">
+                    <AnchorPane fx:id="innerLeft" maxHeight="1.7976931348623157E308" maxWidth="-Infinity"
+                                minHeight="-Infinity" minWidth="-Infinity"
+                                styleClass="worksheetWindow__leftSection-inner">
+                        <Text fx:id="passageText" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              textAlignment="JUSTIFY" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="35.0"/>
+                        <Text fx:id="passageTitle" layoutX="232.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              styleClass="passageTitle" textAlignment="CENTER" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0"/>
+                    </AnchorPane>
+                    <padding>
+                        <Insets bottom="10.0"/>
+                    </padding>
+                </ScrollPane>
+                <ScrollPane fx:id="bottomRightSection" layoutX="10.0" layoutY="10.0" minHeight="-Infinity"
+                            minWidth="-Infinity" prefHeight="756.0" prefWidth="500.0"
+                            styleClass="worksheetWindow__rightSection" HBox.hgrow="ALWAYS">
+                    <VBox fx:id="innerRight" fillWidth="false" minWidth="-Infinity" prefWidth="490.0"
+                          styleClass="worksheetWindow__rightSection-inner">
+                        <padding>
+                            <Insets bottom="20.0" left="10.0"/>
+                        </padding>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </VBox>
+                    <HBox.margin>
+                        <Insets left="2.0"/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </ScrollPane>
+            </HBox>
+            <AnchorPane layoutX="13.0" layoutY="13.0" styleClass="worksheetWindow__topSection"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                        HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER" layoutX="768.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0"
+                      AnchorPane.rightAnchor="0.0">
+                    <StackPane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle5" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="timer" fitHeight="50.0" fitWidth="50.0">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <Image url="@../Images/clock.png"/>
+                        </ImageView>
+                    </StackPane>
+                    <StackPane prefHeight="100.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle1" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="showAnswersBtn" fitHeight="42.0" fitWidth="46.0" translateX="1.0"
+                                   translateY="5.0">
+                            <Image url="@../Images/answers.png"/>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <effect>
+                                <DropShadow/>
+                            </effect>
+                        </ImageView>
+                    </StackPane>
+                    <StackPane layoutX="292.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle7" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="deleteWorksheet" fitHeight="50.0" fitWidth="50.0" translateX="3.0">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <Image url="@../Images/trash.png"/>
+                        </ImageView>
+                    </StackPane>
+                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle2" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="clearSelectionBtn" fitHeight="50.0" fitWidth="50.0">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                            <effect>
+                                <DropShadow/>
+                            </effect>
+                            <Image url="@../Images/erase.png"/>
+                        </ImageView>
+                    </StackPane>
+                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle4" fill="#9cd2d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="downloadWorksheet" fitHeight="50.0" fitWidth="50.0" translateX="3.0">
+                            <Image url="@../Images/file.png"/>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </ImageView>
+                    </StackPane>
+                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="exitBtn" fitHeight="50.0" fitWidth="50.0">
+                            <Image url="@../Images/logout.png"/>
+                            <effect>
+                                <DropShadow/>
+                            </effect>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </ImageView>
+                    </StackPane>
+                </HBox>
+                <AnchorPane layoutX="540.0" layoutY="28.0" prefHeight="79.0" prefWidth="465.0"
+                            AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                    <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0"
+                               promptText="Enter your search here..."
+                               styleClass="worksheetWindow__topSection-searchField" AnchorPane.bottomAnchor="15.0"/>
+                    <StackPane prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="5.0"
+                               AnchorPane.rightAnchor="10.0">
+                        <Circle fx:id="backgroundCircle6" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT"
+                                strokeType="INSIDE">
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </Circle>
+                        <ImageView fx:id="searchIconBtn" fitHeight="50.0" fitWidth="50.0">
+                            <effect>
+                                <DropShadow/>
+                            </effect>
+                            <Image url="@../Images/search.png"/>
+                            <cursor>
+                                <Cursor fx:constant="HAND"/>
+                            </cursor>
+                        </ImageView>
+                    </StackPane>
+                </AnchorPane>
+            </AnchorPane>
 
-           <Text fx:id="timerText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottomSection-timerText" textAlignment="CENTER" wrappingWidth="85.17320251464844" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="20.0" />
+            <padding>
+                <Insets left="10.0" right="10.0"/>
+            </padding>
+        </AnchorPane>
+    </center>
+    <bottom>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <HBox layoutX="10.0" layoutY="4.0" spacing="10.0">
+                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
+                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                        <effect>
+                            <GaussianBlur/>
+                        </effect>
+                    </Circle>
+                    <Text fx:id="worksheetIdText" strokeType="OUTSIDE" strokeWidth="0.0" text="Id"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
+                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                        <effect>
+                            <GaussianBlur/>
+                        </effect>
+                    </Circle>
+                    <Text fx:id="mainSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Subject"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
+                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                        <effect>
+                            <GaussianBlur/>
+                        </effect>
+                    </Circle>
+                    <Text fx:id="subSubjectText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sub-Topic"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="3.0" styleClass="worksheetWindow__bottom">
+                    <Circle fill="#ededed54" radius="7.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                        <effect>
+                            <GaussianBlur/>
+                        </effect>
+                    </Circle>
+                    <Text fx:id="gradeLevel" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottom"
+                          text="Grade"/>
+                </HBox>
+            </HBox>
 
-           <Text fx:id="scoreText" layoutX="0.5" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottomSection-score" text="Score:" wrappingWidth="147.0" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="100.0" />
-       </AnchorPane>
-   </bottom>
-   <effect>
-      <InnerShadow choke="0.27">
-         <color>
-            <Color red="1.0" green="0.9259259104728699" blue="0.9259259104728699" />
-         </color>
-      </InnerShadow>
-   </effect>
+            <Text fx:id="timerText" strokeType="OUTSIDE" strokeWidth="0.0"
+                  styleClass="worksheetWindow__bottomSection-timerText" textAlignment="CENTER"
+                  wrappingWidth="85.17320251464844" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="20.0"/>
+
+            <Text fx:id="scoreText" layoutX="0.5" strokeType="OUTSIDE" strokeWidth="0.0"
+                  styleClass="worksheetWindow__bottomSection-score" text="Score:" wrappingWidth="147.0"
+                  AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="100.0"/>
+        </AnchorPane>
+    </bottom>
+    <effect>
+        <InnerShadow choke="0.27">
+            <color>
+                <Color red="1.0" green="0.9259259104728699" blue="0.9259259104728699"/>
+            </color>
+        </InnerShadow>
+    </effect>
 </BorderPane>
