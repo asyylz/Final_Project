@@ -13,12 +13,12 @@ public class App extends Application {
         // Get the ViewFactory from the Model
         ViewFactory viewFactory = new ViewFactory();
 
-     // viewFactory.showMainWindow();
+     viewFactory.showMainWindow();
 //  viewFactory.showLandingWindow();
       //  viewFactory.showMainWindow();
 //       viewFactory.showGeneratorWindow();
 
-   viewFactory.showLoginWindow();
+  //viewFactory.showLoginWindow();
 
 
         DatabaseConnection.getConnection();
