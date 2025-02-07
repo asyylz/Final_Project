@@ -7,7 +7,6 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
-import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -28,7 +28,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ import java.util.ResourceBundle;
 public class WorksheetWindowWithPassageController implements Initializable, WorksheetController.WorksheetObserver {
     public AnchorPane worksheetWindowWithPassageParent;
     public HBox bottomSection;
-    public ScrollPane bottomLeftSection;
+    public VBox bottomLeftSection;
     public ScrollPane bottomRightSection;
     public AnchorPane innerLeft;
     public VBox innerRight;
@@ -47,7 +46,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public Text mainSubjectText;
     public Text gradeLevel;
     public Text worksheetIdText;
-    public Text passageText;
+    public TextArea passageText;
     public Text passageTitle;
     public ImageView clearSelectionBtn;
     public ImageView showAnswersBtn;
@@ -77,6 +76,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         // Observer pattern
         worksheetController.addObserver(this);
+
+
 
         if (isItAtStart.get()) {
             if (Model.getInstance().getWorksheetProperty().getId() != 0) { // equals zero means null
@@ -118,7 +119,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
             bottomLeftSection.heightProperty().get();
             // Update the wrapping width of the passageText
-            passageText.setWrappingWidth(newWidth);
+            //passageText.setWrappingWidth(newWidth);
             passageTitle.setWrappingWidth(newWidth);
         });
 
@@ -170,7 +171,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         dropShadow.setColor(Color.valueOf("#FFF5FA"));
         dropShadow.setRadius(50);
-
 
         showAnswersBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue || isShowingAnswers.get()) {

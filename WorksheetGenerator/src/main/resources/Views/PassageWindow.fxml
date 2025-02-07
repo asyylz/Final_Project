@@ -9,9 +9,8 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="passageWrapper" prefHeight="716.0" prefWidth="905.0" styleClass="passageWindow__wrapper" stylesheets="@../Styles/PassageWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.PassageWindowController">
-    <TextArea fx:id="readingPassage" layoutX="14.0" layoutY="110.0" prefHeight="593.0" prefWidth="605.0" />
+    <TextArea fx:id="readingPassage" layoutX="14.0" layoutY="110.0" prefHeight="593.0" prefWidth="605.0" promptText="Reading passage...." styleClass="text-area" stylesheets="@../Styles/PassageWindow.css" wrapText="true" />
     <VBox fx:id="wrapperBtns" layoutX="688.0" layoutY="407.0" prefHeight="140.0" prefWidth="166.0" spacing="10.0">
-        <Button fx:id="beautifyBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Beautify" />
         <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Clear" />
         <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Close" />
     </VBox>
@@ -27,7 +26,7 @@
         <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
         <CheckBox fx:id="structure" layoutX="10.0" layoutY="203.0" mnemonicParsing="false" text="Structure" />
     </VBox>
-   <TextField fx:id="passageTitle" layoutX="14.0" layoutY="38.0" prefHeight="34.0" prefWidth="605.0" />
+   <TextField fx:id="passageTitle" layoutX="14.0" layoutY="38.0" prefHeight="34.0" prefWidth="605.0" styleClass="title" />
    <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="103.0" />
    <Text layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passage" wrappingWidth="103.0" />
 </AnchorPane>

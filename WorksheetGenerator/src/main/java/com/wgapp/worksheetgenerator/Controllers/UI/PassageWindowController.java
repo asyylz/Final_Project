@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 
 public class PassageWindowController implements Initializable {
     public AnchorPane passageWrapper;
-    public Button beautifyBtn;
     public Button clearTextBtn;
     public VBox wrapperBtns;
     public Button closeBtn;
@@ -54,10 +53,11 @@ public class PassageWindowController implements Initializable {
         questionTypes.visibleProperty().bind(doesQuestionTypesRequire);
 
 
+
     } // End of initialize
 
     private void addListener() {
-        beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
+       // beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
 
         //Clear passage and title for new values
         clearTextBtn.setOnAction(e -> {

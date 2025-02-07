@@ -25,6 +25,10 @@
     -fx-font-weight: 800;
 }
 
+.passageAddIcon:hover {
+    -fx-translate-y: -3px;
+
+}
 
 
 
