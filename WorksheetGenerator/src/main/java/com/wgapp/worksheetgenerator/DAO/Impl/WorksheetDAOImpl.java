@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.DAO.Impl;
 
 
+import com.sun.tools.javac.Main;
 import com.wgapp.worksheetgenerator.Config.DatabaseConnection;
 import com.wgapp.worksheetgenerator.DAO.Entities.ChoiceEntity;
 import com.wgapp.worksheetgenerator.DAO.Entities.PassageEntity;
@@ -10,10 +11,13 @@ import com.wgapp.worksheetgenerator.DAO.WorksheetDAO;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WorksheetDAOImpl implements WorksheetDAO {
 
@@ -245,13 +249,18 @@ public class WorksheetDAOImpl implements WorksheetDAO {
 
     @Override
     public WorksheetEntity findWorksheet(int worksheetId) {
-        String sql1 = "SELECT w.*, p.* FROM worksheets w " +
-                "JOIN passages p ON w.worksheet_id = p.worksheet_id" +
+//        String sql1 = "SELECT w.*, p.* FROM worksheets w " +
+//                "JOIN passages p ON w.worksheet_id = p.worksheet_id" +
+//                " WHERE w.worksheet_id = ?";
+//
+        String sql1 = "SELECT w.* FROM worksheets w " +
                 " WHERE w.worksheet_id = ?";
 
         String sql2 = "SELECT * FROM questions WHERE worksheet_id = ?";
 
         String sql3 = "SELECT * FROM choices WHERE question_id= ?";
+
+        String sql4 = "SELECT p.* FROM passages p WHERE p.worksheet_id= ?";
 
         WorksheetEntity worksheetEntity = new WorksheetEntity();
         PassageEntity passageEntity = new PassageEntity();
@@ -265,13 +274,28 @@ public class WorksheetDAOImpl implements WorksheetDAO {
                 if (rs1.next()) { // if a worksheet exists
                     worksheetEntity.setWorksheetId(rs1.getInt("worksheet_id"));
                     worksheetEntity.setMainSubject(MainSubjectOptions.valueOf(rs1.getString("main_subject")));
-                    worksheetEntity.setSubSubject(SubSubjectOptionsEnglish.valueOf(rs1.getString("sub_subject")));
+                    if (rs1.getString("main_subject").equals("ENGLISH")) {
+                        worksheetEntity.setSubSubject(SubSubjectOptionsEnglish.valueOf(rs1.getString("sub_subject")));
+
+                        try (PreparedStatement pstmt = connection.prepareStatement(sql4)) {
+                            pstmt.setInt(1, worksheetId);
+                            try (ResultSet rs = pstmt.executeQuery()) {
+                                if (rs.next()) {
+                                    // Setting passage
+                                    passageEntity.setPassageText(rs.getString("passage"));
+                                    passageEntity.setPassageTitle(rs.getString("title"));
+                                    worksheetEntity.setPassage(passageEntity);
+                                }
+                            }
+                        }
+
+                    } else if (rs1.getString("main_subject").equals("MATHS")) {
+                        System.out.println("matsh");
+                        worksheetEntity.setSubSubject(SubSubjectOptionsMaths.valueOf(rs1.getString("sub_subject")));
+                    }
+
                     worksheetEntity.setDifficultyLevel(DifficultyLevelOptions.valueOf(rs1.getString("difficulty_level")));
 
-                    // Setting passage
-                    passageEntity.setPassageText(rs1.getString("passage"));
-                    passageEntity.setPassageTitle(rs1.getString("title"));
-                    worksheetEntity.setPassage(passageEntity);
                 } else {
                     return null;
                 }
@@ -322,6 +346,7 @@ public class WorksheetDAOImpl implements WorksheetDAO {
 
 
         worksheetEntity.setQuestionList(questionEntityList);
+
         return worksheetEntity;
     }
 
@@ -359,39 +384,45 @@ public class WorksheetDAOImpl implements WorksheetDAO {
     public List<WorksheetEntity> listWorksheets(int userId) {
         List<WorksheetEntity> worksheetEntityList = new ArrayList<>();
 
-        // SQL query to list worksheets
-        String sql = "SELECT w.*, p.* FROM worksheets  w LEFT JOIN  passages p ON w.worksheet_id=p.worksheet_id WHERE user_id = ?";
+        // SQL query to list worksheets with passages
+        String sql = "SELECT w.*, p.title FROM worksheets w LEFT JOIN passages p ON w.worksheet_id = p.worksheet_id WHERE user_id = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
 
+            pstmt.setInt(1, userId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    WorksheetEntity worksheetEntity = new WorksheetEntity();
-                    worksheetEntity.setWorksheetId(rs.getInt("worksheet_id"));
-                    worksheetEntity.setMainSubject(MainSubjectOptions.valueOf(rs.getString("main_subject")));
-                    worksheetEntity.setSubSubject(SubSubjectOptionsEnglish.valueOf(rs.getString("sub_subject")));
-                    worksheetEntity.setDifficultyLevel(DifficultyLevelOptions.valueOf(rs.getString("difficulty_level")));
-                    worksheetEntity.setPassage(new PassageEntity(rs.getString("title")));
+                    WorksheetEntity worksheetEntity;
 
-                    worksheetEntityList.add(worksheetEntity);
+                    if (rs.getString("main_subject").equals("ENGLISH")) {
+                        worksheetEntity = new WorksheetEntity(
+                                rs.getInt("worksheet_id"),
+                                MainSubjectOptions.valueOf(rs.getString("main_subject")),
+                                SubSubjectOptionsEnglish.valueOf(rs.getString("sub_subject")),
+                                DifficultyLevelOptions.valueOf(rs.getString("difficulty_level")),
+                                new PassageEntity(rs.getString("title"))
+                        );
+
+                        worksheetEntityList.add(worksheetEntity);
+                    } else {
+                        worksheetEntity = new WorksheetEntity(
+                                rs.getInt("worksheet_id"),
+                                MainSubjectOptions.valueOf(rs.getString("main_subject")),
+                                SubSubjectOptionsMaths.valueOf(rs.getString("sub_subject")),
+                                DifficultyLevelOptions.valueOf(rs.getString("difficulty_level"))
+                        );
+                        worksheetEntityList.add(worksheetEntity);
+                    }
+
                 }
             }
-        } catch (
-                SQLException e) {
-            // Handle exception and print the error
+        } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error listing worksheet from database", e);
+            throw new RuntimeException("Error listing worksheets from database", e);
         }
-
         return worksheetEntityList;
-
     }
 
-    @Override
-    public WorksheetEntity getWorksheetById(long id) {
-        return null;
-    }
 
 }

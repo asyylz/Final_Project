@@ -110,7 +110,7 @@ public class UserMenuController implements Initializable {
 
     private void onGenerator() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.GENERATOR);
-        worksheetController.listWorksheets(Model.getInstance().getUserProperty());
+        //worksheetController.listWorksheets(Model.getInstance().getUserProperty());
     }
 
     private void onWorksheet() {
@@ -124,7 +124,6 @@ public class UserMenuController implements Initializable {
 
     private void onHistory() {
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.HISTORY);
-
     }
 
 }

@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -76,7 +77,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         // Observer pattern
         worksheetController.addObserver(this);
-
 
 
         if (isItAtStart.get()) {
@@ -267,10 +267,17 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         subSubjectText.setText((subSubject.toString().substring(0, 1)) + (subSubject.toString().substring(1)));
         // Setting grade level
         gradeLevel.setText(diffLevel.toString());
+
         //Setting passage
-        passageText.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
-        //Setting passage title
-        passageTitle.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle());
+        if (Model.getInstance().getWorksheetProperty().passageProperty() != null) {
+            passageText.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageContent());
+            //Setting passage title
+            passageTitle.setText(Model.getInstance().getWorksheetProperty().passageProperty().getPassageTitle());
+        } else {
+            passageText.setText("");
+            passageTitle.setText("");
+        }
+
 
         // At first score text invisible
         scoreText.setText("");
@@ -362,10 +369,10 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     private void onShowAnswerBtnClickedHandler() {
 
         if (!isShowingAnswers.get()) {
-        BooleanProperty isPinCorrect = Utils.notifyUser("Please enter pin number", "", "UNLOCK", Alert.AlertType.CONFIRMATION, new SimpleBooleanProperty(true));
+            BooleanProperty isPinCorrect = Utils.notifyUser("Please enter pin number", "", "UNLOCK", Alert.AlertType.CONFIRMATION, new SimpleBooleanProperty(true));
 
             if (isPinCorrect.get()) {
-              //  System.out.println("Answer is :"+isShowingAnswers.get());
+                //  System.out.println("Answer is :"+isShowingAnswers.get());
 
                 isShowingAnswers.set(!isShowingAnswers.get());
 
@@ -402,7 +409,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
 
         } else {
-         //   System.out.println("Answer is :"+isShowingAnswers.get());
+            //   System.out.println("Answer is :"+isShowingAnswers.get());
 
             try {
                 List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();

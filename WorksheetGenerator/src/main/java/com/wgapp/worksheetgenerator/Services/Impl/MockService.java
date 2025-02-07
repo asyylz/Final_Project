@@ -61,13 +61,7 @@ public class MockService implements WorksheetService {
         }
 
         return new WorksheetEntity(
-                4,
-                MainSubjectOptions.ENGLISH,
-                SubSubjectOptionsEnglish.COMPREHENSION,
-                listOfQuestionEntities,
-                DifficultyLevelOptions.GRADE3,
-                passageEntity,
-                new UserEntity("asiye")
+
         );
     }
 

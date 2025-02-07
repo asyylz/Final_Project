@@ -39,7 +39,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         // For list
         worksheetController.listWorksheets(Model.getInstance().getUserProperty());
 
-
         DropShadow dropShadow = new DropShadow();
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         dropShadow.setColor(Color.valueOf("#FFF5FA"));
@@ -72,7 +71,13 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         mainSubColumn.setCellValueFactory(cellData -> cellData.getValue().mainSubjectProperty().asString());
         subSubColumn.setCellValueFactory(cellData -> cellData.getValue().subSubjectProperty().asString());
         diffLevelColumn.setCellValueFactory(cellData -> cellData.getValue().diffLevelProperty().asString());
-        title.setCellValueFactory(cellData -> cellData.getValue().passageProperty().passageTitleProperty());
+        title.setCellValueFactory(cellData -> {
+            if (cellData.getValue() == null || cellData.getValue().passageProperty().passageTitleProperty().getValue()==null) {
+                cellData.getValue().passageProperty().setPassageTitle("---");
+                return cellData.getValue().passageProperty().passageTitleProperty();
+            }
+            return cellData.getValue().passageProperty().passageTitleProperty();
+        });
 
 
         // ✅ Set Delete Button inside the "delete" column

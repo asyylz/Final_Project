@@ -18,7 +18,7 @@ public class WorksheetEntity {
     private PassageEntity passageEntity;
     private UserEntity userEntity;
 
-    public WorksheetEntity( ) {
+    public WorksheetEntity() {
 
     }
 
@@ -38,17 +38,22 @@ public class WorksheetEntity {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public WorksheetEntity(int worksheetId, MainSubjectOptions mainSubject, ISubSubjectOptions subSubject, List<QuestionEntity> questionEntityList, DifficultyLevelOptions difficultyLevel, PassageEntity passageEntity) {
+    public WorksheetEntity(int worksheetId, MainSubjectOptions mainSubject, ISubSubjectOptions subSubject , DifficultyLevelOptions difficultyLevel, PassageEntity passageEntity) {
         this.worksheetId = worksheetId;
         this.mainSubject = mainSubject;
         this.subSubject = subSubject;
-        this.questionEntityList = questionEntityList;
         this.difficultyLevel = difficultyLevel;
         this.passageEntity = passageEntity;
     }
-//mock
-    public WorksheetEntity(int i, MainSubjectOptions mainSubjectOptions, SubSubjectOptionsEnglish subSubjectOptionsEnglish, List<QuestionEntity> listOfQuestionEntities, DifficultyLevelOptions difficultyLevelOptions, PassageEntity passageEntity, UserEntity asiye) {
+
+    public WorksheetEntity(int worksheetId, MainSubjectOptions mainSubject, ISubSubjectOptions subSubject, DifficultyLevelOptions difficultyLevel) {
+        this.worksheetId = worksheetId;
+        this.mainSubject = mainSubject;
+        this.subSubject = subSubject;
+        this.difficultyLevel = difficultyLevel;
+
     }
+
 
     public List<QuestionEntity> getQuestionList() {
         return questionEntityList;

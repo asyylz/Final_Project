@@ -8,7 +8,6 @@ import com.wgapp.worksheetgenerator.DAO.Entities.WorksheetEntity;
 import java.util.List;
 
 public interface WorksheetDAO {
-    public WorksheetEntity getWorksheetById(long id);
     public List<WorksheetEntity> listWorksheets(int userId);
     public WorksheetEntity findWorksheet(String title);
     public WorksheetEntity findWorksheet(int worksheetId);

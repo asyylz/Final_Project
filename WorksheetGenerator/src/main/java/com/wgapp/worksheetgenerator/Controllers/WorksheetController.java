@@ -3,12 +3,14 @@ package com.wgapp.worksheetgenerator.Controllers;
 import com.wgapp.worksheetgenerator.DAO.Entities.*;
 import com.wgapp.worksheetgenerator.Exceptions.CustomDatabaseException;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Services.Impl.MockService;
 import com.wgapp.worksheetgenerator.Services.Impl.WorksheetServiceImpl;
 import com.wgapp.worksheetgenerator.Services.WorksheetService;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +64,7 @@ public class WorksheetController {
                     return null;
                 });
     }
+
     public void findWorksheet(int worksheetId) {
         worksheetService.findWorksheetAsync(worksheetId)
                 .thenAccept(worksheet -> {
@@ -208,15 +211,27 @@ public class WorksheetController {
 
         for (WorksheetEntity we : worksheetEntityList) {
 
-            WorksheetProperty worksheetProperty = new WorksheetProperty(
-                    new SimpleIntegerProperty(we.getWorksheetId()),
-                    we.getMainSubject(), // ✅ Directly pass enum
-                    we.getSubSubject(),  // ✅ Directly pass enum
-                    we.getDifficultyLevel(),// ✅ Directly pass enum
-                    new PassageProperty()
-            );
-            worksheetProperty.passageProperty().setPassageTitle(we.getPassage().getPassageTitle());
-            worksheetPropertyList.add(worksheetProperty);
+            if (we.getMainSubject().equals(MainSubjectOptions.ENGLISH)) {
+                WorksheetProperty worksheetProperty = new WorksheetProperty(
+                        new SimpleIntegerProperty(we.getWorksheetId()),
+                        we.getMainSubject(), // ✅ Directly pass enum
+                        we.getSubSubject(),  // ✅ Directly pass enum
+                        we.getDifficultyLevel(),// ✅ Directly pass enum
+                        new PassageProperty()
+                );
+                worksheetProperty.passageProperty().setPassageTitle(we.getPassage().getPassageTitle());
+                worksheetPropertyList.add(worksheetProperty);
+            } else {
+                WorksheetProperty worksheetProperty = new WorksheetProperty(
+                        new SimpleIntegerProperty(we.getWorksheetId()),
+                        we.getMainSubject(), // ✅ Directly pass enum
+                        we.getSubSubject(),  // ✅ Directly pass enum
+                        we.getDifficultyLevel()
+                );
+                worksheetPropertyList.add(worksheetProperty);
+            }
+
+
         }
 
         return worksheetPropertyList;

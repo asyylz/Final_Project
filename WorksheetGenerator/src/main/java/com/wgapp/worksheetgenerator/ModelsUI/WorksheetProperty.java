@@ -80,7 +80,12 @@ public class WorksheetProperty {
         this.passage = passage;
     }
 
-
+    public WorksheetProperty(SimpleIntegerProperty  id, MainSubjectOptions mainSubject, ISubSubjectOptions subSubject, DifficultyLevelOptions diffLevel) {
+        this.id = id;
+        this.mainSubject.set(mainSubject);
+        this.subSubject.set(subSubject);
+        this.diffLevel.set(diffLevel);
+    }
 
     public int getId() {
         return id.get();
