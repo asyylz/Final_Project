@@ -49,6 +49,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
     private TableView<WorksheetProperty> createTable() {
 
         TableView<WorksheetProperty> table = new TableView<>();
+        table.setMaxWidth(950);
 
         TableColumn<WorksheetProperty, Integer> idColumn = new TableColumn<>("ID");
         TableColumn<WorksheetProperty, String> mainSubColumn = new TableColumn<>("MAIN SUBJECT");

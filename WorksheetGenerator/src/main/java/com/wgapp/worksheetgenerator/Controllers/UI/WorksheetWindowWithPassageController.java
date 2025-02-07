@@ -249,11 +249,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     // Extracted method to update UI whenever a worksheet is found
     private void updateWorksheetUI() {
-        // For deletion and worksheet null
-//        if (Model.getInstance().getWorksheetProperty() == null) {
-//            setfieldsDefault();
-//            return;
-//        }
         int worksheetId = Model.getInstance().getWorksheetProperty().getId();
         MainSubjectOptions mainSubject = Model.getInstance().getWorksheetProperty().getMainSubject();
         ISubSubjectOptions subSubject = Model.getInstance().getWorksheetProperty().getSubSubject();
@@ -372,7 +367,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             BooleanProperty isPinCorrect = Utils.notifyUser("Please enter pin number", "", "UNLOCK", Alert.AlertType.CONFIRMATION, new SimpleBooleanProperty(true));
 
             if (isPinCorrect.get()) {
-                //  System.out.println("Answer is :"+isShowingAnswers.get());
 
                 isShowingAnswers.set(!isShowingAnswers.get());
 
@@ -409,7 +403,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
 
         } else {
-            //   System.out.println("Answer is :"+isShowingAnswers.get());
+
 
             try {
                 List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();
