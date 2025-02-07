@@ -38,6 +38,9 @@ public class UserLoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameField.setText("asiye86");
+        passwordField.setText("6946224B");
+
         confirmPasswordText.setVisible(false);
         confirmPasswordField.setVisible(false);
         loginButtonsWrapper.setTranslateY(-50);
@@ -129,8 +132,8 @@ public class UserLoginController implements Initializable {
 
         }
         // Empty fields
-        userNameField.setText("");
-        passwordField.setText("");
+        userNameField.setText("asiye86");
+        passwordField.setText("6946224B");
         confirmPasswordField.setText("");
     }
 

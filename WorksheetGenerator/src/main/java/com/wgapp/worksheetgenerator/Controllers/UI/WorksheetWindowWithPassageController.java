@@ -7,7 +7,6 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.Utils.WorksheetPDFGenerator;
 import com.wgapp.worksheetgenerator.ViewFactory.ISubSubjectOptions;
-import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
@@ -30,7 +29,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -95,9 +93,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
         });
 
-//        if (Model.getInstance().getWorksheetProperty() == null) {
-//            setfieldsDefault();
-//        }
 
         searchIconBtn.setOnMouseClicked(event -> {
             worksheetController.findWorksheet(searchTextField.getText());
@@ -144,32 +139,16 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         showAnswersBtn.setOnMouseClicked(event -> {
             onShowAnswerBtnClickedHandler();
-            checkTotalScore();
-            isShowingAnswers.set(!isShowingAnswers.get());
+
+
         });
 
         downloadWorksheet.setOnMouseClicked(event -> {
             WorksheetPDFGenerator.downloadWorksheetHandler(downloadWorksheet.getScene().getWindow());
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("Worksheet PDF Generator");
-            alert.setContentText("Worksheet has been saved as PDF successfully.!");
-            alert.show();
-
-            // Create a PauseTransition to wait for 5 seconds
-            PauseTransition pause = new PauseTransition(Duration.seconds(2));
-
-            // Set an action to close the alert when the time is up
-            pause.setOnFinished(e -> alert.close());
-
-            // Start the pause transition
-            pause.play();
         });
 
         deleteWorksheet.setOnMouseClicked(event -> {
             Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
-            //  System.out.println("from"+Model.getInstance().getWorksheetProperty().getUserProperty().getUserId());
             worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
 
         });
@@ -382,36 +361,80 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     private void onShowAnswerBtnClickedHandler() {
 
-        try {
-            List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();
-            // Iterate through all children in the VBox (userAnswers)
-            for (int i = 0; i < innerRight.getChildren().size(); i++) {
-                Node node = innerRight.getChildren().get(i);
-                if (node.getId().equals("questionWrapper")) {
-                    // Get the controller of the current question
-                    QuestionComponentController controller = (QuestionComponentController) node.getProperties().get("controller");
-                    int nodeIndex = (int) node.getProperties().get("questionIndex");
+        if (!isShowingAnswers.get()) {
+        BooleanProperty isPinCorrect = Utils.notifyUser("Please enter pin number", "", "UNLOCK", Alert.AlertType.CONFIRMATION, new SimpleBooleanProperty(true));
 
-                    // If the controller is present, call the showAnswers method
-                    if (controller != null) {
-                        for (QuestionProperty question : questions) {
-                            if ((questions.indexOf(question) == nodeIndex) && !isShowingAnswers.get()) {
-                                controller.showAnswer(question.getCorrectAnswer(), questions.indexOf(question));
-                            } else if (isShowingAnswers.get()) {
-                                controller.removeShowAnswerStyleClasses();
+            if (isPinCorrect.get()) {
+              //  System.out.println("Answer is :"+isShowingAnswers.get());
+
+                isShowingAnswers.set(!isShowingAnswers.get());
+
+                try {
+                    List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();
+                    // Iterate through all children in the VBox (userAnswers)
+                    for (int i = 0; i < innerRight.getChildren().size(); i++) {
+                        Node node = innerRight.getChildren().get(i);
+                        if (node.getId().equals("questionWrapper")) {
+                            // Get the controller of the current question
+                            QuestionComponentController controller = (QuestionComponentController) node.getProperties().get("controller");
+                            int nodeIndex = (int) node.getProperties().get("questionIndex");
+
+                            // If the controller is present, call the showAnswers method
+                            if (controller != null) {
+                                for (QuestionProperty question : questions) {
+                                    if (questions.indexOf(question) == nodeIndex) {
+                                        controller.showAnswer(question.getCorrectAnswer(), questions.indexOf(question));
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    checkTotalScore();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
+                        Utils.notifyUser("Answers are not available yet please try later", "Showing Answers", "ANSWERS", Alert.AlertType.WARNING);
+                    }
+
+                }
+            }
+
+        } else {
+         //   System.out.println("Answer is :"+isShowingAnswers.get());
+
+            try {
+                List<QuestionProperty> questions = Model.getInstance().getWorksheetProperty().getQuestionList();
+                // Iterate through all children in the VBox (userAnswers)
+                for (int i = 0; i < innerRight.getChildren().size(); i++) {
+                    Node node = innerRight.getChildren().get(i);
+                    if (node.getId().equals("questionWrapper")) {
+                        // Get the controller of the current question
+                        QuestionComponentController controller = (QuestionComponentController) node.getProperties().get("controller");
+                        int nodeIndex = (int) node.getProperties().get("questionIndex");
+
+                        // If the controller is present, call the showAnswers method
+                        if (controller != null) {
+                            for (QuestionProperty question : questions) {
+                                if ((questions.indexOf(question) == nodeIndex)) {
+                                    controller.removeShowAnswerStyleClasses();
+                                }
                             }
                         }
                     }
+
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
+                    Utils.notifyUser("Answers are not available yet please try later", "Showing Answers", "ANSWERS", Alert.AlertType.WARNING);
                 }
 
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
-                Utils.notifyUser("Answers are not available yet please try later", "Showing Answers", "ANSWERS", Alert.AlertType.WARNING);
-            }
-
+            isShowingAnswers.set(!isShowingAnswers.get());
         }
     }
 
@@ -436,7 +459,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     }
 
     @Override
-    // Since generation happens in generation view this observer does only notificataion
+// Since generation happens in generation view this observer does only notificataion
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Utils.notifyUser("Worksheet has been found successfully!", "Worksheet Generated", "Success", Alert.AlertType.INFORMATION);
         updateWorksheetUI();

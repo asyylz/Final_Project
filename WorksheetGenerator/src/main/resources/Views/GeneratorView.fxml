@@ -18,7 +18,7 @@
     <VBox layoutY="56.0" spacing="30.0" styleClass="innerWrapper" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
         <AnchorPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="700.0">
             <Text layoutX="26.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAIN SUBJECT" wrappingWidth="76.90299987792969" />
-            <Line endX="191.0" endY="-0.5" layoutX="172.0" layoutY="24.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" strokeWidth="2.0" />
+            <Line endX="191.0" endY="-0.5" layoutX="172.0" layoutY="24.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" />
             <ImageView fitHeight="130.0" fitWidth="150.0" layoutX="14.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../Images/01.png" />
             </ImageView>
@@ -46,7 +46,7 @@
                     <Image url="@../Images/paper-sizes.png" />
                 </ImageView>
             </HBox>
-            <Line endX="373.0" endY="-0.5" layoutX="138.0" layoutY="21.0" startX="136.0" startY="-0.5" stroke="#fbd784" strokeWidth="2.0" />
+            <Line endX="373.0" endY="-0.5" layoutX="138.0" layoutY="21.0" startX="136.0" startY="-0.5" stroke="#fbd784" />
             <ImageView fitHeight="180.0" fitWidth="169.0" layoutX="434.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../Images/02.png" />
             </ImageView>
@@ -67,7 +67,7 @@
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="191.0" prefWidth="700.0">
             <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIFFICULTY LEVEL" wrappingWidth="109.90299987792969" />
-            <Line endX="193.0" endY="-0.5" layoutX="174.0" layoutY="20.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" strokeWidth="2.0" />
+            <Line endX="193.0" endY="-0.5" layoutX="174.0" layoutY="20.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" />
             <ImageView fitHeight="123.0" fitWidth="175.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../Images/03.png" />
             </ImageView>

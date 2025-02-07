@@ -117,7 +117,7 @@ public class QuestionComponentController implements Initializable {
                             // Update the existing answer
                             userAnswer.setAnswer(selectedChoice);
                             answerUpdated = true;
-                            System.out.println("Updated answer for question " + questionIndex + ": " + selectedChoice);
+                          //  System.out.println("Updated answer for question " + questionIndex + ": " + selectedChoice);
                             break;
                         }
                     }
@@ -125,7 +125,7 @@ public class QuestionComponentController implements Initializable {
                     if (!answerUpdated) {
                         // No existing answer for this question, so add a new one
                         Model.getInstance().getWorksheetProperty().userAnswerListProperty().add(new UserAnswerProperty(selectedChoice, questionIndex));
-                        System.out.println("Saved answer for question " + questionIndex + ": " + selectedChoice);
+                       // System.out.println("Saved answer for question " + questionIndex + ": " + selectedChoice);
                     }
                 }
 
