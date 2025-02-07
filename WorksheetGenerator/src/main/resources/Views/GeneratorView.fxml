@@ -15,22 +15,32 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="generatorWindowParent" styleClass="generatorWindow__wrapper-parent" stylesheets="@../Styles/GeneratorView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.GeneratorWindowController">
-    <VBox layoutY="56.0" spacing="30.0" styleClass="innerWrapper" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
+<AnchorPane fx:id="generatorWindowParent" styleClass="generatorWindow__wrapper-parent"
+            stylesheets="@../Styles/GeneratorView.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.GeneratorWindowController">
+    <VBox layoutY="56.0" spacing="30.0" styleClass="innerWrapper" AnchorPane.bottomAnchor="80.0"
+          AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="20.0">
         <AnchorPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="700.0">
-            <Text layoutX="26.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAIN SUBJECT" wrappingWidth="76.90299987792969" />
-            <Line endX="191.0" endY="-0.5" layoutX="172.0" layoutY="24.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" />
-            <ImageView fitHeight="130.0" fitWidth="150.0" layoutX="14.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/01.png" />
+            <Text layoutX="26.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MAIN SUBJECT"
+                  wrappingWidth="76.90299987792969"/>
+            <Line endX="191.0" endY="-0.5" layoutX="172.0" layoutY="24.0" startX="-62.09698486328125" startY="-0.5"
+                  stroke="#fbd784"/>
+            <ImageView fitHeight="130.0" fitWidth="150.0" layoutX="14.0" layoutY="56.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <Image url="@../Images/01.png"/>
             </ImageView>
-            <HBox alignment="TOP_RIGHT" layoutX="560.0" layoutY="100.0" prefWidth="340.0" spacing="10.0" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="40.0">
-                <Pane fx:id="wrapperCustomDropdownMenuOne" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/CustomDropdownStyle.css" />
-                <ImageView fx:id="stepOneTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../Images/accept.png" />
+            <HBox alignment="TOP_RIGHT" layoutX="560.0" layoutY="100.0" prefWidth="340.0" spacing="10.0"
+                  AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="40.0">
+                <Pane fx:id="wrapperCustomDropdownMenuOne" prefHeight="60.0" prefWidth="230.0"
+                      stylesheets="@../Styles/CustomDropdownStyle.css"/>
+                <ImageView fx:id="stepOneTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../Images/accept.png"/>
                     <effect>
                         <DropShadow height="106.99" radius="55.959999999999994" width="118.85">
                             <color>
-                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999" />
+                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999"/>
                             </color>
                         </DropShadow>
                     </effect>
@@ -38,77 +48,97 @@
             </HBox>
         </AnchorPane>
         <AnchorPane maxWidth="-Infinity" prefHeight="222.0" prefWidth="700.0">
-            <HBox fx:id="passageTextWrapper" alignment="CENTER_LEFT" layoutX="11.0" layoutY="195.0" prefHeight="60.0" prefWidth="690.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="If you would like to generate comprehension worksheetEntity please provide a reading passageEntity text. Press the document icon." wrappingWidth="480.0" />
-                <ImageView fx:id="passageBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="passageAddIcon">
+            <HBox fx:id="passageTextWrapper" alignment="CENTER_LEFT" layoutX="11.0" layoutY="195.0" prefHeight="60.0"
+                  prefWidth="690.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="If you would like to generate comprehension worksheetEntity please provide a reading passageEntity text. Press the document icon."
+                      wrappingWidth="480.0"/>
+                <ImageView fx:id="passageBtn" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"
+                           styleClass="passageAddIcon">
                     <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                     </cursor>
-                    <Image url="@../Images/paper-sizes.png" />
-               <effect>
-                  <DropShadow radius="15.93" width="44.72">
-                     <color>
-                        <Color red="1.0" green="0.9768518805503845" blue="0.9768518805503845" />
-                     </color>
-                  </DropShadow>
-               </effect>
+                    <Image url="@../Images/paper-sizes.png"/>
+                    <effect>
+                        <DropShadow radius="15.93" width="44.72">
+                            <color>
+                                <Color red="1.0" green="0.9768518805503845" blue="0.9768518805503845"/>
+                            </color>
+                        </DropShadow>
+                    </effect>
                 </ImageView>
             </HBox>
-            <Line endX="373.0" endY="-0.5" layoutX="138.0" layoutY="21.0" startX="136.0" startY="-0.5" stroke="#fbd784" />
-            <ImageView fitHeight="180.0" fitWidth="169.0" layoutX="434.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/02.png" />
+            <Line endX="373.0" endY="-0.5" layoutX="138.0" layoutY="21.0" startX="136.0" startY="-0.5"
+                  stroke="#fbd784"/>
+            <ImageView fitHeight="180.0" fitWidth="169.0" layoutX="434.0" layoutY="53.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <Image url="@../Images/02.png"/>
             </ImageView>
-            <Text layoutX="519.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUB SUBJECT" wrappingWidth="76.90299987792969" />
-            <HBox layoutX="21.0" layoutY="67.0" prefHeight="60.0" prefWidth="340.0" spacing="20.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0">
-                <ImageView fx:id="stepTwoTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../Images/accept.png" />
+            <Text layoutX="519.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUB SUBJECT"
+                  wrappingWidth="76.90299987792969"/>
+            <HBox layoutX="21.0" layoutY="67.0" prefHeight="60.0" prefWidth="340.0" spacing="20.0"
+                  AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0">
+                <ImageView fx:id="stepTwoTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../Images/accept.png"/>
                     <effect>
                         <DropShadow blurType="GAUSSIAN" height="78.82" radius="43.7275" width="98.09">
                             <color>
-                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999" opacity="0.9200000166893005" />
+                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999"
+                                       opacity="0.9200000166893005"/>
                             </color>
                         </DropShadow>
                     </effect>
                 </ImageView>
-                <Pane fx:id="wrapperCustomDropdownMenuTwo" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/CustomDropdownStyle.css" />
+                <Pane fx:id="wrapperCustomDropdownMenuTwo" prefHeight="60.0" prefWidth="230.0"
+                      stylesheets="@../Styles/CustomDropdownStyle.css"/>
             </HBox>
         </AnchorPane>
-        <AnchorPane maxWidth="-Infinity" prefHeight="191.0" prefWidth="700.0">
-            <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIFFICULTY LEVEL" wrappingWidth="109.90299987792969" />
-            <Line endX="193.0" endY="-0.5" layoutX="174.0" layoutY="20.0" startX="-62.09698486328125" startY="-0.5" stroke="#fbd784" />
-            <ImageView fitHeight="123.0" fitWidth="175.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../Images/03.png" />
+        <AnchorPane fx:id="diffLevelWrapper" maxWidth="-Infinity" prefHeight="191.0" prefWidth="700.0" >
+            <Line endX="193.0" endY="-0.5" layoutX="174.0" layoutY="20.0" startX="-62.09698486328125" startY="-0.5"
+                  stroke="#fbd784"/>
+            <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DIFFICULTY LEVEL"
+                  wrappingWidth="109.90299987792969"/>
+            <ImageView fitHeight="123.0" fitWidth="175.0" layoutX="26.0" layoutY="50.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <Image url="@../Images/03.png"/>
             </ImageView>
-            <HBox alignment="TOP_RIGHT" layoutX="290.0" layoutY="77.0" prefHeight="60.0" prefWidth="340.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
-                <Pane fx:id="wrapperCustomDropdownMenuThree" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/CustomDropdownStyle.css" />
-                <ImageView fx:id="stepThreeTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <HBox alignment="TOP_RIGHT" layoutX="290.0" layoutY="77.0" prefHeight="60.0" prefWidth="340.0"
+                  AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="50.0">
+                <Pane fx:id="wrapperCustomDropdownMenuThree" prefHeight="60.0" prefWidth="230.0"
+                      stylesheets="@../Styles/CustomDropdownStyle.css"/>
+                <ImageView fx:id="stepThreeTick" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <effect>
                         <DropShadow height="101.06" radius="52.995000000000005" width="112.92">
                             <color>
-                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999" />
+                                <Color red="0.800000011920929" green="0.800000011920929" blue="0.7843137383460999"/>
                             </color>
                         </DropShadow>
                     </effect>
-                    <Image url="@../Images/accept.png" />
+                    <Image url="@../Images/accept.png"/>
                 </ImageView>
             </HBox>
         </AnchorPane>
         <HBox prefHeight="42.0" prefWidth="390.0" spacing="20.0" translateY="20.0">
-            <Button fx:id="generateBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Generate" />
-            <Button fx:id="clearSelectionBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Clear Selections" />
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <VBox.margin>
-            <Insets right="320.0" />
-         </VBox.margin>
+            <Button fx:id="generateBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" styleClass="greyBtn"
+                    stylesheets="@../Styles/GreyButton.css" text="Generate"/>
+            <Button fx:id="clearSelectionBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0"
+                    styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Clear Selections"/>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets right="320.0"/>
+            </VBox.margin>
         </HBox>
     </VBox>
-    <fx:include fx:id="loadingIndicatorComponent" source="LoadingIndicator.fxml" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="150.0" />
+    <fx:include fx:id="loadingIndicatorComponent" source="LoadingIndicator.fxml" AnchorPane.bottomAnchor="130.0"
+                AnchorPane.rightAnchor="150.0"/>
     <effect>
         <InnerShadow height="84.3" radius="24.2825" width="14.83">
             <color>
-                <Color red="0.970678985118866" green="0.9736841917037964" blue="0.9376218318939209" />
+                <Color red="0.970678985118866" green="0.9736841917037964" blue="0.9376218318939209"/>
             </color>
         </InnerShadow>
     </effect>

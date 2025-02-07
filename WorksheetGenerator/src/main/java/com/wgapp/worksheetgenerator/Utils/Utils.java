@@ -1,6 +1,7 @@
 package com.wgapp.worksheetgenerator.Utils;
 
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
+import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
 import com.wgapp.worksheetgenerator.ModelsUI.PassageProperty;
@@ -84,6 +85,10 @@ public class Utils {
             }
             case SubSubjectOptionsEnglish.SPAG -> {
                 return PromtConstants.PROMPT_BEGINNING_SPAG;
+            }
+            case SubSubjectOptionsMaths.BODMAS, SubSubjectOptionsMaths.FRACTIONS, SubSubjectOptionsMaths.HCM,
+                 SubSubjectOptionsMaths.LCM, SubSubjectOptionsMaths.PERCENTAGES -> {
+                return PromtConstants.PROMPT_BEGINNING_MATHS;
             }
             default ->
                     throw new IllegalStateException("Unexpected value: " + Model.getInstance().getWorksheetProperty().getSubSubject());
@@ -212,7 +217,6 @@ public class Utils {
 
         // Add OK and Cancel buttons
         alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
-
 
 
         Optional<ButtonType> result = alert.showAndWait();

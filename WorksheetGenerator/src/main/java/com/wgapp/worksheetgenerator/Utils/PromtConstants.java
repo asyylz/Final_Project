@@ -4,7 +4,7 @@ public class PromtConstants {
 
     public static final String PROMPT_BEGINNING_COMPREHENSION = """
             Create a comprehension worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 5 questionEntities, focusing on the following types specified by the user:
-           
+            
             **Question Format:**
             1. [Question text] ([Question type]) ([Correct Option: X])
             2. [Question text] ([Question type]) ([Correct Option: X])
@@ -29,16 +29,12 @@ public class PromtConstants {
             """;
 
 
-
     public static final String PROMPT_BEGINNING_CLOZE = """
                 Create a cloze test worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 5 questionEntities, with a focus on vocabulary, grammar, or context-based knowledge. Follow these instructions carefully:
-           
-                **Instructions for the passageEntity:**
-                - Rewrite the passageEntity by replacing 5 key words or phrases with blanks (denoted as `________`).
-                - Ensure the blanks test specific knowledge about word usage, grammar, or vocabulary in context.
             
                 **Instructions for the questionEntities:**
-                - Each blank in the passageEntity should correspond to a multiple-choiceEntity questionEntity.
+                - Select a sentence by replacing 1 key words or phrases with blanks (denoted as `________`).
+                - Ensure the blanks test specific knowledge about word usage, grammar, or vocabulary in context.
                 - The questionEntities should ask for the best word or phrase to fit the blank, based on the context in the passageEntity.
                 - Each questionEntity should follow the structure below:
             
@@ -55,13 +51,13 @@ public class PromtConstants {
                    D. [Option Text]
             
                 **Examples of questionEntity structures:**
-                 1.Magellan offered to prove that the East Indies fell under Spanish ________ (1). (Correct Option: A)
+                 1.Magellan offered to prove that the East Indies fell under Spanish ________ . (Correct Option: A)
                  A. authority
                  B. exploration
                  C. discovery
                  D. negotiation
-                
-                 2.On September 20, 1519, he set sail from Spain with five ________ (2). (Correct Option: B)
+            
+                 2.On September 20, 1519, he set sail from Spain with five ________ . (Correct Option: B)
                  A. maps
                  B. ships
                  C. men
@@ -162,6 +158,35 @@ public class PromtConstants {
                 3. Line break should be used between question text and options.
             
                 User Options:
+            """;
+    public static final String PROMPT_BEGINNING_MATHS = """
+            Create maths worksheet in user option. The worksheet should have exactly 5 questions, following these instructions:
+            
+                **Instructions**
+                - Each questionEntity correct answer should be append at the end of the question as structured below.
+                - Start questions like 1. 2. 3.  with in an order.
+
+                **Question Format:**
+                1. [Question Text] (Correct Option: [X])
+                   A. [Option Text]
+                   B. [Option Text]
+                   C. [Option Text]
+                   D. [Option Text]
+                2. [Question Text] (Correct Option: [X])
+                   A. [Option Text]
+                   B. [Option Text]
+                   C. [Option Text]
+                   D. [Option Text]
+     
+               **Examples of questio structures:**
+               1."What is 1/2 + 1/4? (Correct Option: C)
+                A. 1/8
+                B. 1/6
+                C. 3/4
+                D. 2/3
+            
+                User Options:
+            
             """;
 
 }

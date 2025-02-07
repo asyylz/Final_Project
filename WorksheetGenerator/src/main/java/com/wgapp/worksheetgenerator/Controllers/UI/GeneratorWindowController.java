@@ -42,6 +42,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepOneTick;
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
+    public AnchorPane diffLevelWrapper;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty(false);
 
     private final WorksheetController worksheetController = new WorksheetController();
@@ -58,6 +59,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
 
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
+
+
 
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
@@ -171,13 +174,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             clearSelectionsHandler();
 
         });
-//        // Test Listener TEST
-//        testBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//            loadingIndicatorComponent.setVisible(true);
-//            Model.getInstance().getWorksheetPropertyForGeneration().setUserProperty(new UserProperty("asiye", "password"));
-//            worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
-//
-//        });
 
     } // End of initialise
 
@@ -235,6 +231,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Setting loading indicator's visibility to true
         loadingIndicatorComponent.setVisible(true);
         worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
+
     }
 
     private void clearSelectionsHandler() {
@@ -285,9 +282,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
-        Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
         clearSelectionsHandler();
+        Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again
     }
 
     @Override
