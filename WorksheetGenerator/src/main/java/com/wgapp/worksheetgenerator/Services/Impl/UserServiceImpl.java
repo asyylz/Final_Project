@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 
 
     private String getPasswordValidationMessage(String password) {
+        System.out.println(password);
         if (password.length() < 6) {
             return "Password must be at least 6 characters long.";
         }

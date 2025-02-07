@@ -26,7 +26,6 @@ public class PassageProperty {
 
     }
 
-
     public int getPassageId() {
         return passageId.get();
     }
@@ -48,7 +47,7 @@ public class PassageProperty {
     }
 
     public void setPassageTitle(String passageTitle) {
-        this.passageTitle.set(passageTitle);
+        this.passageTitle.set(passageTitle.toUpperCase());
     }
 
     public String getPassageContent() {
