@@ -9,28 +9,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="accountSettings__wrapperParent" stylesheets="@../Styles/AccountSettingsView.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.AccountSettingsController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0"
+            styleClass="accountSettings__wrapperParent" stylesheets="@../Styles/AccountSettingsView.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.AccountSettingsController">
     <effect>
         <InnerShadow height="41.76" radius="17.415" width="29.9">
             <color>
-                <Color red="1.0" green="0.9629629850387573" blue="0.9629629850387573" />
+                <Color red="1.0" green="0.9629629850387573" blue="0.9629629850387573"/>
             </color>
         </InnerShadow>
     </effect>
-    <HBox layoutX="10.0" layoutY="36.0" prefHeight="316.0" prefWidth="980.0" spacing="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+    <HBox layoutX="10.0" layoutY="36.0" prefHeight="316.0" prefWidth="980.0" spacing="200.0"
+          AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
         <padding>
-            <Insets left="20.0" />
+            <Insets left="20.0"/>
         </padding>
         <VBox prefHeight="200.0" prefWidth="203.0" spacing="20.0" stylesheets="@../Styles/WorksheetWithPassageView.css">
-            <PasswordField fx:id="pinNumberField" promptText="PIN" styleClass="worksheetWindow__topSection-searchField" />
-            <PasswordField fx:id="pinNumberConfirmField" layoutX="10.0" layoutY="10.0" promptText="Confirm PIN" styleClass="worksheetWindow__topSection-searchField" />
-            <Button fx:id="createPinBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="108.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Create Pin" translateX="25.0" translateY="20.0" />
+            <PasswordField fx:id="pinNumberField" promptText="PIN"
+                           styleClass="worksheetWindow__topSection-searchField"/>
+            <PasswordField fx:id="pinNumberConfirmField" layoutX="10.0" layoutY="10.0" promptText="Confirm PIN"
+                           styleClass="worksheetWindow__topSection-searchField"/>
+            <Button fx:id="createPinBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="108.0"
+                    styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Create Pin" translateX="25.0"
+                    translateY="20.0"/>
         </VBox>
         <VBox prefHeight="289.0" prefWidth="203.0" spacing="20.0" stylesheets="@../Styles/WorksheetWithPassageView.css">
-            <PasswordField fx:id="oldPasswordField" promptText="Old password" styleClass="worksheetWindow__topSection-searchField" />
-            <PasswordField fx:id="newPasswordField" layoutX="10.0" layoutY="10.0" promptText="New password" styleClass="worksheetWindow__topSection-searchField" />
-            <PasswordField fx:id="confirmPasswordField" layoutX="10.0" layoutY="114.0" promptText="Confirm new password" styleClass="worksheetWindow__topSection-searchField" />
-            <Button fx:id="updatePasswordBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Update" translateX="25.0" translateY="20.0" />
+            <PasswordField fx:id="oldPasswordField" promptText="Old password"
+                           styleClass="worksheetWindow__topSection-searchField"/>
+            <PasswordField fx:id="newPasswordField" layoutX="10.0" layoutY="10.0" promptText="New password"
+                           styleClass="worksheetWindow__topSection-searchField"/>
+            <PasswordField fx:id="confirmPasswordField" layoutX="10.0" layoutY="114.0" promptText="Confirm new password"
+                           styleClass="worksheetWindow__topSection-searchField"/>
+            <Button fx:id="updatePasswordBtn" minHeight="37.0" mnemonicParsing="false" prefHeight="39.0"
+                    prefWidth="123.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Update"
+                    translateX="25.0" translateY="20.0"/>
         </VBox>
     </HBox>
 </AnchorPane>

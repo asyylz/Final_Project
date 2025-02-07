@@ -3,6 +3,7 @@ package com.wgapp.worksheetgenerator.Utils;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
+import com.wgapp.worksheetgenerator.ModelsUI.PassageProperty;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -10,9 +11,13 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -172,6 +177,71 @@ public class Utils {
         }
 
         return userResponse;
+    }
+
+    public static BooleanProperty notifyUser(String message, String header, String title, Alert.AlertType alertType, BooleanProperty isForPin) {
+        // BooleanProperty userResponse = new SimpleBooleanProperty(false); // Default is false
+
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+
+        // Create input field for PIN entry
+        PasswordField pinField = new PasswordField();
+        pinField.setPromptText("Enter PIN");
+
+        String pinstyle = """
+                -fx-background-color: transparent;
+                    -fx-border-style: hidden hidden solid hidden;;
+                    -fx-border-color: #fbd784;
+                    -fx-border-width: 1px;
+                    -fx-text-fill: #c5c4c4;
+                    -fx-font-size: 16px;
+                    -fx-font-family: Oswald;
+                """;
+        pinField.setStyle(pinstyle);
+        pinField.setPromptText("Enter PIN");
+
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(pinField);
+        vbox.setStyle("-fx-background-color: #132B40;");
+        alert.setWidth(300);
+        alert.setGraphic(null);
+        alert.getDialogPane().setContent(vbox);
+
+        // Add OK and Cancel buttons
+        alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            int enteredPin = Integer.parseInt(pinField.getText().trim());
+            int correctPin = Model.getInstance().getUserProperty().getPinNumber();
+            // System.out.println("PIN" + Model.getInstance().getUserProperty().getPinNumber());
+
+            // System.out.println("enteredPin" + enteredPin);
+
+            if (enteredPin == correctPin) {
+                isForPin.set(true);
+                return new SimpleBooleanProperty(true);
+            }
+            showErrorAlert("Invalid PIN", "Incorrect PIN. Please try again.");
+
+
+        }
+        return new SimpleBooleanProperty(false);
+    }
+
+    // Helper method to show an error alert for invalid PIN
+    private static void showErrorAlert(String title, String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle(title);
+        errorAlert.setHeaderText(null);
+        errorAlert.setContentText(message);
+        errorAlert.showAndWait();
     }
 
 

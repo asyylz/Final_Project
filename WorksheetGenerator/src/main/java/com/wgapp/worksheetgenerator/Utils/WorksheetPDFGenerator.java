@@ -8,9 +8,11 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,6 +93,8 @@ public class WorksheetPDFGenerator {
                         })
                         .collect(Collectors.toList());
 
+
+
                 // Generate the PDF
                 WorksheetPDFGenerator.saveWorksheetAsPDF(
                         title,
@@ -98,6 +102,21 @@ public class WorksheetPDFGenerator {
                         questionTexts,
                         file.getAbsolutePath()
                 );
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Worksheet PDF Generator");
+                alert.setContentText("Worksheet has been saved as PDF successfully.!");
+                alert.show();
+
+                // Create a PauseTransition to wait for 5 seconds
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+                // Set an action to close the alert when the time is up
+                pause.setOnFinished(e -> alert.close());
+
+                // Start the pause transition
+                pause.play();
             }
         } catch (IOException e) {
             // Show error alert instead of throwing
