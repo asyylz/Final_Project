@@ -122,18 +122,18 @@ public class UserLoginController implements Initializable {
                 System.out.println("Passwords do not match!");
                 return; // Stop registration if passwords don't match
             }
-            // Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
-            // Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
+             Model.getInstance().getUserProperty().setUsername(userNameField.getText().trim());
+             Model.getInstance().getUserProperty().setPassword(passwordField.getText().trim());
 
             userController.registerUser(Model.getInstance().getUserProperty());
+
             // Show success message
             Utils.notifyUser("You successfully registered!", "Registration", "Success", Alert.AlertType.INFORMATION);
 
-
         }
         // Empty fields
-        userNameField.setText("asiye86");
-        passwordField.setText("6946224B");
+        userNameField.setText("");
+        passwordField.setText("");
         confirmPasswordField.setText("");
     }
 
@@ -154,7 +154,9 @@ public class UserLoginController implements Initializable {
 
             Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
 
-            Model.getInstance().getViewFactory().showLandingWindow();
+          //  Model.getInstance().getViewFactory().showLandingWindow();
+           Model.getInstance().getViewFactory().showMainWindow();
+
 
             // Show success message
             Utils.notifyUser("You successfully logged in!", "Login", "Success", Alert.AlertType.INFORMATION);

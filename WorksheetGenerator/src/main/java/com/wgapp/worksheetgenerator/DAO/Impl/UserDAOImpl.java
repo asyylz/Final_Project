@@ -38,9 +38,10 @@ public class UserDAOImpl implements UserDAO {
                         user.setPassword(hashedPassword);  // Set hashed password
                     }
                 }
+            } else {
+            throw new CustomDatabaseException("Failed to create user, no rows affected.");
             }
 
-            throw new CustomDatabaseException("Failed to create user, no rows affected.");
 
         } catch (SQLException e) {
             e.printStackTrace();
