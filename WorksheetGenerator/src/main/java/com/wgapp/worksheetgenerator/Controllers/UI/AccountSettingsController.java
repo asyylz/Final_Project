@@ -40,7 +40,7 @@ public class AccountSettingsController implements Initializable {
                 pinNumberField.clear();
                 pinNumberConfirmField.clear();
             }
-            Utils.notifyUser("PIN successfully created.", "Pin Creation", "Success", Alert.AlertType.INFORMATION);
+            Utils.notifyUser("PIN successfully updated.", "PIN UPDATE", "Success", Alert.AlertType.INFORMATION);
         });
 
         updatePasswordBtn.setOnAction(e -> {
@@ -56,7 +56,7 @@ public class AccountSettingsController implements Initializable {
                 confirmPasswordField.clear();
                 newPasswordField.clear();
             }
-            Utils.notifyUser("Password successfully updated.", "Password Update", "Success", Alert.AlertType.INFORMATION);
+            Utils.notifyUser("Password successfully updated.", "PASSWORD UPDATE", "Success", Alert.AlertType.INFORMATION);
         });
 
     }

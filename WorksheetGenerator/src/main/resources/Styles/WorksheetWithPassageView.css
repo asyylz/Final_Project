@@ -5,42 +5,58 @@
 
 .worksheetWindow__parent {
     -fx-background-color: #132B40;
-
 }
 
-.worksheetWindow__parent-titlesWrapper {
-    -fx-font-family: Oswald;
-    -fx-font-size: 1.3em;
+
+/*.worksheetWindow__parent-titlesWrapper {*/
+/*    -fx-font-family: Oswald;*/
+/*    -fx-font-size: 1.3em;*/
+/*}*/
+/*.worksheetWindow__rightSection {*/
+/*    -fx-background-color: #e7e7e7;*/
+/*}*/
+.worksheetWindow__leftSection-inner {
+    -fx-background-color:   #e7e7e7; /* Ensure the viewport inside is also transparent */
 }
+
+.scroll-pane .viewport {
+    -fx-background-color:   #e7e7e7; /* Ensure the viewport inside is also transparent */
+}
+
 
 .passageTitle {
-    -fx-font-size: 1.5em;
+    -fx-font-size: 1.3em;
     -fx-font-weight: 800;
+    -fx-font-family: "Maven Pro";
+    -fx-background-color:   #e7e7e7;
+}
+
+.passageText {
+    -fx-font-size: 18px;
+    -fx-font-family: "Maven Pro";
+    -fx-text-alignment: justify;
+}
+
+.text-area .content {
+    -fx-background-color: linear-gradient(
+            from 0px 0px to 0px 24px,
+            repeat,
+            rgba(27, 27, 27, 0.4),
+            rgba(28, 28, 29, 0.4) 5.25%,
+            #e7e7e7 2.25%,
+            #e7e7e7
+    );
+    -fx-padding: 0px 10px 0px 10px;
+    -fx-text-alignment: justify;
+    -fx-font-size: 18px;
+    -fx-font-family: "Maven Pro";
 
 }
 
-/*.worksheetWindow__topSection Text {*/
-/*    -fx-font-size: 1.2em;*/
-/*    -fx-fill: #fbd784;*/
-/*    -fx-end-margin: 1em;*/
-/*    -fx-font-family: Oswald;*/
-
-/*}*/
-
-.worksheetWindow__parent-mainTitle {
-    -fx-font-size: 1.2em;
-    -fx-fill: #fbd784;
-    -fx-end-margin: 1em;
-}
 
 .worksheetWindow__rightSection-inner {
+    -fx-background-color: #e7e7e7;
 
-}
-
-.worksheetWindow__leftSection-inner {
-    -fx-font-family: "Maven Pro";
-    -fx-font-size: 1.2em;
-    /*-fx-border-color: red;*/
 }
 
 .worksheetWindow__bottom Text {
