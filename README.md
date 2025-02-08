@@ -2,8 +2,7 @@
     <header>
         <h1>Worksheet Generator Application</h1>
         <p>The application is designed to assist parents and tutors in preparing
-students for the 11+ GL exam by generating tailored practice worksheets and providing insights into
-student progress.</p>
+students for the 11+ GL exam by generating tailored practice worksheets.</p>
     </header>
     <section id="table-of-contents">
         <h2>Table of Contents</h2>
@@ -12,7 +11,6 @@ student progress.</p>
             <li><a href="#technologies">Technologies</a></li>
             <li><a href="#development-tools">Development Tools</a></li>
             <li><a href="#outcome">Outcome</a></li>
-            <li><a href="#test-coverage">Test Coverage</a></li>
             <li><a href="#contributing">Contributing</a></li>
             <li><a href="#license">License</a></li>
         </ul>
@@ -20,35 +18,30 @@ student progress.</p>
     <section id="features">
         <h2>Features</h2>
         <p>Key features covered in this repository:</p>
-        <ul>
-            <li><strong>User Authentication:</strong>User Authentication: Secure login and registration system for users.</li>
-            <li><strong>Appointment Scheduling:</strong> Easy-to-use interface for booking, rescheduling, and canceling
-                appointments.</li>
-            <li><strong>Real-time Updates:</strong> Instant notifications for appointment confirmations and reminders.
-            </li>
-            <li><strong>Interactive Map:</strong> Integration with Leaflet for location-based services.</li>
-            <li><strong>Responsive Design:</strong> Seamless experience across desktop and mobile devices.</li>
-        </ul>
+  <ul>
+    <li><strong>User Authentication:</strong> Secure login and registration system for users, ensuring that only authorized users can access the platform.</li>
+    <li><strong>Main Subject and Sub Subject Selection:</strong> Allows users to choose from a variety of main subjects and their corresponding sub-subjects for customized content generation or activities.</li>
+    <li><strong>Difficulty Level of Sheets:</strong> Users can select the difficulty level of worksheets to match their skill and experience, providing a personalized challenge.</li>
+    <li><strong>Interactive Answer and Score Check:</strong> Provides instant feedback on user answers, with a score check display.</li>
+    <li><strong>Locking Answers with Pin:</strong> Adds a layer of security by allowing users to lock their answers with a pin code and set a timer for completing tasks, creating a controlled environment for assessments or exercises.</li>
+    <li><strong>Setting Timer:</strong> Setting a timer for completing tasks, creating a controlled environment for assessments or exercises.</li>
+    <li><strong>Responsive Design:</strong> Ensures a seamless and optimized user experience.</li>
+</ul>
     </section>
     <section id="technologies">
         <h2>Technologies</h2>
-        <h3>Frontend</h3>
-        <ul>
-            <li><strong>Java FX:</strong> A JavaScript library for building user interfaces.</li>
-        </ul>
-        <h3>Backend</h3>
-        <ul>
-            <li><strong>Java:</strong> </li>
-            <li><strong>OpenIA:</strong> Web application framework for Node.js.</li>
-            <li><strong>MS SQL:</strong> Database for storing application data.</li>
+           <ul>
+        <li><strong>JavaFX:</strong> A framework for building rich desktop applications using Java. Provides tools for creating user interfaces with modern graphics, animations, and more.</li>
+<li><strong>OpenAI API (gpt-3.5-turbo):</strong> Used to generate worksheet content dynamically, create tailored questions, answers, and explanations based on the selected subjects and difficulty levels.</li>
+        <li><strong>MS SQL Server:</strong> A relational database management system used for storing and managing application data, ensuring efficient data storage and retrieval.</li>
         </ul>
     </section>
     <section id="development-tools">
         <h2>Development Tools</h2>
-        <ul>
-            <li><strong>IntelliJ</strong></li>
-            <li><strong>Mockito:</strong> </li>
-        </ul>
+<ul>
+        <li><strong>IntelliJ IDEA:</strong> A powerful Integrated Development Environment (IDE) for Java and other languages, used for efficient coding, debugging, and project management.</li>
+        <li><strong>Mockito:</strong> A popular testing framework for Java that allows for easy creation of mock objects in unit tests, making it simpler to isolate and test specific parts of the application.</li>
+    </ul>
     </section>
     <section id="getting-started">
         <h2>Getting Started</h2>
@@ -79,8 +72,8 @@ student progress.</p>
     <section id="outcome">
         <h1>Outcome</h1>
         <p>To experience the application you can use following email and password:</p><br>
-        <p><strong>email:</strong> alice@test.com<br>
-            <strong>password:</strong> Newpass123.
+        <p><strong>username:</strong> testUser123<br>
+            <strong>password:</strong> passW@rd
         </p>
         <p>Reach outcome site <a href="">here</a> </p>
         <img src=""
