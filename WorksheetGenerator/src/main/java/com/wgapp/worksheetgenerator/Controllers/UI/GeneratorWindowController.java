@@ -61,7 +61,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         loadingIndicatorComponent.setVisible(false);
 
 
-
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
         generatorWindowParent.setStyle("-fx-font-family: 'Oswald'; -fx-font-size: 14px;");
@@ -116,18 +115,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                         passageSectionRequired,
                         Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageContentProperty(),
                         Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageTitleProperty()
-                ));
-
-
-        Model.getInstance().worksheetPropertyForGenerationProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println(newValue.mainSubjectProperty().get());
-            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().mainSubjectProperty().get());
-            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().subSubjectProperty().get());
-            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().diffLevelProperty().get());
-            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageContentProperty());
-            System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageTitleProperty());
-            System.out.println(passageSectionRequired);
-        });
+                ));;
 
 
         //LISTENER
@@ -152,6 +140,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // generateBtn listens for click event to generate worksheet
         generateBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             onWorksheetGenerateButtonClickedHandler();
+            //If main subject maths still  initialize passageproperty object unnecessary
+           // System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty());
         });
 
         //LISTENER
@@ -238,7 +228,17 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
         dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
         difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
-        Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
+       // Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
+
+        // Explicitly set initial values (if necessary)
+        WorksheetProperty worksheetProperty = Model.getInstance().getWorksheetPropertyForGeneration();
+        worksheetProperty.mainSubjectProperty().set(null);
+        worksheetProperty.subSubjectProperty().set(null);
+        worksheetProperty.diffLevelProperty().set(null);
+        if (passageSectionRequired.get()) {
+            worksheetProperty.passageProperty().passageContentProperty().set("");
+            worksheetProperty.passageProperty().passageTitleProperty().set("");
+        }
 
         dropdownMainSubject.selectedProperty().set("MAIN");
         dropdownSubSubject.selectedProperty().set("SUB");
@@ -270,7 +270,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             }
             passageSectionRequired.set(required);
         } else {
-            passageSectionRequired.set(false);
+            passageSectionRequired.set(false);;
         }
     }
 

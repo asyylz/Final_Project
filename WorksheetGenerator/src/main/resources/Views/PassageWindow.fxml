@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="passageWrapper" prefHeight="716.0" prefWidth="905.0" styleClass="passageWindow__wrapper" stylesheets="@../Styles/PassageWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.PassageWindowController">
-    <TextArea fx:id="readingPassage" layoutX="14.0" layoutY="110.0" prefHeight="593.0" prefWidth="605.0" promptText="Reading passage...." styleClass="text-area" stylesheets="@../Styles/PassageWindow.css" wrapText="true" />
-    <VBox fx:id="wrapperBtns" layoutX="688.0" layoutY="407.0" prefHeight="140.0" prefWidth="166.0" spacing="10.0">
-        <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Clear" />
-        <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Close" />
+<HBox minHeight="-Infinity" prefHeight="700.0" prefWidth="900.0" spacing="20.0" styleClass="passageWindow__wrapper" stylesheets="@../Styles/PassageWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.PassageWindowController">
+    <VBox prefHeight="700.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+        <padding>
+            <Insets left="10.0" top="10.0" />
+        </padding>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="103.0" />
+        <TextField fx:id="passageTitle" prefHeight="34.0" prefWidth="605.0" styleClass="title" />
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Passage" wrappingWidth="103.0" />
+        <TextArea fx:id="readingPassage" prefHeight="603.0" prefWidth="580.0" promptText="Reading passage...." styleClass="text-area" stylesheets="@../Styles/PassageWindow.css" wrapText="true" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin></TextArea>
     </VBox>
-    <VBox fx:id="questionTypes" layoutX="632.0" layoutY="38.0" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please  choose questio types for your comprehension worksheetEntity,  otherwise all types will be included." wrappingWidth="290.0" />
-        <CheckBox fx:id="inferential" mnemonicParsing="false" text="Inferential" />
-        <CheckBox fx:id="literal" mnemonicParsing="false" text="Literal" />
-        <CheckBox fx:id="summarizing" mnemonicParsing="false" text="Summarizing" />
-        <CheckBox fx:id="vocabulary" mnemonicParsing="false" text="Vocabulary" />
-        <CheckBox fx:id="characterAnalysis" mnemonicParsing="false" text="Character Analysis" />
-        <CheckBox fx:id="toneAndMood" mnemonicParsing="false" text="Tone and Mood" />
-        <CheckBox fx:id="authorPurpose" mnemonicParsing="false" text="Author’s Purpose/Intention" />
-        <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
-        <CheckBox fx:id="structure" layoutX="10.0" layoutY="203.0" mnemonicParsing="false" text="Structure" />
+    <VBox spacing="30.0">
+        <VBox fx:id="questionTypes" prefHeight="257.0" prefWidth="284.0" spacing="10.0" styleClass="checkBoxes_wrapper">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please  choose question types for your comprehension worksheetEntity,  otherwise all types will be included." wrappingWidth="290.0" />
+            <CheckBox fx:id="inferential" mnemonicParsing="false" text="Inferential" />
+            <CheckBox fx:id="literal" mnemonicParsing="false" text="Literal" />
+            <CheckBox fx:id="summarizing" mnemonicParsing="false" text="Summarizing" />
+            <CheckBox fx:id="vocabulary" mnemonicParsing="false" text="Vocabulary" />
+            <CheckBox fx:id="characterAnalysis" mnemonicParsing="false" text="Character Analysis" />
+            <CheckBox fx:id="toneAndMood" mnemonicParsing="false" text="Tone and Mood" />
+            <CheckBox fx:id="authorPurpose" mnemonicParsing="false" text="Author’s Purpose/Intention" />
+            <CheckBox fx:id="criticalThinking" mnemonicParsing="false" text="Critical Thinking or Opinion-Based" />
+            <CheckBox fx:id="structure" layoutX="10.0" layoutY="203.0" mnemonicParsing="false" text="Structure" />
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+        </VBox>
+        <VBox fx:id="wrapperBtns" prefHeight="140.0" prefWidth="166.0" spacing="10.0">
+            <Button fx:id="clearTextBtn" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Clear" />
+            <Button fx:id="closeBtn" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Close" />
+            <Button fx:id="beautifyBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" styleClass="greyBtn" stylesheets="@../Styles/GreyButton.css" text="Beautify" />
+        </VBox>
     </VBox>
-   <TextField fx:id="passageTitle" layoutX="14.0" layoutY="38.0" prefHeight="34.0" prefWidth="605.0" styleClass="title" />
-   <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="103.0" />
-   <Text layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passage" wrappingWidth="103.0" />
-</AnchorPane>
+</HBox>

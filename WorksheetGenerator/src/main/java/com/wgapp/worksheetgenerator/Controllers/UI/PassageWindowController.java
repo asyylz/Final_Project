@@ -37,6 +37,7 @@ public class PassageWindowController implements Initializable {
     public TextArea readingPassage;
     public VBox questionTypes;
     public TextField passageTitle;
+    public Button beautifyBtn;
     private BooleanProperty doesQuestionTypesRequire = new SimpleBooleanProperty();
 
     @Override
@@ -52,12 +53,13 @@ public class PassageWindowController implements Initializable {
 
         questionTypes.visibleProperty().bind(doesQuestionTypesRequire);
 
+        //readingPassage.setStyle("-fx-text-alignment: justify-center;");
 
 
     } // End of initialize
 
     private void addListener() {
-       // beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
+        // beautifyBtn.setOnAction(e -> onBeautifyButtonClicked());
 
         //Clear passage and title for new values
         clearTextBtn.setOnAction(e -> {
@@ -75,7 +77,7 @@ public class PassageWindowController implements Initializable {
         });
 
         readingPassage.textProperty().addListener((observable, oldValue, newValue) -> {
-          //  System.out.println(newValue);
+            //  System.out.println(newValue);
             Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().setPassageContent(newValue);
 
         });
@@ -94,7 +96,11 @@ public class PassageWindowController implements Initializable {
             onComprehensionQuestionTypesListener();
         });
 
-      onComprehensionQuestionTypesListener();
+        beautifyBtn.setOnAction(e -> {
+            onBeautifyButtonClicked();
+        });
+
+        onComprehensionQuestionTypesListener();
         populateCheckBoxes();
 
     }
@@ -189,22 +195,27 @@ public class PassageWindowController implements Initializable {
         // Example: Trim excess spaces and wrap long lines
         text = text.trim(); // Trim leading and trailing spaces
         text = text.replaceAll("\\s+", " "); // Replace multiple spaces with a single space
-        //text = text.replaceAll("(?<=\\w)(?=\\p{Punct})", " "); // Add space before punctuation if needed
+        text = text.replaceAll("\\n+", " "); // Replace unnecessary line breaks with a single space
+        // Ensure dialogue (starting with a quote) begins as a block on a new line
+//        text = text.replaceAll("(?<!\\w)(?=[\"“”])", "\n"); // New line before opening quote (not after a word)
+//        text = text.replaceAll("(?<=[\"“”])(?=\\s*[A-Z])", "\n"); // New line after closing quote IF followed by capital letter (new sentence)
 
-        StringBuilder beautified = new StringBuilder();
-        int maxLineLength = 95;
-        int currentLength = 0;
 
-        for (String word : text.split(" ")) {
-            if (currentLength + word.length() > maxLineLength) {
-                beautified.append("\n");  // Add a line break when max length is exceeded
-                currentLength = 0;
-            }
-            beautified.append(word).append(" ");
-            currentLength += word.length() + 1;
-        }
-
-        return beautified.toString();
+//        StringBuilder beautified = new StringBuilder();
+//        int maxLineLength = 95;
+//        int currentLength = 0;
+//
+//        for (String word : text.split(" ")) {
+//            if (currentLength + word.length() > maxLineLength) {
+//                beautified.append("\n");  // Add a line break when max length is exceeded
+//                currentLength = 0;
+//            }
+//            beautified.append(word).append(" ");
+//            currentLength += word.length() + 1;
+//        }
+//
+//        return beautified.toString();
+        return text;
     }
 
 }

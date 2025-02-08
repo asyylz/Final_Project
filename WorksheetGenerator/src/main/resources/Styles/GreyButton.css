@@ -1,10 +1,8 @@
 .greyBtn {
     -fx-alignment: center;
     -fx-background-color: linear-gradient(#F2F2F2 0%, #595856 100%);
-    /*-fx-background-insets: 0, 1;*/
     -fx-background-radius: 0.3em; /* Border radius */
     -fx-border-color: transparent;
-    /*-fx-border-width: 1px;*/
     -fx-border-radius: 0.5em;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.02), 3, 0, 0, 1); /* Shadow effect */
     -fx-text-fill: #0B1D26;
@@ -12,12 +10,10 @@
     -fx-font-size: 16px;
     -fx-font-weight: 400;
     /*-fx-padding: 0.5em 1em; !* Adjusted padding *!*/
-
     -fx-line-height: 1.25;
     -fx-min-height: 2em;
-
     -fx-transition: all 250ms;
-    /*-fx-user-select: none;*/
+
 
 }
 
@@ -29,10 +25,10 @@
     -fx-background-color: #dfdfdf;
 }
 
-.greyBtn:focused {
-    -fx-background-color: #dfdfdf;
+/*.greyBtn:focused {*/
+/*    -fx-background-color: #dfdfdf;*/
 
-}
+/*}*/
 
 
 .greyBtn:pressed {
