@@ -17,7 +17,8 @@ public class DatabaseConnection {
         Dotenv dotenv = Dotenv.load();
         DB_URL = dotenv.get("DB_URL");
         DB_USER = dotenv.get("DB_USER");
-        DB_PASSWORD = dotenv.get("DB_PASSWORD");
+        DB_PASSWORD = dotenv.get("SA_PASSWORD");
+
 
     }
 

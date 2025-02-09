@@ -1,0 +1,29 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mssql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wgapp-mssql:v1.0
+    container_name: wgapp-database-container
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    networks:
+      - mssql_network
+    env_file:
+      - .env
+    volumes:
+      - ./data/wgapp.bak:/var/opt/mssql/backup/wgapp.bak
+networks:
+  mssql_network:
+    driver: bridge
+
+
+
+
