@@ -88,28 +88,38 @@
             </ol>
         </li>
         <li>
-            <h3>Docker Setup</h3>
-            <p>For both **development** and **deployment (EXE mode)**, Docker is used to create isolated
-                environments.Create a Docker image
-                for the application by using the provided docker and docker compose file Here's how to set it up:</p>
+            <h3>Docker Setup for Development & Deployment</h3>
+            <p>This section explains how to set up your environment using Docker for both development and deployment (EXE mode). Docker is used to create isolated environments,
+                which makes it easy to run the application and its dependencies consistently.</p><br>
             <ol>
                 <li>
-                    <p>Ensure you are in WorksheetGenerator path</p>
+                    <p>First, ensure that you're in the correct directory, where the docker-compose.yml and related files are located:</p>
                     <code>cd WorksheetGenerator</code>
-                </li>
+                </li><br>
                 <li>
-                    <p>Initialize  image creation and related container</p>
+                    <p>To create the Docker image and start the related containers, run the following command. This will build the Docker image and start the 
+                    containers in detached mode (-d):</p>
                     <code>docker-compose up --build -d</code>
-                </li>
+                </li><br>
                 <li>
-                    <p>Ensure WorksheetGeneratorApp database  listed:</p>
+                    <p>Once the containers are up and running, you can verify that the WorksheetGeneratorApp database has been created inside the container.
+                    To do this, enter the running container and execute a command that checks the list of databases.</p>
                     <code>docker exec -it wgapp-database-container bash</code>
-                </li>
+                </li><br>
                 <li>
-                    <p>Inside container</p>
+                    <p>This will open an interactive shell inside the container. Now, run the following command to list all databases:</p>
                     <code>/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P "${SQLSERVER_PASSWORD}" -Q "SELECT name FROM sys.databases" -C</code>
-                    <p>You should see WorksheetGeneratorApp database in the list</p>
-                </li>
+                </li><br>
+                <p>You should see a list of databases, and WorksheetGeneratorApp should be present in the list of databases.</p>
+                <div><code class="!whitespace-pre language-sql">
+                        <span>name</span><br>
+                        <span>------------------------------</span><br>
+                        <span>master</span><br>
+                        <span>tempdb</span><br>
+                        <span>model</span><br>
+                        <span>WorksheetGeneratorApp</span>
+                       </code>
+                </div>
             </ol>
         </li>
     </ol>
