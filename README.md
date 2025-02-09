@@ -84,7 +84,7 @@
         directory) and add the following variables:
             <ol>
                 <li>API_KEY -> Should be created</li>
-                <li>API_URL -> 'https://api.openai.com/v1/chat/completions'</li>
+                <li>API_URL -> https://api.openai.com/v1/chat/completions</li>
                 <li>SQLSERVER_URL_DB -> jdbc:sqlserver://localhost;database=WorksheetGeneratorApp</li>
                 <li>SQLSERVER_USER -> SA</li>
                 <li>SQLSERVER_PASSWORD -> Should be created</li>
@@ -97,9 +97,7 @@
             <ol>
                 <li>
                     <p>First, ensure that you're in the correct directory, where the docker-compose.yml and related files are located:</p>
-                        <pre>
-<code>cd WorksheetGenerator</code>
-                        </pre>
+                        <pre><code>cd WorksheetGenerator</code></pre>
                 </li><br>
                 <li>
                     <p>To create the Docker image and start the related containers, run the following command. This will build the Docker image and start the 
@@ -128,6 +126,10 @@
             </code>
                 </pre>
                 </div>
+<li><p>You exit  from container  by typing container's bash exit:</p>
+            <pre><code>exit</code></pre>
+
+</li>
             </ol>
         </li>
     </ol>
@@ -139,7 +141,7 @@
         <strong>password:</strong> passW@rd
     </p>
   <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
-         alt="" height="200">
+         alt="" height="300">
 </section>
 
 <footer>
