@@ -38,8 +38,8 @@ public class UserLoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userNameField.setText("asiye86");
-        passwordField.setText("6946224B");
+//        userNameField.setText("asiye86");
+//        passwordField.setText("6946224B");
 
         confirmPasswordText.setVisible(false);
         confirmPasswordField.setVisible(false);

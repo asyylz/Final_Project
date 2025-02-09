@@ -10,7 +10,8 @@
         <li><a href="#features">Features</a></li>
         <li><a href="#technologies">Technologies</a></li>
         <li><a href="#development-tools">Development Tools</a></li>
-        <li><a href="#outcome">Outcome</a></li>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#application">Outcome</a></li>
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
     </ul>
@@ -74,14 +75,16 @@
         <li>
             <h3>Clone</h3>
         Clone the repository to your local machine using the following command:</li>
-        <code>git clone git clone https://github.com/asyylz/Final_Project</code>
+        <pre>
+<code>git clone git clone https://github.com/asyylz/Final_Project</code>
+        </pre>
         <li>
             <h3>Environment Variables</h3>
         Set up your environment variables: Create a `.env` file at the root level (same level as the `src`
         directory) and add the following variables:
             <ol>
                 <li>API_KEY -> Should be created</li>
-                <li>API_URL -> https://api.openai.com/v1/chat/completions</li>
+                <li>API_URL -> 'https://api.openai.com/v1/chat/completions'</li>
                 <li>SQLSERVER_URL_DB -> jdbc:sqlserver://localhost;database=WorksheetGeneratorApp</li>
                 <li>SQLSERVER_USER -> SA</li>
                 <li>SQLSERVER_PASSWORD -> Should be created</li>
@@ -94,51 +97,51 @@
             <ol>
                 <li>
                     <p>First, ensure that you're in the correct directory, where the docker-compose.yml and related files are located:</p>
-                    <code>cd WorksheetGenerator</code>
+                        <pre>
+<code>cd WorksheetGenerator</code>
+                        </pre>
                 </li><br>
                 <li>
                     <p>To create the Docker image and start the related containers, run the following command. This will build the Docker image and start the 
                     containers in detached mode (-d):</p>
-                    <code>docker-compose up --build -d</code>
+                  <pre><code>docker-compose up --build -d</code></pre>  
                 </li><br>
                 <li>
                     <p>Once the containers are up and running, you can verify that the WorksheetGeneratorApp database has been created inside the container.
                     To do this, enter the running container and execute a command that checks the list of databases.</p>
-                    <code>docker exec -it wgapp-database-container bash</code>
+<pre><code>docker exec -it wgapp-database-container bash</code></pre>
                 </li><br>
                 <li>
                     <p>This will open an interactive shell inside the container. Now, run the following command to list all databases:</p>
-                    <code>/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P "${SQLSERVER_PASSWORD}" -Q "SELECT name FROM sys.databases" -C</code>
+<pre><code>/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P "${SQLSERVER_PASSWORD}" -Q "SELECT name FROM sys.databases" -C</code></pre>    
                 </li><br>
                 <p>You should see a list of databases, and WorksheetGeneratorApp should be present in the list of databases.</p>
-                <div><code class="!whitespace-pre language-sql">
-                        <span>name</span><br>
-                        <span>------------------------------</span><br>
-                        <span>master</span><br>
-                        <span>tempdb</span><br>
-                        <span>model</span><br>
-                        <span>WorksheetGeneratorApp</span>
-                       </code>
+                <div>
+            <pre>
+            <code>
+<span>name</span>
+<span>-------------------------------</span>
+<span>master</span>
+<span>tempdb</span>
+<span>model</span>
+<span>WorksheetGeneratorApp</span>
+            </code>
+                </pre>
                 </div>
             </ol>
         </li>
     </ol>
 </section>
-<section id="outcome">
-    <h1>Outcome</h1>
-    <p>To experience the application you can use following email and password:</p><br>
-    <p><strong>username:</strong> testUser123<br>
+<section id="application">
+    <h1>Application</h1>
+    <p>Upon launching the application, you will be greeted with the login window.Login Credentials for testing:</p>
+    <p><strong>username:</strong> testUser<br>
         <strong>password:</strong> passW@rd
     </p>
-    <p>Reach outcome site <a href="">here</a></p>
-    <img src=""
-         alt="">
+  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
+         alt="" height="200">
 </section>
-<section id="test-coverage">
-    <h1>Test Coverage</h1>
-    <img src=""
-         alt="">
-</section>
+
 <footer>
     <h2>Contributing</h2>
     <p>Contributions to the project are welcome! If you find any issues or have suggestions for improvements, please
