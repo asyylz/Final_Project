@@ -11,7 +11,7 @@
         <li><a href="#technologies">Technologies</a></li>
         <li><a href="#development-tools">Development Tools</a></li>
         <li><a href="#getting-started">Getting Started</a></li>
-        <li><a href="#application">Outcome</a></li>
+        <li><a href="#application">Application</a></li>
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
     </ul>
@@ -129,6 +129,12 @@
 <li><p>You exit  from container  by typing container's bash exit:</p>
             <pre><code>exit</code></pre>
 
+</li>
+<li>
+<p>To start container:</p>
+      <pre><code>docker start wgapp-database-container</code></pre>
+<p>To stop container:</p>
+      <pre><code>docker stop wgapp-database-container</code></pre>
 </li>
             </ol>
         </li>
