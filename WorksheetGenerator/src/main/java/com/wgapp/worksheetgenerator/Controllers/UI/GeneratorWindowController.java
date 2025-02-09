@@ -221,6 +221,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Setting loading indicator's visibility to true
         loadingIndicatorComponent.setVisible(true);
         worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
+        //worksheetController.listWorksheets(Model.getInstance().getUserProperty());
 
     }
 
@@ -282,6 +283,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     @Override
     public void onWorksheetGenerated(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
+        Model.getInstance().getWorksheetPropertyList().add(worksheetProperty); // New creation should be added history list
         Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
         clearSelectionsHandler();
         Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty()); // since new worksheet created we re attach user data  again

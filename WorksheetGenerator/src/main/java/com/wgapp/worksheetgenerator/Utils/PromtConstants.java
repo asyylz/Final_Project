@@ -35,8 +35,7 @@ public class PromtConstants {
                 **Instructions for the questionEntities:**
                 - Select a sentence by replacing 1 key words or phrases with blanks (denoted as `________`).
                 - Ensure the blanks test specific knowledge about word usage, grammar, or vocabulary in context.
-                - The questionEntities should ask for the best word or phrase to fit the blank, based on the context in the passageEntity.
-                - Each questionEntity should follow the structure below:
+                - Each question text should follow by correct option like the structure below:
             
                 **Question Format:**
                 1. [Sentence with the blank as the questionEntity context] (Correct Option: [X])

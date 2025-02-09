@@ -28,7 +28,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -150,9 +149,12 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         deleteWorksheet.setOnMouseClicked(event -> {
             Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+            Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
             worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
 
         });
+
+
 
 
         timer.setOnMouseClicked(event -> {
@@ -397,6 +399,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
                     e.printStackTrace();
                     if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
                         Utils.notifyUser("Answers are not available yet please try later", "Showing Answers", "ANSWERS", Alert.AlertType.WARNING);
+                        isShowingAnswers.set(false);
                     }
 
                 }
@@ -468,8 +471,14 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
     @Override
     public void onWorksheetDeleted() {
-        Model.getInstance().setWorksheetProperty(null);
         Utils.notifyUser("Worksheet deleted successfully.", "Delete", "Success", Alert.AlertType.INFORMATION);
+        for(WorksheetProperty wp:Model.getInstance().getWorksheetPropertyList()){
+            if(wp.getId() ==Model.getInstance().getWorksheetProperty().getId()) {
+                Model.getInstance().getWorksheetPropertyList().remove(wp); // Deletion should be reflected to history list
+
+            }
+        }
+        Model.getInstance().setWorksheetProperty(null);
         updateWorksheetUI();
     }
 

@@ -8,6 +8,7 @@ import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -43,6 +44,12 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         dropShadow.setColor(Color.valueOf("#FFF5FA"));
         dropShadow.setRadius(50);
+
+        Model.getInstance().getWorksheetPropertyList().addListener((ListChangeListener<WorksheetProperty>) change -> {
+            pagination.setPageFactory(this::createPage);
+            pagination.setPageCount((int) Math.ceil((double) Model.getInstance().getWorksheetPropertyList().size() / ROWS_PER_PAGE));
+        });
+
 
     }
 
@@ -195,9 +202,12 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
     @Override
     public void onWorksheetsListed(ListProperty<WorksheetProperty> worksheetPropertyList) {
-        Model.getInstance().setWorksheetPropertyList(worksheetPropertyList);
-        pagination.setPageFactory(this::createPage); // Ensure this updates the TableView
-        pagination.setPageCount((int) Math.ceil((double) Model.getInstance().getWorksheetPropertyList().size() / ROWS_PER_PAGE));
+        for (WorksheetProperty worksheetProperty : worksheetPropertyList) {
+            Model.getInstance().getWorksheetPropertyList().add(worksheetProperty);
+        }
+
+       // pagination.setPageFactory(this::createPage); // Ensure this updates the TableView
+       // pagination.setPageCount((int) Math.ceil((double) Model.getInstance().getWorksheetPropertyList().size() / ROWS_PER_PAGE));
 
     }
 
@@ -216,7 +226,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
     @Override
     public void onWorksheetFound(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
-
     }
 
 }
