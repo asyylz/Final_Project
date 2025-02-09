@@ -50,23 +50,20 @@ students for the 11+ GL exam by generating tailored practice worksheets.</p>
         <ol>
             <li>Clone the repository to your local machine using the following command:</li>
             <code>git clone git clone https://github.com/asyylz/Final_Project</code>
-            <li>Navigate to the project directory:</li>
-            <code>cd </code>
-            <li>Install dependencies for both frontend and backend:
-            </li>
-            <code>cd frontend && npm install</code><br>
-            <code>cd ../backend && npm install</code>
-            <li>Set up your environment variables:
-                Create a .env file in the backend directory<br>
-                Add necessary environment variables (database URL, AWS credentials, etc.)</li>
-            <li>Start the development server:</li>
-            <code># In the backend directory</code><br>
-            <code>npm run dev</code><br>
-            <code># In the frontend directory</code><br>
-            <code>npm run dev</code><br>
-            <h3>Testing</h3>
-            <li>Run the test suite using npm:</li>
-            <code>npm test</code>
+       <li>Set up your environment variables: Create a `.env` file at the root level (same level as the `src` directory) and add the following variables:
+            <ol>
+                <li>API_KEY</li>
+                <li>API_URL</li>
+                <li>DB_URL</li>
+                <li>DB_PASSWORD</li>
+            </ol>
+        </li>
+<li>
+<h3>Docker Setup (for both Development and Deployment)</h3>
+<p>For both **development** and **deployment (EXE mode)**, Docker is used to create isolated environments. Here's how to set it up:</p>
+        <ol>
+            <li>Create a Docker image for the application by using the provided Dockerfile.</li>
+</li>
         </ol>
     </section>
     <section id="outcome">

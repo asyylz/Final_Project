@@ -7,17 +7,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String DB_URL;
-    private static final String DB_USER;
-    private static final String DB_PASSWORD;
+    private static final String URL;
+    private static final String USER;
+    private static final String PASSWORD;
 
 
     static {
         // Load environment variables from .env file
         Dotenv dotenv = Dotenv.load();
-        DB_URL = dotenv.get("DB_URL");
-        DB_USER = dotenv.get("DB_USER");
-        DB_PASSWORD = dotenv.get("SA_PASSWORD");
+        URL = dotenv.get("SQLSERVER_URL_DB");
+        USER = dotenv.get("SQLSERVER_USER");
+        PASSWORD = dotenv.get("SQLSERVER_PASSWORD");
 
 
     }
@@ -26,7 +26,7 @@ public class DatabaseConnection {
 // Method to establish a connection to the database
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Error connecting to the database", e);
