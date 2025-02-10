@@ -142,30 +142,40 @@
 </section>
 <section id="application">
     <h1>Application</h1>
-<h4 style="display: inline;">1-</h4><p style="display: inline">Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
+<p>1-- Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
 After clicking Let's start button user will be directed main window with generation content.
 </p>
     <p><strong>username:</strong> testUser<br>
         <strong>password:</strong> passW@rd
     </p>
-<div style="display: flex; align-items: center; justify-content: space-around; margin-bottom: 40px">
+<div style="display: flex; align-items: center; justify-content: space-around; margin-bottom: 3em">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
          alt="" height="200">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
          alt="" height="400">
-</div>
-<h4 style="display: inline;">2-</h4><p style="display: inline;"> User can start work sheet generation on this window by selecting all necessary fields.
-Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension sub topic passage addition button
-will appear. User should add a passage and title of passage.
+</div><br>
+<p>2-- User can start worksheet generation on generation section on main window by selecting all necessary fields.
+Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button
+will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
 </p>
-<div style="display: flex; align-items: pa; justify-content: space-around;
+<div style="display: flex; align-items:center; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/main-generator.jpeg"
          alt="" height="300">
-<img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
+<img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator.jpeg"
          alt="" height="300">
+</div><br>
+<p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.
+</p><br>
+<div style="display: flex; align-items:center; justify-content: space-around;
+margin-bottom: 40px; margin-top: 20px">
+ <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
+         alt="" height="300">
+<img src="https://wgapp.s3.eu-west-2.amazonaws.com/unlock.jpeg"
+         alt="" height="100">
 </div>
-<h4 style="display: inline;">3-</h4><p style="display: inline;"> Users can view worksheets they previously generated in the history section. And they can update his password and PIN in the account section. All registered users by default have a PIN (0000)
+<p>4-- Users can view worksheets they previously generated in the history section. And they can update his password and PIN in the
+    account section. All registered users by default have a PIN (0000)
 </p>
  <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/history.jpeg"
