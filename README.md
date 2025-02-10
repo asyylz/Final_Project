@@ -158,16 +158,16 @@ After clicking Let's start button user will be directed main window with generat
 </p>
 <div style="display: flex; align-items:center; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
- <img src="https://wgapp.s3.eu-west-2.amazonaws.com/main-generator.jpeg"
+ <img src="https://wgapp.s3.eu-west-2.amazonaws.com/main-generator1.jpeg"
          alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
-<img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator.jpeg"
+<img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator1.jpeg"
          alt="" height="300">
 </div><br>
 <p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
-User also can download worksheet in PDF format by clicking download button. Exit from program clicking on red exit button.. 
+User also can download worksheet in PDF format by clicking download button. Exit from program clicking on red exit button.
 </p>
 <div margin="20px">
- <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
+ <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet1.jpeg"
          alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/unlock.jpeg"
          alt="" height="100">
@@ -175,9 +175,9 @@ User also can download worksheet in PDF format by clicking download button. Exit
 <p>4 - Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
 </p>
  <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
-<img src="https://wgapp.s3.eu-west-2.amazonaws.com/history.jpeg"
+<img src="https://wgapp.s3.eu-west-2.amazonaws.com/history1.jpeg"
          alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
- <img src="https://wgapp.s3.eu-west-2.amazonaws.com/account.jpeg"
+ <img src="https://wgapp.s3.eu-west-2.amazonaws.com/account1.jpeg"
          alt="" height="300">
 </div>
 </section>
