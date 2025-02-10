@@ -150,41 +150,37 @@ After clicking Let's start button user will be directed main window with generat
     </p>
 <div style="display: flex; align-items: center; justify-content: space-around; margin-bottom: 3em">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
-         alt="" height="200">
+         alt="" height="200"> &nbsp &nbsp &nbsp &nbsp &nbsp
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
          alt="" height="400">
 </div><br>
-<p>2-- User can start worksheet generation on generation section on main window by selecting all necessary fields.
-Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button
-will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
+<p>2-- User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
 </p>
 <div style="display: flex; align-items:center; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/main-generator.jpeg"
-         alt="" height="300">
+         alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator.jpeg"
          alt="" height="300">
 </div><br>
-<p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.
-</p><br>
-<div style="display: flex; align-items:center; justify-content: space-around;
-margin-bottom: 40px; margin-top: 20px">
+<p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
+User also can download worksheet in PDF format by clicking download button. Or exit from program clicking on red exit button or avatar of the user. 
+</p>
+<div margin="20px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
-         alt="" height="300">
+         alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/unlock.jpeg"
          alt="" height="100">
-</div>
-<p>4-- Users can view worksheets they previously generated in the history section. And they can update his password and PIN in the
-    account section. All registered users by default have a PIN (0000)
+</div><br>
+<p>4 - Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
 </p>
  <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/history.jpeg"
-         alt="" height="300">
+         alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/account.jpeg"
          alt="" height="300">
 </div>
 </section>
-
 <footer>
     <h2>Contributing</h2>
     <p>Contributions to the project are welcome! If you find any issues or have suggestions for improvements, please
