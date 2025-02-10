@@ -164,7 +164,7 @@ margin-bottom: 40px; margin-top: 20px">
          alt="" height="300">
 </div><br>
 <p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
-User also can download worksheet in PDF format by clicking download button. Or exit from program clicking on red exit button or avatar of the user. 
+User also can download worksheet in PDF format by clicking download button. Exit from program clicking on red exit button.. 
 </p>
 <div margin="20px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
