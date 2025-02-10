@@ -28,7 +28,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
     private final BooleanProperty isTimerOn = new SimpleBooleanProperty(false);
     private final BooleanProperty isItAtStart = new SimpleBooleanProperty(true);
-    public Circle backgroundCircle3;
+ //   public Circle backgroundCircle3;
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
     public Text scoreText;
@@ -66,7 +65,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public TextField searchTextField;
     public ImageView searchIconBtn;
     public Circle backgroundCircle6;
-    public ImageView exitBtn;
+  //  public ImageView exitBtn;
     public ImageView deleteWorksheet;
     public Circle backgroundCircle7;
     private final WorksheetController worksheetController = new WorksheetController();
@@ -96,7 +95,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
 
         searchIconBtn.setOnMouseClicked(event -> {
-            worksheetController.findWorksheet(searchTextField.getText());
+            worksheetController.findWorksheet(searchTextField.getText(),Model.getInstance().getUserProperty().getUserId());
             searchTextField.clear();
             // To be able to load second  next search
             Model.getInstance().setWorksheetProperty(null);
@@ -105,7 +104,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         searchTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                worksheetController.findWorksheet(searchTextField.getText());
+                worksheetController.findWorksheet(searchTextField.getText(),Model.getInstance().getUserProperty().getUserId());
                 searchTextField.clear();
                 // To be able to load second  next search
                 Model.getInstance().setWorksheetProperty(null);
@@ -121,12 +120,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             // Update the wrapping width of the passageText
             //passageText.setWrappingWidth(newWidth);
             passageTitle.setWrappingWidth(newWidth);
-        });
-
-
-        exitBtn.setOnMouseClicked(event -> {
-            Stage currentStage = (Stage) exitBtn.getScene().getWindow();
-            currentStage.close();
         });
 
 
@@ -189,13 +182,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
         });
 
-        exitBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                backgroundCircle3.setEffect(dropShadow);
-            } else if (!isShowingAnswers.get()) {
-                backgroundCircle3.setEffect(null);
-            }
-        });
+
         downloadWorksheet.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 backgroundCircle4.setEffect(dropShadow);

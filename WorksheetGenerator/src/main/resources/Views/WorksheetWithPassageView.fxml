@@ -26,12 +26,13 @@
                 <VBox fx:id="bottomLeftSection" minWidth="-Infinity" prefHeight="765.0" prefWidth="500.0" styleClass="worksheetWindow__leftSection-inner" HBox.hgrow="ALWAYS">
                     <Text fx:id="passageTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" textAlignment="CENTER" />
                     <TextArea fx:id="passageText" prefWidth="500.0" styleClass="passageText" wrapText="true" VBox.vgrow="ALWAYS">
-                  <opaqueInsets>
-                     <Insets />
-                  </opaqueInsets></TextArea>
-               <HBox.margin>
-                  <Insets right="3.0" />
-               </HBox.margin>
+                        <opaqueInsets>
+                            <Insets />
+                        </opaqueInsets>
+                    </TextArea>
+                    <HBox.margin>
+                        <Insets right="3.0" />
+                    </HBox.margin>
                 </VBox>
                 <ScrollPane fx:id="bottomRightSection" prefWidth="500.0" styleClass="worksheetWindow__rightSection" HBox.hgrow="ALWAYS">
                     <VBox fx:id="innerRight" alignment="TOP_CENTER" styleClass="worksheetWindow__rightSection-inner">
@@ -120,25 +121,10 @@
                             </cursor>
                         </ImageView>
                     </StackPane>
-                    <StackPane prefHeight="150.0" prefWidth="200.0">
-                        <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Circle>
-                        <ImageView fx:id="exitBtn" fitHeight="50.0" fitWidth="50.0">
-                            <Image url="@../Images/logout.png" />
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </ImageView>
-                    </StackPane>
+                    <StackPane prefHeight="150.0" prefWidth="200.0" />
                 </HBox>
                 <AnchorPane layoutX="540.0" layoutY="28.0" prefHeight="79.0" prefWidth="465.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
-                    <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0" promptText="Enter your search here..." styleClass="worksheetWindow__topSection-searchField" AnchorPane.bottomAnchor="15.0" />
+                    <TextField fx:id="searchTextField" prefHeight="42.0" prefWidth="370.0" promptText="Enter a passage title to search..." styleClass="worksheetWindow__topSection-searchField" AnchorPane.bottomAnchor="15.0" />
                     <StackPane prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0">
                         <Circle fx:id="backgroundCircle6" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
                             <cursor>

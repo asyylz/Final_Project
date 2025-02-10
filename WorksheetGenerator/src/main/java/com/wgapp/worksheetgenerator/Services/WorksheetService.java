@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public interface WorksheetService {
     public CompletableFuture<WorksheetEntity> generateWorksheetAsync(WorksheetEntity worksheet);
 
-    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm);
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm, int userId);
     public CompletableFuture<WorksheetEntity> findWorksheetAsync(int worksheetId);
 
     public CompletableFuture<Void> deleteWorksheetAsync(int worksheetId, int userId);

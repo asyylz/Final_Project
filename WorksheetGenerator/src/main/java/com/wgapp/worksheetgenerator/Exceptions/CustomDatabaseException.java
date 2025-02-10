@@ -34,7 +34,8 @@ public class CustomDatabaseException extends RuntimeException {
             Utils.notifyUser("This user is already exists.", "Invalid User Name", "Register Error", Alert.AlertType.ERROR);
             return "This username is already taken. Please choose another one.";
         }
-        Utils.notifyUser(cause.getMessage(), "Database error", "Error", Alert.AlertType.ERROR);
+        Utils.notifyUser(cause.getMessage(), "Error", "Error", Alert.AlertType.ERROR);
+       // System.out.println("asiye" + cause.getMessage());
         return cause.getMessage(); // Default: keep original message
     }
 }

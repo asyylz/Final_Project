@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface WorksheetDAO {
     public List<WorksheetEntity> listWorksheets(int userId);
-    public WorksheetEntity findWorksheet(String title);
+    public WorksheetEntity findWorksheet(String title, int userId);
     public WorksheetEntity findWorksheet(int worksheetId);
     public WorksheetEntity createWorksheet(WorksheetEntity worksheetEntity);
     public void deleteWorksheet(int worksheetId, int userId);

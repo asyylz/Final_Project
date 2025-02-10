@@ -87,4 +87,20 @@
    <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0">
       <Text strokeWidth="0.0" styleClass="userMenu__bottomText" text="WORKSHEET GENERATOR" textAlignment="CENTER" wrappingWidth="134.0" />
    </HBox>
+   <StackPane layoutX="34.0" layoutY="869.0" prefHeight="78.0" prefWidth="72.0" AnchorPane.bottomAnchor="50.0">
+      <Circle fx:id="backgroundCircle3" fill="#9cd3d991" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Circle>
+      <ImageView fx:id="exitBtn" fitHeight="50.0" fitWidth="50.0">
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <Image url="@../Images/logout.png" />
+      </ImageView>
+   </StackPane>
 </AnchorPane>

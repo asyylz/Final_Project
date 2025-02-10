@@ -3,6 +3,7 @@ package com.wgapp.worksheetgenerator.Services.Impl;
 import com.wgapp.worksheetgenerator.Config.OpenAIConfig;
 import com.wgapp.worksheetgenerator.DAO.Entities.*;
 import com.wgapp.worksheetgenerator.DAO.Impl.WorksheetDAOImpl;
+import com.wgapp.worksheetgenerator.Exceptions.CustomDatabaseException;
 import com.wgapp.worksheetgenerator.ModelsUI.*;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
@@ -27,7 +28,7 @@ public class WorksheetServiceImpl implements WorksheetService {
     public WorksheetServiceImpl() {
     }
 
-    public WorksheetEntity generateWorksheetCallFromController(WorksheetEntity worksheetEntity) {
+    public WorksheetEntity generateWorksheetCallFromController(WorksheetEntity worksheetEntity) throws RuntimeException {
         // We are  starting to build our prompt  with constant related to Model
         String initialPrompt = Utils.checkSubSubject();
 
@@ -75,7 +76,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Error generating worksheet", e);
+          throw new RuntimeException("Error generating worksheet.", e);
         }
     }
 
@@ -97,6 +98,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
         generateWorksheetTask.setOnFailed(event -> {
             future.completeExceptionally(generateWorksheetTask.getException());
+            throw new CustomDatabaseException(generateWorksheetTask.getException());
         });
 
         new Thread(generateWorksheetTask).start();
@@ -106,13 +108,13 @@ public class WorksheetServiceImpl implements WorksheetService {
 
 
     @Override
-    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm) {
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm, int userId) {
         CompletableFuture<WorksheetEntity> future = new CompletableFuture<>();
 
         Task<WorksheetEntity> findWorksheetTask = new Task<>() {
             @Override
             protected WorksheetEntity call() throws Exception {
-                return worksheetDAO.findWorksheet(searchTerm);
+                return worksheetDAO.findWorksheet(searchTerm, userId);
             }
         };
 

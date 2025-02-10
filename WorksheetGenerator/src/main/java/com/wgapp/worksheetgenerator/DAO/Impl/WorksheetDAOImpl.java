@@ -165,10 +165,10 @@ public class WorksheetDAOImpl implements WorksheetDAO {
     }
 
     @Override
-    public WorksheetEntity findWorksheet(String title) {
+    public WorksheetEntity findWorksheet(String title, int userId) {
         String sql1 = "SELECT w.*, p.* FROM worksheets w " +
                 "JOIN passages p ON w.worksheet_id = p.worksheet_id" +
-                " WHERE p.title LIKE ?";
+                " WHERE p.title LIKE ? AND w.user_id = ?";
 
         String sql2 = "SELECT * FROM questions WHERE worksheet_id = ?";
 
@@ -182,6 +182,7 @@ public class WorksheetDAOImpl implements WorksheetDAO {
 
             // Use '%' to match partial titles
             pstmt1.setString(1, "%" + title + "%");
+            pstmt1.setInt(2, userId);
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 if (rs1.next()) { // if a worksheet exists

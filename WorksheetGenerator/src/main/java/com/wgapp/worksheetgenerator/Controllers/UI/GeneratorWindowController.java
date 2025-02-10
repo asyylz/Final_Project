@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,7 +39,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView passageBtn;
     public Button clearSelectionBtn;
     public StackPane loadingIndicatorComponent;
-    public Button testBtn;
     public ImageView stepOneTick;
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
@@ -68,6 +68,9 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownMainSubject.selectedProperty().set("MAIN");
         dropdownSubSubject.selectedProperty().set("SUB");
         difficultyLevel.selectedProperty().set("DIFF");
+
+
+
 
 
         // Add CustomDropdownMenus to the associated panes in layout
@@ -115,7 +118,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
                         passageSectionRequired,
                         Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageContentProperty(),
                         Model.getInstance().getWorksheetPropertyForGeneration().passageProperty().passageTitleProperty()
-                ));;
+                ));
+        ;
 
 
         //LISTENER
@@ -140,8 +144,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // generateBtn listens for click event to generate worksheet
         generateBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             onWorksheetGenerateButtonClickedHandler();
-            //If main subject maths still  initialize passageproperty object unnecessary
-           // System.out.println(Model.getInstance().getWorksheetPropertyForGeneration().passageProperty());
         });
 
         //LISTENER
@@ -221,15 +223,12 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Setting loading indicator's visibility to true
         loadingIndicatorComponent.setVisible(true);
         worksheetController.generateWorksheet(Model.getInstance().getWorksheetPropertyForGeneration());
-        //worksheetController.listWorksheets(Model.getInstance().getUserProperty());
-
     }
 
     private void clearSelectionsHandler() {
         dropdownMainSubject.setMainButtonText("MAIN SUBJECT" + " ▼");
         dropdownSubSubject.setMainButtonText("SUB SUBJECT" + " ▼");
         difficultyLevel.setMainButtonText("DIFFICULTY LEVEL" + " ▼");
-       // Model.getInstance().setWorksheetPropertyForGeneration(new WorksheetProperty());
 
         // Explicitly set initial values (if necessary)
         WorksheetProperty worksheetProperty = Model.getInstance().getWorksheetPropertyForGeneration();
@@ -271,7 +270,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
             }
             passageSectionRequired.set(required);
         } else {
-            passageSectionRequired.set(false);;
+            passageSectionRequired.set(false);
+            ;
         }
     }
 

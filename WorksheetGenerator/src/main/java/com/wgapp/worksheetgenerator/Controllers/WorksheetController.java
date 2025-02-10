@@ -51,10 +51,12 @@ public class WorksheetController {
                     System.err.println("Error generating worksheet: " + ex.getMessage());
                     return null;
                 });
+
     }
 
-    public void findWorksheet(String searchTerm) {
-        worksheetService.findWorksheetAsync(searchTerm)
+
+    public void findWorksheet(String searchTerm, int userId) {
+        worksheetService.findWorksheetAsync(searchTerm, userId)
                 .thenAccept(worksheet -> {
                     Platform.runLater(() -> {
                         this.worksheetEntity = worksheet;

@@ -9,14 +9,16 @@ import javafx.beans.property.BooleanProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
 public class UserMenuController implements Initializable {
@@ -28,8 +30,9 @@ public class UserMenuController implements Initializable {
     public VBox userMenu;
     public HBox userAvatarWrapper;
     public Button historyBtn;
-
     private final WorksheetController worksheetController = new WorksheetController();
+    public Circle backgroundCircle3;
+    public ImageView exitBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,7 +86,7 @@ public class UserMenuController implements Initializable {
 
         }
 
-        avatar.setOnMouseClicked(event -> {
+        exitBtn.setOnMouseClicked(event -> {
             BooleanProperty isLogout = Utils.notifyUser("Would you like to log out ?", "Logout request", "Logout", Alert.AlertType.CONFIRMATION);
 
             if (isLogout.get()) {
@@ -97,6 +100,20 @@ public class UserMenuController implements Initializable {
                 System.exit(0);  // JVM stops completely
             }
 
+        });
+
+
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        dropShadow.setColor(Color.valueOf("#FFF5FA"));
+        dropShadow.setRadius(50);
+
+        exitBtn.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                backgroundCircle3.setEffect(dropShadow);
+            } else {
+                backgroundCircle3.setEffect(null);
+            }
         });
     }
 

@@ -7,6 +7,7 @@ import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.WorksheetProperty;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -41,11 +42,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
         // For list
         worksheetController.listWorksheets(Model.getInstance().getUserProperty());
-
-        DropShadow dropShadow = new DropShadow();
-        dropShadow.setBlurType(BlurType.GAUSSIAN);
-        dropShadow.setColor(Color.valueOf("#FFF5FA"));
-        dropShadow.setRadius(50);
 
         Model.getInstance().getWorksheetPropertyList().addListener((ListChangeListener<WorksheetProperty>) change -> {
             pagination.setPageFactory(this::createPage);
@@ -82,7 +78,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         subSubColumn.setCellValueFactory(cellData -> cellData.getValue().subSubjectProperty().asString());
         diffLevelColumn.setCellValueFactory(cellData -> cellData.getValue().diffLevelProperty().asString());
         title.setCellValueFactory(cellData -> {
-            if (cellData.getValue() == null || cellData.getValue().passageProperty().passageTitleProperty().getValue()==null) {
+            if (cellData.getValue() == null || cellData.getValue().passageProperty().passageTitleProperty().getValue() == null) {
                 cellData.getValue().passageProperty().setPassageTitle("---");
                 return cellData.getValue().passageProperty().passageTitleProperty();
             }
@@ -107,12 +103,13 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
                 // Handle Delete Action
                 deleteButton.setOnAction(event -> {
-                    Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+                    BooleanProperty hasConfirmed = Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
                     WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
                     worksheet.setUserProperty(Model.getInstance().getUserProperty());
-
-                    worksheetController.deleteWorksheet(worksheet);
-                    //getTableView().getItems().remove(worksheet); // Remove row
+                    if(hasConfirmed.get()) {
+                   worksheetController.deleteWorksheet(worksheet);
+                    Model.getInstance().getWorksheetPropertyList().remove(worksheet); // Updating UI
+                    }
 
                 });
             }
@@ -151,8 +148,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
                     worksheetController.findWorksheet(worksheet.getId());
                     Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
-
-                    //getTableView().getItems().remove(worksheet); // Remove row
 
                 });
             }
@@ -208,10 +203,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         for (WorksheetProperty worksheetProperty : worksheetPropertyList) {
             Model.getInstance().getWorksheetPropertyList().add(worksheetProperty);
         }
-
-       // pagination.setPageFactory(this::createPage); // Ensure this updates the TableView
-       // pagination.setPageCount((int) Math.ceil((double) Model.getInstance().getWorksheetPropertyList().size() / ROWS_PER_PAGE));
-
     }
 
 
@@ -223,7 +214,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
     @Override
     public void onWorksheetDeleted() {
-        worksheetController.listWorksheets(Model.getInstance().getUserProperty());
+
     }
 
     @Override

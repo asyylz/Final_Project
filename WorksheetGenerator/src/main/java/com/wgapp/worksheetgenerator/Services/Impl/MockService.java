@@ -91,7 +91,7 @@ public class MockService implements WorksheetService {
     }
 
     @Override
-    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm) {
+    public CompletableFuture<WorksheetEntity> findWorksheetAsync(String searchTerm, int userId) {
         CompletableFuture<WorksheetEntity> future = new CompletableFuture<>();
 
         Task<WorksheetEntity> findWorksheetTask = new Task<>() {
