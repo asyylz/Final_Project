@@ -148,7 +148,7 @@ After clicking Let's start button user will be directed main window with generat
     <p><strong>username:</strong> testUser<br>
         <strong>password:</strong> passW@rd
     </p>
-<div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; align-content: flex-start; margin-bottom: 40px">
+<div style="display: flex; align-items: center; justify-content: space-around; margin-bottom: 40px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
          alt="" height="200">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
@@ -158,20 +158,20 @@ After clicking Let's start button user will be directed main window with generat
 Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension sub topic passage addition button
 will appear. User should add a passage and title of passage.
 </p>
- <div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; align-content: flex-start; 
+<div style="display: flex; align-items: pa; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/main-generator.jpeg"
-         alt="" height="400">
+         alt="" height="300">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/worksheet.jpeg"
-         alt="" height="400">
+         alt="" height="300">
 </div>
 <h4 style="display: inline;">3-</h4><p style="display: inline;"> Users can view worksheets they previously generated in the history section. And they can update his password and PIN in the account section. All registered users by default have a PIN (0000)
 </p>
- <div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; align-content: flex-start; margin-top: 40px">
+ <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/history.jpeg"
-         alt="" height="400">
+         alt="" height="300">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/account.jpeg"
-         alt="" height="400">
+         alt="" height="300">
 </div>
 </section>
 
