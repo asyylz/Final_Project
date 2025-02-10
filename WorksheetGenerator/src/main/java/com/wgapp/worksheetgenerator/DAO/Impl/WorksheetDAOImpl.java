@@ -290,7 +290,6 @@ public class WorksheetDAOImpl implements WorksheetDAO {
                         }
 
                     } else if (rs1.getString("main_subject").equals("MATHS")) {
-                        System.out.println("matsh");
                         worksheetEntity.setSubSubject(SubSubjectOptionsMaths.valueOf(rs1.getString("sub_subject")));
                     }
 
@@ -329,7 +328,7 @@ public class WorksheetDAOImpl implements WorksheetDAO {
                                         rs3.getInt("choice_id"),
                                         rs3.getString("choice_text")
                                 );
-
+                              //  System.out.println("choive" + choiceEntity);
                                 choicesList.add(choiceEntity);
                             }
                         }
@@ -343,7 +342,6 @@ public class WorksheetDAOImpl implements WorksheetDAO {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         worksheetEntity.setQuestionList(questionEntityList);
 

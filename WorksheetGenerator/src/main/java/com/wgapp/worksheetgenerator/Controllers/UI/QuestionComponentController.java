@@ -1,5 +1,7 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
+import com.wgapp.worksheetgenerator.DAO.Entities.QuestionEntity;
+import com.wgapp.worksheetgenerator.ModelsUI.ChoiceProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.UserAnswerProperty;
@@ -67,6 +69,7 @@ public class QuestionComponentController implements Initializable {
                 // Set the text for each choice in the HBox
                 Text choiceText = (Text) choiceBoxSingle.getChildren().get(1);
                 choiceText.setText(question.getChoices().get(i).getChoiceText());
+
 
                 // Update wrapping width when ScrollPane resizes
                 rigthScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {

@@ -141,7 +141,7 @@ public class WorksheetController {
 
         // Convert list of questions (assuming worksheet.getQuestionList() is of type List<Question>)
         ListProperty<QuestionProperty> questionPropertiesList = new SimpleListProperty<>(FXCollections.observableArrayList());
-        ListProperty<ChoiceProperty> choiceList = new SimpleListProperty<>(FXCollections.observableArrayList());
+
 
         for (QuestionEntity questionEntity : worksheetEntity.getQuestionList()) {
             QuestionProperty questionProperty = new QuestionProperty(
@@ -149,14 +149,16 @@ public class WorksheetController {
                     new SimpleStringProperty(questionEntity.getQuestionText()),
                     new SimpleStringProperty(questionEntity.getCorrectAnswerText()));
 
+            // ✅ Create a new choice list for each question
+            ListProperty<ChoiceProperty> choiceList = new SimpleListProperty<>(FXCollections.observableArrayList());
             for (ChoiceEntity choiceEntity : questionEntity.getChoices()) {
+
                 choiceList.add(new ChoiceProperty(
                         new SimpleIntegerProperty(choiceEntity.getChoiceId()),
                         new SimpleStringProperty(choiceEntity.getChoiceText())));
             }
             questionProperty.setChoices(choiceList);
             questionPropertiesList.add(questionProperty);
-
 
         }
 

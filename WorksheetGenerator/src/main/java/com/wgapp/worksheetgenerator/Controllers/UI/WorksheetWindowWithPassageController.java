@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -153,8 +154,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
 
         });
-
-
 
 
         timer.setOnMouseClicked(event -> {
@@ -472,8 +471,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     @Override
     public void onWorksheetDeleted() {
         Utils.notifyUser("Worksheet deleted successfully.", "Delete", "Success", Alert.AlertType.INFORMATION);
-        for(WorksheetProperty wp:Model.getInstance().getWorksheetPropertyList()){
-            if(wp.getId() ==Model.getInstance().getWorksheetProperty().getId()) {
+        for (WorksheetProperty wp : Model.getInstance().getWorksheetPropertyList()) {
+            if (wp.getId() == Model.getInstance().getWorksheetProperty().getId()) {
                 Model.getInstance().getWorksheetPropertyList().remove(wp); // Deletion should be reflected to history list
 
             }

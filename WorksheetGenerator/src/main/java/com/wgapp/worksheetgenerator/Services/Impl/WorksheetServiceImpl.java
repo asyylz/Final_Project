@@ -143,8 +143,8 @@ public class WorksheetServiceImpl implements WorksheetService {
         };
 
         findWorksheetTask.setOnSucceeded(event -> {
-            WorksheetEntity generatedWorksheetEntity = findWorksheetTask.getValue();
-            future.complete(generatedWorksheetEntity);
+            WorksheetEntity foundWorksheetEntity = findWorksheetTask.getValue();
+            future.complete(foundWorksheetEntity);
         });
 
         findWorksheetTask.setOnFailed(event -> {

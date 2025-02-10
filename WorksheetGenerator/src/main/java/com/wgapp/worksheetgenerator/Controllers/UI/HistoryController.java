@@ -1,7 +1,9 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
 import com.wgapp.worksheetgenerator.Controllers.WorksheetController;
+import com.wgapp.worksheetgenerator.ModelsUI.ChoiceProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
+import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.WorksheetProperty;
 import com.wgapp.worksheetgenerator.Utils.Utils;
 import com.wgapp.worksheetgenerator.ViewFactory.UserMenuOptions;
@@ -146,6 +148,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
                 openButton.setOnAction(event -> {
                     WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
                     worksheet.setUserProperty(Model.getInstance().getUserProperty());
+
                     worksheetController.findWorksheet(worksheet.getId());
                     Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
 
@@ -226,6 +229,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
     @Override
     public void onWorksheetFound(WorksheetProperty worksheetProperty) {
         Model.getInstance().setWorksheetProperty(worksheetProperty);
+
     }
 
 }

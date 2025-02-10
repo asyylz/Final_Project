@@ -22,7 +22,6 @@ public class WorksheetPDFGenerator {
 
     public static void saveWorksheetAsPDF(String worksheetTitle, String passage, java.util.List<String> questions, String filePath) {
         System.out.println(filePath);
-
         try {
             // Create PDF Writer
             PdfWriter writer = new PdfWriter(new File(filePath));
@@ -32,9 +31,35 @@ public class WorksheetPDFGenerator {
             // Add title
             document.add(new Paragraph(new Text(worksheetTitle).setBold().setFontSize(16)));
 
+
             // Add passage
             document.add(new Paragraph("Passage:").setBold());
             document.add(new Paragraph(passage));
+
+            // Add questions
+            document.add(new Paragraph("Questions:").setBold());
+            List questionList = new List();
+            for (String question : questions) {
+                questionList.add(new ListItem(question));
+            }
+            document.add(questionList);
+
+            // Close document
+            document.close();
+            System.out.println("Worksheet saved as PDF: " + filePath);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveWorksheetAsPDF(java.util.List<String> questions, String filePath) {
+        System.out.println(filePath);
+        try {
+            // Create PDF Writer
+            PdfWriter writer = new PdfWriter(new File(filePath));
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
 
             // Add questions
             document.add(new Paragraph("Questions:").setBold());
@@ -65,10 +90,6 @@ public class WorksheetPDFGenerator {
             );
             File file = newFileChooser.showSaveDialog(currentWindow);
 
-            // Get worksheet title and passage
-            String title = worksheet.passageProperty().getPassageTitle();
-            String passage = worksheet.passageProperty().getPassageContent();
-            // List<Choice> listOfChoices = worksheet.getQuestionList()
 
             if (file != null) {
                 // Convert Question objects to strings including their choices
@@ -93,15 +114,27 @@ public class WorksheetPDFGenerator {
                         })
                         .collect(Collectors.toList());
 
+                if (worksheet.passageProperty() != null) {
+                    // Get worksheet title and passage
+                    String title = worksheet.passageProperty().getPassageTitle();
+                    String passage = worksheet.passageProperty().getPassageContent();
+                    // List<Choice> listOfChoices = worksheet.getQuestionList()
+                    // Generate the PDF
+                    WorksheetPDFGenerator.saveWorksheetAsPDF(
+                            title,
+                            passage,
+                            questionTexts,
+                            file.getAbsolutePath()
+                    );
+                } else {
+                    // Generate the PDF
+                    WorksheetPDFGenerator.saveWorksheetAsPDF(
+                            questionTexts,
+                            file.getAbsolutePath()
+                    );
 
+                }
 
-                // Generate the PDF
-                WorksheetPDFGenerator.saveWorksheetAsPDF(
-                        title,
-                        passage,
-                        questionTexts,
-                        file.getAbsolutePath()
-                );
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
