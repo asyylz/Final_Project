@@ -24,7 +24,7 @@ public class PromtConstants {
             Rules:
             1. Ensure each questionEntity is directly related to the passageEntity.
             2. Maintain a balance between difficulty levels across the questionEntities.
-            3. The worksheetEntity should have exactly 5 questionEntities
+            3. The worksheetEntity should have exactly 10 questionEntities. Number of question types selected and number of question generated  are not related. If 3 types selected, then equally questions will be generated.
             User Options:
             """;
 

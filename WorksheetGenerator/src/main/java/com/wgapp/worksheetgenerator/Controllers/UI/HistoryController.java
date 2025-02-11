@@ -60,10 +60,6 @@ public class HistoryController implements Initializable, WorksheetController.Wor
 
 
         pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(observable);
-            System.out.println(newValue);
-            System.out.println(newValue == oldValue);
-
             delete.setCellFactory(column -> new TableCell<WorksheetProperty, Void>() {
                 private final Button deleteButton = new Button();
 

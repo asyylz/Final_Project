@@ -24,7 +24,10 @@
         <AnchorPane fx:id="worksheetWindowWithPassageParent" prefHeight="900.0" prefWidth="1050.0" styleClass="worksheetWindow__parent" stylesheets="@../Styles/WorksheetWithPassageView.css">
             <HBox fx:id="bottomSection" layoutX="26.0" layoutY="126.0" prefHeight="100.0" prefWidth="1074.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" HBox.hgrow="ALWAYS">
                 <VBox fx:id="bottomLeftSection" minWidth="-Infinity" prefHeight="765.0" prefWidth="500.0" styleClass="worksheetWindow__leftSection-inner" HBox.hgrow="ALWAYS">
-                    <Text fx:id="passageTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" textAlignment="CENTER" />
+                    <Text fx:id="passageTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="passageTitle" textAlignment="CENTER">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin></Text>
                     <TextArea fx:id="passageText" prefWidth="500.0" styleClass="passageText" wrapText="true" VBox.vgrow="ALWAYS">
                         <opaqueInsets>
                             <Insets />

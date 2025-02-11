@@ -26,7 +26,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +79,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         // Observer pattern
         worksheetController.addObserver(this);
 
+
         // At first score text invisible
         scoreText.setText("");
 
@@ -91,6 +95,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
                 setfieldsDefault();
             } else {
                 updateWorksheetUI();
+                isShowingAnswers.set(false);
+                scoreText.setText("");
             }
         });
 
@@ -168,7 +174,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             }
             //isTimerOn.set(!isTimerOn.get()); // Toggle the state
         });
-
 
         /*======================================== DROP DOWN SHADOW EFFECT =============================================*/
         DropShadow dropShadow = new DropShadow();

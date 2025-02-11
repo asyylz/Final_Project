@@ -29,6 +29,7 @@
     -fx-font-weight: 800;
     -fx-font-family: "Maven Pro";
     -fx-background-color:   #e7e7e7;
+    -fx-row-valignment: center;
 }
 
 .passageText {
