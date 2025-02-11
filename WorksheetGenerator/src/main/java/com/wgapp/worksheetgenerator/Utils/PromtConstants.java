@@ -3,7 +3,7 @@ package com.wgapp.worksheetgenerator.Utils;
 public class PromtConstants {
 
     public static final String PROMPT_BEGINNING_COMPREHENSION = """
-            Create a comprehension worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 5 questionEntities, focusing on the following types specified by the user:
+            Create a comprehension worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 10 questionEntities, focusing on the following types specified by the user:
             
             **Question Format:**
             1. [Question text] ([Question type]) ([Correct Option: X])
@@ -30,7 +30,7 @@ public class PromtConstants {
 
 
     public static final String PROMPT_BEGINNING_CLOZE = """
-                Create a cloze test worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 5 questionEntities, with a focus on vocabulary, grammar, or context-based knowledge. Follow these instructions carefully:
+                Create a cloze test worksheetEntity based on the provided passageEntity. The worksheetEntity should have exactly 10 questionEntities, with a focus on vocabulary, grammar, or context-based knowledge. Follow these instructions carefully:
             
                 **Instructions for the questionEntities:**
                 - Select a sentence by replacing 1 key words or phrases with blanks (denoted as `________`).
@@ -70,7 +70,7 @@ public class PromtConstants {
             """;
 
     public static final String PROMPT_BEGINNING_VOCABULARY = """
-                Create a vocabulary worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 5 questionEntities, following these instructions:
+                Create a vocabulary worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 10 questionEntities, following these instructions:
             
                 **Instructions for the passageEntity:**
                 - AI should process the passageEntity and  five key vocabulary  and  generate questionEntity asking synonymy, antonyms or definition.
@@ -108,7 +108,7 @@ public class PromtConstants {
                 User Options:
             """;
     public static final String PROMPT_BEGINNING_SPAG = """
-                Create spelling, punctuation and grammar worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 5 questionEntities, following these instructions:
+                Create spelling, punctuation and grammar worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 10 questionEntities, following these instructions:
             
                 **Instructions for the passageEntity:**
                 - AI should process the passageEntity and  generate questionEntity asking related to spelling, punctuation and grammar contextual importance.
@@ -159,7 +159,7 @@ public class PromtConstants {
                 User Options:
             """;
     public static final String PROMPT_BEGINNING_MATHS = """
-            Create maths worksheet in user option. The worksheet should have exactly 5 questions, following these instructions:
+            Create maths worksheet in user option. The worksheet should have exactly 10 questions, following these instructions:
             
                 **Instructions**
                 - Each questionEntity correct answer should be append at the end of the question as structured below.

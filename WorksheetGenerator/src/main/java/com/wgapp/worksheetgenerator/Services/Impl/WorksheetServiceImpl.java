@@ -76,7 +76,7 @@ public class WorksheetServiceImpl implements WorksheetService {
 
         } catch (Exception e) {
             e.printStackTrace();
-          throw new RuntimeException("Error generating worksheet.", e);
+            throw new RuntimeException("Error generating worksheet.", e);
         }
     }
 
@@ -169,7 +169,7 @@ public class WorksheetServiceImpl implements WorksheetService {
             }
         };
         listTask.setOnSucceeded(event -> {
-           List<WorksheetEntity> list = listTask.getValue();
+            List<WorksheetEntity> list = listTask.getValue();
             future.complete(list);
         });
 
@@ -241,7 +241,7 @@ public class WorksheetServiceImpl implements WorksheetService {
         for (String line : lines) {
             line = line.trim();
 
-            if (line.matches("^\\d+\\. .*")) {
+            if (line.matches("^\\d{1,2}\\. .*")) {
                 // If there's a previous question, add it to the list ; previous iteration extracting question
                 // following iteration we are adding to questions
                 if (currentQuestionText != null) {
@@ -253,7 +253,12 @@ public class WorksheetServiceImpl implements WorksheetService {
                 }
 
                 // Extract question text
-                currentQuestionText = line.substring(line.indexOf(". ") - 1).trim();
+                if (line.indexOf(".") == 2) {
+                    currentQuestionText = line.substring(line.indexOf(". ") - 2).trim();
+                } else if (line.indexOf(".") == 1) {
+                    currentQuestionText = line.substring(line.indexOf(". ") - 1).trim();
+
+                }
                 System.out.println("currentQuestionText: " + currentQuestionText);
                 // Extract correct option if present
                 if (currentQuestionText.contains("(Correct Option:")) {

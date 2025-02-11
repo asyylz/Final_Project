@@ -22,11 +22,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HistoryController implements Initializable, WorksheetController.WorksheetObserver {
+
+
+    TableColumn<WorksheetProperty, Integer> idColumn = new TableColumn<>("ID");
+    TableColumn<WorksheetProperty, String> mainSubColumn = new TableColumn<>("MAIN SUBJECT");
+    TableColumn<WorksheetProperty, String> subSubColumn = new TableColumn<>("SUB SUBJECT");
+    TableColumn<WorksheetProperty, String> diffLevelColumn = new TableColumn<>("LEVEL");
+    TableColumn<WorksheetProperty, String> title = new TableColumn<>("PASSAGE TITLE");
+    TableColumn<WorksheetProperty, Void> delete = new TableColumn<>("");
+    TableColumn<WorksheetProperty, Void> open = new TableColumn<>("");
 
     private final WorksheetController worksheetController = new WorksheetController();
 
@@ -49,20 +59,98 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         });
 
 
+        pagination.currentPageIndexProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(observable);
+            System.out.println(newValue);
+            System.out.println(newValue == oldValue);
+
+            delete.setCellFactory(column -> new TableCell<WorksheetProperty, Void>() {
+                private final Button deleteButton = new Button();
+
+                {
+                    // Load delete icon
+                    Image deleteImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/delete.png")));
+                    ImageView deleteIcon = new ImageView(deleteImage);
+                    deleteIcon.setFitWidth(25);
+                    deleteIcon.setFitHeight(25);
+
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.setStyle("-fx-background-color: transparent;");
+                    setGraphic(deleteButton);
+
+                    // Handle Delete Action
+                    deleteButton.setOnAction(event -> {
+                        BooleanProperty hasConfirmed = Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+                        WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
+                        worksheet.setUserProperty(Model.getInstance().getUserProperty());
+                        if (hasConfirmed.get()) {
+                            worksheetController.deleteWorksheet(worksheet);
+                            Model.getInstance().getWorksheetPropertyList().remove(worksheet); // Updating UI
+                        }
+
+                    });
+                }
+
+
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(deleteButton);
+                    }
+                }
+            });
+
+
+        });
+        // ✅ Set Open Button inside the "open" column
+        open.setCellFactory(column -> new TableCell<WorksheetProperty, Void>() {
+            private final Button openButton = new Button();
+
+            {
+                // Load delete icon
+                Image worksheetImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Images/worksheet.png")));
+                ImageView openIcon = new ImageView(worksheetImage);
+                openIcon.setFitWidth(25);
+                openIcon.setFitHeight(25);
+
+                openButton.setGraphic(openIcon);
+                openButton.setStyle("-fx-background-color: transparent;");
+                setGraphic(openButton);
+
+                // Handle Delete Action
+                openButton.setOnAction(event -> {
+                    WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
+
+                    worksheet.setUserProperty(Model.getInstance().getUserProperty());
+
+                    worksheetController.findWorksheet(worksheet.getId());
+                    Model.getInstance().getViewFactory().getUserSelectMenuView().set(UserMenuOptions.WORKSHEET);
+
+                });
+            }
+
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(openButton);
+                }
+            }
+        });
     }
+
 
     private TableView<WorksheetProperty> createTable() {
 
         TableView<WorksheetProperty> table = new TableView<>();
+        table.setMinWidth(860);
         table.setMaxWidth(950);
-
-        TableColumn<WorksheetProperty, Integer> idColumn = new TableColumn<>("ID");
-        TableColumn<WorksheetProperty, String> mainSubColumn = new TableColumn<>("MAIN SUBJECT");
-        TableColumn<WorksheetProperty, String> subSubColumn = new TableColumn<>("SUB SUBJECT");
-        TableColumn<WorksheetProperty, String> diffLevelColumn = new TableColumn<>("LEVEL");
-        TableColumn<WorksheetProperty, String> title = new TableColumn<>("PASSAGE TITLE");
-        TableColumn<WorksheetProperty, Void> delete = new TableColumn<>("");
-        TableColumn<WorksheetProperty, Void> open = new TableColumn<>("");
 
 
         // Add a column to display row index
@@ -106,9 +194,9 @@ public class HistoryController implements Initializable, WorksheetController.Wor
                     BooleanProperty hasConfirmed = Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
                     WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
                     worksheet.setUserProperty(Model.getInstance().getUserProperty());
-                    if(hasConfirmed.get()) {
-                   worksheetController.deleteWorksheet(worksheet);
-                    Model.getInstance().getWorksheetPropertyList().remove(worksheet); // Updating UI
+                    if (hasConfirmed.get()) {
+                        worksheetController.deleteWorksheet(worksheet);
+                        Model.getInstance().getWorksheetPropertyList().remove(worksheet); // Updating UI
                     }
 
                 });
@@ -144,6 +232,7 @@ public class HistoryController implements Initializable, WorksheetController.Wor
                 // Handle Delete Action
                 openButton.setOnAction(event -> {
                     WorksheetProperty worksheet = getTableView().getItems().get(getIndex());
+
                     worksheet.setUserProperty(Model.getInstance().getUserProperty());
 
                     worksheetController.findWorksheet(worksheet.getId());
@@ -171,8 +260,8 @@ public class HistoryController implements Initializable, WorksheetController.Wor
         subSubColumn.setPrefWidth(170);
         diffLevelColumn.setPrefWidth(170);
         title.setPrefWidth(200);
-        delete.setPrefWidth(50);
-        open.setPrefWidth(50);
+        delete.setPrefWidth(47);
+        open.setPrefWidth(47);
 
         indexColumn.setStyle("-fx-alignment: CENTER;");
         idColumn.setStyle("-fx-alignment: CENTER;");

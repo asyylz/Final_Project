@@ -4,7 +4,6 @@ import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsMaths;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.SubSubjectOptionsEnglish;
-import com.wgapp.worksheetgenerator.ModelsUI.PassageProperty;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -12,13 +11,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +97,7 @@ public class Utils {
         if (timeline != null) {
             timeline.stop();
         }
-        timeSeconds = 1200; // Reset to initial time
+        timeSeconds = 600; // Reset to initial time
 
         // Update label to show initial time
         updateTimerLabel(timerLabel);

@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,8 +52,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
     private final BooleanProperty isTimerOn = new SimpleBooleanProperty(false);
+    private final BooleanProperty isTimerStopped = new SimpleBooleanProperty(false);
     private final BooleanProperty isItAtStart = new SimpleBooleanProperty(true);
- //   public Circle backgroundCircle3;
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
     public Text scoreText;
@@ -65,7 +65,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public TextField searchTextField;
     public ImageView searchIconBtn;
     public Circle backgroundCircle6;
-  //  public ImageView exitBtn;
     public ImageView deleteWorksheet;
     public Circle backgroundCircle7;
     private final WorksheetController worksheetController = new WorksheetController();
@@ -77,6 +76,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         // Observer pattern
         worksheetController.addObserver(this);
 
+        // At first score text invisible
+        scoreText.setText("");
 
         if (isItAtStart.get()) {
             if (Model.getInstance().getWorksheetProperty().getId() != 0) { // equals zero means null
@@ -95,7 +96,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
 
         searchIconBtn.setOnMouseClicked(event -> {
-            worksheetController.findWorksheet(searchTextField.getText(),Model.getInstance().getUserProperty().getUserId());
+            worksheetController.findWorksheet(searchTextField.getText(), Model.getInstance().getUserProperty().getUserId());
             searchTextField.clear();
             // To be able to load second  next search
             Model.getInstance().setWorksheetProperty(null);
@@ -104,7 +105,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
         searchTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                worksheetController.findWorksheet(searchTextField.getText(),Model.getInstance().getUserProperty().getUserId());
+                worksheetController.findWorksheet(searchTextField.getText(), Model.getInstance().getUserProperty().getUserId());
                 searchTextField.clear();
                 // To be able to load second  next search
                 Model.getInstance().setWorksheetProperty(null);
@@ -117,8 +118,8 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
             double newWidth = newValue.doubleValue() - 40; // Adjust for padding or margins
 
             bottomLeftSection.heightProperty().get();
-            // Update the wrapping width of the passageText
-            //passageText.setWrappingWidth(newWidth);
+
+            // Update the wrapping width of the title
             passageTitle.setWrappingWidth(newWidth);
         });
 
@@ -152,11 +153,20 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         timer.setOnMouseClicked(event -> {
             if (!isTimerOn.get()) {
                 Utils.setTimer(timerText);  // Start the timer
+                isTimerOn.set(!isTimerOn.get()); // Toggle the state
             } else {
-                Utils.stopTimer();
+                if (!isTimerStopped.get()) {
+                    Utils.stopTimer();
+                    isTimerStopped.set(!isTimerStopped.get());
+
+                } else {
+                    Utils.resumeTimer();
+                    isTimerStopped.set(!isTimerStopped.get());
+                }
+
                 //timerText.setText("");      // Clear the timer when stopping
             }
-            isTimerOn.set(!isTimerOn.get()); // Toggle the state
+            //isTimerOn.set(!isTimerOn.get()); // Toggle the state
         });
 
 
@@ -262,8 +272,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         }
 
 
-        // At first score text invisible
-        scoreText.setText("");
+
 
         // Questions being set to Ui
         initializeQuestions();
@@ -271,23 +280,20 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     }
 
     private void checkTotalScore() {
-        if (!isShowingAnswers.get()) {
-            int totalScore = 0;
-            int numberOfQuestion = Model.getInstance().getWorksheetProperty().getQuestionList().size();
-            List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
-            List<UserAnswerProperty> userAnswers = Model.getInstance().getWorksheetProperty().getUserAnswerPropertyList();
 
-            for (UserAnswerProperty userAnswer : userAnswers) {
-                for (QuestionProperty question : questionList)
-                    if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswer())) {
-                        totalScore++;
-                    }
-            }
+        int totalScore = 0;
+        int numberOfQuestion = Model.getInstance().getWorksheetProperty().getQuestionList().size();
+        List<QuestionProperty> questionList = Model.getInstance().getWorksheetProperty().getQuestionList();
+        List<UserAnswerProperty> userAnswers = Model.getInstance().getWorksheetProperty().getUserAnswerPropertyList();
 
-            scoreText.setText("Total Score: " + totalScore + "/" + numberOfQuestion);
-        } else {
-            scoreText.setText("");
+        for (UserAnswerProperty userAnswer : userAnswers) {
+            for (QuestionProperty question : questionList)
+                if (questionList.indexOf(question) == userAnswer.getQuestionIndex() && userAnswer.getAnswer().equals(question.getCorrectAnswer())) {
+                    totalScore++;
+                }
         }
+
+        scoreText.setText("Total Score: " + totalScore + "/" + numberOfQuestion);
     }
 
     private void initializeQuestions() {
@@ -380,7 +386,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
                     }
                     checkTotalScore();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
@@ -416,7 +421,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
 
                 }
 
-
+                scoreText.setText("");
             } catch (Exception e) {
                 e.printStackTrace();
                 if (e.getMessage().contains("Cannot invoke \"String.hashCode()\" because \"<local4>\" is null")) {
