@@ -12,12 +12,13 @@
         <li><a href="#development-tools">Development Tools</a></li>
         <li><a href="#getting-started">Getting Started</a></li>
         <li><a href="#application">Application</a></li>
+        <li><a href="#documentation">Documentation</a></li>
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
     </ul>
 </section>
 <section id="features">
-    <h2>Features</h2>
+    <h2>1-Features</h2>
     <p>Key features covered in this repository:</p>
     <ul>
         <li><strong>User Authentication:</strong> Secure login and registration system for users, ensuring that only
@@ -40,10 +41,12 @@
             assessments or exercises.
         </li>
         <li><strong>Responsive Design:</strong> Ensures a seamless and optimized user experience.</li>
+        <li><strong>Singleton (UI Layer)</strong> Ensures that only one instance of a UI manager (or a similar component) exists throughout the application's lifecycle. Helps in managing global UI state efficiently.</li>
+        <li><strong>Observer (UI Notifications)</strong> Implements a publisher-subscriber model to notify the UI of state changes dynamically. Ensures decoupling between data sources and UI components, improving responsiveness</li>
     </ul>
 </section>
 <section id="technologies">
-    <h2>Technologies</h2>
+    <h2>2-Technologies</h2>
     <ul>
         <li><strong>JavaFX:</strong> A framework for building rich desktop applications using Java. Provides tools for
             creating user interfaces with modern graphics, animations, and more.
@@ -57,7 +60,7 @@
     </ul>
 </section>
 <section id="development-tools">
-    <h2>Development Tools</h2>
+    <h2>3-Development Tools</h2>
     <ul>
         <li><strong>IntelliJ IDEA:</strong> A powerful Integrated Development Environment (IDE) for Java and other
             languages, used for efficient coding, debugging, and project management.
@@ -68,7 +71,7 @@
     </ul>
 </section>
 <section id="getting-started">
-    <h2>Getting Started</h2>
+    <h2>4-Getting Started</h2>
     <p>To get started with the repository, follow these steps:</p>
     <h3>Installation</h3>
     <ol>
@@ -141,8 +144,8 @@
     </ol>
 </section>
 <section id="application">
-    <h1>Application</h1>
-<p>1-- Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
+    <h1>5-Application</h1>
+<p>5.1. Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
 After clicking Let's start button user will be directed main window with generation content.
 </p>
     <p><strong>username:</strong> testUser<br>
@@ -154,7 +157,7 @@ After clicking Let's start button user will be directed main window with generat
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
          alt="" height="400">
 </div><br>
-<p>2-- User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
+<p>5.2. User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
 </p>
 <div style="display: flex; align-items:center; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
@@ -163,7 +166,7 @@ margin-bottom: 40px; margin-top: 20px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator1.jpeg"
          alt="" height="300">
 </div><br>
-<p>3-- Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
+<p>5.3. Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
 User also can download worksheet in PDF format by clicking download button. Exit from program clicking on red exit button.
 </p>
 <div margin="20px">
@@ -172,20 +175,25 @@ User also can download worksheet in PDF format by clicking download button. Exit
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/unlock.jpeg"
          alt="" height="100">
 </div><br>
-<p>4 - Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
+<p>5.4. Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
 </p>
  <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/history1.jpeg"
          alt="" height="300"> &nbsp &nbsp &nbsp &nbsp &nbsp
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/account1.jpeg"
          alt="" height="300">
-</div>
+</div><br>
+</section>
+<section id="documentation">
+    <h1>6-Documentation</h1>
+    <img src="https://wgapp.s3.eu-west-2.amazonaws.com/ERD.jpg" height="400"/><br><br>
+    <img src="https://wgapp.s3.eu-west-2.amazonaws.com/ClassDiagramUI.jpg" />
 </section>
 <footer>
-    <h2>Contributing</h2>
+    <h1>7-Contributing</h1>
     <p>Contributions to the project are welcome! If you find any issues or have suggestions for improvements, please
         feel free to open an issue or submit a pull request.</p>
-    <h2>License</h2>
+    <h1>8-License</h1>
     <p>This project is licensed under the MIT License.</p>
 </footer>
 </body>
