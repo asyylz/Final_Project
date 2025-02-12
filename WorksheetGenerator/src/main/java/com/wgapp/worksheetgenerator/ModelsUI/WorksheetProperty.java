@@ -1,6 +1,5 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
 
-import com.wgapp.worksheetgenerator.DAO.Entities.PassageEntity;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.ComprehensionQuestionTypes;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.DifficultyLevelOptions;
 import com.wgapp.worksheetgenerator.ModelsUI.Enums.MainSubjectOptions;
@@ -9,7 +8,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
-
 import java.util.List;
 
 
@@ -38,31 +36,6 @@ public class WorksheetProperty {
         this.questionList = questionList;
         this.passage = passage;
     }
-
-    // This constructor is used while sending data (COMPREHENSION)
-    public WorksheetProperty(MainSubjectOptions mainSubject,
-                             ISubSubjectOptions subSubject,
-                             DifficultyLevelOptions diffLevel,
-                             PassageProperty passage,
-                             ListProperty<ComprehensionQuestionTypes> questionTypeList) {
-        this.mainSubject.set(mainSubject);
-        this.subSubject.set(subSubject);
-        this.diffLevel.set(diffLevel);
-        this.questionTypeList = questionTypeList;
-        this.passage = passage;
-    }
-
-    // This constructor is used while sending data (OTHER PASSAGE RELATED WORKSHEETS)
-    public WorksheetProperty(MainSubjectOptions mainSubject,
-                             ISubSubjectOptions subSubject,
-                             DifficultyLevelOptions diffLevel,
-                             PassageProperty passage) {
-        this.mainSubject.set(mainSubject);
-        this.subSubject.set(subSubject);
-        this.diffLevel.set(diffLevel);
-        this.passage = passage;
-    }
-
 
     public WorksheetProperty() {
     }
@@ -213,3 +186,33 @@ public class WorksheetProperty {
         this.imageView = imageView;
     }
 }
+
+
+
+
+
+
+
+//    // This constructor is used while sending data (COMPREHENSION)
+//    public WorksheetProperty(MainSubjectOptions mainSubject,
+//                             ISubSubjectOptions subSubject,
+//                             DifficultyLevelOptions diffLevel,
+//                             PassageProperty passage,
+//                             ListProperty<ComprehensionQuestionTypes> questionTypeList) {
+//        this.mainSubject.set(mainSubject);
+//        this.subSubject.set(subSubject);
+//        this.diffLevel.set(diffLevel);
+//        this.questionTypeList = questionTypeList;
+//        this.passage = passage;
+//    }
+//
+//    // This constructor is used while sending data (OTHER PASSAGE RELATED WORKSHEETS)
+//    public WorksheetProperty(MainSubjectOptions mainSubject,
+//                             ISubSubjectOptions subSubject,
+//                             DifficultyLevelOptions diffLevel,
+//                             PassageProperty passage) {
+//        this.mainSubject.set(mainSubject);
+//        this.subSubject.set(subSubject);
+//        this.diffLevel.set(diffLevel);
+//        this.passage = passage;
+//    }

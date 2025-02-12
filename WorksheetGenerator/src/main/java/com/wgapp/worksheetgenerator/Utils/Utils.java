@@ -219,7 +219,7 @@ public class Utils {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             int enteredPin = Integer.parseInt(pinField.getText().trim());
-            int correctPin = Model.getInstance().getUserProperty().getPinNumber();
+            int correctPin = Model.getInstance().getUserProperty().getPin();
             // System.out.println("PIN" + Model.getInstance().getUserProperty().getPinNumber());
 
             // System.out.println("enteredPin" + enteredPin);

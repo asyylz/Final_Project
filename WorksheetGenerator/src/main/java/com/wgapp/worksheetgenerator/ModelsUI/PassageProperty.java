@@ -1,6 +1,5 @@
 package com.wgapp.worksheetgenerator.ModelsUI;
 
-import com.wgapp.worksheetgenerator.DAO.Entities.PassageEntity;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,11 +10,6 @@ public class PassageProperty {
     private   StringProperty passageTitle = new SimpleStringProperty();
     private   StringProperty passageContent = new SimpleStringProperty();
 
-    public PassageProperty(IntegerProperty passageId, StringProperty passageTitle, StringProperty passageContent) {
-        this.passageId = passageId;
-        this.passageTitle = passageTitle;
-        this.passageContent = passageContent;
-    }
 
     public PassageProperty(StringProperty passageTitle, StringProperty passageContent) {
         this.passageTitle = passageTitle;
@@ -26,17 +20,6 @@ public class PassageProperty {
 
     }
 
-    public int getPassageId() {
-        return passageId.get();
-    }
-
-    public IntegerProperty passageIdProperty() {
-        return passageId;
-    }
-
-    public void setPassageId(int passageId) {
-        this.passageId.set(passageId);
-    }
 
     public String getPassageTitle() {
         return passageTitle.get();

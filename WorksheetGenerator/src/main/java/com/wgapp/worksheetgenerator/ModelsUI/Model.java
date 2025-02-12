@@ -5,10 +5,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 public class Model  {
     private static Model model;
@@ -25,9 +21,6 @@ public class Model  {
     // List Worksheet
     private ListProperty<WorksheetProperty> worksheetPropertyList = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    // Search box
-    StringProperty searchTerm = new SimpleStringProperty("");
-
     private Model() {
         this.viewFactory = new ViewFactory();
     }
@@ -40,9 +33,6 @@ public class Model  {
         return model;
     }
 
-    public static void setInstance(Model mockModel) {
-
-    }
 
     public ViewFactory getViewFactory() {
         return viewFactory;
@@ -54,13 +44,6 @@ public class Model  {
         return worksheetPropertyList.get();
     }
 
-    public ListProperty<WorksheetProperty> worksheetPropertyListProperty() {
-        return worksheetPropertyList;
-    }
-
-    public void setWorksheetPropertyList(ObservableList<WorksheetProperty> worksheetPropertyList) {
-        this.worksheetPropertyList.set(worksheetPropertyList);
-    }
 
     //============================================== USER =================================================//
     public UserProperty getUserProperty() {
@@ -75,29 +58,11 @@ public class Model  {
         this.userProperty.set(userProperty);
     }
 
-    public String getSearchTerm() {
-        return searchTerm.get();
-    }
-
-    public StringProperty searchTermProperty() {
-        return searchTerm;
-    }
-
-    public void setSearchTerm(String searchTerm) {
-        this.searchTerm.set(searchTerm);
-    }
 
     public WorksheetProperty getWorksheetPropertyForGeneration() {
         return worksheetPropertyForGeneration.get();
     }
 
-    public ObjectProperty<WorksheetProperty> worksheetPropertyForGenerationProperty() {
-        return worksheetPropertyForGeneration;
-    }
-
-    public void setWorksheetPropertyForGeneration(WorksheetProperty worksheetPropertyForGeneration) {
-        this.worksheetPropertyForGeneration.set(worksheetPropertyForGeneration);
-    }
     //============================================== WORKSHEET AND OBSERVER =================================================//
     public WorksheetProperty getWorksheetProperty() {
         return worksheetProperty.get();
@@ -111,11 +76,6 @@ public class Model  {
 
         this.worksheetProperty.set(worksheetProperty);
     }
-    public void deleteWorksheet() {
-        this.worksheetProperty.set(new WorksheetProperty()); // Reset worksheet
-
-    }
-
 
 }
 

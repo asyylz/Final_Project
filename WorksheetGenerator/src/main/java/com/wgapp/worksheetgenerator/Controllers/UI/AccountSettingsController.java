@@ -32,7 +32,7 @@ public class AccountSettingsController implements Initializable {
             String confirmPin = pinNumberConfirmField.getText();
             if (pin.equals(confirmPin)) {
                 // First we set value to be able to call pin. creation method
-                Model.getInstance().getUserProperty().setPinNumber(Integer.parseInt(pin));
+                Model.getInstance().getUserProperty().setPin(Integer.parseInt(pin));
                 // Here we are both calling and setting the return value
                 Model.getInstance().setUserProperty(userController.setPin(Model.getInstance().getUserProperty()));
 

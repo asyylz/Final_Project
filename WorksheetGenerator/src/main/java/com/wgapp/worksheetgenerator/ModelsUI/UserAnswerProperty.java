@@ -13,24 +13,8 @@ public class UserAnswerProperty {
         this.questionIndex.set(questionIndex);
     }
 
-    public int getQuestionId() {
-        return questionId.get();
-    }
-
-    public IntegerProperty questionIdProperty() {
-        return questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId.set(questionId);
-    }
-
     public String getAnswer() {
         return selectedChoice.get();
-    }
-
-    public StringProperty answerProperty() {
-        return selectedChoice;
     }
 
     public void setAnswer(String answer) {
@@ -39,10 +23,6 @@ public class UserAnswerProperty {
 
     public int getQuestionIndex() {
         return questionIndex.get();
-    }
-
-    public IntegerProperty questionIndexProperty() {
-        return questionIndex;
     }
 
     public void setQuestionIndex(int questionIndex) {

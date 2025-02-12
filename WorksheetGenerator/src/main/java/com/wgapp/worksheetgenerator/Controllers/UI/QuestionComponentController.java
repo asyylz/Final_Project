@@ -1,7 +1,5 @@
 package com.wgapp.worksheetgenerator.Controllers.UI;
 
-import com.wgapp.worksheetgenerator.DAO.Entities.QuestionEntity;
-import com.wgapp.worksheetgenerator.ModelsUI.ChoiceProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.Model;
 import com.wgapp.worksheetgenerator.ModelsUI.QuestionProperty;
 import com.wgapp.worksheetgenerator.ModelsUI.UserAnswerProperty;
@@ -13,7 +11,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

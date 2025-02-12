@@ -38,8 +38,10 @@ public class UserLoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userNameField.setText("testUser");
-        passwordField.setText("passW@rd");
+
+        //For development
+//        userNameField.setText("testUser");
+//        passwordField.setText("passW@rd");
 
         confirmPasswordText.setVisible(false);
         confirmPasswordField.setVisible(false);
@@ -154,8 +156,8 @@ public class UserLoginController implements Initializable {
 
             Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
 
-          // Model.getInstance().getViewFactory().showLandingWindow();
-           Model.getInstance().getViewFactory().showMainWindow();
+           Model.getInstance().getViewFactory().showLandingWindow();
+           //Model.getInstance().getViewFactory().showMainWindow();
 
 
             // Show success message

@@ -36,7 +36,7 @@ public class UserController {
                 userProperty.getUserId(),
                 userProperty.getUsername(),
                 userProperty.getPassword(),
-                userProperty.getPinNumber());
+                userProperty.getPin());
 
         userService.setPinNumber(userEntity);
 
