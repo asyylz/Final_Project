@@ -109,11 +109,11 @@
                 </li><br>
                 <li>
                     <p>Once the containers are up and running, you can verify that the WorksheetGeneratorApp database has been created inside the container.
-                    To do this, enter the running container and execute a command that checks the list of databases.</p>
+                    To do this, execute the following command. This will open an interactive shell inside the container.</p>
 <pre><code>docker exec -it wgapp-database-container bash</code></pre>
                 </li><br>
                 <li>
-                    <p>This will open an interactive shell inside the container. Now, run the following command to list all databases:</p>
+                    <p> Now, you are inside the container. Run the following command to list all databases:</p>
 <pre><code>/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P "${SQLSERVER_PASSWORD}" -Q "SELECT name FROM sys.databases" -C</code></pre>    
                 </li><br>
                 <p>You should see a list of databases, and WorksheetGeneratorApp should be present in the list of databases.</p>
@@ -134,10 +134,10 @@
 
 </li>
 <li>
-<p>To start container:</p>
-      <pre><code>docker start wgapp-database-container</code></pre>
-<p>To stop container:</p>
+    <p>To stop container:</p>
       <pre><code>docker stop wgapp-database-container</code></pre>
+<p>To start again container:</p>
+      <pre><code>docker start wgapp-database-container</code></pre>
 </li>
 <li>
     <p>Run application with <strong>App.java</strong> file.</p>
