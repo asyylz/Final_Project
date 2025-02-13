@@ -26,10 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +52,7 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     public ImageView showAnswersBtn;
     private final BooleanProperty isShowingAnswers = new SimpleBooleanProperty(false);
     private final BooleanProperty isTimerOn = new SimpleBooleanProperty(false);
-    private final BooleanProperty isTimerStopped = new SimpleBooleanProperty(false);
+    private final BooleanProperty isTimerPaused = new SimpleBooleanProperty(false);
     private final BooleanProperty isItAtStart = new SimpleBooleanProperty(true);
     public Circle backgroundCircle1;
     public Circle backgroundCircle2;
@@ -149,9 +146,18 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
         });
 
         deleteWorksheet.setOnMouseClicked(event -> {
-            Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+           BooleanProperty deletionConfirm=  Utils.notifyUser("Are you sure to delete this worksheet?", "Delete", "Warning", Alert.AlertType.CONFIRMATION);
+            if(deletionConfirm.get()) {
             Model.getInstance().getWorksheetProperty().setUserProperty(Model.getInstance().getUserProperty());
             worksheetController.deleteWorksheet(Model.getInstance().getWorksheetProperty());
+            }
+            for (WorksheetProperty wp : Model.getInstance().getWorksheetPropertyList()) {
+                if (wp.getId() == Model.getInstance().getWorksheetProperty().getId()) {
+                    Model.getInstance().getWorksheetPropertyList().remove(wp); // Deletion should be reflected to history list
+                }
+            }
+            Model.getInstance().setWorksheetProperty(null);
+            updateWorksheetUI();
 
         });
 
@@ -161,13 +167,24 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
                 Utils.setTimer(timerText);  // Start the timer
                 isTimerOn.set(!isTimerOn.get()); // Toggle the state
             } else {
-                if (!isTimerStopped.get()) {
-                    Utils.stopTimer();
-                    isTimerStopped.set(!isTimerStopped.get());
-
+                if (!isTimerPaused.get()) {
+                    Utils.pauseTimer();
+                    isTimerPaused.set(!isTimerPaused.get());
+                    timerText.setText("Timer stopped : " + timerText.getText());
+timerText.setWrappingWidth(200);
                 } else {
+
+                  BooleanProperty willTimerStopped =  Utils.notifyUser("Would you like to resume timer?","TIMER", "CONFIRM", Alert.AlertType.CONFIRMATION);
+                  if(!willTimerStopped.get()) {
+                      Utils.stopTimer();
+                      timerText.setText("");
+                      isTimerOn.set(!isTimerOn.get());
+                      isTimerPaused.set(!isTimerPaused.get());
+                  } else {
                     Utils.resumeTimer();
-                    isTimerStopped.set(!isTimerStopped.get());
+
+                    isTimerPaused.set(!isTimerPaused.get());
+                  }
                 }
 
                 //timerText.setText("");      // Clear the timer when stopping
@@ -468,14 +485,6 @@ public class WorksheetWindowWithPassageController implements Initializable, Work
     @Override
     public void onWorksheetDeleted() {
         Utils.notifyUser("Worksheet deleted successfully.", "Delete", "Success", Alert.AlertType.INFORMATION);
-        for (WorksheetProperty wp : Model.getInstance().getWorksheetPropertyList()) {
-            if (wp.getId() == Model.getInstance().getWorksheetProperty().getId()) {
-                Model.getInstance().getWorksheetPropertyList().remove(wp); // Deletion should be reflected to history list
-
-            }
-        }
-        Model.getInstance().setWorksheetProperty(null);
-        updateWorksheetUI();
     }
 
     @Override

@@ -70,27 +70,27 @@ public class PromtConstants {
             """;
 
     public static final String PROMPT_BEGINNING_VOCABULARY = """
-                Create a vocabulary worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 10 questionEntities, following these instructions:
+                Create a vocabulary worksheetEntity based on the provided passage in user option. The worksheet should have exactly 10 questionEntities, following these instructions:
             
-                **Instructions for the passageEntity:**
-                - AI should process the passageEntity and  five key vocabulary  and  generate questionEntity asking synonymy, antonyms or definition.
+                **Instructions for the passage:**
+                - AI should process the passage and  five key vocabulary  and  generate question asking synonymy, antonyms or definition.
                 - These words should be selected based on their contextual importance.
-                - Each questionEntity correct answer should be append at the end of the questionEntity as structured below.
-                - Underline the words being asked in the questionEntity.
+                - Each question correct answer should be append at the end of the question as structured below.
+                - Underline the words being asked in the question.
             
                 **Question Format:**
-                1. [Sentence with the blank as the questionEntity context] (Correct Option: [X])
+                1. [Sentence with the blank as the question context] (Correct Option: [X])
                    A. [Option Text]
                    B. [Option Text]
                    C. [Option Text]
                    D. [Option Text]
-                2. [Sentence with the blank as the questionEntity context] (Correct Option: [X])
+                2. [Sentence with the blank as the question context] (Correct Option: [X])
                    A. [Option Text]
                    B. [Option Text]
                    C. [Option Text]
                    D. [Option Text]
             
-                **Examples of questionEntity structures:**
+                **Examples of question structures:**
                 1. What is the antonym of  crucial in this sentence "The scientist made a crucial discovery that changed history." (Correct Option: A)
                    A. gentle
                    B. aggressive
@@ -103,19 +103,19 @@ public class PromtConstants {
                    D. slow
             
                 **Rules:**
-                1. Ensure each questionEntity is directly linked to the passageEntity.
+                1. Ensure each questionEntity is directly linked to the passage.
             
                 User Options:
             """;
     public static final String PROMPT_BEGINNING_SPAG = """
-                Create spelling, punctuation and grammar worksheetEntity based on the provided passageEntity in user option. The worksheetEntity should have exactly 10 questionEntities, following these instructions:
+                Create spelling, punctuation and grammar worksheet based on the provided passageEntity in user option. The worksheet should have exactly 10 questions, following these instructions:
             
-                **Instructions for the passageEntity:**
-                - AI should process the passageEntity and  generate questionEntity asking related to spelling, punctuation and grammar contextual importance.
-                - Each questionEntity correct answer should be append at the end of the questionEntity as structured below.
-                - Do not refer passageEntity in the questionEntities.
+                **Instructions for the passage:**
+                - AI should process the passage and  generate question asking related to spelling, punctuation and grammar contextual importance.
+                - Each question correct answer should be append at the end of the question as structured below.
+                - Do not refer passage in the question.
                  ** wrong **
-                 In the passageEntity, which punctuation mark is missing in the sentence:
+                 In the passage, which punctuation mark is missing in the sentence:
                  "Those long days at sea many of Magellan’s men died of starvation and disease". (Correct Option: B)
             
                  ** correct **
@@ -123,12 +123,12 @@ public class PromtConstants {
                  "Those long days at sea many of Magellan’s men died of starvation and disease". (Correct Option: A)
             
                  **Question Format:**
-                1. [Sentence  with the questionEntity context] (Correct Option: [X])
+                1. [Sentence  with the question context] (Correct Option: [X])
                    A. [Option Text]
                    B. [Option Text]
                    C. [Option Text]
                    D. [Option Text]
-                2. [Sentence with the questionEntity context] (Correct Option: [X])
+                2. [Sentence with the question context] (Correct Option: [X])
                    A. [Option Text]
                    B. [Option Text]
                    C. [Option Text]
@@ -152,7 +152,7 @@ public class PromtConstants {
                    D. Comma, Colon, Full stop, Comma, Full stop,
             
                 **Rules:**
-                1. Ensure each questionEntity is directly linked to the passageEntity.
+                1. Ensure each question is directly linked to the passage.
                 2. Do not use line break (\n) in question text.
                 3. Line break should be used between question text and options.
             

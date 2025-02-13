@@ -191,7 +191,7 @@
 
             <Text fx:id="timerText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottomSection-timerText" textAlignment="CENTER" wrappingWidth="85.17320251464844" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="20.0" />
 
-            <Text fx:id="scoreText" layoutX="0.5" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottomSection-score" text="Score:" wrappingWidth="147.0" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="100.0" />
+            <Text fx:id="scoreText" layoutX="543.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="worksheetWindow__bottomSection-score" text="Score:" wrappingWidth="147.0" AnchorPane.bottomAnchor="6.491600036621094" AnchorPane.rightAnchor="360.0" />
         </AnchorPane>
     </bottom>
     <effect>

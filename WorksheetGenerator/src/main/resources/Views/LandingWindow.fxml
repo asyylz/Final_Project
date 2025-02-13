@@ -8,76 +8,49 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="landingWindow" prefHeight="1010.0" prefWidth="590.0" styleClass="landingwindow__container"
-            stylesheets="@../Styles/LandingWindow.css" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.LandingWindowController">
-    <ImageView fitHeight="392.0" fitWidth="593.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true"
-               AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="0.0">
-        <Image url="@../Images/background_landing.jpg"/>
+<AnchorPane fx:id="landingWindow" prefHeight="1010.0" prefWidth="590.0" styleClass="landingwindow__container" stylesheets="@../Styles/LandingWindow.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wgapp.worksheetgenerator.Controllers.UI.LandingWindowController">
+    <ImageView fitHeight="392.0" fitWidth="593.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="0.0">
+        <Image url="@../Images/background_landing.jpg" />
     </ImageView>
-    <Pane layoutY="94.0" prefHeight="298.0" prefWidth="600.0" rotate="180.0" styleClass="landingwindow__gradientPane"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Text layoutX="453.0" layoutY="34.0" rotate="180.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              styleClass="accentText" text="GET STARTED" wrappingWidth="101.041015625"/>
-        <Line endX="202.0" endY="38.0" layoutX="353.0" layoutY="-25.0" startX="-310.0" startY="38.0" stroke="#fbd784"
-              strokeWidth="2.0"/>
+    <Pane layoutY="94.0" prefHeight="298.0" prefWidth="600.0" rotate="180.0" styleClass="landingwindow__gradientPane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Text layoutX="453.0" layoutY="34.0" rotate="180.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText" text="GET STARTED" wrappingWidth="101.041015625" />
+        <Line endX="202.0" endY="38.0" layoutX="353.0" layoutY="-25.0" startX="-310.0" startY="38.0" stroke="#fbd784" strokeWidth="2.0" />
     </Pane>
-    <AnchorPane layoutY="392.0" prefHeight="190.0" prefWidth="600.0" styleClass="landingwindow__wrapper"
-                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784"
-              strokeWidth="2.0"/>
-        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/01.png"/>
+    <AnchorPane layoutY="392.0" prefHeight="190.0" prefWidth="600.0" styleClass="landingwindow__wrapper" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784" strokeWidth="2.0" />
+        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/01.png" />
         </ImageView>
-        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText"
-              text="CHOOSE YOUR SUBJECT"/>
-        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText"
-              text="&quot;Start your journey by selecting a subject!&quot;" wrappingWidth="282.041015625"/>
-        <Text layoutX="87.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText"
-              text="E.g., English, Maths, etc." wrappingWidth="270.21630859375"/>
-        <ImageView fitHeight="122.0" fitWidth="200.0" layoutX="380.0" layoutY="35.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/englishmaths.jpg"/>
+        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText" text="CHOOSE YOUR SUBJECT" />
+        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="&quot;Start your journey by selecting a subject!&quot;" wrappingWidth="282.041015625" />
+        <Text layoutX="87.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText" text="E.g., English, Maths, etc." wrappingWidth="270.21630859375" />
+        <ImageView fitHeight="122.0" fitWidth="200.0" layoutX="380.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/englishmaths.jpg" />
         </ImageView>
     </AnchorPane>
     <AnchorPane layoutX="5.0" layoutY="576.0" prefHeight="174.0" prefWidth="600.0" styleClass="landingwindow__wrapper">
-        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784"
-              strokeWidth="2.0"/>
-        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/02.png"/>
+        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784" strokeWidth="2.0" />
+        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/02.png" />
         </ImageView>
-        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText"
-              text="DEVELOP YOUR SKILLS"/>
-        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText"
-              text="&quot;What do you want to get better at today?&quot;" wrappingWidth="282.041015625"/>
-        <Text layoutX="84.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText"
-              text="Options include Comprehension, Vocabulary, and Fractions." wrappingWidth="270.21630859375"/>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="378.0" layoutY="20.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/skills.jpg"/>
+        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText" text="DEVELOP YOUR SKILLS" />
+        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="&quot;What do you want to get better at today?&quot;" wrappingWidth="282.041015625" />
+        <Text layoutX="84.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText" text="Options include Comprehension, Vocabulary, and Fractions." wrappingWidth="270.21630859375" />
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="378.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/skills.jpg" />
         </ImageView>
     </AnchorPane>
     <AnchorPane layoutX="8.0" layoutY="754.0" prefHeight="190.0" prefWidth="600.0" styleClass="landingwindow__wrapper">
-        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784"
-              strokeWidth="2.0"/>
-        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/03.png"/>
+        <Line endX="168.0" endY="38.0" layoutX="-54.0" layoutY="14.0" startX="129.0" startY="38.0" stroke="#fbd784" strokeWidth="2.0" />
+        <ImageView fitHeight="76.0" fitWidth="100.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/03.png" />
         </ImageView>
-        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText"
-              text="SET YOUR  CHALLENGE"/>
-        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText"
-              text="&quot;Pick the grade level for your personalised worksheetEntity.&quot;" wrappingWidth="282.041015625"/>
-        <Text layoutX="87.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText"
-              text="Grade 1 to Grade 7 – start where you’re comfortable." wrappingWidth="270.21630859375"/>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="369.0" layoutY="14.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../Images/generating.png"/>
+        <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText" text="SET YOUR  CHALLENGE" />
+        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="&quot;Pick the grade level for your personalised worksheetEntity.&quot;" wrappingWidth="282.041015625" />
+        <Text layoutX="87.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText" text="Grade 1 to Grade 7 – start where you’re comfortable." wrappingWidth="270.21630859375" />
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="369.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/generating.png" />
         </ImageView>
     </AnchorPane>
-    <Button fx:id="letsStartBtn" layoutX="213.0" layoutY="954.0" mnemonicParsing="false" prefHeight="27.0"
-            prefWidth="169.0" styleClass="yellowBtn" stylesheets="@../Styles/YellowBtn.css" text="Let's Start"/>
+    <Button fx:id="letsStartBtn" layoutX="213.0" layoutY="954.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="169.0" styleClass="yellowBtn" stylesheets="@../Styles/YellowBtn.css" text="Let's Start" />
 </AnchorPane>

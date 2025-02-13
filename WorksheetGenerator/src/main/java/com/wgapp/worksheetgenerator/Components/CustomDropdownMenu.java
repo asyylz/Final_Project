@@ -1,5 +1,7 @@
 package com.wgapp.worksheetgenerator.Components;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
@@ -11,7 +13,7 @@ import javafx.event.ActionEvent;
 public class CustomDropdownMenu<T> extends VBox {
     private final Button mainButton;
     private final VBox dropdownContent;
-    private boolean isExpanded = false;
+    private BooleanProperty isExpanded =  new SimpleBooleanProperty(false);
     private EventHandler<ActionEvent> onSelectionChanged;
     private StringProperty selectedMainSubject = new SimpleStringProperty();
 
@@ -65,17 +67,19 @@ public class CustomDropdownMenu<T> extends VBox {
     }
 
     private void toggleDropdown() {
-        isExpanded = !isExpanded;
-        dropdownContent.setVisible(isExpanded);
+        isExpanded.set(!isExpanded.get());
+        //isExpanded = !isExpanded;
+        dropdownContent.setVisible(isExpanded.getValue());
 
     }
 
     public void closeDropdown() {
-        isExpanded = false;
+        //isExpanded = false;
+        isExpanded.set(false);
         dropdownContent.setVisible(false);
     }
 
-    public boolean isExpanded() {
+    public BooleanProperty isExpanded() {
         return isExpanded;
     }
 
@@ -104,5 +108,9 @@ public class CustomDropdownMenu<T> extends VBox {
 
     public void setMainButtonText(String text) {
         mainButton.setText(text);
+    }
+
+    public VBox getDropdownContent() {
+        return dropdownContent;
     }
 }

@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -43,6 +44,7 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
     public ImageView stepTwoTick;
     public ImageView stepThreeTick;
     public AnchorPane diffLevelWrapper;
+    public Line line;
     private BooleanProperty passageSectionRequired = new SimpleBooleanProperty(false);
 
     private final WorksheetController worksheetController = new WorksheetController();
@@ -60,6 +62,8 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         // Default we are setting indicator's visibility false
         loadingIndicatorComponent.setVisible(false);
 
+        diffLevelWrapper.mouseTransparentProperty().bind(dropdownSubSubject.isExpanded());
+        line.visibleProperty().bind(dropdownSubSubject.isExpanded().not());
 
         //Set font family Oswald
         Font.loadFont(GeneratorWindowController.class.getResourceAsStream("/Fonts/Oswald/Oswald-VariableFont_wght.ttf"), 12);
@@ -68,9 +72,6 @@ public class GeneratorWindowController implements Initializable, WorksheetContro
         dropdownMainSubject.selectedProperty().set("MAIN");
         dropdownSubSubject.selectedProperty().set("SUB");
         difficultyLevel.selectedProperty().set("DIFF");
-
-
-
 
 
         // Add CustomDropdownMenus to the associated panes in layout
