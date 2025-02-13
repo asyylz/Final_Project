@@ -139,6 +139,9 @@
 <p>To stop container:</p>
       <pre><code>docker stop wgapp-database-container</code></pre>
 </li>
+<li>
+    <p>Run application with <strong>App.java</strong> file.</p>
+</li>
             </ol>
         </li>
     </ol>
