@@ -46,7 +46,7 @@
             <Image url="@../Images/03.png" />
         </ImageView>
         <Text layoutX="117.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="accentText" text="SET YOUR  CHALLENGE" />
-        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="&quot;Pick the grade level for your personalised worksheetEntity.&quot;" wrappingWidth="282.041015625" />
+        <Text layoutX="87.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titleText" text="&quot;Pick the grade level for your personalised worksheet.&quot;" wrappingWidth="282.041015625" />
         <Text layoutX="87.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subText" text="Grade 1 to Grade 7 – start where you’re comfortable." wrappingWidth="270.21630859375" />
         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="369.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../Images/generating.png" />
