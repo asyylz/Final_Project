@@ -41,4 +41,5 @@ build/
 .idea/
 *.iml
 *.xml
+.env
 
