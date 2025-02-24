@@ -162,7 +162,7 @@ After clicking Let's start button user will be directed main window with generat
 <div style="display: flex; align-items: center; justify-content: space-around; margin-bottom: 3em">
  <img src="https://wgapp.s3.eu-west-2.amazonaws.com/login.jpeg"
          alt="" height="200"> &nbsp &nbsp &nbsp &nbsp &nbsp
-<img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
+<img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing1.jpeg"
          alt="" height="400">
 </div><br>
 <p>6.2. User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
