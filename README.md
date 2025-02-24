@@ -148,14 +148,12 @@
     </ol>
 </section>
 <section id="intro-video">
-    <video controls width="400">
-        <source src="https://asiyeyaliz.s3.eu-west-2.amazonaws.com/output.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+   <h1>5-Introductory Video</h1>
+<p>Link: <a href="https://asiyeyaliz.s3.eu-west-2.amazonaws.com/output.mp4" target="_blank">Watch Video</a></p>
 </section>
 <section id="application">
-    <h1>5-Application</h1>
-<p>5.1. Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
+    <h1>6-Application</h1>
+<p>6.1. Upon launching the application, you will be greeted with the login window.Login Credentials for testing.
 After clicking Let's start button user will be directed main window with generation content.
 </p>
     <p><strong>username:</strong> testUser<br>
@@ -167,7 +165,7 @@ After clicking Let's start button user will be directed main window with generat
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/landing.jpeg"
          alt="" height="400">
 </div><br>
-<p>5.2. User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
+<p>6.2. User can start worksheet generation on generation section on main window by selecting all necessary fields.Once all necessary fields selected generation button will be activated. If user chooses english paper with comprehension (spag, vocabulary,cloze etc) as sub topic passage addition button will appear. User should add a passage and a title for passage. You can clear out all selections by clicking clear selection button and start a new one.
 </p>
 <div style="display: flex; align-items:center; justify-content: space-around;
 margin-bottom: 40px; margin-top: 20px">
@@ -176,7 +174,7 @@ margin-bottom: 40px; margin-top: 20px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/passage-generator1.jpeg"
          alt="" height="300">
 </div><br>
-<p>5.3. Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
+<p>6.3. Once generation is complete, the worksheet section will appear, and the UI will update with the newly generated worksheet. Users can interact with the worksheet in this section, including deleting it, setting a timer, or searching by passage title. However, the search feature is not available for math papers. The 'Show Answers' button will also be activated, but it requires unlocking with a PIN.<br>
 User also can download worksheet in PDF format by clicking download button. Exit from program clicking on red exit button.
 </p>
 <div margin="20px">
@@ -185,7 +183,7 @@ User also can download worksheet in PDF format by clicking download button. Exit
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/unlock.jpeg"
          alt="" height="100">
 </div><br>
-<p>5.4. Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
+<p>6.4. Users can view a list of worksheets they previously generated in the history section. Here, they can delete a worksheet or open and view it in the worksheet section.<br>In the account section, users can update their password and PIN. By default, all registered users have a PIN set to (0000).
 </p>
  <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px">
 <img src="https://wgapp.s3.eu-west-2.amazonaws.com/history1.jpeg"
@@ -195,15 +193,15 @@ User also can download worksheet in PDF format by clicking download button. Exit
 </div><br>
 </section>
 <section id="documentation">
-    <h1>6-Documentation</h1>
+    <h1>7-Documentation</h1>
     <img src="https://wgapp.s3.eu-west-2.amazonaws.com/ERD.jpg" height="400"/><br><br>
     <img src="https://wgapp.s3.eu-west-2.amazonaws.com/ClassDiagramUI.jpg" />
 </section>
 <footer>
-    <h1>7-Contributing</h1>
+    <h1>78-Contributing</h1>
     <p>Contributions to the project are welcome! If you find any issues or have suggestions for improvements, please
         feel free to open an issue or submit a pull request.</p>
-    <h1>8-License</h1>
+    <h1>9-License</h1>
     <p>This project is licensed under the MIT License.</p>
 </footer>
 </body>
