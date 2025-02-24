@@ -11,6 +11,7 @@
         <li><a href="#technologies">Technologies</a></li>
         <li><a href="#development-tools">Development Tools</a></li>
         <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#intro-video">Introductory Video</a></li>
         <li><a href="#application">Application</a></li>
         <li><a href="#documentation">Documentation</a></li>
         <li><a href="#contributing">Contributing</a></li>
@@ -145,6 +146,12 @@
             </ol>
         </li>
     </ol>
+</section>
+<section id="intro-video">
+    <video controls width="400">
+        <source src="https://asiyeyaliz.s3.eu-west-2.amazonaws.com/output.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </section>
 <section id="application">
     <h1>5-Application</h1>
